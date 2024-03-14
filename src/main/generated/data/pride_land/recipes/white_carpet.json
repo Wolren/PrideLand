@@ -1,0 +1,62 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    [
+      {
+        "item": "pride_land:rainbow_carpet"
+      },
+      {
+        "item": "pride_land:trans_carpet"
+      },
+      {
+        "item": "pride_land:nonbinary_carpet"
+      },
+      {
+        "item": "pride_land:bisexual_carpet"
+      },
+      {
+        "item": "pride_land:pansexual_carpet"
+      },
+      {
+        "item": "pride_land:aromantic_carpet"
+      },
+      {
+        "item": "pride_land:demisexual_carpet"
+      },
+      {
+        "item": "pride_land:agender_carpet"
+      },
+      {
+        "item": "pride_land:progress_pride_carpet"
+      },
+      {
+        "item": "pride_land:asexual_carpet"
+      },
+      {
+        "item": "pride_land:genderfluid_carpet"
+      },
+      {
+        "item": "pride_land:lesbian_carpet"
+      },
+      {
+        "item": "pride_land:demiboy_carpet"
+      },
+      {
+        "item": "pride_land:demigirl_carpet"
+      },
+      {
+        "item": "pride_land:genderqueer_carpet"
+      },
+      {
+        "item": "pride_land:polysexual_carpet"
+      }
+    ],
+    {
+      "tag": "minecraft:wool"
+    }
+  ],
+  "result": {
+    "item": "minecraft:white_carpet"
+  }
+}
