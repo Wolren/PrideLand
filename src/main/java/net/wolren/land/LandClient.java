@@ -15,12 +15,9 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.entity.model.SheepWoolEntityModel;
 import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 import net.wolren.land.block.ModBlocks;
-import net.wolren.land.entity.CustomBedBlockEntity;
 import net.wolren.land.entity.ModBoats;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.renderer.CustomBedBlockEntityRenderer;
@@ -51,6 +48,7 @@ public class LandClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         HandledScreens.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_BED, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TRANS_BED, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.NONBINARY_BED, RenderLayer.getCutout());
@@ -98,11 +96,15 @@ public class LandClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DEMIGIRL_STAINED_GLASS_PANE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GENDERQUEER_STAINED_GLASS, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GENDERQUEER_STAINED_GLASS_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POLYSEXUAL_STAINED_GLASS, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE, RenderLayer.getTranslucent());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_TRAPDOOR, RenderLayer.getCutout());
+
         SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.RAINBOW_SIGN_TEXTURE));
         SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.RAINBOW_HANGING_SIGN_TEXTURE));
+
         TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID, false);
 
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
@@ -111,6 +113,7 @@ public class LandClient implements ClientModInitializer {
         });
 
         EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
+
         BlockEntityRendererFactories.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
     }
 }

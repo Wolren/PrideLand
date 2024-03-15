@@ -1,11 +1,7 @@
 package net.wolren.land.block.custom;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.entity.Dismounting;
 import net.minecraft.entity.Entity;
@@ -14,7 +10,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BedItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
@@ -33,8 +28,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.CollisionView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.wolren.land.Land;
-import net.wolren.land.entity.CustomBedBlockEntity;
+import net.wolren.land.entity.custom.block.CustomBedBlockEntity;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 

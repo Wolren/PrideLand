@@ -9,22 +9,22 @@ import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.wolren.land.LandClient;
-import net.wolren.land.entity.RainbowSheepEntity;
+import net.wolren.land.entity.custom.living.MonoColorSheep;
 import net.wolren.land.renderer.model.RainbowSheepModel;
 import net.wolren.land.renderer.model.RainbowSheepWoolModel;
 
 @Environment(EnvType.CLIENT)
-public class RainbowSheepFeatureRenderer extends FeatureRenderer<RainbowSheepEntity, RainbowSheepModel<RainbowSheepEntity>> {
+public class RainbowSheepFeatureRenderer extends FeatureRenderer<MonoColorSheep.RainbowSheepEntity, RainbowSheepModel<MonoColorSheep.RainbowSheepEntity>> {
     private static final Identifier SKIN = new Identifier("pride_land:textures/entity/sheep/rainbow_sheep_fur.png");
-    private final RainbowSheepWoolModel<RainbowSheepEntity> model;
+    private final RainbowSheepWoolModel<MonoColorSheep.RainbowSheepEntity> model;
 
-    public RainbowSheepFeatureRenderer(FeatureRendererContext<RainbowSheepEntity, RainbowSheepModel<RainbowSheepEntity>> context, EntityModelLoader loader) {
+    public RainbowSheepFeatureRenderer(FeatureRendererContext<MonoColorSheep.RainbowSheepEntity, RainbowSheepModel<MonoColorSheep.RainbowSheepEntity>> context, EntityModelLoader loader) {
         super(context);
         this.model = new RainbowSheepWoolModel<>(loader.getModelPart(LandClient.RAINBOW_SHEEP_FUR_ENTITY_MODEL_LAYER));
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, RainbowSheepEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, MonoColorSheep.RainbowSheepEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         if (!entity.isSheared() && !entity.isInvisible()) {
             float f = 0.9019608F;
             float f1 = 0.9019608F;

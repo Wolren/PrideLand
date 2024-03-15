@@ -48,7 +48,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.BOATS)
                 .add(ModItems.RAINBOW_BOAT);
 
-
         getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
                 .add(ModItems.RAINBOW_CHEST_BOAT);
     }

@@ -36,6 +36,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.STONE), conditionsFromItem(Items.STONE))
                 .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_CRAFTING)));
 
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModItems.RAINBOW_DYE, 2)
+                .input(Items.RED_DYE)
+                .input(Items.YELLOW_DYE)
+                .input(Items.WHITE_DYE)
+                .criterion(hasItem(ModItems.RAINBOW_DYE), conditionsFromItem(ModItems.RAINBOW_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.RAINBOW_DYE)));
+
+
+
+
         ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_CONCRETE_POWDER, 8)
                 .input(Blocks.GRAVEL)
                 .input(Blocks.GRAVEL)
@@ -50,6 +60,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Blocks.SAND), conditionsFromItem(Blocks.SAND))
                 .criterion(hasItem(Blocks.GRAVEL), conditionsFromItem(Blocks.GRAVEL))
                 .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_CONCRETE_POWDER)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.RAINBOW_TERRACOTTA, 8)
+                .pattern("TTT")
+                .pattern("TDT")
+                .pattern("TTT")
+                .input('D', ModItems.RAINBOW_DYE)
+                .input('T', Blocks.TERRACOTTA)
+                .criterion(hasItem(ModItems.RAINBOW_DYE), conditionsFromItem(ModItems.RAINBOW_DYE))
+                .criterion(hasItem(Blocks.TERRACOTTA), conditionsFromItem(Blocks.TERRACOTTA))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_TERRACOTTA)));
+
+
 
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.RAINBOW_STAINED_GLASS, 8)
@@ -177,17 +199,22 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModBlocks.GENDERQUEER_STAINED_GLASS), conditionsFromItem(ModBlocks.GENDERQUEER_STAINED_GLASS))
                 .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.GENDERQUEER_STAINED_GLASS_PANE)));
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE, 16)
+                .pattern("GGG")
+                .pattern("GGG")
+                .input('G', ModBlocks.POLYSEXUAL_STAINED_GLASS)
+                .criterion(hasItem(ModBlocks.POLYSEXUAL_STAINED_GLASS), conditionsFromItem(ModBlocks.POLYSEXUAL_STAINED_GLASS))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE)));
 
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.RAINBOW_TERRACOTTA, 8)
-                .pattern("TTT")
-                .pattern("TDT")
-                .pattern("TTT")
-                .input('D', ModItems.RAINBOW_DYE)
-                .input('T', Blocks.TERRACOTTA)
+
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_WOOL, 2)
+                .input(Blocks.WHITE_WOOL)
+                .input(ModItems.RAINBOW_DYE)
+                .criterion(hasItem(Blocks.WHITE_WOOL), conditionsFromItem(Blocks.WHITE_WOOL))
                 .criterion(hasItem(ModItems.RAINBOW_DYE), conditionsFromItem(ModItems.RAINBOW_DYE))
-                .criterion(hasItem(Blocks.TERRACOTTA), conditionsFromItem(Blocks.TERRACOTTA))
-                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_TERRACOTTA)));
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_WOOL) + "2"));
 
         Ingredient whiteDye = Ingredient.ofItems(Items.WHITE_DYE);
 
@@ -240,94 +267,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input(ItemTags.WOOL)
                 .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
                 .offerTo(exporter, new Identifier(getRecipeName(Blocks.WHITE_CARPET)));
-
-        Ingredient customElytra = Ingredient.ofItems(
-                ModItems.RAINBOW_ELYTRA,
-                ModItems.TRANS_ELYTRA,
-                ModItems.NONBINARY_ELYTRA,
-                ModItems.BISEXUAL_ELYTRA,
-                ModItems.PANSEXUAL_ELYTRA,
-                ModItems.AROMANTIC_ELYTRA,
-                ModItems.DEMISEXUAL_ELYTRA,
-                ModItems.AGENDER_ELYTRA,
-                ModItems.PROGRESS_PRIDE_ELYTRA,
-                ModItems.ASEXUAL_ELYTRA,
-                ModItems.GENDERFLUID_ELYTRA,
-                ModItems.LESBIAN_ELYTRA,
-                ModItems.DEMIBOY_ELYTRA,
-                ModItems.DEMIGIRL_ELYTRA,
-                ModItems.GENDERQUEER_ELYTRA,
-                ModItems.POLYSEXUAL_ELYTRA
-        );
-
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.ELYTRA)
-                .input(customElytra)
-                .input(whiteDye)
-                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.ELYTRA)));
-
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.NETHERITE_HELMET)
-                .input(ModItems.RAINBOW_HELMET)
-                .input(whiteDye)
-                .criterion(hasItem(ModItems.RAINBOW_HELMET), conditionsFromItem(ModItems.RAINBOW_HELMET))
-                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_HELMET)));
-
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.NETHERITE_CHESTPLATE)
-                .input(ModItems.RAINBOW_CHESTPLATE)
-                .input(whiteDye)
-                .criterion(hasItem(ModItems.RAINBOW_CHESTPLATE), conditionsFromItem(ModItems.RAINBOW_CHESTPLATE))
-                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_CHESTPLATE)));
-
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.NETHERITE_LEGGINGS)
-                .input(ModItems.RAINBOW_LEGGINGS)
-                .input(whiteDye)
-                .criterion(hasItem(ModItems.RAINBOW_LEGGINGS), conditionsFromItem(ModItems.RAINBOW_LEGGINGS))
-                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_LEGGINGS)));
-
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.NETHERITE_BOOTS)
-                .input(ModItems.RAINBOW_BOOTS)
-                .input(whiteDye)
-                .criterion(hasItem(ModItems.RAINBOW_BOOTS), conditionsFromItem(ModItems.RAINBOW_BOOTS))
-                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_BOOTS)));
-
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NETHERITE_AXE)
-                .input(ModItems.RAINBOW_AXE)
-                .input(whiteDye)
-                .criterion(hasItem(ModItems.RAINBOW_AXE), conditionsFromItem(ModItems.RAINBOW_AXE))
-                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_AXE)));
-
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NETHERITE_HOE)
-                .input(ModItems.RAINBOW_HOE)
-                .input(whiteDye)
-                .criterion(hasItem(ModItems.RAINBOW_HOE), conditionsFromItem(ModItems.RAINBOW_HOE))
-                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_HOE)));
-
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NETHERITE_PICKAXE)
-                .input(ModItems.RAINBOW_PICKAXE)
-                .input(whiteDye)
-                .criterion(hasItem(ModItems.RAINBOW_PICKAXE), conditionsFromItem(ModItems.RAINBOW_PICKAXE))
-                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_PICKAXE)));
-
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NETHERITE_SHOVEL)
-                .input(ModItems.RAINBOW_SHOVEL)
-                .input(whiteDye)
-                .criterion(hasItem(ModItems.RAINBOW_SHOVEL), conditionsFromItem(ModItems.RAINBOW_SHOVEL))
-                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_SHOVEL)));
-
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NETHERITE_SWORD)
-                .input(ModItems.RAINBOW_SWORD)
-                .input(whiteDye)
-                .criterion(hasItem(ModItems.RAINBOW_SWORD), conditionsFromItem(ModItems.RAINBOW_SWORD))
-                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_SWORD)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_CARPET, 3)
                 .pattern("XX")
@@ -425,19 +364,104 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModBlocks.POLYSEXUAL_WOOL), conditionsFromItem(ModBlocks.POLYSEXUAL_WOOL))
                 .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.POLYSEXUAL_CARPET)));
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModItems.RAINBOW_DYE, 2)
-                .input(Items.RED_DYE)
-                .input(Items.YELLOW_DYE)
-                .input(Items.WHITE_DYE)
-                .criterion(hasItem(ModItems.RAINBOW_DYE), conditionsFromItem(ModItems.RAINBOW_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.RAINBOW_DYE)));
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_WOOL, 2)
-                .input(Blocks.WHITE_WOOL)
-                .input(ModItems.RAINBOW_DYE)
-                .criterion(hasItem(Blocks.WHITE_WOOL), conditionsFromItem(Blocks.WHITE_WOOL))
-                .criterion(hasItem(ModItems.RAINBOW_DYE), conditionsFromItem(ModItems.RAINBOW_DYE))
-                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_WOOL) + "2"));
+
+
+        Ingredient customElytra = Ingredient.ofItems(
+                ModItems.RAINBOW_ELYTRA,
+                ModItems.TRANS_ELYTRA,
+                ModItems.NONBINARY_ELYTRA,
+                ModItems.BISEXUAL_ELYTRA,
+                ModItems.PANSEXUAL_ELYTRA,
+                ModItems.AROMANTIC_ELYTRA,
+                ModItems.DEMISEXUAL_ELYTRA,
+                ModItems.AGENDER_ELYTRA,
+                ModItems.PROGRESS_PRIDE_ELYTRA,
+                ModItems.ASEXUAL_ELYTRA,
+                ModItems.GENDERFLUID_ELYTRA,
+                ModItems.LESBIAN_ELYTRA,
+                ModItems.DEMIBOY_ELYTRA,
+                ModItems.DEMIGIRL_ELYTRA,
+                ModItems.GENDERQUEER_ELYTRA,
+                ModItems.POLYSEXUAL_ELYTRA
+        );
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.ELYTRA)
+                .input(customElytra)
+                .input(whiteDye)
+                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(Items.ELYTRA)));
+
+
+
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.NETHERITE_HELMET)
+                .input(ModItems.RAINBOW_HELMET)
+                .input(whiteDye)
+                .criterion(hasItem(ModItems.RAINBOW_HELMET), conditionsFromItem(ModItems.RAINBOW_HELMET))
+                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_HELMET)));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.NETHERITE_CHESTPLATE)
+                .input(ModItems.RAINBOW_CHESTPLATE)
+                .input(whiteDye)
+                .criterion(hasItem(ModItems.RAINBOW_CHESTPLATE), conditionsFromItem(ModItems.RAINBOW_CHESTPLATE))
+                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_CHESTPLATE)));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.NETHERITE_LEGGINGS)
+                .input(ModItems.RAINBOW_LEGGINGS)
+                .input(whiteDye)
+                .criterion(hasItem(ModItems.RAINBOW_LEGGINGS), conditionsFromItem(ModItems.RAINBOW_LEGGINGS))
+                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_LEGGINGS)));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.NETHERITE_BOOTS)
+                .input(ModItems.RAINBOW_BOOTS)
+                .input(whiteDye)
+                .criterion(hasItem(ModItems.RAINBOW_BOOTS), conditionsFromItem(ModItems.RAINBOW_BOOTS))
+                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_BOOTS)));
+
+
+
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NETHERITE_AXE)
+                .input(ModItems.RAINBOW_AXE)
+                .input(whiteDye)
+                .criterion(hasItem(ModItems.RAINBOW_AXE), conditionsFromItem(ModItems.RAINBOW_AXE))
+                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_AXE)));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NETHERITE_HOE)
+                .input(ModItems.RAINBOW_HOE)
+                .input(whiteDye)
+                .criterion(hasItem(ModItems.RAINBOW_HOE), conditionsFromItem(ModItems.RAINBOW_HOE))
+                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_HOE)));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NETHERITE_PICKAXE)
+                .input(ModItems.RAINBOW_PICKAXE)
+                .input(whiteDye)
+                .criterion(hasItem(ModItems.RAINBOW_PICKAXE), conditionsFromItem(ModItems.RAINBOW_PICKAXE))
+                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_PICKAXE)));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NETHERITE_SHOVEL)
+                .input(ModItems.RAINBOW_SHOVEL)
+                .input(whiteDye)
+                .criterion(hasItem(ModItems.RAINBOW_SHOVEL), conditionsFromItem(ModItems.RAINBOW_SHOVEL))
+                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_SHOVEL)));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NETHERITE_SWORD)
+                .input(ModItems.RAINBOW_SWORD)
+                .input(whiteDye)
+                .criterion(hasItem(ModItems.RAINBOW_SWORD), conditionsFromItem(ModItems.RAINBOW_SWORD))
+                .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(Items.NETHERITE_SWORD)));
+
+
 
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_STAIRS, 4)
@@ -518,6 +542,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.CHAIN), conditionsFromItem(Items.CHAIN))
                 .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_HANGING_SIGN)));
 
+
+
+
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.TRANSPORTATION, ModItems.RAINBOW_BOAT, 1)
                 .pattern("X X")
                 .pattern("XXX")
@@ -531,6 +559,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModItems.RAINBOW_BOAT), conditionsFromItem(ModItems.RAINBOW_BOAT))
                 .criterion(hasItem(Blocks.CHEST), conditionsFromItem(Blocks.CHEST))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.RAINBOW_CHEST_BOAT)));
+
+
+
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_BRICK_STAIRS, 4)
                 .pattern("X  ")

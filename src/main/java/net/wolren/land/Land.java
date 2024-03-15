@@ -1,21 +1,26 @@
 package net.wolren.land;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 import net.wolren.land.block.ModBlocks;
-import net.wolren.land.entity.ModEntities;
 import net.wolren.land.entity.ModBoats;
+import net.wolren.land.entity.ModEntities;
 import net.wolren.land.item.ModItemGroups;
 import net.wolren.land.item.ModItems;
 import net.wolren.land.recipe.ModSerializers;
 import net.wolren.land.recipe.RainbowCuttingRecipe;
 import net.wolren.land.screen.ModScreenHandlers;
 import net.wolren.land.spawn.SpawnModifier;
+import net.wolren.land.util.config.RainbowConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +31,7 @@ public class Land implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModItemGroups.registerItemGroups();
@@ -36,7 +42,8 @@ public class Land implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(ModEntities.RAINBOW_SHEEP, createSheepAttributes());
 		SpawnModifier.modifySpawning();
 
-		RAINBOW_CUTTING = RecipeType.register("rainbow_cutting");
+		RAINBOW_CUTTING = Registry.register(Registries.RECIPE_TYPE, new Identifier(Land.MOD_ID, "rainbow_cutting"), new RecipeType<RainbowCuttingRecipe>() {
+		});
 	}
 
 	public static DefaultAttributeContainer.Builder createSheepAttributes() {

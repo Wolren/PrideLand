@@ -1,11 +1,8 @@
 package net.wolren.land.entity;
 
-import net.fabricmc.fabric.api.block.v1.FabricBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.render.entity.model.WolfEntityModel;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -14,19 +11,19 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.wolren.land.Land;
 import net.wolren.land.block.ModBlocks;
-import net.wolren.land.util.BedTextureProvider;
-
-import java.util.Arrays;
+import net.wolren.land.entity.custom.block.CustomBedBlockEntity;
+import net.wolren.land.entity.custom.block.RainbowCraftingBlockEntity;
+import net.wolren.land.entity.custom.living.MonoColorSheep;
 
 public class ModEntities {
     public static final BlockEntityType<RainbowCraftingBlockEntity> RAINBOW_CRAFTING_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(Land.MOD_ID, "rainbow_workstation"),
                     FabricBlockEntityTypeBuilder.create(RainbowCraftingBlockEntity::new,
                             ModBlocks.RAINBOW_CRAFTING).build());
-    public static final EntityType<RainbowSheepEntity> RAINBOW_SHEEP = Registry.register(
+    public static final EntityType<MonoColorSheep.RainbowSheepEntity> RAINBOW_SHEEP = Registry.register(
             Registries.ENTITY_TYPE,
             new Identifier(Land.MOD_ID, "rainbow_sheep"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RainbowSheepEntity::new).dimensions(EntityDimensions.fixed(0.9f, 1.3f)).build()
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MonoColorSheep.RainbowSheepEntity::new).dimensions(EntityDimensions.fixed(0.9f, 1.3f)).build()
     );
 
     public static final BlockEntityType<CustomBedBlockEntity> CUSTOM_BED_BLOCK_ENTITY = Registry.register(

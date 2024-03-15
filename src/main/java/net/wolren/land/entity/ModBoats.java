@@ -16,6 +16,7 @@ public class ModBoats {
     public static final RegistryKey<TerraformBoatType> RAINBOW_BOAT_KEY = TerraformBoatTypeRegistry.createKey(RAINBOW_BOAT_ID);
 
     public static void registerBoats() {
+        Land.LOGGER.info("Registering Boats for " + Land.MOD_ID);
         TerraformBoatType rainbowBoat = new TerraformBoatType.Builder()
                 .item(ModItems.RAINBOW_BOAT)
                 .chestItem(ModItems.RAINBOW_CHEST_BOAT)

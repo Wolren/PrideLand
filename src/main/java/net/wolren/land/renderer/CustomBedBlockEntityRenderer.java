@@ -21,7 +21,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 import net.wolren.land.block.custom.CustomBedBlock;
-import net.wolren.land.entity.CustomBedBlockEntity;
+import net.wolren.land.entity.custom.block.CustomBedBlockEntity;
 import net.wolren.land.entity.ModEntities;
 
 @Environment(EnvType.CLIENT)

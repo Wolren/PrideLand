@@ -13,107 +13,124 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.wolren.land.Land;
 import net.wolren.land.block.custom.*;
+import net.wolren.land.block.custom.directional.DirectionalBlock;
+import net.wolren.land.block.custom.directional.DirectionalCarpetBlock;
+import net.wolren.land.block.custom.directional.DirectionalRainbowConcretePowderBlock;
 
 public class ModBlocks {
+
+    public static final CandleBlock RAINBOW_CANDLE = (CandleBlock) registerBlock("rainbow_candle",
+            new CandleBlock(FabricBlockSettings.copyOf(Blocks.CANDLE)));
+
+    public static final Block RAINBOW_CRAFTING = registerBlock("rainbow_crafting",
+            new RainbowCraftingBlock(FabricBlockSettings.copyOf(Blocks.STONECUTTER)));
+
+
+
+
     public static final DirectionalBlock RAINBOW_WOOL = (DirectionalBlock) registerBlock("rainbow_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
-
-    public static final DirectionalCarpetBlock RAINBOW_CARPET = (DirectionalCarpetBlock) registerBlock("rainbow_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
 
     public static final DirectionalBlock TRANS_WOOL = (DirectionalBlock) registerBlock("trans_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
-    public static final DirectionalCarpetBlock TRANS_CARPET = (DirectionalCarpetBlock) registerBlock("trans_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
-
     public static final DirectionalBlock NONBINARY_WOOL = (DirectionalBlock) registerBlock("nonbinary_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
-
-    public static final DirectionalCarpetBlock NONBINARY_CARPET = (DirectionalCarpetBlock) registerBlock("nonbinary_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
 
     public static final DirectionalBlock BISEXUAL_WOOL = (DirectionalBlock) registerBlock("bisexual_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
-    public static final DirectionalCarpetBlock BISEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("bisexual_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
-
     public static final DirectionalBlock PANSEXUAL_WOOL = (DirectionalBlock) registerBlock("pansexual_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
-
-    public static final DirectionalCarpetBlock PANSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("pansexual_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
 
     public static final DirectionalBlock AROMANTIC_WOOL = (DirectionalBlock) registerBlock("aromantic_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
-    public static final DirectionalCarpetBlock AROMANTIC_CARPET = (DirectionalCarpetBlock) registerBlock("aromantic_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
-
     public static final DirectionalBlock DEMISEXUAL_WOOL = (DirectionalBlock) registerBlock("demisexual_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL).nonOpaque()));
-
-    public static final DirectionalCarpetBlock DEMISEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("demisexual_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
     public static final DirectionalBlock AGENDER_WOOL = (DirectionalBlock) registerBlock("agender_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
-    public static final DirectionalCarpetBlock AGENDER_CARPET = (DirectionalCarpetBlock) registerBlock("agender_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
-
     public static final DirectionalBlock PROGRESS_PRIDE_WOOL = (DirectionalBlock) registerBlock("progress_pride_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL).nonOpaque()));
-
-    public static final DirectionalCarpetBlock PROGRESS_PRIDE_CARPET = (DirectionalCarpetBlock) registerBlock("progress_pride_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
     public static final DirectionalBlock ASEXUAL_WOOL = (DirectionalBlock) registerBlock("asexual_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
-    public static final DirectionalCarpetBlock ASEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("asexual_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
-
     public static final DirectionalBlock GENDERFLUID_WOOL = (DirectionalBlock) registerBlock("genderfluid_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
-
-    public static final DirectionalCarpetBlock GENDERFLUID_CARPET = (DirectionalCarpetBlock) registerBlock("genderfluid_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
     public static final DirectionalBlock LESBIAN_WOOL = (DirectionalBlock) registerBlock("lesbian_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
-    public static final DirectionalCarpetBlock LESBIAN_CARPET = (DirectionalCarpetBlock) registerBlock("lesbian_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
-
     public static final DirectionalBlock DEMIBOY_WOOL = (DirectionalBlock) registerBlock("demiboy_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
-
-    public static final DirectionalCarpetBlock DEMIBOY_CARPET = (DirectionalCarpetBlock) registerBlock("demiboy_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
     public static final DirectionalBlock DEMIGIRL_WOOL = (DirectionalBlock) registerBlock("demigirl_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
-    public static final DirectionalCarpetBlock DEMIGIRL_CARPET = (DirectionalCarpetBlock) registerBlock("demigirl_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
-
     public static final DirectionalBlock GENDERQUEER_WOOL = (DirectionalBlock) registerBlock("genderqueer_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
-
-    public static final DirectionalCarpetBlock GENDERQUEER_CARPET = (DirectionalCarpetBlock) registerBlock("genderqueer_carpet",
-            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
     public static final DirectionalBlock POLYSEXUAL_WOOL = (DirectionalBlock) registerBlock("polysexual_wool",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
+
+    public static final DirectionalCarpetBlock RAINBOW_CARPET = (DirectionalCarpetBlock) registerBlock("rainbow_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock TRANS_CARPET = (DirectionalCarpetBlock) registerBlock("trans_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock NONBINARY_CARPET = (DirectionalCarpetBlock) registerBlock("nonbinary_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock BISEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("bisexual_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock PANSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("pansexual_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock AROMANTIC_CARPET = (DirectionalCarpetBlock) registerBlock("aromantic_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock DEMISEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("demisexual_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock AGENDER_CARPET = (DirectionalCarpetBlock) registerBlock("agender_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock PROGRESS_PRIDE_CARPET = (DirectionalCarpetBlock) registerBlock("progress_pride_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock ASEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("asexual_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock GENDERFLUID_CARPET = (DirectionalCarpetBlock) registerBlock("genderfluid_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock LESBIAN_CARPET = (DirectionalCarpetBlock) registerBlock("lesbian_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock DEMIBOY_CARPET = (DirectionalCarpetBlock) registerBlock("demiboy_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock DEMIGIRL_CARPET = (DirectionalCarpetBlock) registerBlock("demigirl_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
+
+    public static final DirectionalCarpetBlock GENDERQUEER_CARPET = (DirectionalCarpetBlock) registerBlock("genderqueer_carpet",
+            new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
+
     public static final DirectionalCarpetBlock POLYSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("polysexual_carpet",
             new DirectionalCarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
+
+
+
+
 
     public static final GlassBlock RAINBOW_STAINED_GLASS = (GlassBlock) registerBlock("rainbow_stained_glass",
             new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS).sounds(BlockSoundGroup.GLASS)));
@@ -205,6 +222,36 @@ public class ModBlocks {
     public static final PaneBlock GENDERQUEER_STAINED_GLASS_PANE = (PaneBlock) registerBlock("genderqueer_stained_glass_pane",
             new PaneBlock(FabricBlockSettings.copyOf(Blocks.GLASS).sounds(BlockSoundGroup.GLASS)));
 
+    public static final GlassBlock POLYSEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("polysexual_stained_glass",
+            new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS).sounds(BlockSoundGroup.GLASS)));
+
+    public static final PaneBlock POLYSEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("polysexual_stained_glass_pane",
+            new PaneBlock(FabricBlockSettings.copyOf(Blocks.GLASS).sounds(BlockSoundGroup.GLASS)));
+
+
+
+
+
+    public static final CustomBedBlock RAINBOW_BED = (CustomBedBlock) registerBlock("rainbow_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock TRANS_BED = (CustomBedBlock)registerBlock("trans_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock NONBINARY_BED = (CustomBedBlock) registerBlock("nonbinary_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock BISEXUAL_BED = (CustomBedBlock) registerBlock("bisexual_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock PANSEXUAL_BED = (CustomBedBlock) registerBlock("pansexual_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock AROMANTIC_BED = (CustomBedBlock) registerBlock("aromantic_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock DEMISEXUAL_BED = (CustomBedBlock) registerBlock("demisexual_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock AGENDER_BED = (CustomBedBlock) registerBlock("agender_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock PROGRESS_PRIDE_BED = (CustomBedBlock) registerBlock("progress_pride_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock ASEXUAL_BED = (CustomBedBlock) registerBlock("asexual_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock GENDERFLUID_BED = (CustomBedBlock) registerBlock("genderfluid_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock LESBIAN_BED = (CustomBedBlock)registerBlock("lesbian_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock DEMIBOY_BED = (CustomBedBlock) registerBlock("demiboy_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock DEMIGIRL_BED = (CustomBedBlock) registerBlock("demigirl_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock GENDERQUEER_BED = (CustomBedBlock) registerBlock("genderqueer_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+    public static final CustomBedBlock POLYSEXUAL_BED = (CustomBedBlock) registerBlock("polysexual_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+
+
+
+
 
     public static final DirectionalBlock RAINBOW_CONCRETE = (DirectionalBlock) registerBlock("rainbow_concrete",
             new DirectionalBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CONCRETE).sounds(BlockSoundGroup.STONE)));
@@ -227,11 +274,9 @@ public class ModBlocks {
     public static final WallBlock RAINBOW_BRICK_WALL = (WallBlock) registerBlock("rainbow_brick_wall",
             new WallBlock(FabricBlockSettings.copyOf(Blocks.BRICK_WALL)));
 
-    public static final CandleBlock RAINBOW_CANDLE = (CandleBlock) registerBlock("rainbow_candle",
-            new CandleBlock(FabricBlockSettings.copyOf(Blocks.CANDLE)));
 
-    public static final Block RAINBOW_CRAFTING = registerBlock("rainbow_crafting",
-            new RainbowCraftingBlock(FabricBlockSettings.copyOf(Blocks.STONECUTTER)));
+
+
 
     public static final Block RAINBOW_PLANKS = registerBlock("rainbow_planks",
             new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS)));
@@ -261,22 +306,9 @@ public class ModBlocks {
     public static final TrapdoorBlock RAINBOW_TRAPDOOR = (TrapdoorBlock) registerBlock("rainbow_trapdoor",
             new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).nonOpaque(), BlockSetType.OAK));
 
-    public static final CustomBedBlock RAINBOW_BED = (CustomBedBlock) registerBlock("rainbow_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock TRANS_BED = (CustomBedBlock)registerBlock("trans_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock NONBINARY_BED = (CustomBedBlock) registerBlock("nonbinary_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock BISEXUAL_BED = (CustomBedBlock) registerBlock("bisexual_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock PANSEXUAL_BED = (CustomBedBlock) registerBlock("pansexual_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock AROMANTIC_BED = (CustomBedBlock) registerBlock("aromantic_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock DEMISEXUAL_BED = (CustomBedBlock) registerBlock("demisexual_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock AGENDER_BED = (CustomBedBlock) registerBlock("agender_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock PROGRESS_PRIDE_BED = (CustomBedBlock) registerBlock("progress_pride_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock ASEXUAL_BED = (CustomBedBlock) registerBlock("asexual_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock GENDERFLUID_BED = (CustomBedBlock) registerBlock("genderfluid_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock LESBIAN_BED = (CustomBedBlock)registerBlock("lesbian_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock DEMIBOY_BED = (CustomBedBlock) registerBlock("demiboy_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock DEMIGIRL_BED = (CustomBedBlock) registerBlock("demigirl_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock GENDERQUEER_BED = (CustomBedBlock) registerBlock("genderqueer_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
-    public static final CustomBedBlock POLYSEXUAL_BED = (CustomBedBlock) registerBlock("polysexual_bed", new CustomBedBlock(FabricBlockSettings.copyOf(Blocks.WHITE_BED).nonOpaque()));
+
+
+
 
     public static final Identifier RAINBOW_SIGN_TEXTURE = new Identifier(Land.MOD_ID, "entity/signs/rainbow");
     public static final Identifier RAINBOW_HANGING_SIGN_TEXTURE = new Identifier(Land.MOD_ID, "entity/signs/hanging/rainbow");
@@ -297,6 +329,10 @@ public class ModBlocks {
     public static final BlockFamily RAINBOW_FAMILY = BlockFamilies.register(ModBlocks.RAINBOW_PLANKS)
             .sign(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN)
             .group("wooden").unlockCriterionName("has_planks").build();
+
+
+
+
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

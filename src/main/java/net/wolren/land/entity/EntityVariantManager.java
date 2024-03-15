@@ -11,5 +11,4 @@ public class EntityVariantManager<T extends PassiveEntity> {
         }
         return (EntityType<T>) parent1.getType();
     }
-
 }

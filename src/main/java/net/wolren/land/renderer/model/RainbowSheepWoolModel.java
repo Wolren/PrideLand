@@ -5,10 +5,10 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
-import net.wolren.land.entity.RainbowSheepEntity;
+import net.wolren.land.entity.custom.living.MonoColorSheep;
 
 @Environment(EnvType.CLIENT)
-public class RainbowSheepWoolModel<T extends RainbowSheepEntity> extends QuadrupedEntityModel<T> {
+public class RainbowSheepWoolModel<T extends MonoColorSheep.RainbowSheepEntity> extends QuadrupedEntityModel<T> {
     private float headRotationAngleX;
 
     public RainbowSheepWoolModel(ModelPart root) {

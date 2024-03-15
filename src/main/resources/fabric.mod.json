@@ -23,6 +23,12 @@
 		],
 		"fabric-datagen": [
 			"net.wolren.land.LandDataGenerator"
+		],
+		"rei_client": [
+          "net.wolren.land.integration.rei.ClientREIPlugin"
+		],
+		"modmenu": [
+			"net.wolren.land.integration.menu.ModMenuEntry"
 		]
 	},
 	"mixins": [

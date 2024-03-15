@@ -6,7 +6,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
 import net.minecraft.client.render.entity.model.SheepEntityModel;
-import net.wolren.land.entity.base.MonoColorSheep;
+import net.wolren.land.entity.custom.living.MonoColorSheep;
 
 @Environment(EnvType.CLIENT)
 public class RainbowSheepModel<T extends MonoColorSheep> extends SheepEntityModel<T> {

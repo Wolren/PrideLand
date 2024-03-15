@@ -77,16 +77,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDropWithSilkTouch(ModBlocks.DEMIGIRL_STAINED_GLASS_PANE);
         addDropWithSilkTouch(ModBlocks.GENDERQUEER_STAINED_GLASS);
         addDropWithSilkTouch(ModBlocks.GENDERQUEER_STAINED_GLASS_PANE);
-
-        addDrop(ModBlocks.RAINBOW_CONCRETE);
-        addDrop(ModBlocks.RAINBOW_CONCRETE_POWDER);
-        addDrop(ModBlocks.RAINBOW_BRICKS);
-        addDrop(ModBlocks.RAINBOW_TERRACOTTA);
-        addDrop(ModBlocks.RAINBOW_CRAFTING);
-
-        addDrop(ModBlocks.RAINBOW_BRICK_STAIRS);
-        addDrop(ModBlocks.RAINBOW_BRICK_SLAB);
-        addDrop(ModBlocks.RAINBOW_BRICK_WALL);
+        addDropWithSilkTouch(ModBlocks.POLYSEXUAL_STAINED_GLASS);
+        addDropWithSilkTouch(ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE);
 
         addDrop(ModBlocks.RAINBOW_PLANKS);
         addDrop(ModBlocks.RAINBOW_STAIRS);
@@ -102,21 +94,14 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.RAINBOW_HANGING_SIGN);
         addDrop(ModBlocks.RAINBOW_WALL_HANGING_SIGN);
 
-        addDrop(ModBlocks.RAINBOW_BED);
-        addDrop(ModBlocks.TRANS_BED);
-        addDrop(ModBlocks.NONBINARY_BED);
-        addDrop(ModBlocks.BISEXUAL_BED);
-        addDrop(ModBlocks.PANSEXUAL_BED);
-        addDrop(ModBlocks.AROMANTIC_BED);
-        addDrop(ModBlocks.DEMISEXUAL_BED);
-        addDrop(ModBlocks.AGENDER_BED);
-        addDrop(ModBlocks.PROGRESS_PRIDE_BED);
-        addDrop(ModBlocks.ASEXUAL_BED);
-        addDrop(ModBlocks.GENDERFLUID_BED);
-        addDrop(ModBlocks.LESBIAN_BED);
-        addDrop(ModBlocks.DEMIBOY_BED);
-        addDrop(ModBlocks.DEMIGIRL_BED);
-        addDrop(ModBlocks.GENDERQUEER_BED);
-        addDrop(ModBlocks.POLYSEXUAL_BED);
+        addDrop(ModBlocks.RAINBOW_BRICK_STAIRS);
+        addDrop(ModBlocks.RAINBOW_BRICK_SLAB);
+        addDrop(ModBlocks.RAINBOW_BRICK_WALL);
+
+        addDrop(ModBlocks.RAINBOW_CONCRETE);
+        addDrop(ModBlocks.RAINBOW_CONCRETE_POWDER);
+        addDrop(ModBlocks.RAINBOW_BRICKS);
+        addDrop(ModBlocks.RAINBOW_TERRACOTTA);
+        addDrop(ModBlocks.RAINBOW_CRAFTING);
     }
 }

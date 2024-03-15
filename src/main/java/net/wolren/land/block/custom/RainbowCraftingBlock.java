@@ -15,7 +15,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.wolren.land.entity.RainbowCraftingBlockEntity;
+import net.wolren.land.entity.custom.block.RainbowCraftingBlockEntity;
 
 public class RainbowCraftingBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;

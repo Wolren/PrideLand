@@ -3,15 +3,11 @@ package net.wolren.land.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.enums.BedPart;
-import net.minecraft.data.client.*;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.Direction;
+import net.minecraft.data.client.BlockStateModelGenerator;
+import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Models;
 import net.wolren.land.block.ModBlocks;
 import net.wolren.land.item.ModItems;
-
-import java.util.Optional;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -35,6 +31,9 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerGlassPane(ModBlocks.DEMIBOY_STAINED_GLASS, ModBlocks.DEMIBOY_STAINED_GLASS_PANE);
         blockStateModelGenerator.registerGlassPane(ModBlocks.DEMIGIRL_STAINED_GLASS, ModBlocks.DEMIGIRL_STAINED_GLASS_PANE);
         blockStateModelGenerator.registerGlassPane(ModBlocks.GENDERQUEER_STAINED_GLASS, ModBlocks.GENDERQUEER_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassPane(ModBlocks.POLYSEXUAL_STAINED_GLASS, ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE);
+
+        blockStateModelGenerator.registerHangingSign(ModBlocks.RAINBOW_PLANKS, ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN);
 
         blockStateModelGenerator.registerCandle(ModBlocks.RAINBOW_CANDLE, Blocks.CANDLE_CAKE);
 
@@ -46,8 +45,6 @@ public class ModModelProvider extends FabricModelProvider {
         rainbow_pool.pressurePlate(ModBlocks.RAINBOW_PRESSURE_PLATE);
         rainbow_pool.fence(ModBlocks.RAINBOW_FENCE);
         rainbow_pool.fenceGate(ModBlocks.RAINBOW_FENCE_GATE);
-
-        blockStateModelGenerator.registerHangingSign(ModBlocks.RAINBOW_PLANKS, ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN);
 
         BlockStateModelGenerator.BlockTexturePool rainbow_bricks_pool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.RAINBOW_BRICKS);
         rainbow_bricks_pool.stairs(ModBlocks.RAINBOW_BRICK_STAIRS);
@@ -92,6 +89,7 @@ public class ModModelProvider extends FabricModelProvider {
 
         itemModelGenerator.register(ModItems.RAINBOW_BOAT, Models.GENERATED);
         itemModelGenerator.register(ModItems.RAINBOW_CHEST_BOAT, Models.GENERATED);
+
         itemModelGenerator.register(ModItems.RAINBOW_SHEEP_SPAWN_EGG, Models.GENERATED);
     }
 }
