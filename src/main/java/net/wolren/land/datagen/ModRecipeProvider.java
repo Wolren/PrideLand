@@ -3,6 +3,7 @@ package net.wolren.land.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
@@ -15,6 +16,8 @@ import net.minecraft.util.Identifier;
 import net.wolren.land.block.ModBlocks;
 import net.wolren.land.item.ModItems;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
@@ -209,12 +212,26 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
 
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_WOOL, 2)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_WOOL, 1)
                 .input(Blocks.WHITE_WOOL)
                 .input(ModItems.RAINBOW_DYE)
                 .criterion(hasItem(Blocks.WHITE_WOOL), conditionsFromItem(Blocks.WHITE_WOOL))
                 .criterion(hasItem(ModItems.RAINBOW_DYE), conditionsFromItem(ModItems.RAINBOW_DYE))
                 .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_WOOL) + "2"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_CARPET, 1)
+                .input(Blocks.WHITE_CARPET)
+                .input(ModItems.RAINBOW_DYE)
+                .criterion(hasItem(Blocks.WHITE_CARPET), conditionsFromItem(Blocks.WHITE_CARPET))
+                .criterion(hasItem(ModItems.RAINBOW_DYE), conditionsFromItem(ModItems.RAINBOW_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_CARPET) + "2"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_BED, 1)
+                .input(Blocks.WHITE_BED)
+                .input(ModItems.RAINBOW_DYE)
+                .criterion(hasItem(Blocks.WHITE_BED), conditionsFromItem(Blocks.WHITE_BED))
+                .criterion(hasItem(ModItems.RAINBOW_DYE), conditionsFromItem(ModItems.RAINBOW_DYE))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_BED) + "2"));
 
         Ingredient whiteDye = Ingredient.ofItems(Items.WHITE_DYE);
 
@@ -264,13 +281,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Blocks.WHITE_CARPET)
                 .input(customCarpet)
-                .input(ItemTags.WOOL)
+                .input(whiteDye)
                 .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
                 .offerTo(exporter, new Identifier(getRecipeName(Blocks.WHITE_CARPET)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_CARPET, 3)
                 .pattern("XX")
-                .input('X', customWool)
+                .input('X', ModBlocks.RAINBOW_WOOL)
                 .criterion(hasItem(ModBlocks.RAINBOW_WOOL), conditionsFromItem(ModBlocks.RAINBOW_WOOL))
                 .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_WOOL)));
 
@@ -363,6 +380,138 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('X', ModBlocks.POLYSEXUAL_WOOL)
                 .criterion(hasItem(ModBlocks.POLYSEXUAL_WOOL), conditionsFromItem(ModBlocks.POLYSEXUAL_WOOL))
                 .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.POLYSEXUAL_CARPET)));
+
+
+
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.RAINBOW_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.RAINBOW_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.RAINBOW_WOOL), conditionsFromItem(ModBlocks.RAINBOW_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.RAINBOW_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.TRANS_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.TRANS_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.TRANS_WOOL), conditionsFromItem(ModBlocks.TRANS_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.TRANS_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.NONBINARY_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.NONBINARY_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.NONBINARY_WOOL), conditionsFromItem(ModBlocks.NONBINARY_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.NONBINARY_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.BISEXUAL_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.BISEXUAL_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.BISEXUAL_WOOL), conditionsFromItem(ModBlocks.BISEXUAL_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.BISEXUAL_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.PANSEXUAL_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.PANSEXUAL_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.PANSEXUAL_WOOL), conditionsFromItem(ModBlocks.PANSEXUAL_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.PANSEXUAL_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.AROMANTIC_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.AROMANTIC_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.AROMANTIC_WOOL), conditionsFromItem(ModBlocks.AROMANTIC_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.AROMANTIC_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.DEMISEXUAL_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.DEMISEXUAL_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.DEMISEXUAL_WOOL), conditionsFromItem(ModBlocks.DEMISEXUAL_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.DEMISEXUAL_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.AGENDER_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.AGENDER_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.AGENDER_WOOL), conditionsFromItem(ModBlocks.AGENDER_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.AGENDER_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.PROGRESS_PRIDE_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.PROGRESS_PRIDE_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.PROGRESS_PRIDE_WOOL), conditionsFromItem(ModBlocks.PROGRESS_PRIDE_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.PROGRESS_PRIDE_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.ASEXUAL_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.ASEXUAL_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.ASEXUAL_WOOL), conditionsFromItem(ModBlocks.ASEXUAL_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.ASEXUAL_BED)));
+
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.GENDERFLUID_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.GENDERFLUID_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.GENDERFLUID_WOOL), conditionsFromItem(ModBlocks.GENDERFLUID_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.GENDERFLUID_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.LESBIAN_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.LESBIAN_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.LESBIAN_WOOL), conditionsFromItem(ModBlocks.LESBIAN_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.LESBIAN_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.DEMIBOY_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.DEMIBOY_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.DEMIBOY_WOOL), conditionsFromItem(ModBlocks.DEMIBOY_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.DEMIBOY_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.DEMIGIRL_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.DEMIGIRL_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.DEMIGIRL_WOOL), conditionsFromItem(ModBlocks.DEMIGIRL_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.DEMIGIRL_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.GENDERQUEER_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.GENDERQUEER_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.GENDERQUEER_WOOL), conditionsFromItem(ModBlocks.GENDERQUEER_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.GENDERQUEER_BED)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.POLYSEXUAL_BED, 1)
+                .pattern("XXX")
+                .pattern("YYY")
+                .input('X', ModBlocks.POLYSEXUAL_WOOL)
+                .input('Y', ItemTags.PLANKS)
+                .criterion(hasItem(ModBlocks.POLYSEXUAL_WOOL), conditionsFromItem(ModBlocks.POLYSEXUAL_WOOL))
+                .offerTo(exporter, new Identifier(getRecipeName(ModBlocks.POLYSEXUAL_BED)));
 
 
 

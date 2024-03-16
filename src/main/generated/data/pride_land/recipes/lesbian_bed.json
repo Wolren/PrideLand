@@ -3,15 +3,18 @@
   "category": "misc",
   "key": {
     "X": {
-      "item": "pride_land:rainbow_wool"
+      "item": "pride_land:lesbian_wool"
+    },
+    "Y": {
+      "tag": "minecraft:planks"
     }
   },
   "pattern": [
-    "XX"
+    "XXX",
+    "YYY"
   ],
   "result": {
-    "count": 3,
-    "item": "pride_land:rainbow_carpet"
+    "item": "pride_land:lesbian_bed"
   },
   "show_notification": true
 }

@@ -53,7 +53,7 @@
       }
     ],
     {
-      "tag": "minecraft:wool"
+      "item": "minecraft:white_dye"
     }
   ],
   "result": {

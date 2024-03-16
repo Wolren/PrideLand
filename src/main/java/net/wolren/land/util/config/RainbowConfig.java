@@ -5,7 +5,7 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
-@Config(name = "Pride Land")
+@Config(name = "pride_land")
 public class RainbowConfig implements ConfigData {
     public boolean enableRainbowSheepSpawning = true;
     public int sheepWeight = 5;
