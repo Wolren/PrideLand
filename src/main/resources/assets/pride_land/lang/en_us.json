@@ -1,6 +1,12 @@
 {
   "itemgroup.pride_land_group": "Pride Land",
 
+  "text.autoconfig.pride_land.title": "Pride Land",
+  "text.autoconfig.pride_land.option.enableRainbowSheepSpawning": "Enable Rainbow Sheep Spawning",
+  "text.autoconfig.pride_land.option.sheepWeight": "Sheep Spawning Weight",
+  "text.autoconfig.pride_land.option.sheepMinGroupSize": "Sheep Minimum Group Size",
+  "text.autoconfig.pride_land.option.sheepMaxGroupSize": "Sheep Maximum Group Size",
+
   "block.pride_land.rainbow_crafting": "Rainbow Crafting",
   "block.pride_land.rainbow_concrete": "Rainbow Concrete",
   "block.pride_land.rainbow_concrete_powder": "Rainbow Concrete Powder",

@@ -282,7 +282,7 @@ public class ModBlocks {
             new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS)));
 
     public static final StairsBlock RAINBOW_STAIRS = (StairsBlock) registerBlock("rainbow_stairs",
-            new StairsBlock(ModBlocks.RAINBOW_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(Blocks.OAK_STAIRS)));
+            new StairsBlock(ModBlocks.RAINBOW_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(Blocks.OAK_STAIRS).burnable()));
 
     public static final SlabBlock RAINBOW_SLAB = (SlabBlock) registerBlock("rainbow_slab",
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB)));

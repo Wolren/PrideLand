@@ -18,8 +18,10 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 import net.wolren.land.block.ModBlocks;
+import net.wolren.land.block.fuels.CustomFuelRegistry;
 import net.wolren.land.entity.ModBoats;
 import net.wolren.land.entity.ModEntities;
+import net.wolren.land.item.ModItems;
 import net.wolren.land.renderer.CustomBedBlockEntityRenderer;
 import net.wolren.land.renderer.feature.CustomElytraFeatureRenderer;
 import net.wolren.land.renderer.RainbowSheepRenderer;
@@ -27,6 +29,7 @@ import net.wolren.land.renderer.model.RainbowSheepModel;
 import net.wolren.land.renderer.model.RainbowSheepWoolModel;
 import net.wolren.land.screen.ModScreenHandlers;
 import net.wolren.land.screen.RainbowCraftingScreen;
+import net.wolren.land.util.ModTags;
 
 
 @Environment(EnvType.CLIENT)
@@ -49,6 +52,31 @@ public class LandClient implements ClientModInitializer {
     public void onInitializeClient() {
         HandledScreens.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
 
+        registerBedBlockRenderLayers();
+        registerGlassBlockRenderLayers();
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_TRAPDOOR, RenderLayer.getCutout());
+
+        SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.RAINBOW_SIGN_TEXTURE));
+        SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.RAINBOW_HANGING_SIGN_TEXTURE));
+
+        registerCustomFuels();
+        CustomFuelRegistry.linkCustomFuels();
+
+        TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID, false);
+
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
+            Identifier rainbowElytra = new Identifier("pride_land:textures/entity/rainbow_elytra.png");
+            registrationHelper.register(new CustomElytraFeatureRenderer<>(entityRenderer, context.getModelLoader(), rainbowElytra));
+        });
+
+        EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
+
+        BlockEntityRendererFactories.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
+    }
+
+    private static void registerBedBlockRenderLayers () {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_BED, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TRANS_BED, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.NONBINARY_BED, RenderLayer.getCutout());
@@ -65,7 +93,9 @@ public class LandClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DEMIGIRL_BED, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GENDERQUEER_BED, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POLYSEXUAL_BED, RenderLayer.getCutout());
+    }
 
+    private static void registerGlassBlockRenderLayers () {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_STAINED_GLASS, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_STAINED_GLASS_PANE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TRANS_STAINED_GLASS, RenderLayer.getTranslucent());
@@ -98,22 +128,57 @@ public class LandClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GENDERQUEER_STAINED_GLASS_PANE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POLYSEXUAL_STAINED_GLASS, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE, RenderLayer.getTranslucent());
+    }
 
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_DOOR, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_TRAPDOOR, RenderLayer.getCutout());
+    private static void registerCustomFuels() {
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.TRANS_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.NONBINARY_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.BISEXUAL_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.PANSEXUAL_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.AROMANTIC_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.DEMISEXUAL_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.AGENDER_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.PROGRESS_PRIDE_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.ASEXUAL_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.GENDERFLUID_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.LESBIAN_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.DEMIBOY_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.DEMIGIRL_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.GENDERQUEER_WOOL.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.POLYSEXUAL_WOOL.asItem(), 100);
 
-        SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.RAINBOW_SIGN_TEXTURE));
-        SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.RAINBOW_HANGING_SIGN_TEXTURE));
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.TRANS_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.NONBINARY_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.BISEXUAL_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.PANSEXUAL_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.AROMANTIC_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.DEMISEXUAL_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.AGENDER_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.PROGRESS_PRIDE_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.ASEXUAL_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.GENDERFLUID_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.LESBIAN_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.DEMIBOY_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.DEMIGIRL_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.GENDERQUEER_CARPET.asItem(), 68);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.POLYSEXUAL_CARPET.asItem(), 68);
 
-        TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID, false);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_CRAFTING.asItem(), 300);
 
-        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
-            Identifier rainbowElytra = new Identifier("pride_land:textures/entity/rainbow_elytra.png");
-            registrationHelper.register(new CustomElytraFeatureRenderer<>(entityRenderer, context.getModelLoader(), rainbowElytra));
-        });
-
-        EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
-
-        BlockEntityRendererFactories.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_STAIRS.asItem(), 300);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_SLAB.asItem(), 150);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_FENCE.asItem(), 300);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_FENCE_GATE.asItem(), 300);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_BUTTON.asItem(), 100);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_PRESSURE_PLATE.asItem(), 150);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_DOOR.asItem(), 200);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_TRAPDOOR.asItem(), 200);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_STANDING_SIGN.asItem(), 200);
+        CustomFuelRegistry.registerCustomFuel(ModBlocks.RAINBOW_HANGING_SIGN.asItem(), 800);
+        CustomFuelRegistry.registerCustomFuel(ModItems.RAINBOW_BOAT.asItem(), 1200);
+        CustomFuelRegistry.registerCustomFuel(ModItems.RAINBOW_CHEST_BOAT.asItem(), 1200);
+        CustomFuelRegistry.registerCustomFuel(ModItems.RAINBOW_CHEST_BOAT.asItem(), 1200);
     }
 }
