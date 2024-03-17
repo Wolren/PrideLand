@@ -1,6 +1,8 @@
 {
   "itemgroup.pride_land_group": "Pride Land",
 
+  "emi.category.pride_land.rainbow_cutting": "Rainbow Crafting",
+
   "text.autoconfig.pride_land.title": "Pride Land",
   "text.autoconfig.pride_land.option.enableRainbowSheepSpawning": "Enable Rainbow Sheep Spawning",
   "text.autoconfig.pride_land.option.sheepWeight": "Sheep Spawning Weight",
