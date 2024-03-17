@@ -3,11 +3,17 @@ package net.wolren.land;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistry;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.book.RecipeBookCategory;
+import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -41,9 +47,7 @@ public class Land implements ModInitializer {
 		ModBoats.registerBoats();
 		FabricDefaultAttributeRegistry.register(ModEntities.RAINBOW_SHEEP, createSheepAttributes());
 		SpawnModifier.modifySpawning();
-
-		RAINBOW_CUTTING = Registry.register(Registries.RECIPE_TYPE, new Identifier(Land.MOD_ID, "rainbow_cutting"), new RecipeType<RainbowCuttingRecipe>() {
-		});
+		RAINBOW_CUTTING = RecipeType.register(MOD_ID + ":" + "rainbow_cutting");
 	}
 
 	public static DefaultAttributeContainer.Builder createSheepAttributes() {
