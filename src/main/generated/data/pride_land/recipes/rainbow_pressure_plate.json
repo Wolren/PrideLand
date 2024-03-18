@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "X": {
+      "item": "pride_land:rainbow_planks"
+    }
+  },
+  "pattern": [
+    "XX"
+  ],
+  "result": {
+    "item": "pride_land:rainbow_pressure_plate"
+  }
+}
