@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "pride_land:rainbow_planks",
+    "pride_land:rainbow_stairs",
+    "pride_land:rainbow_slab",
+    "pride_land:rainbow_fence",
+    "pride_land:rainbow_fence_gate",
+    "pride_land:rainbow_button",
+    "pride_land:rainbow_pressure_plate",
+    "pride_land:rainbow_door",
+    "pride_land:rainbow_trapdoor",
+    "pride_land:rainbow_wall_sign",
+    "pride_land:rainbow_standing_sign",
+    "pride_land:rainbow_hanging_sign",
+    "pride_land:rainbow_wall_hanging_sign"
+  ]
+}

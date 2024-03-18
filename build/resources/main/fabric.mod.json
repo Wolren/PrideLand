@@ -1,0 +1,62 @@
+{
+	"schemaVersion": 1,
+	"id": "pride_land",
+	"version": "1.0.0-1.20.3",
+	"name": "Pride Land",
+	"description": "A mod adding lgbtqia themed wools, beds, carpets, glass and much more",
+	"authors": [
+		"Wolren"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/project/pride-land",
+		"sources": "https://github.com/Wolren/PrideLand",
+		"repo": "https://github.com/Wolren/PrideLand",
+		"issues": "https://github.com/Wolren/PrideLand/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/pride_land/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.wolren.land.Land"
+		],
+		"client": [
+			"net.wolren.land.LandClient"
+		],
+		"fabric-datagen": [
+			"net.wolren.land.LandDataGenerator"
+		],
+		"rei_client": [
+          "net.wolren.land.integration.rei.ClientREIPlugin"
+		],
+		"modmenu": [
+			"net.wolren.land.integration.menu.ModMenuEntry"
+		]
+	},
+	"mixins": [
+		"lgbt-land.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.25",
+		"fabric": "*",
+		"minecraft": "1.20.3",
+		"cloth-config": ">=13.0.121"
+	},
+	"custom": {
+		"modmenu": {
+			"update_checker": true
+		},
+		"mcb": [
+			{
+				"name": "Client & Server",
+				"fillColor": -1761620992,
+				"outlineColor": -929470976
+			},
+			{
+				"name": "Gay Certified",
+				"fillColor": -924581117,
+				"outlineColor": -931976830
+			}
+		]
+	}
+}

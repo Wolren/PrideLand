@@ -1,0 +1,8 @@
+{
+  "type": "pride_land:rainbow_cutting",
+  "count": 2,
+  "ingredient": {
+    "item": "minecraft:bricks"
+  },
+  "result": "pride_land:rainbow_brick_slab"
+}
