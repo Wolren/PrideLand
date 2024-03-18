@@ -31,7 +31,7 @@ public class MonoColorSheep extends BaseSheep implements Shearable {
         if (isSheared()) {
             return new Identifier("minecraft", "entities/sheep");
         }
-        return getType().getLootTableId();
+        return new Identifier("pride_land", "entities/sheep/rainbow_sheep");
     }
 
     protected void initDataTracker() {
