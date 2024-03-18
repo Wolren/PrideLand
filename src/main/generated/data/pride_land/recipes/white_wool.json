@@ -1,0 +1,62 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:white_dye"
+    },
+    [
+      {
+        "item": "pride_land:rainbow_wool"
+      },
+      {
+        "item": "pride_land:trans_wool"
+      },
+      {
+        "item": "pride_land:nonbinary_wool"
+      },
+      {
+        "item": "pride_land:bisexual_wool"
+      },
+      {
+        "item": "pride_land:pansexual_wool"
+      },
+      {
+        "item": "pride_land:aromantic_wool"
+      },
+      {
+        "item": "pride_land:demisexual_wool"
+      },
+      {
+        "item": "pride_land:agender_wool"
+      },
+      {
+        "item": "pride_land:progress_pride_wool"
+      },
+      {
+        "item": "pride_land:asexual_wool"
+      },
+      {
+        "item": "pride_land:genderfluid_wool"
+      },
+      {
+        "item": "pride_land:lesbian_wool"
+      },
+      {
+        "item": "pride_land:demiboy_wool"
+      },
+      {
+        "item": "pride_land:demigirl_wool"
+      },
+      {
+        "item": "pride_land:genderqueer_wool"
+      },
+      {
+        "item": "pride_land:polysexual_wool"
+      }
+    ]
+  ],
+  "result": {
+    "item": "minecraft:white_wool"
+  }
+}
