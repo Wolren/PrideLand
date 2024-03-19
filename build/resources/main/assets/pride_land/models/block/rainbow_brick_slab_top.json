@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "pride_land:block/rainbow_bricks",
-    "side": "pride_land:block/rainbow_bricks",
-    "top": "pride_land:block/rainbow_bricks"
-  }
-}

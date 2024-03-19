@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_trapdoor_top",
-  "textures": {
-    "texture": "pride_land:block/rainbow_trapdoor"
-  }
-}
