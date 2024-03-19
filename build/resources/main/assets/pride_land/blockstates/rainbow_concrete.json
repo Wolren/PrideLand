@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "pride_land:block/rainbow_concrete" },
-    "facing=east": { "model": "pride_land:block/rainbow_concrete", "y": 90 },
-    "facing=south": { "model": "pride_land:block/rainbow_concrete", "y": 180 },
-    "facing=west": { "model": "pride_land:block/rainbow_concrete", "y": 270 }
-  }
-}
