@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "pride_land:block/asexual_wool" },
-    "facing=east": { "model": "pride_land:block/asexual_wool", "y": 90 },
-    "facing=south": { "model": "pride_land:block/asexual_wool", "y": 180 },
-    "facing=west": { "model": "pride_land:block/asexual_wool", "y": 270 }
-  }
-}
