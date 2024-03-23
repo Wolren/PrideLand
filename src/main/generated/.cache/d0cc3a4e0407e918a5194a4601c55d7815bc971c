@@ -1,4 +1,4 @@
-// 1.20.3	2024-03-17T23:53:53.1519715	Pride Land/Tags for minecraft:block
+// 1.20.3	2024-03-19T18:59:05.2721236	Pride Land/Tags for minecraft:block
 184a739d5a173091793b2aa6389c99e48250a43d data\minecraft\tags\blocks\planks.json
 b83d2d64793556cf324eb7d12af0d433f53b601a data\minecraft\tags\blocks\wooden_pressure_plates.json
 b83d2d64793556cf324eb7d12af0d433f53b601a data\minecraft\tags\blocks\pressure_plates.json
@@ -21,9 +21,9 @@ f70ee6b68963a50fef926cdc49756017c48d047b data\minecraft\tags\blocks\wall_hanging
 49377e0fa2a22b35ef795e870ae202cca1b690b9 data\minecraft\tags\blocks\signs.json
 bb32694db89688b373d5ab82c5abe73a912a2d4b data\minecraft\tags\blocks\wooden_fences.json
 d9c5a205a4ba323d683ff81eaa1f0da6d351982c data\minecraft\tags\blocks\mineable\axe.json
+0bd54d2526b9d5f86f9093f702dd4fdbb65caff1 data\minecraft\tags\blocks\fence_gates.json
 20b75703aae97fb60bda1411c6a6b06dfec90f43 data\minecraft\tags\blocks\beds.json
 d8acc8c384115c6175132f2569123d706e157c68 data\minecraft\tags\blocks\candles.json
-0bd54d2526b9d5f86f9093f702dd4fdbb65caff1 data\minecraft\tags\blocks\fence_gates.json
 db59ad470f9778c51cfaa1996e54a181f39811f5 data\minecraft\tags\blocks\walls.json
 08cc8011c2326aed74f7a517b5c342fad4cc4c1e data\minecraft\tags\blocks\trapdoors.json
 0c6593236ed2617fcbbfd8dc2d359e0d3a58e077 data\minecraft\tags\blocks\wool_carpets.json
