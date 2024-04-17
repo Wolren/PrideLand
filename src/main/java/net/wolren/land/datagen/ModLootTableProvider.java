@@ -89,10 +89,9 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.RAINBOW_PRESSURE_PLATE);
         addDrop(ModBlocks.RAINBOW_DOOR);
         addDrop(ModBlocks.RAINBOW_TRAPDOOR);
+
         addDrop(ModBlocks.RAINBOW_STANDING_SIGN);
-        addDrop(ModBlocks.RAINBOW_WALL_SIGN);
         addDrop(ModBlocks.RAINBOW_HANGING_SIGN);
-        addDrop(ModBlocks.RAINBOW_WALL_HANGING_SIGN);
 
         addDrop(ModBlocks.RAINBOW_BRICK_STAIRS);
         addDrop(ModBlocks.RAINBOW_BRICK_SLAB);

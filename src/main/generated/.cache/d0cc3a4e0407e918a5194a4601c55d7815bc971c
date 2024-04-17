@@ -1,4 +1,4 @@
-// 1.20.2	2024-03-17T18:50:17.965126	Pride Land/Tags for minecraft:block
+// 1.20.2	2024-04-17T17:34:56.7143214	Pride Land/Tags for minecraft:block
 787871b58806b4346017bbba03c2d3e5e1102ca5 data\minecraft\tags\blocks\wooden_stairs.json
 ec99c9dcc129ec9f17ac2cc72313f8bb9dfd10cf data\minecraft\tags\blocks\mineable\pickaxe.json
 bb32694db89688b373d5ab82c5abe73a912a2d4b data\minecraft\tags\blocks\fences.json
@@ -9,8 +9,8 @@ b83d2d64793556cf324eb7d12af0d433f53b601a data\minecraft\tags\blocks\wall_post_ov
 da7dac3d131eedc84757ab27af7b9cd8344f896a data\minecraft\tags\blocks\stairs.json
 20b75703aae97fb60bda1411c6a6b06dfec90f43 data\minecraft\tags\blocks\beds.json
 c98db2a0ab0b99a965be2de19f57c9971ca23fb6 data\minecraft\tags\blocks\standing_signs.json
-f6a2ca790f2b4ce26f0a2dc38a064b90de3c9795 data\minecraft\tags\blocks\mineable\shovel.json
 760f1d156879af47524c3c14cc72796d09711522 data\pride_land\tags\blocks\pride_glass_blocks.json
+f6a2ca790f2b4ce26f0a2dc38a064b90de3c9795 data\minecraft\tags\blocks\mineable\shovel.json
 787871b58806b4346017bbba03c2d3e5e1102ca5 data\minecraft\tags\blocks\wooden_slabs.json
 db59ad470f9778c51cfaa1996e54a181f39811f5 data\minecraft\tags\blocks\walls.json
 297c107b15721c3b37bccde4a3efc1eec2d48698 data\pride_land\tags\blocks\pride_wools.json
