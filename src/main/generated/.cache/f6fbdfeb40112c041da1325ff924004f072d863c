@@ -1,6 +1,5 @@
-// 1.20.1	2024-03-16T16:51:18.7946997	Pride Land/Block Loot Tables
+// 1.20.1	2024-04-16T20:48:46.8514601	Pride Land/Block Loot Tables
 f6532333b1267a6f6d35a39b724c2ded594ef1f8 data\pride_land\loot_tables\blocks\demisexual_stained_glass_pane.json
-f12bd5da681d3c51807ee1d829f31f751acc4769 data\minecraft\loot_tables\blocks\oak_sign.json
 6fc694dd2611f01eb94dc1e948f49a638c240401 data\pride_land\loot_tables\blocks\rainbow_concrete.json
 6d965ea6da9d0736dace2f1d413251941cd2c5ff data\pride_land\loot_tables\blocks\genderfluid_wool.json
 dec84f60dd46b84edb0771f370fc556fa277cac9 data\pride_land\loot_tables\blocks\trans_stained_glass_pane.json
@@ -60,8 +59,8 @@ f1d1b8bf03b06c0c0cf1060d0a57202377d9b78b data\pride_land\loot_tables\blocks\demi
 37784aa712a56df1083a02ed8627de8a3a9ea8ea data\pride_land\loot_tables\blocks\rainbow_brick_slab.json
 126ed2437cbe8e83f9449295964e63c89561c8d9 data\pride_land\loot_tables\blocks\genderfluid_stained_glass_pane.json
 6ee59e7ced0d9c82a282844e8c07a60a70ea8f6d data\pride_land\loot_tables\blocks\demigirl_carpet.json
-05fdc68ad731c1daa20c9f4c2f030fc67e791d7b data\pride_land\loot_tables\blocks\demigirl_wool.json
 df3274a853755cc6a4bf484d9d582c5d7b63ccb4 data\pride_land\loot_tables\blocks\genderqueer_stained_glass.json
+05fdc68ad731c1daa20c9f4c2f030fc67e791d7b data\pride_land\loot_tables\blocks\demigirl_wool.json
 d180758361088d3babf1f91e5c861dc54f4b4a00 data\pride_land\loot_tables\blocks\demigirl_stained_glass_pane.json
 4dccdbf235c7988efeb9cc2060285c8c4f1746d9 data\pride_land\loot_tables\blocks\genderfluid_carpet.json
 90630b4dbc8e5989aa6006a43c3ee90f3c11eb6b data\pride_land\loot_tables\blocks\pansexual_wool.json
@@ -79,7 +78,6 @@ f5ea8596fcfa9d428763446e8ca1b61e70f7bff7 data\pride_land\loot_tables\blocks\gend
 e3c66da7c712b04314ff1714d384a868bea67d67 data\pride_land\loot_tables\blocks\polysexual_stained_glass.json
 f12bd5da681d3c51807ee1d829f31f751acc4769 data\pride_land\loot_tables\blocks\rainbow_standing_sign.json
 e314c4b48082e31ea434257c62462868ad728492 data\pride_land\loot_tables\blocks\agender_carpet.json
-f3e4459556b7edce2b7c0a843b3e2e09a3db9438 data\minecraft\loot_tables\blocks\oak_hanging_sign.json
 8c1ddaeb89e705e3aa09e7cb4fc07eae2df1516a data\pride_land\loot_tables\blocks\lesbian_wool.json
 d1f1ce655ca177c05b6277428d16267e9229f670 data\pride_land\loot_tables\blocks\progress_pride_stained_glass_pane.json
 00240b49f6f1b78bab97ad2c1a9dd92e392e7e4f data\pride_land\loot_tables\blocks\pansexual_carpet.json
