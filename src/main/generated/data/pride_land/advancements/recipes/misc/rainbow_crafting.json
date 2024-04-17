@@ -43,6 +43,5 @@
     "recipes": [
       "minecraft:rainbow_crafting"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

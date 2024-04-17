@@ -30,6 +30,5 @@
     "recipes": [
       "minecraft:aromantic_carpet"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

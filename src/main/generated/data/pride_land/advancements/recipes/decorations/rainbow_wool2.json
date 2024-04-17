@@ -43,6 +43,5 @@
     "recipes": [
       "minecraft:rainbow_wool2"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

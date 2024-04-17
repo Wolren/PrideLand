@@ -43,6 +43,5 @@
     "recipes": [
       "minecraft:netherite_helmet"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

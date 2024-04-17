@@ -43,6 +43,5 @@
     "recipes": [
       "minecraft:rainbow_chest_boat"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

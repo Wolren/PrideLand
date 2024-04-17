@@ -43,6 +43,5 @@
     "recipes": [
       "minecraft:rainbow_carpet2"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

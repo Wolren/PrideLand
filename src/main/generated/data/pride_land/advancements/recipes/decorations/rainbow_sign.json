@@ -43,6 +43,5 @@
     "recipes": [
       "minecraft:rainbow_sign"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
