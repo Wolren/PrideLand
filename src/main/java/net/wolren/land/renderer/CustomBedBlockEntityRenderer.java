@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import net.wolren.land.block.custom.CustomBedBlock;
 import net.wolren.land.entity.custom.block.CustomBedBlockEntity;
 import net.wolren.land.entity.ModEntities;
+import net.wolren.land.util.BedTextureProvider;
 
 @Environment(EnvType.CLIENT)
 public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomBedBlockEntity> {
@@ -54,7 +55,7 @@ public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomB
 
     @Override
     public void render(CustomBedBlockEntity customBedBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j) {
-        SpriteIdentifier spriteIdentifier = customBedBlockEntity.bedTexture;
+        SpriteIdentifier spriteIdentifier = BedTextureProvider.getSpriteIdentifierForBed(customBedBlockEntity.getCachedState().getBlock());
         World world2 = customBedBlockEntity.getWorld();
         if (world2 != null) {
             BlockState blockState = customBedBlockEntity.getCachedState();
