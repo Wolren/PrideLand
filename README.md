@@ -1,3 +1,11 @@
+[![License](https://img.shields.io/github/license/Wolren/PrideLand)](LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/Wolren/PrideLand)](https://github.com/Wolren/PrideLand/commits)
+[![Issues](https://img.shields.io/github/issues/Wolren/PrideLand)](https://github.com/Wolren/PrideLand/issues)
+[![Repo size](https://img.shields.io/github/repo-size/Wolren/PrideLand)](https://github.com/Wolren/PrideLand)
+[![Java](https://img.shields.io/badge/Java-17-orange?logo=java)](build.gradle)
+[![Fabric](https://img.shields.io/badge/Fabric-1.20.1-blue?logo=fabric)](build.gradle)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.20.1-green?logo=minecraft)](https://minecraft.net)
+
 ## Description
 The goal of this mod is to provide you with a bunch of lgbt / lgbtqia blocks, decorations, tools, and whatever else one could want to have with their pride flag on it. It requires [Cloth Config API](https://modrinth.com/mod/cloth-config) to run. For the time being the mod is not feature complete, meaning that more content might be added as time progresses.
 
