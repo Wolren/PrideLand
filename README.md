@@ -1,1 +1,39 @@
-WyFbTGljZW5zZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9naXRodWIvbGljZW5zZS9Xb2xyZW4vUHJpZGVMYW5kKV0oTElDRU5TRSkKWyFbTGFzdCBjb21taXRdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vZ2l0aHViL2xhc3QtY29tbWl0L1dvbHJlbi9QcmlkZUxhbmQpXShodHRwczovL2dpdGh1Yi5jb20vV29scmVuL1ByaWRlTGFuZC9jb21taXRzKQpbIVtJc3N1ZXNdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vZ2l0aHViL2lzc3Vlcy9Xb2xyZW4vUHJpZGVMYW5kKV0oaHR0cHM6Ly9naXRodWIuY29tL1dvbHJlbi9QcmlkZUxhbmQvaXNzdWVzKQpbIVtSZXBvIHNpemVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vZ2l0aHViL3JlcG8tc2l6ZS9Xb2xyZW4vUHJpZGVMYW5kKV0oaHR0cHM6Ly9naXRodWIuY29tL1dvbHJlbi9QcmlkZUxhbmQpClshW0phdmFdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvSmF2YS0xNy1vcmFuZ2U/bG9nbz1qYXZhKV0oYnVpbGQuZ3JhZGxlKQpbIVtGYWJyaWNdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvRmFicmljLTEuMjAuMS1ibHVlP2xvZ289ZmFicmljKV0oYnVpbGQuZ3JhZGxlKQpbIVtNaW5lY3JhZnRdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvTWluZWNyYWZ0LTEuMjAuMS1ncmVlbj9sb2dvPW1pbmVjcmFmdCldKGh0dHBzOi8vbWluZWNyYWZ0Lm5ldCkKWyFbT3BlblNTRiBTY29yZWNhcmRdKGh0dHBzOi8vYXBpLnNlY3VyaXR5c2NvcmVjYXJkcy5kZXYvcHJvamVjdHMvZ2l0aHViLmNvbS9Xb2xyZW4vUHJpZGVMYW5kL2JhZGdlKV0oaHR0cHM6Ly9zZWN1cml0eXNjb3JlY2FyZHMuZGV2L3ZpZXdlci8/dXJpPWdpdGh1Yi5jb20vV29scmVuL1ByaWRlTGFuZCkKCiMgRGVzY3JpcHRpb24KVGhlIGdvYWwgb2YgdGhpcyBtb2QgaXMgdG8gcHJvdmlkZSB5b3Ugd2l0aCBhIGJ1bmNoIG9mIGxnYnQgLyBsZ2J0cWlhIGJsb2NrcywgZGVjb3JhdGlvbnMsIHRvb2xzLCBhbmQgd2hhdGV2ZXIgZWxzZSBvbmUgY291bGQgd2FudCB0byBoYXZlIHdpdGggdGhlaXIgcHJpZGUgZmxhZyBvbiBpdC4gSXQgcmVxdWlyZXMgW0Nsb3RoIENvbmZpZyBBUEldKGh0dHBzOi8vbW9kcmludGguY29tL21vZC9jbG90aC1jb25maWcpIHRvIHJ1bi4gRm9yIHRoZSB0aW1lIGJlaW5nIHRoZSBtb2QgaXMgbm90IGZlYXR1cmUgY29tcGxldGUsIG1lYW5pbmcgdGhhdCBtb3JlIGNvbnRlbnQgbWlnaHQgYmUgYWRkZWQgYXMgdGltZSBwcm9ncmVzc2VzLgoKIyMgRGVwZW5kZW5jaWVzCi0gW0Nsb3RoIENvbmZpZyBBUEldKGh0dHBzOi8vbW9kcmludGguY29tL21vZC9jbG90aC1jb25maWcpCi0gW0ZhYnJpYyBBUEldKGh0dHBzOi8vbW9kcmludGguY29tL21vZC9jbG90aC1jb25maWcvdmVyc2lvbnM/bD1mYWJyaWMpCgojIyBDb21wYXRpYmlsaXR5CkluIHRlcm1zIG9mIHJlY2lwZSB2aWV3aW5nIHRoZSBtb2QgaXMgZ2VuZXJhbGx5IGNvbXBhdGlibGUgd2l0aCBldmVyeSBtb2QgbWFkZSBmb3IgdGhpcyBwdXJwb3NlLiBUaGUgb25seSBpbmNvbXBhdGliaWxpdHkgYXJpc2VzIHdpdGggKlJhaW5ib3cgQ3JhZnRpbmcqIHJlY2lwZXMgYXMgdGhleSBjYW5ub3QgYmUgYWRkZWQgYXV0b21hdGljYWxseS4gQXQgdGhlIG1vbWVudCBhbGwgdmVyc2lvbnMgb2YgdGhlIG1vZCBzdXBwb3J0IFtSRUldKGh0dHBzOi8vbW9kcmludGguY29tL21vZC9yZWkvdmVyc2lvbnM/bD1mYWJyaWMpIGFuZCBbRU1JXShodHRwczovL21vZHJpbnRoLmNvbS9tb2QvZW1pL3ZlcnNpb25zP2w9ZmFicmljKS4gSkVJIGZvciBub3cgY2Fubm90IGJlIGZ1bGx5IHN1cHBvcnRlZCBhcyB0aGVpciBBUEkgYnVnIHByZXZlbnRzIHRoZSBmYWJyaWMgbW9kcyBmcm9tIHVzaW5nIGl0IC0gW0xpbmsgdG8gdGhlIGlzc3VlXShodHRwczovL2dpdGh1Yi5jb20vbWV6ei9KdXN0RW5vdWdoSXRlbXMvaXNzdWVzLzM0NTEpCgojIyMgMS4yMAotIDEuMjAuMS8xLjIwLjIvMS4yMC40IFtFTUldKGh0dHBzOi8vbW9kcmludGguY29tL21vZC9lbWkvdmVyc2lvbnM/bD1mYWJyaWMpICsgW1JFSV0oaHR0cHM6Ly9tb2RyaW50aC5jb20vbW9kL3JlaS92ZXJzaW9ucz9sPWZhYnJpYykKLSAxLjIwLjMgW1JFSV0oaHR0cHM6Ly9tb2RyaW50aC5jb20vbW9kL3JlaS92ZXJzaW9ucz9sPWZhYnJpYykKCiMjIEZ1dHVyZQpUaGUgY29uc3RpdHV0aXZlIGdvYWwgd2lsbCBiZSB0byBhZGQ6Ci0gcmFpbmJvdyB2ZXJzaW9ucyBvZiBtb3JlIGJsb2Nrcy9pdGVtcy9lbnRpdGllcwotIGFkZCAxNiBmbGFncyBzdXBwb3J0IHRvIG1vcmUgYmxvY2tzL2l0ZW1zCi0gYWRkIG1vcmUgZmxhZ3MgaW4gZ2VuZXJhbAoKIyMjIFZlcnNpb24gJiBNb2QgTG9hZGVycyBzdXBwb3J0Ci0gKjEuMTYuNSwgMS4xNy4xLCAxLjE4LjIqOiBtaWdodCBiZSBzdXBwb3J0ZWQgaW4gdGhlIGZ1dHVyZQotICpGb3JnZSosICpOZW9mb3JnZSo6IGV2ZW50dWFsbHkKCiMjIyBQb3NzaWJpbGl0eQpUaGVyZSBpcyBhbHNvIGEgcG9zc2liaWxpdHkgb2YgYWRkaW5nIGEgd2hvbGUgbmV3IHByaWRlIGRpbWVuc2lvbiB3aXRoIG1vYnMsIHRyZWVzLCBvcmVzIGV0YyB0dXJuZWQgaW50byByYWluYm93L2ZsYWcgdmVyc2lvbnMuIEhvd2V2ZXIsIG1ha2luZyAmIG1haW50YWluaW5nIHN1Y2ggYSBwcm9qZWN0IHdvdWxkIHJlcXVpcmUgdGltZSAmIGRlZGljYXRpb24gSSBkbyBub3QgcG9zc2Vzcy4gU28gZm9yIHN1Y2ggZmFyLXJlYWNoaW5nIHBsYW5zIHRoZXJlIHdvdWxkIGhhdmUgdG8gYmUgbW9yZSBwZW9wbGUgd29ya2luZyBvbiBpdAoKIyMgQ29udHJpYnV0aW9uCklmIHlvdSBhcmUgd2lsbGluZyB0byBoZWxwIGFkZCBtb3JlIGNvbnRlbnQgb3IgcG9ydCB0aGUgbW9kIHRoZW4gY29udGFjdCBtZSBvbiBkaXNjb3JkOiBuZXJsb3c=
+[![License](https://img.shields.io/github/license/Wolren/PrideLand)](LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/Wolren/PrideLand)](https://github.com/Wolren/PrideLand/commits)
+[![Issues](https://img.shields.io/github/issues/Wolren/PrideLand)](https://github.com/Wolren/PrideLand/issues)
+[![Repo size](https://img.shields.io/github/repo-size/Wolren/PrideLand)](https://github.com/Wolren/PrideLand)
+[![Java](https://img.shields.io/badge/Java-17-orange?logo=java)](build.gradle)
+[![Fabric](https://img.shields.io/badge/Fabric-1.20.1-blue?logo=fabric)](build.gradle)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.20.1-green?logo=minecraft)](https://minecraft.net)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Wolren/PrideLand/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Wolren/PrideLand)
+[![Socket](https://img.shields.io/badge/Socket-Supply%20Chain%20Security-333?logo=socketdotdev)](https://socket.dev)
+
+## Description
+The goal of this mod is to provide you with a bunch of lgbt / lgbtqia blocks, decorations, tools, and whatever else one could want to have with their pride flag on it. It requires [Cloth Config API](https://modrinth.com/mod/cloth-config) to run. For the time being the mod is not feature complete, meaning that more content might be added as time progresses.
+
+## Dependencies
+- [Cloth Config API](https://modrinth.com/mod/cloth-config)
+- [Fabric API](https://modrinth.com/mod/cloth-config/versions?l=fabric)
+
+## Compatibility
+In terms of recipe viewing the mod is generally compatible with every mod made for this purpose. The only incompatibility arises with *Rainbow Crafting* recipes as they cannot be added automatically. At the moment all versions of the mod support [REI](https://modrinth.com/mod/rei/versions?l=fabric) and [EMI](https://modrinth.com/mod/emi/versions?l=fabric). JEI for now cannot be fully supported as their API bug prevents the fabric mods from using it - [Link to the issue](https://github.com/mezz/JustEnoughItems/issues/3451)
+
+### 1.20
+- 1.20.1/1.20.2/1.20.4 [EMI](https://modrinth.com/mod/emi/versions?l=fabric) + [REI](https://modrinth.com/mod/rei/versions?l=fabric)
+- 1.20.3 [REI](https://modrinth.com/mod/rei/versions?l=fabric)
+
+## Future
+The constitutive goal will be to add:
+- rainbow versions of more blocks/items/entities
+- add 16 flags support to more blocks/items
+- add more flags in general
+
+### Version & Mod Loaders support
+- *1.16.5, 1.17.1, 1.18.2*: might be supported in the future
+- *Forge*, *Neoforge*: eventually
+
+### Possibility
+There is also a possibility of adding a whole new pride dimension with mobs, trees, ores etc turned into rainbow/flag versions. However, making & maintaining such a project would require time & dedication I do not possess. So for such far-reaching plans there would have to be more people working on it
+
+## Contribution
+If you are willing to help add more content or port the mod then contact me on discord: nerlow
