@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_rainbow_dye": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pride_land:rainbow_dye"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:rainbow_dye"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_rainbow_dye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:rainbow_dye"
+    ]
+  },
+  "sends_telemetry_event": false
+}

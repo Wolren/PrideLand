@@ -1,0 +1,14 @@
+plugins {
+    id "fabric-loom" version "1.7.4"
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/pride_land.accessWidener")
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${rootProject.findProperty("minecraft_version")}"
+    mappings "net.fabricmc:yarn:${rootProject.findProperty("yarn_mappings")}:v2"
+
+    compileOnly "net.fabricmc:fabric-loader:${rootProject.findProperty("fabric_loader_version")}"
+}

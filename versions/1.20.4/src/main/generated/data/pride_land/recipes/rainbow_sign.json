@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "pride_land:rainbow_planks"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    " S "
+  ],
+  "result": {
+    "count": 3,
+    "item": "pride_land:rainbow_sign"
+  }
+}

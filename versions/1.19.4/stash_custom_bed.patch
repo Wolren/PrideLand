@@ -1,0 +1,12 @@
+diff --git a/src/main/java/net/wolren/land/entity/custom/block/CustomBedBlockEntity.java b/src/main/java/net/wolren/land/entity/custom/block/CustomBedBlockEntity.java
+index 31c21ca..ccc200a 100644
+--- a/src/main/java/net/wolren/land/entity/custom/block/CustomBedBlockEntity.java
++++ b/src/main/java/net/wolren/land/entity/custom/block/CustomBedBlockEntity.java
+@@ -16,6 +16,7 @@ import net.wolren.land.util.BedTextureProvider;
+ public class CustomBedBlockEntity extends BlockEntity {
+     public final SpriteIdentifier bedTexture;
+ 
++   
+     public CustomBedBlockEntity(BlockPos pos, BlockState state) {
+         super(ModEntities.CUSTOM_BED_BLOCK_ENTITY, pos, state);
+         this.bedTexture = BedTextureProvider.getSpriteIdentifierForBed(state.getBlock());

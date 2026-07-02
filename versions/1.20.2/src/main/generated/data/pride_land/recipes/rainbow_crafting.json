@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "T": {
+      "item": "minecraft:stone"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "SS",
+    "WW",
+    "TT"
+  ],
+  "result": {
+    "item": "pride_land:rainbow_crafting"
+  },
+  "show_notification": true
+}

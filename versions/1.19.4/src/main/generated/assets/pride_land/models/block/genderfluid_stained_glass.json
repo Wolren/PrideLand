@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pride_land:block/genderfluid_stained_glass"
+  }
+}
