@@ -1,0 +1,92 @@
+plugins {
+    id "net.minecraftforge.gradle" version "6.0.54"
+    id "org.spongepowered.mixin" version "0.7.+"
+    id "java-library"
+}
+
+minecraft {
+    mappings channel: "official", version: "1.20.1"
+
+    runs {
+        client {
+            workingDirectory project.file("run")
+            mods {
+                pride_land {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory project.file("run")
+            mods {
+                pride_land {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+// Include the common module's Java source directly
+sourceSets.main.java.srcDirs = [
+    "../common/src/main/java",
+    "src/main/java"
+]
+
+// Include common module's resources
+sourceSets.main.resources.srcDirs = [
+    "../common/src/main/resources",
+    "src/main/resources"
+]
+
+repositories {
+    maven { url "https://maven.minecraftforge.net/" }
+    maven { url "https://maven.terraformersmc.com/" }
+    maven { url "https://maven.blamejared.com/" }
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://api.modrinth.com/maven" }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:1.20.1-47.4.20"
+
+    compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:12.1.785")
+    compileOnly fg.deobf("dev.emi:emi-forge:1.1.3+1.20.1:api")
+    implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:11.1.136")
+    implementation 'com.google.code.gson:gson:2.8.9'
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", "1.20.1"
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version,
+                "minecraft_version": "1.20.1"
+    }
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": "Pride Land",
+                "Specification-Vendor": "Wolren",
+                "Specification-Version": "1",
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.version,
+                "Implementation-Vendor" :"Wolren",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
