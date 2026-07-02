@@ -15,7 +15,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.wolren.land.Land;
-import net.wolren.land.block.custom.*;
 import net.wolren.land.block.custom.directional.DirectionalBlock;
 import net.wolren.land.block.custom.directional.DirectionalCarpetBlock;
 import net.wolren.land.block.custom.directional.DirectionalRainbowConcretePowderBlock;

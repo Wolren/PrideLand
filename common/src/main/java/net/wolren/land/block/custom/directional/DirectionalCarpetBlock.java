@@ -1,29 +1,32 @@
 package net.wolren.land.block.custom.directional;
 
-import net.minecraft.block.*;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CarpetBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.core.Direction;
 
 public class DirectionalCarpetBlock extends CarpetBlock {
-    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
-    public DirectionalCarpetBlock(AbstractBlock.Settings settings) {
+    public DirectionalCarpetBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        setDefaultState(getStateManager().getDefaultState().with(FACING, Direction.NORTH));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(FACING);
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext itemPlacementContext) {
-        Direction playerFacing = itemPlacementContext.getHorizontalPlayerFacing().getOpposite();
-        return getDefaultState().with(FACING, playerFacing);
+    public BlockState getStateForPlacement(BlockPlaceContext itemPlacementContext) {
+        Direction playerFacing = itemPlacementContext.getHorizontalDirection().getOpposite();
+        return defaultBlockState().setValue(FACING, playerFacing);
     }
 }
-

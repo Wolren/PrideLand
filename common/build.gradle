@@ -8,7 +8,7 @@ loom {
 
 dependencies {
     minecraft "com.mojang:minecraft:${rootProject.findProperty("minecraft_version")}"
-    mappings "net.fabricmc:yarn:${rootProject.findProperty("yarn_mappings")}:v2"
+    mappings loom.officialMojangMappings()
 
     compileOnly "net.fabricmc:fabric-loader:${rootProject.findProperty("fabric_loader_version")}"
 }

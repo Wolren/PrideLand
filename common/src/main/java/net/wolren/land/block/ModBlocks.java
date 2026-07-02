@@ -1,14 +1,16 @@
 package net.wolren.land.block;
 
-import net.minecraft.block.*;
-import net.minecraft.data.family.BlockFamilies;
-import net.minecraft.data.family.BlockFamily;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
+import net.minecraft.data.BlockFamilies;
+import net.minecraft.data.BlockFamily;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.wolren.land.LandCommon;
 import net.wolren.land.block.custom.CustomBedBlock;
 import net.wolren.land.block.custom.RainbowCraftingBlock;
@@ -97,68 +99,68 @@ public class ModBlocks {
     // Stained Glass
     public static final GlassBlock RAINBOW_STAINED_GLASS = (GlassBlock) registerBlock("rainbow_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock RAINBOW_STAINED_GLASS_PANE = (PaneBlock) registerBlock("rainbow_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock RAINBOW_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("rainbow_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock TRANS_STAINED_GLASS = (GlassBlock) registerBlock("trans_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock TRANS_STAINED_GLASS_PANE = (PaneBlock) registerBlock("trans_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock TRANS_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("trans_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock NONBINARY_STAINED_GLASS = (GlassBlock) registerBlock("nonbinary_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock NONBINARY_STAINED_GLASS_PANE = (PaneBlock) registerBlock("nonbinary_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock NONBINARY_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("nonbinary_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock BISEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("bisexual_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock BISEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("bisexual_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock BISEXUAL_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("bisexual_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock PANSEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("pansexual_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock PANSEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("pansexual_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock PANSEXUAL_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("pansexual_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock AROMANTIC_STAINED_GLASS = (GlassBlock) registerBlock("aromantic_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock AROMANTIC_STAINED_GLASS_PANE = (PaneBlock) registerBlock("aromantic_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock AROMANTIC_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("aromantic_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock DEMISEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("demisexual_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock DEMISEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demisexual_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock DEMISEXUAL_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("demisexual_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock AGENDER_STAINED_GLASS = (GlassBlock) registerBlock("agender_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock AGENDER_STAINED_GLASS_PANE = (PaneBlock) registerBlock("agender_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock AGENDER_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("agender_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock PROGRESS_PRIDE_STAINED_GLASS = (GlassBlock) registerBlock("progress_pride_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock PROGRESS_PRIDE_STAINED_GLASS_PANE = (PaneBlock) registerBlock("progress_pride_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock PROGRESS_PRIDE_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("progress_pride_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock ASEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("asexual_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock ASEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("asexual_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock ASEXUAL_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("asexual_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock GENDERFLUID_STAINED_GLASS = (GlassBlock) registerBlock("genderfluid_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock GENDERFLUID_STAINED_GLASS_PANE = (PaneBlock) registerBlock("genderfluid_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock GENDERFLUID_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("genderfluid_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock LESBIAN_STAINED_GLASS = (GlassBlock) registerBlock("lesbian_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock LESBIAN_STAINED_GLASS_PANE = (PaneBlock) registerBlock("lesbian_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock LESBIAN_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("lesbian_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock DEMIBOY_STAINED_GLASS = (GlassBlock) registerBlock("demiboy_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock DEMIBOY_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demiboy_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock DEMIBOY_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("demiboy_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock DEMIGIRL_STAINED_GLASS = (GlassBlock) registerBlock("demigirl_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock DEMIGIRL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demigirl_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock DEMIGIRL_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("demigirl_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock GENDERQUEER_STAINED_GLASS = (GlassBlock) registerBlock("genderqueer_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock GENDERQUEER_STAINED_GLASS_PANE = (PaneBlock) registerBlock("genderqueer_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock GENDERQUEER_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("genderqueer_stained_glass_pane",
+            new IronBarsBlock(pane()));
     public static final GlassBlock POLYSEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("polysexual_stained_glass",
             new GlassBlock(glass()));
-    public static final PaneBlock POLYSEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("polysexual_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final IronBarsBlock POLYSEXUAL_STAINED_GLASS_PANE = (IronBarsBlock) registerBlock("polysexual_stained_glass_pane",
+            new IronBarsBlock(pane()));
 
     // Beds
     public static final CustomBedBlock RAINBOW_BED = (CustomBedBlock) registerBlock("rainbow_bed", new CustomBedBlock(bed()));
@@ -189,8 +191,8 @@ public class ModBlocks {
     // Bricks
     public static final Block RAINBOW_BRICKS = registerBlock("rainbow_bricks",
             new Block(bricks()));
-    public static final StairsBlock RAINBOW_BRICK_STAIRS = (StairsBlock) registerBlock("rainbow_brick_stairs",
-            new StairsBlock(ModBlocks.RAINBOW_BRICKS.getDefaultState(), bricks()));
+    public static final StairBlock RAINBOW_BRICK_STAIRS = (StairBlock) registerBlock("rainbow_brick_stairs",
+            new StairBlock(ModBlocks.RAINBOW_BRICKS.defaultBlockState(), bricks()));
     public static final SlabBlock RAINBOW_BRICK_SLAB = (SlabBlock) registerBlock("rainbow_brick_slab",
             new SlabBlock(bricks()));
     public static final WallBlock RAINBOW_BRICK_WALL = (WallBlock) registerBlock("rainbow_brick_wall",
@@ -199,8 +201,8 @@ public class ModBlocks {
     // Planks & Wood family
     public static final Block RAINBOW_PLANKS = registerBlock("rainbow_planks",
             new Block(planks()));
-    public static final StairsBlock RAINBOW_STAIRS = (StairsBlock) registerBlock("rainbow_stairs",
-            new StairsBlock(ModBlocks.RAINBOW_PLANKS.getDefaultState(), planks()));
+    public static final StairBlock RAINBOW_STAIRS = (StairBlock) registerBlock("rainbow_stairs",
+            new StairBlock(ModBlocks.RAINBOW_PLANKS.defaultBlockState(), planks()));
     public static final SlabBlock RAINBOW_SLAB = (SlabBlock) registerBlock("rainbow_slab",
             new SlabBlock(planks()));
     public static final FenceBlock RAINBOW_FENCE = (FenceBlock) registerBlock("rainbow_fence",
@@ -210,15 +212,15 @@ public class ModBlocks {
     public static final ButtonBlock RAINBOW_BUTTON = (ButtonBlock) registerBlock("rainbow_button",
             new ButtonBlock(planks(), BlockSetType.OAK, 10, true));
     public static final PressurePlateBlock RAINBOW_PRESSURE_PLATE = (PressurePlateBlock) registerBlock("rainbow_pressure_plate",
-            new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, planks(), BlockSetType.OAK));
+            new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, planks(), BlockSetType.OAK));
     public static final DoorBlock RAINBOW_DOOR = (DoorBlock) registerBlock("rainbow_door",
             new DoorBlock(planks(), BlockSetType.OAK));
-    public static final TrapdoorBlock RAINBOW_TRAPDOOR = (TrapdoorBlock) registerBlock("rainbow_trapdoor",
-            new TrapdoorBlock(planks(), BlockSetType.OAK));
+    public static final TrapDoorBlock RAINBOW_TRAPDOOR = (TrapDoorBlock) registerBlock("rainbow_trapdoor",
+            new TrapDoorBlock(planks(), BlockSetType.OAK));
 
     // Block family for data gen
-    public static final BlockFamily RAINBOW_FAMILY = BlockFamilies.register(ModBlocks.RAINBOW_PLANKS)
-            .group("wooden").unlockCriterionName("has_planks").build();
+    public static final BlockFamily RAINBOW_FAMILY = new BlockFamily.Builder(ModBlocks.RAINBOW_PLANKS)
+            .recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks").getFamily();
 
     // Sign blocks - removed from common due to Terraform API dependency.
     // These are registered in the fabric module. Null here for datagen compat.
@@ -230,12 +232,12 @@ public class ModBlocks {
     // Registration helpers
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(LandCommon.MOD_ID, name), block);
+        return Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(LandCommon.MOD_ID, name), block);
     }
 
     private static void registerBlockItem(String name, Block block) {
-        Registry.register(Registries.ITEM, new Identifier(LandCommon.MOD_ID, name),
-                new BlockItem(block, new Item.Settings()));
+        Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(LandCommon.MOD_ID, name),
+                new BlockItem(block, new Item.Properties()));
     }
 
     public static void registerModBlocks() {
@@ -243,51 +245,51 @@ public class ModBlocks {
     }
 
     // Block settings helpers - vanilla-compatible (no Fabric/Forge deps)
-    private static Block.Settings wool() {
-        return Block.Settings.create().strength(0.8F).sounds(BlockSoundGroup.WOOL);
+    private static BlockBehaviour.Properties wool() {
+        return BlockBehaviour.Properties.of().strength(0.8F).sound(SoundType.WOOL);
     }
 
-    private static Block.Settings carpet() {
-        return Block.Settings.create().strength(0.1F).sounds(BlockSoundGroup.WOOL);
+    private static BlockBehaviour.Properties carpet() {
+        return BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.WOOL);
     }
 
-    private static Block.Settings glass() {
-        return Block.Settings.create().strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque();
+    private static BlockBehaviour.Properties glass() {
+        return BlockBehaviour.Properties.of().strength(0.3F).sound(SoundType.GLASS).noOcclusion();
     }
 
-    private static Block.Settings pane() {
-        return Block.Settings.create().strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque();
+    private static BlockBehaviour.Properties pane() {
+        return BlockBehaviour.Properties.of().strength(0.3F).sound(SoundType.GLASS).noOcclusion();
     }
 
-    private static Block.Settings concrete() {
-        return Block.Settings.create().strength(1.8F).sounds(BlockSoundGroup.STONE);
+    private static BlockBehaviour.Properties concrete() {
+        return BlockBehaviour.Properties.of().strength(1.8F).sound(SoundType.STONE);
     }
 
-    private static Block.Settings concretePowder() {
-        return Block.Settings.create().strength(0.5F).sounds(BlockSoundGroup.SAND);
+    private static BlockBehaviour.Properties concretePowder() {
+        return BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.SAND);
     }
 
-    private static Block.Settings terracotta() {
-        return Block.Settings.create().strength(1.25F).sounds(BlockSoundGroup.STONE);
+    private static BlockBehaviour.Properties terracotta() {
+        return BlockBehaviour.Properties.of().strength(1.25F).sound(SoundType.STONE);
     }
 
-    private static Block.Settings planks() {
-        return Block.Settings.create().strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD);
+    private static BlockBehaviour.Properties planks() {
+        return BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD);
     }
 
-    private static Block.Settings bricks() {
-        return Block.Settings.create().strength(2.0F, 6.0F).sounds(BlockSoundGroup.STONE);
+    private static BlockBehaviour.Properties bricks() {
+        return BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.STONE);
     }
 
-    private static Block.Settings stonecutter() {
-        return Block.Settings.create().strength(3.5F).sounds(BlockSoundGroup.STONE);
+    private static BlockBehaviour.Properties stonecutter() {
+        return BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.STONE);
     }
 
-    private static Block.Settings bed() {
-        return Block.Settings.create().strength(0.2F).sounds(BlockSoundGroup.WOOD).nonOpaque();
+    private static BlockBehaviour.Properties bed() {
+        return BlockBehaviour.Properties.of().strength(0.2F).sound(SoundType.WOOD).noOcclusion();
     }
 
-    private static Block.Settings candle() {
-        return Block.Settings.create().strength(0.1F).sounds(BlockSoundGroup.CANDLE).nonOpaque();
+    private static BlockBehaviour.Properties candle() {
+        return BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.CANDLE).noOcclusion();
     }
 }

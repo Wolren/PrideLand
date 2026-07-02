@@ -1,18 +1,17 @@
 package net.wolren.land.item.material;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.wolren.land.LandCommon;
 
 import java.util.function.Supplier;
 
 public enum RainbowArmorMaterial implements ArmorMaterial {
-    RAINBOW("rainbow", 37, new int[] { 3, 8, 6, 3 }, 19, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3f, 0.1f, () -> Ingredient.ofItems(Items.NETHERITE_INGOT));
+    RAINBOW("rainbow", 37, new int[] { 3, 8, 6, 3 }, 19, SoundEvents.ARMOR_EQUIP_NETHERITE, 3f, 0.1f, () -> Ingredient.of(Items.NETHERITE_INGOT));
 
     private final String name;
     private final int durabilityMultiplier;
@@ -25,7 +24,7 @@ public enum RainbowArmorMaterial implements ArmorMaterial {
     private static final int[] BASE_DURABILITY = { 11, 16, 15, 13 };
 
     RainbowArmorMaterial(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound,
-                      float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+                         float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.protectionAmounts = protectionAmounts;
@@ -37,17 +36,17 @@ public enum RainbowArmorMaterial implements ArmorMaterial {
     }
 
     @Override
-    public int getDurability(ArmorItem.Type type) {
+    public int getDurabilityForType(ArmorItem.Type type) {
         return BASE_DURABILITY[type.ordinal()] * this.durabilityMultiplier;
     }
 
     @Override
-    public int getProtection(ArmorItem.Type type) {
+    public int getDefenseForType(ArmorItem.Type type) {
         return protectionAmounts[type.ordinal()];
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 

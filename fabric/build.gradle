@@ -2,6 +2,23 @@ plugins {
     id "fabric-loom" version "1.7.4"
 }
 
+loom {
+    runs {
+        client {
+            client()
+            setConfigName("Fabric Client")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+        server {
+            server()
+            setConfigName("Fabric Server")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${project.findProperty("minecraft_version")}"
     mappings "net.fabricmc:yarn:${project.findProperty("yarn_mappings")}:v2"
