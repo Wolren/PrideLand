@@ -1,8 +1,17 @@
 plugins {
+    id "idea"
     id "maven-publish"
 }
 
+idea {
+    module {
+        inheritOutputDirs = true
+    }
+}
+
 subprojects {
+    apply plugin: "idea"
+
     repositories {
         maven { url "https://maven.fabricmc.net/" }
         maven { url "https://maven.terraformersmc.com/" }

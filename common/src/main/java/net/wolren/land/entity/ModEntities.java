@@ -1,42 +1,40 @@
 package net.wolren.land.entity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.wolren.land.LandCommon;
 import net.wolren.land.block.ModBlocks;
 import net.wolren.land.entity.custom.block.CustomBedBlockEntity;
 import net.wolren.land.entity.custom.block.RainbowCraftingBlockEntity;
 import net.wolren.land.entity.custom.living.MonoColorSheep;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ModEntities {
     public static final BlockEntityType<RainbowCraftingBlockEntity> RAINBOW_CRAFTING_BLOCK_ENTITY =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(LandCommon.MOD_ID, "rainbow_workstation"),
+            Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(LandCommon.MOD_ID, "rainbow_workstation"),
                     new BlockEntityType<>(
                             RainbowCraftingBlockEntity::new,
                             Set.of(ModBlocks.RAINBOW_CRAFTING),
                             null
                     ));
 
-    @SuppressWarnings("unchecked")
     public static final EntityType<MonoColorSheep.RainbowSheepEntity> RAINBOW_SHEEP = Registry.register(
-            Registries.ENTITY_TYPE,
-            new Identifier(LandCommon.MOD_ID, "rainbow_sheep"),
-            EntityType.Builder.create(MonoColorSheep.RainbowSheepEntity::new, SpawnGroup.CREATURE)
-                    .setDimensions(0.9f, 1.3f).build("rainbow_sheep")
+            BuiltInRegistries.ENTITY_TYPE,
+            new ResourceLocation(LandCommon.MOD_ID, "rainbow_sheep"),
+            EntityType.Builder.of(MonoColorSheep.RainbowSheepEntity::new, MobCategory.CREATURE)
+                    .sized(0.9f, 1.3f).build("rainbow_sheep")
     );
 
     public static final BlockEntityType<CustomBedBlockEntity> CUSTOM_BED_BLOCK_ENTITY = Registry.register(
-            Registries.BLOCK_ENTITY_TYPE,
-            new Identifier(LandCommon.MOD_ID, "bed_block"),
+            BuiltInRegistries.BLOCK_ENTITY_TYPE,
+            new ResourceLocation(LandCommon.MOD_ID, "bed_block"),
             new BlockEntityType<>(
                     CustomBedBlockEntity::new,
                     new HashSet<>(Arrays.asList(

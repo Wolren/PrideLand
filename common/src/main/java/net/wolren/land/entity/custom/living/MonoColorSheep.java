@@ -1,88 +1,87 @@
 package net.wolren.land.entity.custom.living;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.Shearable;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShearsItem;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.Shearable;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShearsItem;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.wolren.land.block.ModBlocks;
 
 public class MonoColorSheep extends BaseSheep implements Shearable {
-    private static final TrackedData<Byte> isSheared = DataTracker.registerData(MonoColorSheep.class, TrackedDataHandlerRegistry.BYTE);
+    private static final EntityDataAccessor<Byte> isSheared = SynchedEntityData.defineId(MonoColorSheep.class, EntityDataSerializers.BYTE);
     private final ItemStack wool;
 
-    public MonoColorSheep(EntityType<? extends BaseSheep> type, World world, ItemStack wool) {
+    public MonoColorSheep(EntityType<? extends BaseSheep> type, Level world, ItemStack wool) {
         super(type, world);
         this.wool = wool;
     }
 
-    @Override
-    public Identifier getLootTableId() {
+    public ResourceLocation getLootTableId() {
         if (isSheared()) {
-            return new Identifier("minecraft", "entities/sheep");
+            return new ResourceLocation("minecraft", "entities/sheep");
         }
-        return new Identifier("pride_land", "entities/sheep/rainbow_sheep");
+        return new ResourceLocation("pride_land", "entities/sheep/rainbow_sheep");
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        dataTracker.startTracking(isSheared, (byte) 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(isSheared, (byte) 0);
     }
 
     public boolean isSheared() {
-        return (dataTracker.get(isSheared) & 16) != 0;
+        return (entityData.get(isSheared) & 16) != 0;
     }
 
     public void setSheared(boolean sheared) {
-        byte b0 = dataTracker.get(isSheared);
+        byte b0 = entityData.get(isSheared);
         if (sheared) {
-            dataTracker.set(isSheared, (byte) (b0 | 16));
+            entityData.set(isSheared, (byte) (b0 | 16));
         } else {
-            dataTracker.set(isSheared, (byte) (b0 & -17));
+            entityData.set(isSheared, (byte) (b0 & -17));
         }
     }
 
-    public boolean isShearable() {
+    public boolean readyForShearing() {
         return isAlive() && !isSheared() && !isBaby();
     }
 
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.getItem() instanceof ShearsItem) {
-            if (!getWorld().isClient && isShearable()) {
-                sheared(SoundCategory.PLAYERS);
-                itemStack.damage(1, player, (playerEntity) -> playerEntity.sendToolBreakStatus(hand));
-                return ActionResult.SUCCESS;
+            if (!level().isClientSide && readyForShearing()) {
+                shear(SoundSource.PLAYERS);
+                itemStack.hurtAndBreak(1, player, (playerEntity) -> playerEntity.broadcastBreakEvent(hand));
+                return InteractionResult.SUCCESS;
             }
-            return ActionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
-        return super.interactMob(player, hand);
+        return super.mobInteract(player, hand);
     }
 
-    public void sheared(SoundCategory shearedSoundCategory) {
-        getWorld().playSoundFromEntity(null, this, SoundEvents.ENTITY_SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
+    public void shear(SoundSource shearedSoundCategory) {
+        level().playSound(null, this, SoundEvents.SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
         setSheared(true);
         int i = 1 + random.nextInt(3);
         for (int j = 0; j < i; ++j) {
-            ItemEntity itemEntity = dropItem(wool.getItem(), 1);
+            ItemEntity itemEntity = spawnAtLocation(wool.getItem(), 1);
             if (itemEntity != null) {
-                itemEntity.setVelocity(itemEntity.getVelocity().add((random.nextFloat() - random.nextFloat()) * 0.1F, random.nextFloat() * 0.05F, (random.nextFloat() - random.nextFloat()) * 0.1F));
+                itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().add((random.nextFloat() - random.nextFloat()) * 0.1F, random.nextFloat() * 0.05F, (random.nextFloat() - random.nextFloat()) * 0.1F));
             }
         }
     }
 
     public static class RainbowSheepEntity extends MonoColorSheep {
-        public RainbowSheepEntity(EntityType<? extends RainbowSheepEntity> type, World world) {
+        public RainbowSheepEntity(EntityType<? extends RainbowSheepEntity> type, Level world) {
             super(type, world, new ItemStack(ModBlocks.RAINBOW_WOOL));
         }
     }

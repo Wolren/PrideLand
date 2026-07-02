@@ -1,35 +1,36 @@
 package net.wolren.land.recipe;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.client.recipebook.RecipeBookGroup;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.CuttingRecipe;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.client.RecipeBookCategories;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.SingleItemRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.inventory.RecipeBookType;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.wolren.land.LandCommon;
 
-public class RainbowCuttingRecipe extends CuttingRecipe {
-    public RainbowCuttingRecipe(Identifier id, String group, Ingredient input, ItemStack output) {
+public class RainbowCuttingRecipe extends SingleItemRecipe {
+    public RainbowCuttingRecipe(ResourceLocation id, String group, Ingredient input, ItemStack output) {
         super(LandCommon.RAINBOW_CUTTING, ModSerializers.RAINBOW_CUTTING_SERIALIZER, id, group, input, output);
     }
 
     @Override
-    public boolean matches(Inventory inventory, World world) {
-        return this.input.test(inventory.getStack(0));
+    public boolean matches(Container inventory, Level world) {
+        return this.ingredient.test(inventory.getItem(0));
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack getToastSymbol() {
         return new ItemStack(Blocks.STONECUTTER);
     }
 
-    public ItemStack getOutput() {
-        return this.output;
+    @Override
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
+        return this.result;
     }
 
     @Override

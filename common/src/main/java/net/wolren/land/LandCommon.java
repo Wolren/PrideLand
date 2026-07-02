@@ -1,6 +1,6 @@
 package net.wolren.land;
 
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.wolren.land.recipe.RainbowCuttingRecipe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

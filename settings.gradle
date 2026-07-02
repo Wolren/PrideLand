@@ -9,6 +9,6 @@ pluginManagement {
 
 include("common")
 include("fabric")
-include("forge")
+include("forge-standalone")
 
 rootProject.name = "pride_land"

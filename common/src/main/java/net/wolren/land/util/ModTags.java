@@ -1,10 +1,10 @@
 package net.wolren.land.util;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.Item;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.resources.ResourceLocation;
 import net.wolren.land.LandCommon;
 
 public class ModTags {
@@ -19,7 +19,7 @@ public class ModTags {
                 createTag("pride_wool_carpets");
 
         private static TagKey<Block> createTag(String name) {
-            return TagKey.of(RegistryKeys.BLOCK, new Identifier(LandCommon.MOD_ID, name));
+            return TagKey.create(Registries.BLOCK, new ResourceLocation(LandCommon.MOD_ID, name));
         }
     }
 
@@ -28,7 +28,7 @@ public class ModTags {
                 createTag("elytra_items");
 
         private static TagKey<Item> createTag(String name) {
-            return TagKey.of(RegistryKeys.ITEM, new Identifier(LandCommon.MOD_ID, name));
+            return TagKey.create(Registries.ITEM, new ResourceLocation(LandCommon.MOD_ID, name));
         }
     }
 }
