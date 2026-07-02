@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "pride_land:block/rainbow_pressure_plate"
+    },
+    "powered=true": {
+      "model": "pride_land:block/rainbow_pressure_plate_down"
+    }
+  }
+}

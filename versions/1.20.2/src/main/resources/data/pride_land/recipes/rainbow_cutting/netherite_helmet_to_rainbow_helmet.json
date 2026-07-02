@@ -1,0 +1,8 @@
+{
+  "type": "pride_land:rainbow_cutting",
+  "count": 1,
+  "ingredient": {
+    "item": "minecraft:netherite_helmet"
+  },
+  "result": "pride_land:rainbow_helmet"
+}
