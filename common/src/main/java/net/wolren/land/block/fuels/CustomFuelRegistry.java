@@ -1,18 +1,18 @@
 package net.wolren.land.block.fuels;
 
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.item.ItemConvertible;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomFuelRegistry {
-    private static final Map<ItemLike, Integer> customFuels = new HashMap<>();
+    private static final Map<ItemConvertible, Integer> customFuels = new HashMap<>();
 
-    public static void registerCustomFuel(ItemLike fuel, int burnTime) {
+    public static void registerCustomFuel(ItemConvertible fuel, int burnTime) {
         customFuels.put(fuel, burnTime);
     }
 
-    public static Map<ItemLike, Integer> getCustomFuels() {
+    public static Map<ItemConvertible, Integer> getCustomFuels() {
         return customFuels;
     }
 }

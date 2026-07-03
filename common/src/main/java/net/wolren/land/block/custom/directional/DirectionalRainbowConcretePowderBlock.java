@@ -1,36 +1,35 @@
 package net.wolren.land.block.custom.directional;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.ConcretePowderBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.Level;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ConcretePowderBlock;
+import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.entity.FallingBlockEntity;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 
 public class DirectionalRainbowConcretePowderBlock extends ConcretePowderBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
 
-    public DirectionalRainbowConcretePowderBlock(Block hardened, BlockBehaviour.Properties settings) {
+    public DirectionalRainbowConcretePowderBlock(Block hardened, Settings settings) {
         super(hardened, settings);
-        this.registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.setDefaultState(getStateManager().getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
         builder.add(FACING);
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        BlockState blockState = super.getStateForPlacement(ctx);
-        return blockState.setValue(FACING, ctx.getHorizontalDirection().getOpposite());
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        BlockState blockState = super.getPlacementState(ctx);
+        return blockState.with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
     }
 }
 
