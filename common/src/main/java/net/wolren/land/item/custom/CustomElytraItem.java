@@ -1,16 +1,15 @@
 package net.wolren.land.item.custom;
 
-import net.minecraft.world.item.ElytraItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.item.ElytraItem;
+import net.minecraft.util.Rarity;
 
 public class CustomElytraItem extends ElytraItem {
-    public CustomElytraItem(Item.Properties settings) {
-        super(settings.defaultDurability(432).rarity(Rarity.EPIC));
+    public CustomElytraItem(Settings settings) {
+        super(settings.maxDamage(432).rarity(Rarity.EPIC));
     }
 
     @Override
-    public boolean canBeDepleted() {
+    public boolean isDamageable() {
         return true;
     }
 }

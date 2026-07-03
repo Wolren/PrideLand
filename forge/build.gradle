@@ -1,0 +1,51 @@
+plugins {
+    id "net.minecraftforge.gradle" version "[6.0,6.2)"
+    id "org.spongepowered.mixin" version "0.7.+"
+}
+
+minecraft {
+    mappings channel: "official", version: project.findProperty("minecraft_version")
+}
+
+repositories {
+    maven { url "https://maven.terraformersmc.com/" }
+    maven { url "https://maven.blamejared.com/" }
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://api.modrinth.com/maven" }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${project.findProperty("forge_version")}"
+
+    implementation project(":common")
+
+    compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:${project.findProperty("rei_version")}")
+    compileOnly fg.deobf("dev.emi:emi-forge:${project.findProperty("emi_version")}:api")
+    implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:${project.findProperty("cloth_config")}")
+
+    implementation 'com.google.code.gson:gson:2.8.9'
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.findProperty("minecraft_version")
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version,
+                "minecraft_version": project.findProperty("minecraft_version")
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": "Pride Land",
+                "Specification-Vendor": "Wolren",
+                "Specification-Version": "1",
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.version,
+                "Implementation-Vendor" :"Wolren",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}

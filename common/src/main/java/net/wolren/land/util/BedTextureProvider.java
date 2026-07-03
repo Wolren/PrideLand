@@ -1,9 +1,9 @@
 package net.wolren.land.util;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.client.renderer.blockentity.BedRenderer;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.block.Block;
+import net.minecraft.client.render.block.entity.BedBlockEntityRenderer;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.util.Identifier;
 import net.wolren.land.LandCommon;
 import net.wolren.land.block.ModBlocks;
 
@@ -36,22 +36,22 @@ public class BedTextureProvider {
 
     static {
         for (int i = 0; i < BEDS.size(); i++) {
-            String toPut = BEDS.get(i).getDescriptionId();
+            String toPut = BEDS.get(i).getTranslationKey();
             BED_INDEX_MAP.put(extractBedName(toPut), i);
         }
     }
 
-    public static final ResourceLocation BEDS_ATLAS = new ResourceLocation("textures/atlas/beds.png");
+    public static final Identifier BEDS_ATLAS_TEXTURE = new Identifier("textures/atlas/beds.png");
 
-    public static final Material[] BED_TEXTURES = BEDS.stream()
+    public static final SpriteIdentifier[] BED_TEXTURES = BEDS.stream()
             .map(bedBlock -> {
-                ResourceLocation bedTextureId = new ResourceLocation(LandCommon.MOD_ID, "entity/bed/" + extractBedName(bedBlock.getDescriptionId()));
-                return new Material(BEDS_ATLAS, bedTextureId);
+                Identifier bedTextureId = new Identifier(LandCommon.MOD_ID, "entity/bed/" + extractBedName(bedBlock.getTranslationKey()));
+                return new SpriteIdentifier(BEDS_ATLAS_TEXTURE, bedTextureId);
             })
-            .toArray(Material[]::new);
+            .toArray(SpriteIdentifier[]::new);
 
-    public static Material getSpriteIdentifierForBed(Block bedBlock) {
-        Integer index = BED_INDEX_MAP.get(extractBedName(bedBlock.getDescriptionId()));
+    public static SpriteIdentifier getSpriteIdentifierForBed(Block bedBlock) {
+        Integer index = BED_INDEX_MAP.get(extractBedName(bedBlock.getTranslationKey()));
         return index != null ? BED_TEXTURES[index] : null;
     }
 

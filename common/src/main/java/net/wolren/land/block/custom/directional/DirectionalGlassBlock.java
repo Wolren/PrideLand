@@ -1,32 +1,28 @@
 package net.wolren.land.block.custom.directional;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.GlassBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.core.Direction;
+import net.minecraft.block.*;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.util.math.Direction;
 
 public class DirectionalGlassBlock extends GlassBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
 
-    public DirectionalGlassBlock(BlockBehaviour.Properties settings) {
+    public DirectionalGlassBlock(AbstractBlock.Settings settings) {
         super(settings);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
+        setDefaultState(getStateManager().getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
         builder.add(FACING);
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext itemPlacementContext) {
-        Direction playerFacing = itemPlacementContext.getHorizontalDirection().getOpposite();
-        return defaultBlockState().setValue(FACING, playerFacing);
+    public BlockState getPlacementState(ItemPlacementContext itemPlacementContext) {
+        Direction playerFacing = itemPlacementContext.getHorizontalPlayerFacing().getOpposite();
+        return getDefaultState().with(FACING, playerFacing);
     }
 }

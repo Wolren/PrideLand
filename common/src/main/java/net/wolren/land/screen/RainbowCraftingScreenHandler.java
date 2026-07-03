@@ -1,29 +1,30 @@
 package net.wolren.land.screen;
 
 import com.google.common.collect.Lists;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ResultContainer;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.inventory.*;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.level.Level;
+import net.minecraft.client.gui.screen.ingame.LoomScreen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.CraftingResultInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.*;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.World;
 import net.wolren.land.LandCommon;
 import net.wolren.land.item.ModItems;
 import net.wolren.land.recipe.RainbowCuttingRecipe;
 
 import java.util.List;
 
-public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
+public class RainbowCraftingScreenHandler extends ScreenHandler {
     final Slot dyeSlot;
     final Slot inputSlot;
     final Slot outputSlot;
-    private final DataSlot selectedRecipe = DataSlot.standalone();
-    private final Level world;
+    private final Property selectedRecipe = Property.create();
+    private final World world;
     private List<RainbowCuttingRecipe> availableRecipes = Lists.newArrayList();
     private ItemStack inputStack = ItemStack.EMPTY;
     private ItemStack dyeStack = ItemStack.EMPTY;
@@ -31,51 +32,51 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
     Runnable contentsChangedListener = () -> {
     };
 
-    public final Container input = new SimpleContainer(2) {
-        public void setChanged() {
-            super.setChanged();
-            RainbowCraftingScreenHandler.this.slotsChanged(this);
+    public final Inventory input = new SimpleInventory(2) {
+        public void markDirty() {
+            super.markDirty();
+            RainbowCraftingScreenHandler.this.onContentChanged(this);
             RainbowCraftingScreenHandler.this.contentsChangedListener.run();
         }
     };
 
-    final ResultContainer output = new ResultContainer();
+    final CraftingResultInventory output = new CraftingResultInventory();
 
-    public RainbowCraftingScreenHandler(int syncId, Inventory inventory, FriendlyByteBuf buf) {
-        this(syncId, inventory, new SimpleContainer(3));
+    public RainbowCraftingScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
+        this(syncId, inventory, new SimpleInventory(3));
     }
 
-    public RainbowCraftingScreenHandler(int syncId, Inventory playerInventory, Container inventory) {
+    public RainbowCraftingScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
         super(ModScreenHandlers.BOX_SCREEN_HANDLER, syncId);
-        this.world = playerInventory.player.level();
+        this.world = playerInventory.player.getWorld();
         this.inputSlot = this.addSlot(new Slot(this.input, 0, 20, 22));
 
         this.dyeSlot = this.addSlot(new Slot(this.input, 1, 20, 44) {
-            public boolean mayPlace(ItemStack stack) {
+            public boolean canInsert(ItemStack stack) {
                 Item item = stack.getItem();
                 return item == ModItems.RAINBOW_DYE;
             }
         });
 
         this.outputSlot = this.addSlot(new Slot(this.output, 1, 143, 33) {
-            public boolean mayPlace(ItemStack stack) {
+            public boolean canInsert(ItemStack stack) {
                 return false;
             }
 
-            public void onTake(Player player, ItemStack stack) {
-                stack.onCraftedBy(player.level(), player, stack.getCount());
-                RainbowCraftingScreenHandler.this.output.awardUsedRecipes(player, this.getInputStacks());
-                ItemStack materialStack = RainbowCraftingScreenHandler.this.inputSlot.remove(1);
-                ItemStack dyeStack = RainbowCraftingScreenHandler.this.dyeSlot.remove(1);
+            public void onTakeItem(PlayerEntity player, ItemStack stack) {
+                stack.onCraft(player.getWorld(), player, stack.getCount());
+                RainbowCraftingScreenHandler.this.output.unlockLastRecipe(player, this.getInputStacks());
+                ItemStack materialStack = RainbowCraftingScreenHandler.this.inputSlot.takeStack(1);
+                ItemStack dyeStack = RainbowCraftingScreenHandler.this.dyeSlot.takeStack(1);
                 if (!materialStack.isEmpty() && !(dyeStack.getCount() <= 0)) {
                     RainbowCraftingScreenHandler.this.populateResult();
                 }
 
-                super.onTake(player, stack);
+                super.onTakeItem(player, stack);
             }
 
             private List<ItemStack> getInputStacks() {
-                return List.of(RainbowCraftingScreenHandler.this.inputSlot.getItem());
+                return List.of(RainbowCraftingScreenHandler.this.inputSlot.getStack());
             }
         });
 
@@ -89,11 +90,11 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
 
-        this.addDataSlot(this.selectedRecipe);
+        this.addProperty(this.selectedRecipe);
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean canUse(PlayerEntity player) {
         return true;
     }
 
@@ -111,11 +112,11 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
     }
 
     public boolean canCraft() {
-        return this.inputSlot.hasItem() && !this.availableRecipes.isEmpty();
+        return this.inputSlot.hasStack() && !this.availableRecipes.isEmpty();
     }
 
     @Override
-    public boolean clickMenuButton(Player player, int id) {
+    public boolean onButtonClick(PlayerEntity player, int id) {
         if (this.isInBounds(id)) {
             this.selectedRecipe.set(id);
             this.populateResult();
@@ -129,47 +130,47 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
     }
 
     @Override
-    public void slotsChanged(Container inventory) {
-        ItemStack materialStack = this.inputSlot.getItem();
-        ItemStack dyeStack = this.dyeSlot.getItem();
+    public void onContentChanged(Inventory inventory) {
+        ItemStack materialStack = this.inputSlot.getStack();
+        ItemStack dyeStack = this.dyeSlot.getStack();
 
 
-        if (!materialStack.is(this.inputStack.getItem())) {
+        if (!materialStack.isOf(this.inputStack.getItem())) {
             this.inputStack = materialStack.copy();
             this.updateInput(inventory, materialStack, dyeStack);
         }
 
-        if (!dyeStack.is(this.dyeStack.getItem())) {
+        if (!dyeStack.isOf(this.dyeStack.getItem())) {
             this.dyeStack = dyeStack.copy();
             this.updateInput(inventory, materialStack, dyeStack);
         }
     }
 
 
-    private void updateInput(Container input, ItemStack materialStack, ItemStack dyeStack) {
+    private void updateInput(Inventory input, ItemStack materialStack, ItemStack dyeStack) {
         this.availableRecipes.clear();
         this.selectedRecipe.set(-1);
-        this.outputSlot.setByPlayer(ItemStack.EMPTY);
+        this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
         if (!materialStack.isEmpty() && !dyeStack.isEmpty()) {
-            this.availableRecipes = this.world.getRecipeManager().getRecipesFor(LandCommon.RAINBOW_CUTTING, input, this.world);
+            this.availableRecipes = this.world.getRecipeManager().getAllMatches(LandCommon.RAINBOW_CUTTING, input, this.world);
         }
     }
 
     void populateResult() {
-        if (!RainbowCraftingScreenHandler.this.dyeSlot.getItem().isEmpty() && !this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
+        if (!RainbowCraftingScreenHandler.this.dyeSlot.getStack().isEmpty() && !this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
             RainbowCuttingRecipe rainbowCuttingRecipe = this.availableRecipes.get(this.selectedRecipe.get());
-            ItemStack itemStack = rainbowCuttingRecipe.assemble(this.input, this.world.registryAccess());
-            if (itemStack.isItemEnabled(this.world.enabledFeatures())) {
-                this.output.setRecipeUsed(rainbowCuttingRecipe);
-                this.outputSlot.setByPlayer(itemStack);
+            ItemStack itemStack = rainbowCuttingRecipe.craft(this.input, this.world.getRegistryManager());
+            if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
+                this.output.setLastRecipe(rainbowCuttingRecipe);
+                this.outputSlot.setStackNoCallbacks(itemStack);
             } else {
-                this.outputSlot.setByPlayer(ItemStack.EMPTY);
+                this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
             }
         } else {
-            this.outputSlot.setByPlayer(ItemStack.EMPTY);
+            this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
         }
 
-        this.broadcastChanges();
+        this.sendContentUpdates();
     }
 
     public void setContentsChangedListener(Runnable contentsChangedListener) {
@@ -177,73 +178,77 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
-        return slot.container != this.output && super.canTakeItemForPickAll(stack, slot);
+    public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
+        return slot.inventory != this.output && super.canInsertIntoSlot(stack, slot);
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int slot) {
+    public ItemStack quickMove(PlayerEntity player, int slot) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot2 = this.slots.get(slot);
-        if (slot2 != null && slot2.hasItem()) {
-            ItemStack itemStack2 = slot2.getItem();
+        if (slot2 != null && slot2.hasStack()) {
+            ItemStack itemStack2 = slot2.getStack();
             Item item = itemStack2.getItem();
             itemStack = itemStack2.copy();
 
             if (slot == 2) {
-                item.onCraftedBy(itemStack2, player.level(), player);
-                if (!this.moveItemStackTo(itemStack2, 3, 39, true)) {
+                item.onCraft(itemStack2, player.getWorld(), player);
+                if (!this.insertItem(itemStack2, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
 
-                slot2.onQuickCraft(itemStack2, itemStack);
+                slot2.onQuickTransfer(itemStack2, itemStack);
             } else if (slot == 0 || slot == 1) {
-                if (!this.moveItemStackTo(itemStack2, 3, 39, false)) {
+                if (!this.insertItem(itemStack2, 3, 39, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (this.world
                     .getRecipeManager()
-                    .getRecipeFor(LandCommon.RAINBOW_CUTTING, new SimpleContainer(itemStack2), this.world)
+                    .getFirstMatch(LandCommon.RAINBOW_CUTTING, new SimpleInventory(itemStack2), this.world)
                     .isPresent()) {
-                if (!this.moveItemStackTo(itemStack2, this.inputSlot.index, this.inputSlot.index + 1, false)) {
+                if (!this.insertItem(itemStack2, this.inputSlot.id, this.inputSlot.id + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (item == ModItems.RAINBOW_DYE) {
-                if (!this.moveItemStackTo(itemStack2, this.dyeSlot.index, this.dyeSlot.index + 1, false)) {
+                if (!this.insertItem(itemStack2, this.dyeSlot.id, this.dyeSlot.id + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (slot >= 3 && slot < 30) {
-                if (!this.moveItemStackTo(itemStack2, 30, 39, false)) {
+                if (!this.insertItem(itemStack2, 30, 39, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (slot >= 30 && slot < 39 && !this.moveItemStackTo(itemStack2, 3, 30, false)) {
+            } else if (slot >= 30 && slot < 39 && !this.insertItem(itemStack2, 3, 30, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemStack2.isEmpty()) {
-                slot2.setByPlayer(ItemStack.EMPTY);
+                slot2.setStack(ItemStack.EMPTY);
             }
 
-            slot2.setChanged();
+            slot2.markDirty();
             if (itemStack2.getCount() == itemStack.getCount()) {
                 return ItemStack.EMPTY;
             }
 
-            slot2.onTake(player, itemStack2);
-            this.broadcastChanges();
+            slot2.onTakeItem(player, itemStack2);
+            this.sendContentUpdates();
         }
 
         return itemStack;
     }
 
     @Override
-    public void removed(Player player) {
-        super.removed(player);
-        this.output.removeItemNoUpdate(1);
-        this.clearContainer(player, this.input);
+    public void onClosed(PlayerEntity player) {
+        super.onClosed(player);
+        this.output.removeStack(1);
+        this.dropInventory(player, this.input);
     }
 
     public Slot getDyeSlot() {
         return this.dyeSlot;
     }
 }
+
+
+
+
