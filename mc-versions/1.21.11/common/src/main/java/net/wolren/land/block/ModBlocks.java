@@ -221,9 +221,9 @@ public class ModBlocks {
     public static final FenceGateBlock RAINBOW_FENCE_GATE = (FenceGateBlock) registerBlock("rainbow_fence_gate",
             new FenceGateBlock(WoodType.OAK, planks()));
     public static final ButtonBlock RAINBOW_BUTTON = (ButtonBlock) registerBlock("rainbow_button",
-            new ButtonBlock(BlockSetType.OAK, 10, true, planks()));
+            new ButtonBlock(BlockSetType.OAK, 10, planks()));
     public static final PressurePlateBlock RAINBOW_PRESSURE_PLATE = (PressurePlateBlock) registerBlock("rainbow_pressure_plate",
-            new PressurePlateBlock(BlockSetType.ActivationRule.EVERYTHING, planks(), BlockSetType.OAK));
+            new PressurePlateBlock(BlockSetType.OAK, planks()));
     // nonOpaque() is required for doors and trapdoors: without it the block is treated as a
     // full opaque cube for occlusion culling, causing xray artifacts where adjacent block
     // faces are incorrectly hidden (for trapdoors) and drop issues (for doors).
