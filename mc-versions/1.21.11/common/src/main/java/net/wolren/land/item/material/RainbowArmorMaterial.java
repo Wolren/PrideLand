@@ -1,36 +1,31 @@
 package net.wolren.land.item.material;
 
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentAsset;
+import net.minecraft.item.equipment.EquipmentAssetKeys;
+import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-import net.wolren.land.LandCommon;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.Map;
 
 public class RainbowArmorMaterial {
-    public static final RegistryEntry<ArmorMaterial> RAINBOW = registerArmorMaterial("rainbow",
-            () -> new ArmorMaterial(Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
-                map.put(ArmorItem.Type.BOOTS, 3);
-                map.put(ArmorItem.Type.LEGGINGS, 6);
-                map.put(ArmorItem.Type.CHESTPLATE, 8);
-                map.put(ArmorItem.Type.HELMET, 3);
-                map.put(ArmorItem.Type.BODY, 11);
-            }), 19, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,
-                    () -> Ingredient.ofItems(Items.NETHERITE_INGOT),
-                    List.of(new ArmorMaterial.Layer(Identifier.of(LandCommon.MOD_ID, "rainbow"))),
-                    3.0f, 0.1f));
-
-    public static RegistryEntry<ArmorMaterial> registerArmorMaterial(String name, Supplier<ArmorMaterial> material) {
-        return Registry.registerReference(Registries.ARMOR_MATERIAL, Identifier.of(LandCommon.MOD_ID, name),
-                material.get());
-    }
+    public static final ArmorMaterial RAINBOW = new ArmorMaterial(
+            37,
+            Map.of(
+                    EquipmentType.HELMET, 3,
+                    EquipmentType.CHESTPLATE, 8,
+                    EquipmentType.LEGGINGS, 6,
+                    EquipmentType.BOOTS, 3
+            ),
+            19,
+            SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,
+            3.0f,
+            0.1f,
+            TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "ingots/netherite")),
+            EquipmentAssetKeys.NETHERITE
+    );
 }
