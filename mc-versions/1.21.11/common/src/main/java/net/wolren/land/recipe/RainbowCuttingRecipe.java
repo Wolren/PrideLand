@@ -28,13 +28,12 @@ public class RainbowCuttingRecipe extends StonecuttingRecipe {
         return this.result();
     }
 
-    @Override
-    public RecipeSerializer<? extends StonecuttingRecipe> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return ModSerializers.RAINBOW_CUTTING_SERIALIZER;
     }
 
     @Override
-    public RecipeType<? extends StonecuttingRecipe> getType() {
+    public RecipeType<?> getType() {
         return LandCommon.RAINBOW_CUTTING;
     }
 }
