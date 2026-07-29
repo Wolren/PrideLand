@@ -53,7 +53,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
 
     public RainbowCraftingScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
         super(ModScreenHandlers.BOX_SCREEN_HANDLER, syncId);
-        this.world = playerInventory.player.getWorld();
+        this.world = playerInventory.player.getEntityWorld();
         this.inputSlot = this.addSlot(new Slot(this.input, 0, 20, 22));
 
         this.dyeSlot = this.addSlot(new Slot(this.input, 1, 20, 44) {
@@ -69,7 +69,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
             }
 
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
-                stack.onCraft(player.getWorld(), player, stack.getCount());
+                stack.onCraft(player.getEntityWorld(), player, stack.getCount());
                 RainbowCraftingScreenHandler.this.output.unlockLastRecipe(player, this.getInputStacks());
                 ItemStack materialStack = RainbowCraftingScreenHandler.this.inputSlot.takeStack(1);
                 ItemStack dyeStack = RainbowCraftingScreenHandler.this.dyeSlot.takeStack(1);
@@ -197,7 +197,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
             itemStack = itemStack2.copy();
 
             if (slot == 2) {
-                item.onCraft(itemStack2, player.getWorld(), player);
+                item.onCraft(itemStack2, player.getEntityWorld(), player);
                 if (!this.insertItem(itemStack2, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
