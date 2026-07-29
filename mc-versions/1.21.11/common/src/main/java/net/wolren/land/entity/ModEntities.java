@@ -69,7 +69,10 @@ public class ModEntities {
 
     private static BlockEntityType<RainbowCraftingBlockEntity> createCraftingBlockEntity() {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(LandCommon.MOD_ID, "rainbow_workstation"),
-                BlockEntityType.Builder.create(RainbowCraftingBlockEntity::new, ModBlocks.RAINBOW_CRAFTING).build(null));
+                new BlockEntityType<RainbowCraftingBlockEntity>(
+                        RainbowCraftingBlockEntity::new,
+                        Set.of(ModBlocks.RAINBOW_CRAFTING)
+                ));
     }
 
     @SuppressWarnings("unchecked")
@@ -83,16 +86,17 @@ public class ModEntities {
     private static BlockEntityType<CustomBedBlockEntity> createCustomBedBlockEntity() {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of(LandCommon.MOD_ID, "bed_block"),
-                BlockEntityType.Builder.create(CustomBedBlockEntity::new,
-                        ModBlocks.RAINBOW_BED, ModBlocks.TRANS_BED,
+                new BlockEntityType<CustomBedBlockEntity>(
+                        CustomBedBlockEntity::new,
+                        Set.of(ModBlocks.RAINBOW_BED, ModBlocks.TRANS_BED,
                         ModBlocks.NONBINARY_BED, ModBlocks.BISEXUAL_BED,
                         ModBlocks.PANSEXUAL_BED, ModBlocks.AROMANTIC_BED,
                         ModBlocks.ASEXUAL_BED, ModBlocks.DEMIBOY_BED,
                         ModBlocks.DEMIGIRL_BED, ModBlocks.DEMISEXUAL_BED,
                         ModBlocks.GENDERFLUID_BED, ModBlocks.GENDERQUEER_BED,
                         ModBlocks.LESBIAN_BED, ModBlocks.PROGRESS_PRIDE_BED,
-                        ModBlocks.AGENDER_BED, ModBlocks.POLYSEXUAL_BED
-                ).build(null));
+                        ModBlocks.AGENDER_BED, ModBlocks.POLYSEXUAL_BED)
+                ));
     }
 
     public static void registerBlockEntities() {
