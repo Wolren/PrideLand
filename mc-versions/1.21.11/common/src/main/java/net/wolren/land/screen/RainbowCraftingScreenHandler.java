@@ -10,6 +10,8 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
@@ -157,14 +159,19 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
         this.selectedRecipe.set(-1);
         this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
         if (!materialStack.isEmpty() && !dyeStack.isEmpty()) {
-            this.availableRecipes = this.world.getRecipeManager().getAllMatches(LandCommon.RAINBOW_CUTTING, input, this.world);
+            this.availableRecipes = this.world.getRecipeManager().getAllMatches(LandCommon.RAINBOW_CUTTING, 
+                new SingleStackRecipeInput(materialStack), this.world).stream()
+                .map(RecipeEntry::value)
+                .map(RainbowCuttingRecipe.class::cast)
+                .toList();
         }
     }
 
     void populateResult() {
         if (!RainbowCraftingScreenHandler.this.dyeSlot.getStack().isEmpty() && !this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
             RainbowCuttingRecipe rainbowCuttingRecipe = this.availableRecipes.get(this.selectedRecipe.get());
-            ItemStack itemStack = rainbowCuttingRecipe.craft(this.input, this.world.getRegistryManager());
+            SingleStackRecipeInput recipeInput = new SingleStackRecipeInput(this.inputSlot.getStack());
+            ItemStack itemStack = rainbowCuttingRecipe.craft(recipeInput, this.world.getRegistryManager());
             if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
                 this.output.setLastRecipe(rainbowCuttingRecipe);
                 this.outputSlot.setStackNoCallbacks(itemStack);
@@ -209,7 +216,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
                 }
             } else if (this.world
                     .getRecipeManager()
-                    .getFirstMatch(LandCommon.RAINBOW_CUTTING, new SimpleInventory(itemStack2), this.world)
+                    .getFirstMatch(LandCommon.RAINBOW_CUTTING, new SingleStackRecipeInput(itemStack2), this.world)
                     .isPresent()) {
                 if (!this.insertItem(itemStack2, this.inputSlot.id, this.inputSlot.id + 1, false)) {
                     return ItemStack.EMPTY;

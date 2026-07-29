@@ -2,6 +2,7 @@ package net.wolren.land.screen;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
@@ -31,19 +32,19 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        this.renderBackground(context);
+        
         int i = this.x;
         int j = this.y;
-        context.drawTexture(TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0.0f, 0.0f, this.backgroundWidth, this.backgroundHeight, 256, 256);
         int k = (int)(41.0F * this.scrollAmount);
-        context.drawTexture(TEXTURE, i + 119, j + 15 + k, 176 + (this.shouldScroll() ? 0 : 12), 0, 12, 15);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 119, j + 15 + k, 176 + (this.shouldScroll() ? 0 : 12), 0.0f, 12, 15, 256, 256);
         int l = this.x + 52;
         int m = this.y + 14;
         int n = this.scrollOffset + 12;
 
         Slot slot = this.handler.getDyeSlot();
         if (!slot.hasStack()) {
-            context.drawTexture(TEXTURE, i + slot.x, j + slot.y, this.backgroundWidth, 15, 16, 16);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + slot.x, j + slot.y, this.backgroundWidth, 15.0f, 16, 16, 256, 256);
         }
 
         this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
@@ -70,7 +71,7 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
                 int n = i + m % 4 * 16;
                 int o = j + m / 4 * 18 + 2;
                 if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-                    context.drawItemTooltip(this.textRenderer, list.get(l).getOutput(this.client.world.getRegistryManager()), x, y);
+                    context.drawItemTooltip(this.textRenderer, list.get(l).getOutput(), x, y);
                 }
             }
         }
@@ -89,7 +90,7 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
                 n += 36;
             }
 
-            context.drawTexture(TEXTURE, k, m - 1, 0, n, 16, 18);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, k, m - 1, 0.0f, n, 16, 18, 256, 256);
         }
     }
 
@@ -101,7 +102,7 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            context.drawItem(list.get(i).getOutput(this.client.world.getRegistryManager()), k, m);
+            context.drawItem(list.get(i).getOutput(), k, m);
         }
     }
 
