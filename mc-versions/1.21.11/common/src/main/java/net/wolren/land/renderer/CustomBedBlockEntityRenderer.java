@@ -31,7 +31,7 @@ public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomB
     private final Model.SinglePartModel bedFoot;
 
     public CustomBedBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-        Function<net.minecraft.util.Identifier, RenderLayer> layerFactory = RenderLayer::getEntitySolid;
+        Function<net.minecraft.util.Identifier, RenderLayer> layerFactory = RenderLayer::getEntityCutoutNoCull;
         this.bedHead = new Model.SinglePartModel(ctx.getLayerModelPart(EntityModelLayers.BED_HEAD), layerFactory);
         this.bedFoot = new Model.SinglePartModel(ctx.getLayerModelPart(EntityModelLayers.BED_FOOT), layerFactory);
     }
@@ -73,14 +73,14 @@ public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomB
         if (spriteIdentifier == null) return;
 
         Model.SinglePartModel part = state.headPart ? this.bedHead : this.bedFoot;
-        RenderLayer renderLayer = spriteIdentifier.getRenderLayer(RenderLayer::getEntitySolid);
+        RenderLayer renderLayer = spriteIdentifier.getRenderLayer(RenderLayer::getEntityCutoutNoCull);
         int light = state.lightmapCoordinates;
 
         matrices.push();
         matrices.translate(0.0f, 0.5625f, !state.headPart ? -1.0f : 0.0f);
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90.0f));
         matrices.translate(0.5f, 0.5f, 0.5f);
-        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0f + state.facing.asRotation()));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0f + state.facing.getHorizontalDegrees()));
         matrices.translate(-0.5f, -0.5f, -0.5f);
 
         queue.submitModel(part, Unit.INSTANCE, matrices, renderLayer, light, 0, 0, state.crumblingOverlay);
