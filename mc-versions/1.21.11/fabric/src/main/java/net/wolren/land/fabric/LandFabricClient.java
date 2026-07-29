@@ -63,9 +63,12 @@ public class LandFabricClient implements ClientModInitializer {
         // Elytra feature renderer
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
             Identifier rainbowElytra = Identifier.of("pride_land", "textures/entity/rainbow_elytra.png");
-            registrationHelper.register(new CustomElytraFeatureRenderer(
+            var renderer = new CustomElytraFeatureRenderer(
                 (net.minecraft.client.render.entity.feature.FeatureRendererContext) entityRenderer,
-                context.getEntityModels(), rainbowElytra));
+                context.getEntityModels(), rainbowElytra);
+            @SuppressWarnings({"unchecked", "rawtypes"})
+            net.minecraft.client.render.entity.feature.FeatureRenderer castRenderer = (net.minecraft.client.render.entity.feature.FeatureRenderer) renderer;
+            registrationHelper.register(castRenderer);
         });
 
         // Entity renderers
