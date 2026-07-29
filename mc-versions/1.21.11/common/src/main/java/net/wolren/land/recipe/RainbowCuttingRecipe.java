@@ -1,12 +1,12 @@
 package net.wolren.land.recipe;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.StonecuttingRecipe;
-import net.minecraft.util.Identifier;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.world.World;
 import net.wolren.land.LandCommon;
 
@@ -16,17 +16,21 @@ public class RainbowCuttingRecipe extends StonecuttingRecipe {
     }
 
     @Override
-    public boolean matches(Inventory inventory, World world) {
-        return this.ingredient.test(inventory.getStack(0));
+    public boolean matches(SingleStackRecipeInput input, World world) {
+        return this.ingredient().test(input.item());
     }
 
-    @Override
     public ItemStack createIcon() {
         return new ItemStack(Blocks.STONECUTTER);
     }
 
     public ItemStack getOutput() {
-        return this.result;
+        return this.result();
+    }
+
+    @Override
+    public RecipeSerializer<? extends StonecuttingRecipe> getSerializer() {
+        return ModSerializers.RAINBOW_CUTTING_SERIALIZER;
     }
 
     @Override
