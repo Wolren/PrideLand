@@ -7,39 +7,27 @@ import net.minecraft.util.Identifier;
 import net.wolren.land.LandCommon;
 import net.wolren.land.item.custom.CustomElytraItem;
 import net.wolren.land.item.custom.RainbowSpawnEggItem;
-import net.wolren.land.item.material.RainbowArmorMaterial;
-import net.wolren.land.item.material.RainbowToolMaterials;
 
 public class ModItems {
     public static final Item RAINBOW_DYE = registerItem("rainbow_dye", new Item(new Item.Settings()));
     public static final Item RAINBOW_SWORD = registerItem("rainbow_sword",
-            new SwordItem(RainbowToolMaterials.RAINBOW,
-                    new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(RainbowToolMaterials.RAINBOW, 3, -2.4f))));
+            new Item(new Item.Settings().maxCount(1).fireproof()));
     public static final Item RAINBOW_PICKAXE = registerItem("rainbow_pickaxe",
-            new PickaxeItem(RainbowToolMaterials.RAINBOW,
-                    new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(RainbowToolMaterials.RAINBOW, 1, -2.8f))));
+            new Item(new Item.Settings().maxCount(1).fireproof()));
     public static final Item RAINBOW_AXE = registerItem("rainbow_axe",
-            new AxeItem(RainbowToolMaterials.RAINBOW,
-                    new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(RainbowToolMaterials.RAINBOW, 5, -3.0f))));
+            new Item(new Item.Settings().maxCount(1).fireproof()));
     public static final Item RAINBOW_SHOVEL = registerItem("rainbow_shovel",
-            new ShovelItem(RainbowToolMaterials.RAINBOW,
-                    new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(RainbowToolMaterials.RAINBOW, 1.5f, -3.0f))));
+            new Item(new Item.Settings().maxCount(1).fireproof()));
     public static final Item RAINBOW_HOE = registerItem("rainbow_hoe",
-            new HoeItem(RainbowToolMaterials.RAINBOW,
-                    new Item.Settings().attributeModifiers(HoeItem.createAttributeModifiers(RainbowToolMaterials.RAINBOW, 0, -3f))));
-
+            new Item(new Item.Settings().maxCount(1).fireproof()));
     public static final Item RAINBOW_HELMET = registerItem("rainbow_helmet",
-            new ArmorItem(RainbowArmorMaterial.RAINBOW, ArmorItem.Type.HELMET,
-                    new Item.Settings().maxDamage(ArmorItem.Type.HELMET.getMaxDamage(37))));
+            new Item(new Item.Settings().maxCount(1).fireproof()));
     public static final Item RAINBOW_CHESTPLATE = registerItem("rainbow_chestplate",
-            new ArmorItem(RainbowArmorMaterial.RAINBOW, ArmorItem.Type.CHESTPLATE,
-                    new Item.Settings().maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(37))));
+            new Item(new Item.Settings().maxCount(1).fireproof()));
     public static final Item RAINBOW_LEGGINGS = registerItem("rainbow_leggings",
-            new ArmorItem(RainbowArmorMaterial.RAINBOW, ArmorItem.Type.LEGGINGS,
-                    new Item.Settings().maxDamage(ArmorItem.Type.LEGGINGS.getMaxDamage(37))));
+            new Item(new Item.Settings().maxCount(1).fireproof()));
     public static final Item RAINBOW_BOOTS = registerItem("rainbow_boots",
-            new ArmorItem(RainbowArmorMaterial.RAINBOW, ArmorItem.Type.BOOTS,
-                    new Item.Settings().maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(37))));
+            new Item(new Item.Settings().maxCount(1).fireproof()));
 
     public static final Item RAINBOW_ELYTRA = registerItem("rainbow_elytra",
             new CustomElytraItem(new Item.Settings().maxCount(1).fireproof()));
