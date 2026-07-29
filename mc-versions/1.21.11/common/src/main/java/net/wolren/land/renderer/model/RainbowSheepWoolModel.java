@@ -3,7 +3,6 @@ package net.wolren.land.renderer.model;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
 import net.minecraft.client.render.entity.state.SheepEntityRenderState;
 
@@ -40,7 +39,7 @@ public class RainbowSheepWoolModel extends QuadrupedEntityModel<SheepEntityRende
     @Override
     public void setAngles(SheepEntityRenderState state) {
         super.setAngles(state);
-        head.pivotY = 6.0F + state.neckAngle * 9.0F;
+        head.originY = 6.0F + state.neckAngle * 9.0F;
         head.pitch = state.headAngle;
     }
 }
