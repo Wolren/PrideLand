@@ -3,6 +3,7 @@ package net.wolren.land.screen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
@@ -32,7 +33,6 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        
         int i = this.x;
         int j = this.y;
         context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0.0f, 0.0f, this.backgroundWidth, this.backgroundHeight, 256, 256);
@@ -107,9 +107,11 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(Click click, boolean doubled) {
         this.mouseClicked = false;
         if (this.canCraft) {
+            double mouseX = click.x();
+            double mouseY = click.y();
             int i = this.x + 52;
             int j = this.y + 14;
             int k = this.scrollOffset + 12;
@@ -132,12 +134,13 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
             }
         }
 
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(click, doubled);
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    public boolean mouseDragged(Click click, double offsetX, double offsetY) {
         if (this.mouseClicked && this.shouldScroll()) {
+            double mouseY = click.y();
             int i = this.y + 14;
             int j = i + 54;
             this.scrollAmount = ((float)mouseY - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
@@ -145,15 +148,15 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
             this.scrollOffset = (int)((double)(this.scrollAmount * (float)this.getMaxScroll()) + 0.5) * 4;
             return true;
         } else {
-            return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+            return super.mouseDragged(click, offsetX, offsetY);
         }
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if (this.shouldScroll()) {
             int i = this.getMaxScroll();
-            float f = (float)amount / (float)i;
+            float f = (float)verticalAmount / (float)i;
             this.scrollAmount = MathHelper.clamp(this.scrollAmount - f, 0.0F, 1.0F);
             this.scrollOffset = (int)((double)(this.scrollAmount * (float)i) + 0.5) * 4;
         }
