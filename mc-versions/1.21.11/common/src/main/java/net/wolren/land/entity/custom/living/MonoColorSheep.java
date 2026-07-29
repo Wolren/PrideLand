@@ -32,7 +32,6 @@ public class MonoColorSheep extends BaseSheep implements Shearable {
         this.wool = wool;
     }
 
-    @Override
     public Optional<RegistryKey<LootTable>> getLootTableKey() {
         if (isSheared()) {
             return Optional.of(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("minecraft", "entities/sheep")));

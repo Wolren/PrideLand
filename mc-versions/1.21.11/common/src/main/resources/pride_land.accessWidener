@@ -25,7 +25,7 @@ accessible method net/minecraft/item/ArmorItem <init> (Lnet/minecraft/item/Armor
 accessible method net/minecraft/item/BlockItem <init> (Lnet/minecraft/block/Block;Lnet/minecraft/item/Item$Settings;)V
 # Block entity types - open the factory interface
 accessible class net/minecraft/block/entity/BlockEntityType$BlockEntityFactory
-accessible method net/minecraft/block/entity/BlockEntityType <init> (Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;Ljava/util/Set;Lcom/mojang/datafixers/types/Type;)V
+accessible method net/minecraft/block/entity/BlockEntityType <init> (Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;Ljava/util/Set;)V
 
 # Entity type builder
 accessible method net/minecraft/entity/EntityType$Builder <init> (Lnet/minecraft/entity/EntityType$EntityFactory;Lnet/minecraft/entity/SpawnGroup;)V
