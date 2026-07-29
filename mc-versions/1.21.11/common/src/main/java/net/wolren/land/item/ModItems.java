@@ -74,14 +74,14 @@ public class ModItems {
 
 
 
-    public static final AxeItem RAINBOW_AXE = (AxeItem) registerItem("rainbow_axe",
-            new AxeItem(ToolMaterials.NETHERITE, 5.0f, -3.0f, new Item.Settings().maxCount(1).fireproof()));
-    public static final HoeItem RAINBOW_HOE = (HoeItem) registerItem("rainbow_hoe",
-            new HoeItem(ToolMaterials.NETHERITE, -4, 0.0f, new Item.Settings().maxCount(1).fireproof()));
+    public static final Item RAINBOW_AXE = registerItem("rainbow_axe",
+            new Item(new Item.Settings().maxCount(1).fireproof()));
+    public static final Item RAINBOW_HOE = registerItem("rainbow_hoe",
+            new Item(new Item.Settings().maxCount(1).fireproof()));
     public static final Item RAINBOW_PICKAXE = registerItem("rainbow_pickaxe",
             new Item(new Item.Settings().maxCount(1).fireproof()));
-    public static final ShovelItem RAINBOW_SHOVEL = (ShovelItem) registerItem("rainbow_shovel",
-            new ShovelItem(ToolMaterials.NETHERITE, 1.5f, -3.0f, new Item.Settings().maxCount(1).fireproof()));
+    public static final Item RAINBOW_SHOVEL = registerItem("rainbow_shovel",
+            new Item(new Item.Settings().maxCount(1).fireproof()));
     public static final Item RAINBOW_SWORD = registerItem("rainbow_sword",
             new Item(new Item.Settings().maxCount(1).fireproof()));
 
