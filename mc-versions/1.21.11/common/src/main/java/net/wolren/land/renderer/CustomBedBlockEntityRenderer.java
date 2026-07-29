@@ -5,14 +5,18 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.render.RenderSetup;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.state.BedBlockEntityRenderState;
+import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
 import net.minecraft.client.render.command.ModelCommandRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
@@ -31,7 +35,7 @@ public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomB
     private final Model.SinglePartModel bedFoot;
 
     public CustomBedBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-        Function<net.minecraft.util.Identifier, RenderLayer> layerFactory = RenderLayer::getEntityCutoutNoCull;
+        Function<Identifier, RenderLayer> layerFactory = id -> RenderLayer.of("bed_entity", RenderSetup.builder(RenderPipelines.ENTITY_CUTOUT_NO_CULL).build());
         this.bedHead = new Model.SinglePartModel(ctx.getLayerModelPart(EntityModelLayers.BED_HEAD), layerFactory);
         this.bedFoot = new Model.SinglePartModel(ctx.getLayerModelPart(EntityModelLayers.BED_FOOT), layerFactory);
     }
@@ -73,14 +77,14 @@ public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomB
         if (spriteIdentifier == null) return;
 
         Model.SinglePartModel part = state.headPart ? this.bedHead : this.bedFoot;
-        RenderLayer renderLayer = spriteIdentifier.getRenderLayer(RenderLayer::getEntityCutoutNoCull);
+        RenderLayer renderLayer = spriteIdentifier.getRenderLayer(id -> RenderLayer.of("bed_entity_sprite", RenderSetup.builder(RenderPipelines.ENTITY_CUTOUT_NO_CULL).build()));
         int light = state.lightmapCoordinates;
 
         matrices.push();
         matrices.translate(0.0f, 0.5625f, !state.headPart ? -1.0f : 0.0f);
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90.0f));
         matrices.translate(0.5f, 0.5f, 0.5f);
-        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0f + state.facing.getHorizontalDegrees()));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0f + Direction.getHorizontalDegreesOrThrow(state.facing)));
         matrices.translate(-0.5f, -0.5f, -0.5f);
 
         queue.submitModel(part, Unit.INSTANCE, matrices, renderLayer, light, 0, 0, state.crumblingOverlay);
