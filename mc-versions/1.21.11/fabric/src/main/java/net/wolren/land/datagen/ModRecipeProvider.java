@@ -5,9 +5,9 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.data.recipe.RecipeExporter;
+import net.minecraft.data.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -18,7 +18,6 @@ import net.wolren.land.item.ModItems;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
 
@@ -27,7 +26,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    public void generate(Consumer<RecipeJsonProvider> exporter) {
+    public void generate(RecipeExporter exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.RAINBOW_CRAFTING, 1)
                 .pattern("SS")
                 .pattern("WW")
