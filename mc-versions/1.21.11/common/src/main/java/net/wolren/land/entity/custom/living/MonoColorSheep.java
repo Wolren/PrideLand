@@ -9,6 +9,10 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -27,16 +31,17 @@ public class MonoColorSheep extends BaseSheep implements Shearable {
     }
 
     @Override
-    public Identifier getLootTableId() {
+    public RegistryKey<LootTable> getLootTable() {
         if (isSheared()) {
-            return Identifier.of("minecraft", "entities/sheep");
+            return RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("minecraft", "entities/sheep"));
         }
-        return Identifier.of("pride_land", "entities/sheep/rainbow_sheep");
+        return RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("pride_land", "entities/sheep/rainbow_sheep"));
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        dataTracker.startTracking(isSheared, (byte) 0);
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(isSheared, (byte) 0);
     }
 
     public boolean isSheared() {
@@ -59,9 +64,9 @@ public class MonoColorSheep extends BaseSheep implements Shearable {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.getItem() instanceof ShearsItem) {
-            if (!getWorld().isClient && isShearable()) {
+            if (!getEntityWorld().isClient && isShearable()) {
                 sheared(SoundCategory.PLAYERS);
-                itemStack.damage(1, player, (playerEntity) -> playerEntity.sendToolBreakStatus(hand));
+                itemStack.damage(1, player, hand);
                 return ActionResult.SUCCESS;
             }
             return ActionResult.CONSUME;
@@ -70,11 +75,11 @@ public class MonoColorSheep extends BaseSheep implements Shearable {
     }
 
     public void sheared(SoundCategory shearedSoundCategory) {
-        getWorld().playSoundFromEntity(null, this, SoundEvents.ENTITY_SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
+        getEntityWorld().playSoundFromEntity(null, this, SoundEvents.ENTITY_SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
         setSheared(true);
         int i = 1 + random.nextInt(3);
         for (int j = 0; j < i; ++j) {
-            ItemEntity itemEntity = dropItem(wool.getItem(), 1);
+            ItemEntity itemEntity = dropItem((ServerWorld) getEntityWorld(), wool.getItem(), 1);
             if (itemEntity != null) {
                 itemEntity.setVelocity(itemEntity.getVelocity().add((random.nextFloat() - random.nextFloat()) * 0.1F, random.nextFloat() * 0.05F, (random.nextFloat() - random.nextFloat()) * 0.1F));
             }

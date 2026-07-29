@@ -15,7 +15,7 @@ public class RainbowSheepModel extends SheepEntityModel {
     }
 
     public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = QuadrupedEntityModel.getModelData(12, Dilation.NONE);
+        ModelData modelData = QuadrupedEntityModel.getModelData(12, false, false, Dilation.NONE);
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild(EntityModelPartNames.HEAD,
                 ModelPartBuilder.create().uv(0, 0).cuboid(-3.0F, -4.0F, -6.0F, 6.0F, 6.0F, 8.0F),

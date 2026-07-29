@@ -1,6 +1,7 @@
 package net.wolren.land.entity.custom.living;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -17,6 +18,6 @@ public class BaseSheep extends SheepEntity {
 
     @Override
     public BaseSheep createChild(ServerWorld serverWorld, PassiveEntity other) {
-        return variantManager.getChild(this, other).create(serverWorld);
+        return variantManager.getChild(this, other).create(serverWorld, SpawnReason.BREEDING);
     }
 }
