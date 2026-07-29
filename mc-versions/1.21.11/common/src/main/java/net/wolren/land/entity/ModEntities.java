@@ -6,6 +6,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.wolren.land.LandCommon;
 import net.wolren.land.block.ModBlocks;
@@ -79,7 +81,7 @@ public class ModEntities {
         return Registry.register(Registries.ENTITY_TYPE,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_sheep"),
                 EntityType.Builder.create(MonoColorSheep.RainbowSheepEntity::new, SpawnGroup.CREATURE)
-                        .setDimensions(0.9f, 1.3f).build("rainbow_sheep"));
+                        .dimensions(0.9f, 1.3f).build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep"))));
     }
 
     private static BlockEntityType<CustomBedBlockEntity> createCustomBedBlockEntity() {
