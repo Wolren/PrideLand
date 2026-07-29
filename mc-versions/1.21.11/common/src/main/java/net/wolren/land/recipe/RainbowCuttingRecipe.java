@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.SingleStackRecipe;
 import net.minecraft.recipe.StonecuttingRecipe;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.world.World;
@@ -28,12 +29,13 @@ public class RainbowCuttingRecipe extends StonecuttingRecipe {
         return this.result();
     }
 
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return ModSerializers.RAINBOW_CUTTING_SERIALIZER;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends SingleStackRecipe> getType() {
         return LandCommon.RAINBOW_CUTTING;
     }
 }
