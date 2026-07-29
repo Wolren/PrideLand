@@ -16,22 +16,22 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerGlassPane(ModBlocks.RAINBOW_STAINED_GLASS, ModBlocks.RAINBOW_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.TRANS_STAINED_GLASS, ModBlocks.TRANS_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.NONBINARY_STAINED_GLASS, ModBlocks.NONBINARY_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.BISEXUAL_STAINED_GLASS, ModBlocks.BISEXUAL_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.PANSEXUAL_STAINED_GLASS, ModBlocks.PANSEXUAL_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.AROMANTIC_STAINED_GLASS, ModBlocks.AROMANTIC_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.DEMISEXUAL_STAINED_GLASS, ModBlocks.DEMISEXUAL_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.AGENDER_STAINED_GLASS, ModBlocks.AGENDER_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.PROGRESS_PRIDE_STAINED_GLASS, ModBlocks.PROGRESS_PRIDE_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.ASEXUAL_STAINED_GLASS, ModBlocks.ASEXUAL_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.GENDERFLUID_STAINED_GLASS, ModBlocks.GENDERFLUID_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.LESBIAN_STAINED_GLASS, ModBlocks.LESBIAN_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.DEMIBOY_STAINED_GLASS, ModBlocks.DEMIBOY_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.DEMIGIRL_STAINED_GLASS, ModBlocks.DEMIGIRL_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.GENDERQUEER_STAINED_GLASS, ModBlocks.GENDERQUEER_STAINED_GLASS_PANE);
-        blockStateModelGenerator.registerGlassPane(ModBlocks.POLYSEXUAL_STAINED_GLASS, ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.RAINBOW_STAINED_GLASS, ModBlocks.RAINBOW_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.TRANS_STAINED_GLASS, ModBlocks.TRANS_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.NONBINARY_STAINED_GLASS, ModBlocks.NONBINARY_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.BISEXUAL_STAINED_GLASS, ModBlocks.BISEXUAL_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.PANSEXUAL_STAINED_GLASS, ModBlocks.PANSEXUAL_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.AROMANTIC_STAINED_GLASS, ModBlocks.AROMANTIC_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.DEMISEXUAL_STAINED_GLASS, ModBlocks.DEMISEXUAL_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.AGENDER_STAINED_GLASS, ModBlocks.AGENDER_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.PROGRESS_PRIDE_STAINED_GLASS, ModBlocks.PROGRESS_PRIDE_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.ASEXUAL_STAINED_GLASS, ModBlocks.ASEXUAL_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.GENDERFLUID_STAINED_GLASS, ModBlocks.GENDERFLUID_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.LESBIAN_STAINED_GLASS, ModBlocks.LESBIAN_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.DEMIBOY_STAINED_GLASS, ModBlocks.DEMIBOY_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.DEMIGIRL_STAINED_GLASS, ModBlocks.DEMIGIRL_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.GENDERQUEER_STAINED_GLASS, ModBlocks.GENDERQUEER_STAINED_GLASS_PANE);
+        blockStateModelGenerator.registerGlassAndPane(ModBlocks.POLYSEXUAL_STAINED_GLASS, ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE);
 
         blockStateModelGenerator.registerHangingSign(ModBlocks.RAINBOW_PLANKS, ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN);
 
@@ -76,10 +76,10 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.PROGRESS_PRIDE_ELYTRA, Models.GENERATED);
         itemModelGenerator.register(ModItems.TRANS_ELYTRA, Models.GENERATED);
 
-        itemModelGenerator.registerArmor(ModItems.RAINBOW_HELMET);
-        itemModelGenerator.registerArmor(ModItems.RAINBOW_CHESTPLATE);
-        itemModelGenerator.registerArmor(ModItems.RAINBOW_LEGGINGS);
-        itemModelGenerator.registerArmor(ModItems.RAINBOW_BOOTS);
+        itemModelGenerator.register(ModItems.RAINBOW_HELMET);
+        itemModelGenerator.register(ModItems.RAINBOW_CHESTPLATE);
+        itemModelGenerator.register(ModItems.RAINBOW_LEGGINGS);
+        itemModelGenerator.register(ModItems.RAINBOW_BOOTS);
 
         itemModelGenerator.register(ModItems.RAINBOW_AXE, Models.GENERATED);
         itemModelGenerator.register(ModItems.RAINBOW_HOE, Models.GENERATED);

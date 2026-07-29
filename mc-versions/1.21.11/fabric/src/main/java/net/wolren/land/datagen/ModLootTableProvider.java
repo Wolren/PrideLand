@@ -3,12 +3,14 @@ package net.wolren.land.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryWrapper;
+import java.util.concurrent.CompletableFuture;
 import net.wolren.land.block.ModBlocks;
 import net.wolren.land.item.ModItems;
 
 public class ModLootTableProvider extends FabricBlockLootTableProvider {
-    public ModLootTableProvider(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    public ModLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(dataOutput, registriesFuture);
     }
 
     @Override

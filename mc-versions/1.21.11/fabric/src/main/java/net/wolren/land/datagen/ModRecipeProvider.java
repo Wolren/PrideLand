@@ -6,11 +6,13 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.recipe.RecipeExporter;
+import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.data.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.wolren.land.block.ModBlocks;
@@ -18,25 +20,34 @@ import net.wolren.land.item.ModItems;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
 
-    public ModRecipeProvider(FabricDataOutput output) {
-        super(output);
+    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, registriesFuture);
     }
 
     @Override
-    public void generate(RecipeExporter exporter) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.RAINBOW_CRAFTING, 1)
-                .pattern("SS")
-                .pattern("WW")
-                .pattern("TT")
-                .input('S', Items.STRING)
-                .input('W', ItemTags.PLANKS)
-                .input('T', Blocks.STONE)
-                .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
-                .criterion(hasItem(Items.STONE), conditionsFromItem(Items.STONE))
-                .offerTo(exporter, Identifier.of(getRecipeName(ModBlocks.RAINBOW_CRAFTING)));
+    public String getName() {
+        return "Rainbow Recipe Provider";
+    }
+
+    @Override
+    protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registryLookup, RecipeExporter exporter) {
+        return new RecipeGenerator(registryLookup, exporter) {
+            @Override
+            public void generate() {
+                ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.RAINBOW_CRAFTING, 1)
+                    .pattern("SS")
+                    .pattern("WW")
+                    .pattern("TT")
+                    .input('S', Items.STRING)
+                    .input('W', ItemTags.PLANKS)
+                    .input('T', Blocks.STONE)
+                    .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
+                    .criterion(hasItem(Blocks.STONE), conditionsFromItem(Blocks.STONE))
+                    .offerTo(exporter, Identifier.of(getRecipeName(ModBlocks.RAINBOW_CRAFTING)));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModItems.RAINBOW_DYE, 2)
                 .input(Items.RED_DYE)
@@ -731,5 +742,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('X', ModBlocks.RAINBOW_BRICKS)
                 .criterion(hasItem(ModBlocks.RAINBOW_BRICKS), conditionsFromItem(ModBlocks.RAINBOW_BRICKS))
                 .offerTo(exporter, Identifier.of(getRecipeName(ModBlocks.RAINBOW_BRICK_WALL)));
+            }
+        };
     }
 }

@@ -18,7 +18,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(ModTags.Items.ELYTRA_ITEMS)
+        valueLookupBuilder(ModTags.Items.ELYTRA_ITEMS)
                 .add(ModItems.RAINBOW_ELYTRA)
                 .add(ModItems.AGENDER_ELYTRA)
                 .add(ModItems.AROMANTIC_ELYTRA)
@@ -36,19 +36,19 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.PROGRESS_PRIDE_ELYTRA)
                 .add(ModItems.TRANS_ELYTRA);
 
-        getOrCreateTagBuilder(ItemTags.TRIMMABLE_ARMOR)
+        valueLookupBuilder(ItemTags.TRIMMABLE_ARMOR)
                 .add(ModItems.RAINBOW_HELMET)
                 .add(ModItems.RAINBOW_CHESTPLATE)
                 .add(ModItems.RAINBOW_LEGGINGS)
                 .add(ModItems.RAINBOW_BOOTS);
 
-        getOrCreateTagBuilder(ItemTags.PLANKS)
+        valueLookupBuilder(ItemTags.PLANKS)
                 .add(ModBlocks.RAINBOW_PLANKS.asItem());
 
-        getOrCreateTagBuilder(ItemTags.BOATS)
+        valueLookupBuilder(ItemTags.BOATS)
                 .add(ModItems.RAINBOW_BOAT);
 
-        getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
+        valueLookupBuilder(ItemTags.CHEST_BOATS)
                 .add(ModItems.RAINBOW_CHEST_BOAT);
     }
 }
