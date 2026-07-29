@@ -35,22 +35,22 @@ public class CustomElytraFeatureRenderer<T extends LivingEntity, M extends Entit
         super(context);
         this.defaultElytraTexture = defaultElytraTexture;
         this.elytraTextures = new HashMap<>();
-        this.elytraTextures.put(ModItems.RAINBOW_ELYTRA, new Identifier("pride_land:textures/entity/rainbow_elytra.png"));
-        this.elytraTextures.put(ModItems.AGENDER_ELYTRA, new Identifier("pride_land:textures/entity/agender_elytra.png"));
-        this.elytraTextures.put(ModItems.AROMANTIC_ELYTRA, new Identifier("pride_land:textures/entity/aromantic_elytra.png"));
-        this.elytraTextures.put(ModItems.ASEXUAL_ELYTRA, new Identifier("pride_land:textures/entity/asexual_elytra.png"));
-        this.elytraTextures.put(ModItems.BISEXUAL_ELYTRA, new Identifier("pride_land:textures/entity/bisexual_elytra.png"));
-        this.elytraTextures.put(ModItems.DEMIBOY_ELYTRA, new Identifier("pride_land:textures/entity/demiboy_elytra.png"));
-        this.elytraTextures.put(ModItems.DEMIGIRL_ELYTRA, new Identifier("pride_land:textures/entity/demigirl_elytra.png"));
-        this.elytraTextures.put(ModItems.DEMISEXUAL_ELYTRA, new Identifier("pride_land:textures/entity/demisexual_elytra.png"));
-        this.elytraTextures.put(ModItems.GENDERFLUID_ELYTRA, new Identifier("pride_land:textures/entity/genderfluid_elytra.png"));
-        this.elytraTextures.put(ModItems.GENDERQUEER_ELYTRA, new Identifier("pride_land:textures/entity/genderqueer_elytra.png"));
-        this.elytraTextures.put(ModItems.LESBIAN_ELYTRA, new Identifier("pride_land:textures/entity/lesbian_elytra.png"));
-        this.elytraTextures.put(ModItems.NONBINARY_ELYTRA, new Identifier("pride_land:textures/entity/nonbinary_elytra.png"));
-        this.elytraTextures.put(ModItems.PANSEXUAL_ELYTRA, new Identifier("pride_land:textures/entity/pansexual_elytra.png"));
-        this.elytraTextures.put(ModItems.POLYSEXUAL_ELYTRA, new Identifier("pride_land:textures/entity/polysexual_elytra.png"));
-        this.elytraTextures.put(ModItems.PROGRESS_PRIDE_ELYTRA, new Identifier("pride_land:textures/entity/progress_pride_elytra.png"));
-        this.elytraTextures.put(ModItems.TRANS_ELYTRA, new Identifier("pride_land:textures/entity/trans_elytra.png"));
+        this.elytraTextures.put(ModItems.RAINBOW_ELYTRA, Identifier.of("pride_land:textures/entity/rainbow_elytra.png"));
+        this.elytraTextures.put(ModItems.AGENDER_ELYTRA, Identifier.of("pride_land:textures/entity/agender_elytra.png"));
+        this.elytraTextures.put(ModItems.AROMANTIC_ELYTRA, Identifier.of("pride_land:textures/entity/aromantic_elytra.png"));
+        this.elytraTextures.put(ModItems.ASEXUAL_ELYTRA, Identifier.of("pride_land:textures/entity/asexual_elytra.png"));
+        this.elytraTextures.put(ModItems.BISEXUAL_ELYTRA, Identifier.of("pride_land:textures/entity/bisexual_elytra.png"));
+        this.elytraTextures.put(ModItems.DEMIBOY_ELYTRA, Identifier.of("pride_land:textures/entity/demiboy_elytra.png"));
+        this.elytraTextures.put(ModItems.DEMIGIRL_ELYTRA, Identifier.of("pride_land:textures/entity/demigirl_elytra.png"));
+        this.elytraTextures.put(ModItems.DEMISEXUAL_ELYTRA, Identifier.of("pride_land:textures/entity/demisexual_elytra.png"));
+        this.elytraTextures.put(ModItems.GENDERFLUID_ELYTRA, Identifier.of("pride_land:textures/entity/genderfluid_elytra.png"));
+        this.elytraTextures.put(ModItems.GENDERQUEER_ELYTRA, Identifier.of("pride_land:textures/entity/genderqueer_elytra.png"));
+        this.elytraTextures.put(ModItems.LESBIAN_ELYTRA, Identifier.of("pride_land:textures/entity/lesbian_elytra.png"));
+        this.elytraTextures.put(ModItems.NONBINARY_ELYTRA, Identifier.of("pride_land:textures/entity/nonbinary_elytra.png"));
+        this.elytraTextures.put(ModItems.PANSEXUAL_ELYTRA, Identifier.of("pride_land:textures/entity/pansexual_elytra.png"));
+        this.elytraTextures.put(ModItems.POLYSEXUAL_ELYTRA, Identifier.of("pride_land:textures/entity/polysexual_elytra.png"));
+        this.elytraTextures.put(ModItems.PROGRESS_PRIDE_ELYTRA, Identifier.of("pride_land:textures/entity/progress_pride_elytra.png"));
+        this.elytraTextures.put(ModItems.TRANS_ELYTRA, Identifier.of("pride_land:textures/entity/trans_elytra.png"));
 
         this.elytra = new ElytraEntityModel<>(loader.getModelPart(EntityModelLayers.ELYTRA));
     }

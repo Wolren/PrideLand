@@ -15,7 +15,7 @@ import net.wolren.land.renderer.model.RainbowSheepWoolModel;
 
 @Environment(EnvType.CLIENT)
 public class RainbowSheepFeatureRenderer extends FeatureRenderer<MonoColorSheep.RainbowSheepEntity, RainbowSheepModel<MonoColorSheep.RainbowSheepEntity>> {
-    private static final Identifier SKIN = new Identifier("pride_land:textures/entity/sheep/rainbow_sheep_fur.png");
+    private static final Identifier SKIN = Identifier.of("pride_land:textures/entity/sheep/rainbow_sheep_fur.png");
     private final RainbowSheepWoolModel<MonoColorSheep.RainbowSheepEntity> model;
 
     public RainbowSheepFeatureRenderer(FeatureRendererContext<MonoColorSheep.RainbowSheepEntity, RainbowSheepModel<MonoColorSheep.RainbowSheepEntity>> context, EntityModelLoader loader) {

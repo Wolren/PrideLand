@@ -17,7 +17,7 @@ import net.wolren.land.recipe.RainbowCuttingRecipe;
 import java.util.List;
 
 public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(LandCommon.MOD_ID, "textures/gui/container/rainbow_crafting.png");
+    private static final Identifier TEXTURE = Identifier.of(LandCommon.MOD_ID, "textures/gui/container/rainbow_crafting.png");
     private float scrollAmount;
     private boolean mouseClicked;
     private int scrollOffset;

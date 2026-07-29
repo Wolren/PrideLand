@@ -251,11 +251,11 @@ public class ModBlocks {
         } else {
             registerBlockItem(name, block);
         }
-        return Registry.register(Registries.BLOCK, new Identifier(LandCommon.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(LandCommon.MOD_ID, name), block);
     }
 
     private static void registerBlockItem(String name, Block block) {
-        Registry.register(Registries.ITEM, new Identifier(LandCommon.MOD_ID, name),
+        Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, name),
                 new BlockItem(block, new Item.Settings()));
     }
 
