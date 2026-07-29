@@ -3,36 +3,37 @@ package net.wolren.land.renderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.DoubleBlockProperties;
-import net.minecraft.block.enums.BedPart;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
+import net.minecraft.client.render.block.entity.state.BedBlockEntityRenderState;
+import net.minecraft.client.render.command.ModelCommandRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
-import net.minecraft.world.World;
+import net.minecraft.util.math.Vec3d;
 import net.wolren.land.block.custom.CustomBedBlock;
 import net.wolren.land.entity.custom.block.CustomBedBlockEntity;
-import net.wolren.land.entity.ModEntities;
 import net.wolren.land.util.BedTextureProvider;
 
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Function;
+
 @Environment(EnvType.CLIENT)
-public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomBedBlockEntity> {
-    private final ModelPart bedHead;
-    private final ModelPart bedFoot;
+public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomBedBlockEntity, BedBlockEntityRenderState> {
+    private final Model.SinglePartModel bedHead;
+    private final Model.SinglePartModel bedFoot;
 
     public CustomBedBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-        this.bedHead = ctx.getLayerModelPart(EntityModelLayers.BED_HEAD);
-        this.bedFoot = ctx.getLayerModelPart(EntityModelLayers.BED_FOOT);
+        Function<net.minecraft.util.Identifier, RenderLayer> layerFactory = RenderLayer::getEntitySolid;
+        this.bedHead = new Model.SinglePartModel(ctx.getLayerModelPart(EntityModelLayers.BED_HEAD), layerFactory);
+        this.bedFoot = new Model.SinglePartModel(ctx.getLayerModelPart(EntityModelLayers.BED_FOOT), layerFactory);
     }
 
     public static TexturedModelData getHeadTexturedModelData() {
@@ -54,29 +55,35 @@ public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomB
     }
 
     @Override
-    public void render(CustomBedBlockEntity customBedBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j) {
-        SpriteIdentifier spriteIdentifier = BedTextureProvider.getSpriteIdentifierForBed(customBedBlockEntity.getCachedState().getBlock());
-        World world2 = customBedBlockEntity.getWorld();
-        if (world2 != null) {
-            BlockState blockState = customBedBlockEntity.getCachedState();
-            DoubleBlockProperties.PropertySource<CustomBedBlockEntity> propertySource = DoubleBlockProperties.toPropertySource(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlock::getBedPart, CustomBedBlock::getOppositePartDirection, ChestBlock.FACING, blockState, world2, customBedBlockEntity.getPos(), (world, pos) -> false);
-            int k = propertySource.apply(new LightmapCoordinatesRetriever<>()).get(i);
-            this.renderPart(matrixStack, vertexConsumerProvider, blockState.get(CustomBedBlock.PART) == BedPart.HEAD ? this.bedHead : this.bedFoot, blockState.get(CustomBedBlock.FACING), spriteIdentifier, k, j, false);
-        } else {
-            this.renderPart(matrixStack, vertexConsumerProvider, this.bedHead, Direction.SOUTH, spriteIdentifier, i, j, false);
-            this.renderPart(matrixStack, vertexConsumerProvider, this.bedFoot, Direction.SOUTH, spriteIdentifier, i, j, true);
-        }
+    public BedBlockEntityRenderState createRenderState() {
+        return new BedBlockEntityRenderState();
     }
 
-    private void renderPart(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ModelPart part, Direction direction, SpriteIdentifier sprite, int light, int overlay, boolean isFoot) {
+    @Override
+    public void updateRenderState(CustomBedBlockEntity blockEntity, BedBlockEntityRenderState state, float tickDelta, Vec3d cameraPos, @Nullable ModelCommandRenderer.CrumblingOverlayCommand crumblingOverlay) {
+        BlockEntityRenderState.updateBlockEntityRenderState(blockEntity, state, crumblingOverlay);
+        BlockState blockState = blockEntity.getCachedState();
+        state.facing = blockState.get(CustomBedBlock.FACING);
+        state.headPart = blockState.get(CustomBedBlock.PART) == net.minecraft.block.enums.BedPart.HEAD;
+    }
+
+    @Override
+    public void render(BedBlockEntityRenderState state, MatrixStack matrices, net.minecraft.client.render.command.OrderedRenderCommandQueue queue, net.minecraft.client.render.state.CameraRenderState cameraState) {
+        SpriteIdentifier spriteIdentifier = BedTextureProvider.getSpriteIdentifierForBed(state.blockState.getBlock());
+        if (spriteIdentifier == null) return;
+
+        Model.SinglePartModel part = state.headPart ? this.bedHead : this.bedFoot;
+        RenderLayer renderLayer = spriteIdentifier.getRenderLayer(RenderLayer::getEntitySolid);
+        int light = state.lightmapCoordinates;
+
         matrices.push();
-        matrices.translate(0.0f, 0.5625f, isFoot ? -1.0f : 0.0f);
+        matrices.translate(0.0f, 0.5625f, !state.headPart ? -1.0f : 0.0f);
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90.0f));
         matrices.translate(0.5f, 0.5f, 0.5f);
-        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0f + direction.asRotation()));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0f + state.facing.asRotation()));
         matrices.translate(-0.5f, -0.5f, -0.5f);
-        VertexConsumer vertexConsumer = sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntitySolid);
-        part.render(matrices, vertexConsumer, light, overlay);
+
+        queue.submitModel(part, Unit.INSTANCE, matrices, renderLayer, light, 0, 0, state.crumblingOverlay);
         matrices.pop();
     }
 }

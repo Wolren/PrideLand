@@ -1,56 +1,64 @@
 package net.wolren.land.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.collection.DefaultedList;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class RainbowDyeSerializer implements RecipeSerializer<RainbowDyeRecipe> {
-    @Override
-    public RainbowDyeRecipe read(Identifier id, JsonObject json) {
-        String group = JsonHelper.getString(json, "group", "");
-        DefaultedList<Ingredient> ingredients = readIngredients(JsonHelper.getArray(json, "ingredients"));
-        ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result"));
-        return new RainbowDyeRecipe(id, group, output, ingredients);
-    }
+    private static final MapCodec<RainbowDyeRecipe> CODEC = RecordCodecBuilder.mapCodec(
+            instance -> instance.group(
+                    Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.getGroup()),
+                    CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC)
+                            .forGetter(recipe -> recipe.getCategory()),
+                    ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.getResult()),
+                    Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.getIngredients())
+            ).apply(instance, RainbowDyeRecipe::new)
+    );
 
-    private static DefaultedList<Ingredient> readIngredients(JsonArray json) {
-        DefaultedList<Ingredient> ingredients = DefaultedList.of();
-        for (int i = 0; i < json.size(); i++) {
-            Ingredient ingredient = Ingredient.fromJson(json.get(i));
-            if (!ingredient.isEmpty()) {
-                ingredients.add(ingredient);
-            }
-        }
-        return ingredients;
-    }
+    public static final PacketCodec<RegistryByteBuf, RainbowDyeRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+            RainbowDyeSerializer::write, RainbowDyeSerializer::read
+    );
 
-    @Override
-    public RainbowDyeRecipe read(Identifier id, PacketByteBuf buf) {
+    private static RainbowDyeRecipe read(RegistryByteBuf buf) {
         String group = buf.readString();
-        int i = buf.readVarInt();
-        DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(i, Ingredient.EMPTY);
-        for (int j = 0; j < ingredients.size(); j++) {
-            ingredients.set(j, Ingredient.fromPacket(buf));
+        CraftingRecipeCategory category = buf.readEnumConstant(CraftingRecipeCategory.class);
+        ItemStack result = ItemStack.PACKET_CODEC.decode(buf);
+        int size = buf.readVarInt();
+        List<Ingredient> ingredients = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            ingredients.add(Ingredient.PACKET_CODEC.decode(buf));
         }
-        ItemStack output = buf.readItemStack();
-        return new RainbowDyeRecipe(id, group, output, ingredients);
+        return new RainbowDyeRecipe(group, category, result, ingredients);
     }
 
-    @Override
-    public void write(PacketByteBuf buf, RainbowDyeRecipe recipe) {
+    private static void write(RegistryByteBuf buf, RainbowDyeRecipe recipe) {
         buf.writeString(recipe.getGroup());
-        DefaultedList<Ingredient> ingredients = recipe.getIngredients();
+        buf.writeEnumConstant(recipe.getCategory());
+        ItemStack.PACKET_CODEC.encode(buf, recipe.getResult());
+        List<Ingredient> ingredients = recipe.getIngredients();
         buf.writeVarInt(ingredients.size());
         for (Ingredient ingredient : ingredients) {
-            ingredient.write(buf);
+            Ingredient.PACKET_CODEC.encode(buf, ingredient);
         }
-        buf.writeItemStack(recipe.getOutput(null));
+    }
+
+    @Override
+    public MapCodec<RainbowDyeRecipe> codec() {
+        return CODEC;
+    }
+
+    @Override
+    public PacketCodec<RegistryByteBuf, RainbowDyeRecipe> packetCodec() {
+        return PACKET_CODEC;
     }
 }

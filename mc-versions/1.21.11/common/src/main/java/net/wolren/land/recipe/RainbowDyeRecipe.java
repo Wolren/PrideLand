@@ -1,36 +1,42 @@
 package net.wolren.land.recipe;
 
-import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.ShapelessRecipe;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.world.World;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class RainbowDyeRecipe extends ShapelessRecipe {
-    public RainbowDyeRecipe(Identifier id, String group, ItemStack output, DefaultedList<Ingredient> ingredients) {
-        super(id, group, CraftingRecipeCategory.MISC, output, ingredients);
+    private final ItemStack output;
+    private final List<Ingredient> ingredientList;
+
+    public RainbowDyeRecipe(String group, CraftingRecipeCategory category, ItemStack output, List<Ingredient> ingredients) {
+        super(group, category, output, ingredients);
+        this.output = output;
+        this.ingredientList = Collections.unmodifiableList(ingredients);
     }
 
     @Override
-    public boolean matches(RecipeInputInventory inventory, World world) {
+    public boolean matches(CraftingRecipeInput input, World world) {
         // Standard shapeless ingredient check via RecipeMatcher
-        if (!super.matches(inventory, world)) return false;
+        if (!super.matches(input, world)) return false;
 
         // Enforce all 3 items are different from each other
         Set<Item> uniqueItems = new HashSet<>();
         boolean hasItems = false;
 
-        for (int i = 0; i < inventory.size(); i++) {
-            ItemStack stack = inventory.getStack(i);
+        for (int i = 0; i < input.size(); i++) {
+            ItemStack stack = input.getStackInSlot(i);
             if (!stack.isEmpty()) {
                 if (!uniqueItems.add(stack.getItem())) {
                     return false; // duplicate dye item
@@ -43,12 +49,23 @@ public class RainbowDyeRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-        return ModSerializers.RAINBOW_DYE_SERIALIZER;
+    @SuppressWarnings("unchecked")
+    public RecipeSerializer<ShapelessRecipe> getSerializer() {
+        // Safe: RainbowDyeSerializer implements RecipeSerializer<RainbowDyeRecipe>,
+        // and RainbowDyeRecipe extends ShapelessRecipe
+        return (RecipeSerializer<ShapelessRecipe>) (RecipeSerializer<?>) ModSerializers.RAINBOW_DYE_SERIALIZER;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<CraftingRecipe> getType() {
         return RecipeType.CRAFTING;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredientList;
+    }
+
+    public ItemStack getResult() {
+        return output;
     }
 }

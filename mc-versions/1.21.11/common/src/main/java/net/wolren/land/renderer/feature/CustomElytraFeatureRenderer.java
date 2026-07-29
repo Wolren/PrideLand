@@ -11,7 +11,8 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.ElytraEntityModel;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
+import net.minecraft.client.render.entity.model.LoadedEntityModels;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
@@ -26,12 +27,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-public class CustomElytraFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
+public class CustomElytraFeatureRenderer extends FeatureRenderer<BipedEntityRenderState, EntityModel<? super BipedEntityRenderState>> {
     private final Identifier defaultElytraTexture;
-    public final ElytraEntityModel<T> elytra;
+    public final ElytraEntityModel elytra;
     private final Map<Item, Identifier> elytraTextures;
 
-    public CustomElytraFeatureRenderer(FeatureRendererContext<T, M> context, EntityModelLoader loader, Identifier defaultElytraTexture) {
+    public CustomElytraFeatureRenderer(FeatureRendererContext<BipedEntityRenderState, EntityModel<? super BipedEntityRenderState>> context, LoadedEntityModels loader, Identifier defaultElytraTexture) {
         super(context);
         this.defaultElytraTexture = defaultElytraTexture;
         this.elytraTextures = new HashMap<>();
@@ -52,25 +53,18 @@ public class CustomElytraFeatureRenderer<T extends LivingEntity, M extends Entit
         this.elytraTextures.put(ModItems.PROGRESS_PRIDE_ELYTRA, Identifier.of("pride_land:textures/entity/progress_pride_elytra.png"));
         this.elytraTextures.put(ModItems.TRANS_ELYTRA, Identifier.of("pride_land:textures/entity/trans_elytra.png"));
 
-        this.elytra = new ElytraEntityModel<>(loader.getModelPart(EntityModelLayers.ELYTRA));
+        this.elytra = new ElytraEntityModel(loader.getModelPart(EntityModelLayers.ELYTRA));
     }
 
     @Override
-    public void render(
-            MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l
-    ) {
-        ItemStack itemStack = livingEntity.getEquippedStack(EquipmentSlot.CHEST);
+    public void render(MatrixStack matrices, net.minecraft.client.render.command.OrderedRenderCommandQueue queue, int light, BipedEntityRenderState state, float limbAngle, float limbDistance) {
+        ItemStack itemStack = state.equippedChestStack;
         if (itemStack.getItem() instanceof CustomElytraItem) {
             Identifier elytraTexture = this.elytraTextures.getOrDefault(itemStack.getItem(), this.defaultElytraTexture);
-            matrixStack.push();
-            matrixStack.translate(0.0F, 0.0F, 0.125F);
-            this.getContextModel().copyStateTo(this.elytra);
-            this.elytra.setAngles(livingEntity, f, g, j, k, l);
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(
-                    vertexConsumerProvider, RenderLayer.getArmorCutoutNoCull(elytraTexture), false, itemStack.hasGlint()
-            );
-            this.elytra.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-            matrixStack.pop();
+            matrices.push();
+            matrices.translate(0.0F, 0.0F, 0.125F);
+            render(this.elytra, elytraTexture, matrices, queue, light, state, -1, -1);
+            matrices.pop();
         }
     }
 }

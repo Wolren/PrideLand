@@ -5,31 +5,28 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
+import net.minecraft.client.render.entity.model.LoadedEntityModels;
+import net.minecraft.client.render.entity.state.SheepEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.wolren.land.ModelLayers;
-import net.wolren.land.entity.custom.living.MonoColorSheep;
 import net.wolren.land.renderer.model.RainbowSheepModel;
 import net.wolren.land.renderer.model.RainbowSheepWoolModel;
 
 @Environment(EnvType.CLIENT)
-public class RainbowSheepFeatureRenderer extends FeatureRenderer<MonoColorSheep.RainbowSheepEntity, RainbowSheepModel<MonoColorSheep.RainbowSheepEntity>> {
+public class RainbowSheepFeatureRenderer extends FeatureRenderer<SheepEntityRenderState, RainbowSheepModel> {
     private static final Identifier SKIN = Identifier.of("pride_land:textures/entity/sheep/rainbow_sheep_fur.png");
-    private final RainbowSheepWoolModel<MonoColorSheep.RainbowSheepEntity> model;
+    private final RainbowSheepWoolModel model;
 
-    public RainbowSheepFeatureRenderer(FeatureRendererContext<MonoColorSheep.RainbowSheepEntity, RainbowSheepModel<MonoColorSheep.RainbowSheepEntity>> context, EntityModelLoader loader) {
+    public RainbowSheepFeatureRenderer(FeatureRendererContext<SheepEntityRenderState, RainbowSheepModel> context, LoadedEntityModels loader) {
         super(context);
-        this.model = new RainbowSheepWoolModel<>(loader.getModelPart(ModelLayers.RAINBOW_SHEEP_FUR));
+        this.model = new RainbowSheepWoolModel(loader.getModelPart(ModelLayers.RAINBOW_SHEEP_FUR));
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, MonoColorSheep.RainbowSheepEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        if (!entity.isSheared() && !entity.isInvisible()) {
-            float f = 0.9019608F;
-            float f1 = 0.9019608F;
-            float f2 = 0.9019608F;
-            render(getContextModel(), model, SKIN, matrices, vertexConsumers, light, entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, tickDelta, f, f1, f2);
+    public void render(MatrixStack matrices, net.minecraft.client.render.command.OrderedRenderCommandQueue queue, int light, SheepEntityRenderState state, float limbAngle, float limbDistance) {
+        if (!state.sheared && !state.invisible) {
+            render(this.model, SKIN, matrices, queue, light, state, -1, -1);
         }
     }
 }
