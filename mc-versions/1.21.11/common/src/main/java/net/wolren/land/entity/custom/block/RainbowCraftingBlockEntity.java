@@ -5,7 +5,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -38,13 +37,17 @@ public class RainbowCraftingBlockEntity extends BlockEntity implements NamedScre
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        Inventories.readData(nbt, this.inventory);
+        DefaultedList<ItemStack> list = DefaultedList.ofSize(size(), ItemStack.EMPTY);
+        Inventories.readNbt(nbt, list);
+        for (int i = 0; i < list.size() && i < inventory.size(); i++) {
+            inventory.set(i, list.get(i));
+        }
     }
 
     @Override
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        Inventories.writeData(nbt, this.inventory);
+        Inventories.writeNbt(nbt, inventory);
     }
 
     @Nullable
@@ -53,4 +56,3 @@ public class RainbowCraftingBlockEntity extends BlockEntity implements NamedScre
         return new RainbowCraftingScreenHandler(syncId, playerInventory, this);
     }
 }
-
