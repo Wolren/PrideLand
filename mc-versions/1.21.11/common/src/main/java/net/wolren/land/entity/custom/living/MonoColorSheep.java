@@ -1,5 +1,7 @@
 package net.wolren.land.entity.custom.living;
 
+import java.util.Optional;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.Shearable;
@@ -31,11 +33,11 @@ public class MonoColorSheep extends BaseSheep implements Shearable {
     }
 
     @Override
-    public RegistryKey<LootTable> getLootTableKey() {
+    public Optional<RegistryKey<LootTable>> getLootTableKey() {
         if (isSheared()) {
-            return RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("minecraft", "entities/sheep"));
+            return Optional.of(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("minecraft", "entities/sheep")));
         }
-        return RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("pride_land", "entities/sheep/rainbow_sheep"));
+        return Optional.of(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("pride_land", "entities/sheep/rainbow_sheep")));
     }
 
     @Override
