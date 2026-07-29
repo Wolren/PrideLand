@@ -138,7 +138,6 @@ public class CustomBedBlock extends BedBlock {
         }
     }
 
-    @Override
     public BlockState getStateForNeighborUpdate(
             BlockState state, WorldAccess worldAccess, ScheduledTickView scheduledTickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random
     ) {
