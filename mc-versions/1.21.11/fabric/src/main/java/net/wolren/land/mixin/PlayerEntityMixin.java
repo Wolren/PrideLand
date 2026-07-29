@@ -23,7 +23,7 @@ public class PlayerEntityMixin {
         PlayerEntity self = (PlayerEntity) (Object) this;
         ItemStack chestStack = self.getEquippedStack(EquipmentSlot.CHEST);
         if (!chestStack.isOf(Items.ELYTRA) && canGlide(chestStack)) {
-            self.startFallFlying();
+            self.startGliding();
             cir.setReturnValue(true);
         }
     }

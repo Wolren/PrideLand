@@ -2,7 +2,6 @@ package net.wolren.land.mixin;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,9 +22,13 @@ public class PlayerEntityMixin {
     private void onIsOfForCheckFallFlying(CallbackInfoReturnable<Boolean> cir) {
         PlayerEntity self = (PlayerEntity) (Object) this;
         ItemStack chestStack = self.getEquippedStack(EquipmentSlot.CHEST);
-        if (!chestStack.isOf(Items.ELYTRA) && chestStack.getItem() instanceof ElytraItem && ElytraItem.isUsable(chestStack)) {
+        if (!chestStack.isOf(Items.ELYTRA) && canGlide(chestStack)) {
             self.startFallFlying();
             cir.setReturnValue(true);
         }
+    }
+
+    private static boolean canGlide(ItemStack stack) {
+        return !stack.isEmpty() && stack.getComponents().contains(net.minecraft.component.DataComponentTypes.GLIDER);
     }
 }
