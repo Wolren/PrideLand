@@ -700,9 +700,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern("XXX")
                 .pattern("XXX")
                 .input('X', ModBlocks.RAINBOW_PLANKS)
-                .input('S', Items.CHAIN)
+                .input('S', Items.IRON_CHAIN)
                 .criterion(hasItem(ModBlocks.RAINBOW_PLANKS), conditionsFromItem(ModBlocks.RAINBOW_PLANKS))
-                .criterion(hasItem(Items.CHAIN), conditionsFromItem(Items.CHAIN))
+                .criterion(hasItem(Items.IRON_CHAIN), conditionsFromItem(Items.IRON_CHAIN))
                 .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(getRecipeName(ModBlocks.RAINBOW_HANGING_SIGN))));
 
 

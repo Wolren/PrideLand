@@ -61,7 +61,7 @@ public class ModItems {
             new CustomElytraItem(new Item.Settings().maxCount(1).fireproof()));
     public static final Item TRANS_ELYTRA = registerItem("trans_elytra",
             new CustomElytraItem(new Item.Settings().maxCount(1).fireproof()));
-    public static final Item RAINBOW_SHEEP_SPAWN_EGG = registerItem("rainbow_sheep_spawn_egg",
+    public static Item RAINBOW_SHEEP_SPAWN_EGG = registerItem("rainbow_sheep_spawn_egg",
             new RainbowSpawnEggItem(new Item.Settings()));
 
     public static Item RAINBOW_SIGN = null;
