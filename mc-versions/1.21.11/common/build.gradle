@@ -1,0 +1,27 @@
+plugins {
+    id "architectury-plugin"
+    id "dev.architectury.loom"
+    id "pride.land.mc-version"
+}
+
+architectury {
+    common(project.findProperty("enabled_platforms").toString().split(","))
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/pride_land.accessWidener")
+
+    mixin {
+        useLegacyMixinAp = true
+        defaultRefmapName = "pride_land.refmap.json"
+        add(sourceSets.main)
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.findProperty("minecraft_version")}"
+    mappings "net.fabricmc:yarn:${project.findProperty("yarn_mappings")}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.findProperty("fabric_loader_version")}"
+    modApi "dev.architectury:architectury:${project.findProperty("architectury_api_version")}"
+    modCompileOnly "me.shedaniel.cloth:cloth-config:${project.findProperty("cloth_config")}"
+}

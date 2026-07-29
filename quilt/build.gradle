@@ -1,0 +1,85 @@
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    mixin {
+        useLegacyMixinAp = true
+        defaultRefmapName = "pride_land.refmap.json"
+        add(sourceSets.main)
+    }
+}
+
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+}
+
+dependencies {
+    mappings "net.fabricmc:yarn:${rootProject.findProperty("yarn_mappings")}:v2"
+    // quilt-loader at compile only — no runtime conflict with fabric-loader's Knot classes
+    modCompileOnly "org.quiltmc:quilt-loader:${rootProject.findProperty("quilt_loader_version")}"
+    // fabric-loader at runtime for dev launch (Loom's default 0.14.21 is too old for Fabric API 0.92.9)
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.findProperty("fabric_loader_version")}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.findProperty("fabric_api_version")}"
+    modApi "dev.architectury:architectury-fabric:${rootProject.findProperty("architectury_api_version")}"
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+
+    include(modImplementation("com.terraformersmc.terraform-api:terraform-wood-api-v1:${rootProject.findProperty("terraform_api")}"))
+
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.findProperty("rei_version")}"
+    modCompileOnly "dev.emi:emi-fabric:${rootProject.findProperty("emi_version")}:api"
+    modLocalRuntime "dev.emi:emi-fabric:${rootProject.findProperty("emi_version")}"
+    modImplementation "com.terraformersmc:modmenu:${rootProject.findProperty("modmenu")}"
+    modApi "me.shedaniel.cloth:cloth-config-fabric:${rootProject.findProperty("cloth_config")}"
+
+    implementation 'com.google.code.gson:gson:2.8.9'
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", rootProject.findProperty("minecraft_version")
+    inputs.property "quilt_loader_version", rootProject.findProperty("quilt_loader_version")
+    inputs.property "qfapi_version", rootProject.findProperty("qfapi_version")
+
+    filesMatching("quilt.mod.json") {
+        expand "version": project.version,
+                "minecraft_version": rootProject.findProperty("minecraft_version"),
+                "quilt_loader_version": rootProject.findProperty("quilt_loader_version"),
+                "qfapi_version": rootProject.findProperty("qfapi_version")
+    }
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+jar {
+    dependsOn project(":common").tasks.named("transformProductionFabric")
+    from {
+        configurations.shadowCommon.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    exclude "architectury.common.json"
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+remapJar {
+    injectAccessWidener = true
+    input.set jar.archiveFile
+    dependsOn jar
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

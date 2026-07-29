@@ -1,8 +1,41 @@
 plugins {
-    id "maven-publish"
+    id "architectury-plugin" version "3.5.169"
+    id "dev.architectury.loom" version "1.17.487" apply false
 }
 
+architectury {
+    minecraft = rootProject.findProperty("minecraft_version") as String
+}
+
+def architecturyProjects = ["common", "fabric", "forge", "quilt"]
+
 subprojects {
+    // Only apply loom to root-level architectury projects, not mc-versions/ subproject groups.
+    // Each mc-versions version group handles its own loom setup.
+    if (project.name in architecturyProjects && project.parent == rootProject) {
+        apply plugin: "dev.architectury.loom"
+
+        dependencies {
+            minecraft "com.mojang:minecraft:${rootProject.findProperty("minecraft_version")}"
+        }
+
+        tasks.withType(JavaCompile).configureEach {
+            it.options.release = 17
+        }
+    }
+}
+
+allprojects {
+    apply plugin: "java"
+    apply plugin: "maven-publish"
+
+    base {
+        archivesName = rootProject.findProperty("archives_base_name") as String
+    }
+
+    version = rootProject.findProperty("mod_version") as String
+    group = rootProject.findProperty("maven_group") as String
+
     repositories {
         maven { url "https://maven.fabricmc.net/" }
         maven { url "https://maven.terraformersmc.com/" }
@@ -10,10 +43,20 @@ subprojects {
         maven { url "https://maven.shedaniel.me/" }
         maven { url "https://api.modrinth.com/maven" }
         maven { url "https://maven.minecraftforge.net/" }
+        maven { url "https://maven.neoforged.net/releases/" }
+        maven { url "https://maven.architectury.dev/" }
+        maven { url "https://maven.quiltmc.org/repository/release/" }
         mavenCentral()
     }
 
-    tasks.withType(JavaCompile).configureEach {
-        it.options.release = 17
+    java {
+        withSourcesJar()
+    }
+}
+
+// Architectury-plugin is only needed for the multi-loader subprojects
+[":common", ":fabric", ":forge", ":quilt"].each { proj ->
+    project(proj) {
+        apply plugin: "architectury-plugin"
     }
 }

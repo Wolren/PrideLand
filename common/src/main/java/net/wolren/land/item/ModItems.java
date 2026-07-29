@@ -8,7 +8,7 @@ import net.wolren.land.LandCommon;
 import net.wolren.land.block.ModBlocks;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.item.custom.CustomElytraItem;
-import net.wolren.land.item.custom.RainbowSpawnEggItem;
+import net.minecraft.item.SpawnEggItem;
 import net.wolren.land.item.material.RainbowArmorMaterial;
 
 public class ModItems {
@@ -62,15 +62,15 @@ public class ModItems {
 
 
 
-    // TODO: Re-add sign items when Terraform API is available (currently Fabric-only)
-    public static final SignItem RAINBOW_SIGN = null;
-    public static final HangingSignItem RAINBOW_HANGING_SIGN = null;
+    // Sign items — set by platform-specific modules (Terraform API on Fabric, vanilla on Forge)
+    public static SignItem RAINBOW_SIGN = null;
+    public static HangingSignItem RAINBOW_HANGING_SIGN = null;
 
 
 
-    // TODO: Re-add boat items when Terraform API is available on Architectury (Fabric-only API currently)
-    public static final Item RAINBOW_BOAT = null;
-    public static final Item RAINBOW_CHEST_BOAT = null;
+    // Boat items — assigned in LandFabric.registerRainbowSigns() via TerraformBoatItemHelper
+    public static Item RAINBOW_BOAT = null;
+    public static Item RAINBOW_CHEST_BOAT = null;
 
 
 
@@ -87,7 +87,7 @@ public class ModItems {
 
 
 
-    public static final RainbowSpawnEggItem RAINBOW_SHEEP_SPAWN_EGG = (RainbowSpawnEggItem) registerItem("rainbow_sheep_spawn_egg", new RainbowSpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings()));
+    public static SpawnEggItem RAINBOW_SHEEP_SPAWN_EGG = null;
 
 
 

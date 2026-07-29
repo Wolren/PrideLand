@@ -1,0 +1,48 @@
+// Base convention plugin for mc-versions subproject modules (common, fabric, forge, quilt).
+// Provides shared configuration: Java, repositories, publishing.
+// Does NOT apply architectury-plugin or loom — each module declares those in its own plugins block.
+// This convention plugin is applied AFTER architectury-plugin and loom in the module's plugins block.
+
+plugins {
+    id "java"
+    id "maven-publish"
+}
+
+group = rootProject.findProperty("maven_group") as String
+version = rootProject.findProperty("mod_version") as String
+
+base {
+    archivesName = rootProject.findProperty("archives_base_name") as String
+}
+
+repositories {
+    maven { url "https://maven.fabricmc.net/" }
+    maven { url "https://maven.terraformersmc.com/" }
+    maven { url "https://maven.blamejared.com/" }
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://api.modrinth.com/maven" }
+    maven { url "https://maven.minecraftforge.net/" }
+    maven { url "https://maven.architectury.dev/" }
+    maven { url "https://maven.quiltmc.org/repository/release/" }
+    mavenCentral()
+}
+
+java {
+    withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release = 17
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        // Add publish targets here
+    }
+}

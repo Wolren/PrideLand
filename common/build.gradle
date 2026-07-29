@@ -1,14 +1,20 @@
-plugins {
-    id "fabric-loom" version "1.7.4"
+architectury {
+    common(rootProject.findProperty("enabled_platforms").toString().split(","))
 }
 
 loom {
     accessWidenerPath = file("src/main/resources/pride_land.accessWidener")
+
+    mixin {
+        useLegacyMixinAp = true
+        defaultRefmapName = "pride_land.refmap.json"
+        add(sourceSets.main)
+    }
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${rootProject.findProperty("minecraft_version")}"
     mappings "net.fabricmc:yarn:${rootProject.findProperty("yarn_mappings")}:v2"
-
-    compileOnly "net.fabricmc:fabric-loader:${rootProject.findProperty("fabric_loader_version")}"
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.findProperty("fabric_loader_version")}"
+    modApi "dev.architectury:architectury:${rootProject.findProperty("architectury_api_version")}"
+    modCompileOnly "me.shedaniel.cloth:cloth-config:${rootProject.findProperty("cloth_config")}"
 }

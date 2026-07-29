@@ -1,0 +1,37 @@
+// Multi-version subproject groups (mc-versions/<mc>/) — each version is a full
+// Architectury multi-loader setup with common, fabric, forge, and quilt modules.
+//
+// Creating a new MC version:
+//
+//   1. mkdir -p mc-versions/<mc>/{common,fabric,forge,quilt}/src/main/{java,resources}
+//
+//   2. Copy source from the version closest in API (e.g., root modules for 1.20.x):
+//        robocopy common\src mc-versions\<mc>\common\src /E
+//        robocopy fabric\src mc-versions\<mc>\fabric\src /E
+//        robocopy forge\src mc-versions\<mc>\forge\src /E
+//        robocopy quilt\src mc-versions\<mc>\quilt\src /E
+//
+//   3. Create mc-versions/<mc>/gradle.properties with version-specific versions.
+//      Copy from mc-versions/1.20.4/gradle.properties as a template.
+//
+//   4. Copy a module's build.gradle from an existing version (e.g., 1.20.4/<module>/build.gradle).
+//      Update any version-specific project path references if needed.
+//
+//   5. Add to settings.gradle:
+//        include("mc-versions:<mc>:common")
+//        include("mc-versions:<mc>:fabric")
+//        include("mc-versions:<mc>:forge")
+//        include("mc-versions:<mc>:quilt")
+//
+//   6. Build with:
+//        ./gradlew :mc-versions:<mc>:fabric:build
+//        ./gradlew :mc-versions:<mc>:forge:build
+//        ./gradlew :mc-versions:<mc>:quilt:build
+//
+//   7. Adapt source files for MC API differences (Registries vs Registry, 
+//      removed/added blocks, etc.) until compilation succeeds.
+//
+// Forge modules require loom.platform=forge in their gradle.properties.
+// See mc-versions/1.20.4/forge/gradle.properties for reference.
+//
+// Archives of old standalone Fabric versions are in archive/ for reference.

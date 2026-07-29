@@ -38,3 +38,19 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
+
+# environment / IDE
+
+.ai/
+
+# generated debugging artifacts (root directory only)
+
+/net/
+/data/
+/dev/
+/forge_run_output*.txt
+/runclient*.err
+/runclient*.log
+/arch-forge.jar
+!/AGENTS.md
+!/AGENTS.md
