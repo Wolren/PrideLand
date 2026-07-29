@@ -36,15 +36,15 @@ public class RainbowCraftingBlockEntity extends BlockEntity implements NamedScre
     }
 
     @Override
-    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup lookup) {
-        super.readNbt(nbt, lookup);
-        Inventories.readNbt(nbt, this.inventory, lookup);
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
+        Inventories.readData(nbt, this.inventory);
     }
 
     @Override
-    public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup lookup) {
-        super.writeNbt(nbt, lookup);
-        Inventories.writeNbt(nbt, this.inventory, lookup);
+    public void writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
+        Inventories.writeData(nbt, this.inventory);
     }
 
     @Nullable

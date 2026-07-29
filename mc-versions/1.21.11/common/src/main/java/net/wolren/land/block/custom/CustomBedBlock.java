@@ -19,13 +19,13 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.CollisionView;
+import net.minecraft.world.tick.ScheduledTickView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.wolren.land.entity.custom.block.CustomBedBlockEntity;
@@ -34,6 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.util.math.random.Random;
 
 public class CustomBedBlock extends BedBlock {
     public static final EnumProperty<BedPart> PART = Properties.BED_PART;
@@ -60,7 +61,7 @@ public class CustomBedBlock extends BedBlock {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient()) {
             return ActionResult.CONSUME;
         } else {
@@ -90,8 +91,8 @@ public class CustomBedBlock extends BedBlock {
                 return ActionResult.SUCCESS;
             } else {
                 player.trySleep(pos).ifLeft(reason -> {
-                    if (reason.getMessage() != null) {
-                        player.sendMessage(reason.getMessage(), true);
+                    if (reason.message() != null) {
+                        player.sendMessage(reason.message(), true);
 
                     }
                 });
@@ -117,7 +118,7 @@ public class CustomBedBlock extends BedBlock {
 
     @Override
     public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
-        super.onLandedUpon(world, state, pos, entity, fallDistance * 0.5F);
+        super.onLandedUpon(world, state, pos, entity, fallDistance * 0.5);
     }
 
     @Override
@@ -139,14 +140,14 @@ public class CustomBedBlock extends BedBlock {
 
     @Override
     public BlockState getStateForNeighborUpdate(
-            BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos
+            BlockState state, WorldAccess worldAccess, ScheduledTickView scheduledTickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random
     ) {
         if (direction == getDirectionTowardsOtherPart(state.get(PART), state.get(FACING))) {
             return neighborState.isOf(this) && neighborState.get(PART) != state.get(PART)
                     ? state.with(OCCUPIED, neighborState.get(OCCUPIED))
                     : Blocks.AIR.getDefaultState();
         } else {
-            return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+            return super.getStateForNeighborUpdate(state, worldAccess, scheduledTickView, pos, direction, neighborPos, neighborState, random);
         }
     }
 
@@ -298,7 +299,7 @@ public class CustomBedBlock extends BedBlock {
     }
 
     @Override
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+    public boolean canPathfindThrough(BlockState state, NavigationType type) {
         return false;
     }
 
