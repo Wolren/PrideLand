@@ -28,3 +28,10 @@ mandatory=true
 versionRange="[9.2,10)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.pride_land]]
+modId="cloth_config"
+mandatory=true
+versionRange="[11.1,12)"
+ordering="NONE"
+side="BOTH"

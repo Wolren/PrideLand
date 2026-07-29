@@ -1,51 +1,75 @@
-plugins {
-    id "net.minecraftforge.gradle" version "[6.0,6.2)"
-    id "org.spongepowered.mixin" version "0.7.+"
+architectury {
+    platformSetupLoomIde()
+    forge()
 }
 
-minecraft {
-    mappings channel: "official", version: project.findProperty("minecraft_version")
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    forge {
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+        mixinConfigs("pride_land.forge.mixins.json")
+    }
 }
 
-repositories {
-    maven { url "https://maven.terraformersmc.com/" }
-    maven { url "https://maven.blamejared.com/" }
-    maven { url "https://maven.shedaniel.me/" }
-    maven { url "https://api.modrinth.com/maven" }
+// Validate against Fabric's Mojmap jar; Forge uses SRG and convertAccessWideners handles it.
+tasks.named("validateAccessWidener").configure {
+    enabled = false
+}
+
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${project.findProperty("forge_version")}"
+    mappings "net.fabricmc:yarn:${rootProject.findProperty("yarn_mappings")}:v2"
+    forge "net.minecraftforge:forge:${rootProject.findProperty("forge_version")}"
+    modApi "dev.architectury:architectury-forge:${rootProject.findProperty("architectury_api_version")}"
 
-    implementation project(":common")
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
 
-    compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:${project.findProperty("rei_version")}")
-    compileOnly fg.deobf("dev.emi:emi-forge:${project.findProperty("emi_version")}:api")
-    implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:${project.findProperty("cloth_config")}")
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:${rootProject.findProperty("rei_version")}"
+    modCompileOnly "dev.emi:emi-forge:${rootProject.findProperty("emi_version")}:api"
+    modImplementation "me.shedaniel.cloth:cloth-config-forge:${rootProject.findProperty("cloth_config")}"
 
     implementation 'com.google.code.gson:gson:2.8.9'
 }
 
 processResources {
     inputs.property "version", project.version
-    inputs.property "minecraft_version", project.findProperty("minecraft_version")
+    inputs.property "minecraft_version", rootProject.findProperty("minecraft_version")
 
     filesMatching("META-INF/mods.toml") {
         expand "version": project.version,
-                "minecraft_version": project.findProperty("minecraft_version")
+                "minecraft_version": rootProject.findProperty("minecraft_version")
     }
 }
 
 jar {
-    manifest {
-        attributes([
-                "Specification-Title": "Pride Land",
-                "Specification-Vendor": "Wolren",
-                "Specification-Version": "1",
-                "Implementation-Title": project.name,
-                "Implementation-Version": project.version,
-                "Implementation-Vendor" :"Wolren",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
+    dependsOn configurations.shadowCommon
+    from {
+        configurations.shadowCommon.collect { it.isDirectory() ? it : zipTree(it) }
     }
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+remapJar {
+    injectAccessWidener = true
+    input.set jar.archiveFile
+    dependsOn jar
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
