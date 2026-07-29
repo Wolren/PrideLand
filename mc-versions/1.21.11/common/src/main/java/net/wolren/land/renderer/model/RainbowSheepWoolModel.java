@@ -19,7 +19,7 @@ public class RainbowSheepWoolModel extends QuadrupedEntityModel<SheepEntityRende
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild("head",
                 ModelPartBuilder.create().uv(0, 0).cuboid(-3.0F, -4.0F, -4.0F, 6.0F, 6.0F, 6.0F,
-                        new Dilation(0.6F)), ModelTransform.pivot(0.0F, 6.0F, -8.0F));
+                        new Dilation(0.6F)), ModelTransform.origin(0.0F, 6.0F, -8.0F));
 
         modelPartData.addChild(
                 "body",
@@ -28,11 +28,11 @@ public class RainbowSheepWoolModel extends QuadrupedEntityModel<SheepEntityRende
         );
 
         ModelPartBuilder hindLegModelPartBuilder = ModelPartBuilder.create().uv(18, 22).cuboid(-2.0F, -0.0F, -2.0F, 4.0F, 6.0F, 4.0F, new Dilation(0.5F));
-        modelPartData.addChild("right_hind_leg", hindLegModelPartBuilder, ModelTransform.pivot(-3.0F, 12.0F, 7.0F));
-        modelPartData.addChild("left_hind_leg", hindLegModelPartBuilder, ModelTransform.pivot(3.0F, 12.0F, 7.0F));
+        modelPartData.addChild("right_hind_leg", hindLegModelPartBuilder, ModelTransform.origin(-3.0F, 12.0F, 7.0F));
+        modelPartData.addChild("left_hind_leg", hindLegModelPartBuilder, ModelTransform.origin(3.0F, 12.0F, 7.0F));
         ModelPartBuilder frontLegModelPartBuilder = ModelPartBuilder.create().uv(0, 22).cuboid(-2.0F, -0.0F, -2.0F, 4.0F, 6.0F, 4.0F, new Dilation(0.5F));
-        modelPartData.addChild("right_front_leg", frontLegModelPartBuilder, ModelTransform.pivot(-3.0F, 12.0F, -5.0F));
-        modelPartData.addChild("left_front_leg", frontLegModelPartBuilder, ModelTransform.pivot(3.0F, 12.0F, -5.0F));
+        modelPartData.addChild("right_front_leg", frontLegModelPartBuilder, ModelTransform.origin(-3.0F, 12.0F, -5.0F));
+        modelPartData.addChild("left_front_leg", frontLegModelPartBuilder, ModelTransform.origin(3.0F, 12.0F, -5.0F));
         return TexturedModelData.of(modelData, 64, 32);
     }
 
