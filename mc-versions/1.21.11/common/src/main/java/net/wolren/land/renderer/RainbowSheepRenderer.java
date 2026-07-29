@@ -13,7 +13,7 @@ import net.wolren.land.renderer.model.RainbowSheepModel;
 
 @Environment(EnvType.CLIENT)
 public class RainbowSheepRenderer extends MobEntityRenderer<MonoColorSheep.RainbowSheepEntity, RainbowSheepModel<MonoColorSheep.RainbowSheepEntity>> {
-    private static final Identifier TEXTURE = new Identifier("pride_land:textures/entity/sheep/rainbow_sheep.png");
+    private static final Identifier TEXTURE = Identifier.of("pride_land:textures/entity/sheep/rainbow_sheep.png");
 
     public RainbowSheepRenderer(EntityRendererFactory.Context context) {
         super(context, new RainbowSheepModel<>(context.getPart(ModelLayers.RAINBOW_SHEEP)), 0.7F);

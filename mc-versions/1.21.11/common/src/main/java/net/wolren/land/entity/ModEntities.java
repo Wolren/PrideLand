@@ -66,7 +66,7 @@ public class ModEntities {
     }
 
     private static BlockEntityType<RainbowCraftingBlockEntity> createCraftingBlockEntity() {
-        return Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(LandCommon.MOD_ID, "rainbow_workstation"),
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(LandCommon.MOD_ID, "rainbow_workstation"),
                 new BlockEntityType<>(
                         RainbowCraftingBlockEntity::new,
                         Set.of(ModBlocks.RAINBOW_CRAFTING),
@@ -77,14 +77,14 @@ public class ModEntities {
     @SuppressWarnings("unchecked")
     private static EntityType<MonoColorSheep.RainbowSheepEntity> createRainbowSheep() {
         return Registry.register(Registries.ENTITY_TYPE,
-                new Identifier(LandCommon.MOD_ID, "rainbow_sheep"),
+                Identifier.of(LandCommon.MOD_ID, "rainbow_sheep"),
                 EntityType.Builder.create(MonoColorSheep.RainbowSheepEntity::new, SpawnGroup.CREATURE)
                         .setDimensions(0.9f, 1.3f).build("rainbow_sheep"));
     }
 
     private static BlockEntityType<CustomBedBlockEntity> createCustomBedBlockEntity() {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                new Identifier(LandCommon.MOD_ID, "bed_block"),
+                Identifier.of(LandCommon.MOD_ID, "bed_block"),
                 new BlockEntityType<>(
                         CustomBedBlockEntity::new,
                         new HashSet<>(Arrays.asList(

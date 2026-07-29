@@ -92,7 +92,7 @@ public class ModItems {
 
 
     private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(LandCommon.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, name), item);
     }
 
     public static void registerModItems() {

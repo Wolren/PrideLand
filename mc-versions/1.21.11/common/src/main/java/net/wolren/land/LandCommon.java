@@ -24,7 +24,7 @@ public class LandCommon {
 
     public static DefaultAttributeContainer.Builder createRainbowSheepAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23D);
+                .add(EntityAttributes.MAX_HEALTH, 8.0D)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.23D);
     }
 }
