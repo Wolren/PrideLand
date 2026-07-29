@@ -17,13 +17,13 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(BlockTags.CANDLES)
+        valueLookupBuilder(BlockTags.CANDLES)
                 .add(ModBlocks.RAINBOW_CANDLE);
 
 
 
 
-        getOrCreateTagBuilder(ModTags.Blocks.GLASS_BLOCKS)
+        valueLookupBuilder(ModTags.Blocks.GLASS_BLOCKS)
                 .add(ModBlocks.RAINBOW_STAINED_GLASS)
                 .add(ModBlocks.TRANS_STAINED_GLASS)
                 .add(ModBlocks.NONBINARY_STAINED_GLASS)
@@ -41,7 +41,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.GENDERQUEER_STAINED_GLASS)
                 .add(ModBlocks.POLYSEXUAL_STAINED_GLASS);
 
-        getOrCreateTagBuilder(BlockTags.IMPERMEABLE)
+        valueLookupBuilder(BlockTags.IMPERMEABLE)
                 .add(ModBlocks.RAINBOW_STAINED_GLASS)
                 .add(ModBlocks.TRANS_STAINED_GLASS)
                 .add(ModBlocks.NONBINARY_STAINED_GLASS)
@@ -62,7 +62,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 
 
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlocks.RAINBOW_CRAFTING)
                 .add(ModBlocks.RAINBOW_BRICKS)
                 .add(ModBlocks.RAINBOW_BRICK_STAIRS)
@@ -71,7 +71,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.RAINBOW_CONCRETE)
                 .add(ModBlocks.RAINBOW_TERRACOTTA);
 
-        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
+        valueLookupBuilder(BlockTags.AXE_MINEABLE)
                 .add(ModBlocks.RAINBOW_PLANKS)
                 .add(ModBlocks.RAINBOW_STAIRS)
                 .add(ModBlocks.RAINBOW_SLAB)
@@ -86,13 +86,13 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.RAINBOW_HANGING_SIGN)
                 .add(ModBlocks.RAINBOW_WALL_HANGING_SIGN);
 
-        getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE)
+        valueLookupBuilder(BlockTags.SHOVEL_MINEABLE)
                 .add(ModBlocks.RAINBOW_CONCRETE_POWDER);
 
 
 
 
-        getOrCreateTagBuilder(ModTags.Blocks.WOOLS)
+        valueLookupBuilder(ModTags.Blocks.WOOLS)
                 .add(ModBlocks.RAINBOW_WOOL)
                 .add(ModBlocks.TRANS_WOOL)
                 .add(ModBlocks.NONBINARY_WOOL)
@@ -110,7 +110,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.GENDERQUEER_WOOL)
                 .add(ModBlocks.POLYSEXUAL_WOOL);
 
-        getOrCreateTagBuilder(BlockTags.WOOL)
+        valueLookupBuilder(BlockTags.WOOL)
                 .add(ModBlocks.RAINBOW_WOOL)
                 .add(ModBlocks.TRANS_WOOL)
                 .add(ModBlocks.NONBINARY_WOOL)
@@ -128,7 +128,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.GENDERQUEER_WOOL)
                 .add(ModBlocks.POLYSEXUAL_WOOL);
 
-        getOrCreateTagBuilder(ModTags.Blocks.CARPETS)
+        valueLookupBuilder(ModTags.Blocks.CARPETS)
                 .add(ModBlocks.RAINBOW_CARPET)
                 .add(ModBlocks.TRANS_CARPET)
                 .add(ModBlocks.NONBINARY_CARPET)
@@ -146,7 +146,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.GENDERQUEER_CARPET)
                 .add(ModBlocks.POLYSEXUAL_CARPET);
 
-        getOrCreateTagBuilder(BlockTags.WOOL_CARPETS)
+        valueLookupBuilder(BlockTags.WOOL_CARPETS)
                 .add(ModBlocks.RAINBOW_CARPET)
                 .add(ModBlocks.TRANS_CARPET)
                 .add(ModBlocks.NONBINARY_CARPET)
@@ -168,7 +168,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 
 
-        getOrCreateTagBuilder(ModTags.Blocks.BED_BLOCKS)
+        valueLookupBuilder(ModTags.Blocks.BED_BLOCKS)
                 .add(ModBlocks.RAINBOW_BED)
                 .add(ModBlocks.TRANS_BED)
                 .add(ModBlocks.NONBINARY_BED)
@@ -186,7 +186,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.GENDERQUEER_BED)
                 .add(ModBlocks.POLYSEXUAL_BED);
 
-        getOrCreateTagBuilder(BlockTags.BEDS)
+        valueLookupBuilder(BlockTags.BEDS)
                 .add(ModBlocks.RAINBOW_BED)
                 .add(ModBlocks.TRANS_BED)
                 .add(ModBlocks.NONBINARY_BED)
@@ -207,95 +207,95 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 
 
-        getOrCreateTagBuilder(BlockTags.PLANKS)
+        valueLookupBuilder(BlockTags.PLANKS)
                 .add(ModBlocks.RAINBOW_PLANKS);
 
-        getOrCreateTagBuilder(BlockTags.FENCES)
+        valueLookupBuilder(BlockTags.FENCES)
                 .add(ModBlocks.RAINBOW_FENCE);
 
-        getOrCreateTagBuilder(BlockTags.WOODEN_FENCES)
+        valueLookupBuilder(BlockTags.WOODEN_FENCES)
                 .add(ModBlocks.RAINBOW_FENCE);
 
-        getOrCreateTagBuilder(BlockTags.FENCE_GATES)
+        valueLookupBuilder(BlockTags.FENCE_GATES)
                 .add(ModBlocks.RAINBOW_FENCE_GATE);
 
-        getOrCreateTagBuilder(BlockTags.STAIRS)
+        valueLookupBuilder(BlockTags.STAIRS)
                 .add(ModBlocks.RAINBOW_STAIRS)
                 .add(ModBlocks.RAINBOW_BRICK_STAIRS);
 
-        getOrCreateTagBuilder(BlockTags.WOODEN_STAIRS)
+        valueLookupBuilder(BlockTags.WOODEN_STAIRS)
                 .add(ModBlocks.RAINBOW_STAIRS);
 
-        getOrCreateTagBuilder(BlockTags.SLABS)
+        valueLookupBuilder(BlockTags.SLABS)
                 .add(ModBlocks.RAINBOW_STAIRS)
                 .add(ModBlocks.RAINBOW_BRICK_SLAB);
 
-        getOrCreateTagBuilder(BlockTags.WOODEN_SLABS)
+        valueLookupBuilder(BlockTags.WOODEN_SLABS)
                 .add(ModBlocks.RAINBOW_STAIRS);
 
-        getOrCreateTagBuilder(BlockTags.BUTTONS)
+        valueLookupBuilder(BlockTags.BUTTONS)
                 .add(ModBlocks.RAINBOW_BUTTON);
 
-        getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS)
+        valueLookupBuilder(BlockTags.WOODEN_BUTTONS)
                 .add(ModBlocks.RAINBOW_BUTTON);
 
-        getOrCreateTagBuilder(BlockTags.PRESSURE_PLATES)
+        valueLookupBuilder(BlockTags.PRESSURE_PLATES)
                 .add(ModBlocks.RAINBOW_PRESSURE_PLATE);
 
-        getOrCreateTagBuilder(BlockTags.WOODEN_PRESSURE_PLATES)
+        valueLookupBuilder(BlockTags.WOODEN_PRESSURE_PLATES)
                 .add(ModBlocks.RAINBOW_PRESSURE_PLATE);
 
-        getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE)
+        valueLookupBuilder(BlockTags.WALL_POST_OVERRIDE)
                 .add(ModBlocks.RAINBOW_PRESSURE_PLATE);
 
-        getOrCreateTagBuilder(BlockTags.DOORS)
+        valueLookupBuilder(BlockTags.DOORS)
                 .add(ModBlocks.RAINBOW_DOOR);
 
-        getOrCreateTagBuilder(BlockTags.WOODEN_DOORS)
+        valueLookupBuilder(BlockTags.WOODEN_DOORS)
                 .add(ModBlocks.RAINBOW_DOOR);
 
-        getOrCreateTagBuilder(BlockTags.TRAPDOORS)
+        valueLookupBuilder(BlockTags.TRAPDOORS)
                 .add(ModBlocks.RAINBOW_TRAPDOOR);
 
-        getOrCreateTagBuilder(BlockTags.WOODEN_TRAPDOORS)
+        valueLookupBuilder(BlockTags.WOODEN_TRAPDOORS)
                 .add(ModBlocks.RAINBOW_TRAPDOOR);
 
 
 
 
-        getOrCreateTagBuilder(BlockTags.SIGNS)
+        valueLookupBuilder(BlockTags.SIGNS)
                 .add(ModBlocks.RAINBOW_WALL_SIGN)
                 .add(ModBlocks.RAINBOW_STANDING_SIGN);
 
-        getOrCreateTagBuilder(BlockTags.ALL_SIGNS)
+        valueLookupBuilder(BlockTags.ALL_SIGNS)
                 .add(ModBlocks.RAINBOW_WALL_SIGN)
                 .add(ModBlocks.RAINBOW_STANDING_SIGN)
                 .add(ModBlocks.RAINBOW_HANGING_SIGN)
                 .add(ModBlocks.RAINBOW_WALL_HANGING_SIGN);
 
-        getOrCreateTagBuilder(BlockTags.WALL_SIGNS)
+        valueLookupBuilder(BlockTags.WALL_SIGNS)
                 .add(ModBlocks.RAINBOW_WALL_SIGN);
 
-        getOrCreateTagBuilder(BlockTags.ALL_HANGING_SIGNS)
+        valueLookupBuilder(BlockTags.ALL_HANGING_SIGNS)
                 .add(ModBlocks.RAINBOW_HANGING_SIGN)
                 .add(ModBlocks.RAINBOW_WALL_HANGING_SIGN);
 
-        getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS)
+        valueLookupBuilder(BlockTags.CEILING_HANGING_SIGNS)
                 .add(ModBlocks.RAINBOW_HANGING_SIGN);
 
-        getOrCreateTagBuilder(BlockTags.STANDING_SIGNS)
+        valueLookupBuilder(BlockTags.STANDING_SIGNS)
                 .add(ModBlocks.RAINBOW_STANDING_SIGN);
 
-        getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
+        valueLookupBuilder(BlockTags.WALL_HANGING_SIGNS)
                 .add(ModBlocks.RAINBOW_WALL_HANGING_SIGN);
 
 
 
 
-        getOrCreateTagBuilder(BlockTags.WALLS)
+        valueLookupBuilder(BlockTags.WALLS)
                 .add(ModBlocks.RAINBOW_BRICK_WALL);
 
-        getOrCreateTagBuilder(BlockTags.TERRACOTTA)
+        valueLookupBuilder(BlockTags.TERRACOTTA)
                 .add(ModBlocks.RAINBOW_TERRACOTTA);
     }
 }

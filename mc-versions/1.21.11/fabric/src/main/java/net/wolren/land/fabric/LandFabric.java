@@ -26,6 +26,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
@@ -100,7 +101,7 @@ public class LandFabric implements ModInitializer {
                 Registry.register(
                         Registries.SCREEN_HANDLER,
                         Identifier.of(LandCommon.MOD_ID, "rainbow_workstation"),
-                        new ScreenHandlerType<>((syncId, inventory) -> new RainbowCraftingScreenHandler(syncId, inventory))
+                        new ScreenHandlerType<>((syncId, inventory) -> new RainbowCraftingScreenHandler(syncId, inventory), FeatureFlags.VANILLA_SET)
                 )
         );
     }
