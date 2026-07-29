@@ -1,11 +1,10 @@
 package net.wolren.land.fabric;
 
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
-import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
@@ -40,7 +39,7 @@ public class LandFabricClient implements ClientModInitializer {
     }
 
     public static EntityModelLayer registerEntityModelLayer(String registryName, net.minecraft.client.model.TexturedModelData modelPart) {
-        EntityModelLayer entityModelLayer = new EntityModelLayer(new Identifier(LandCommon.MOD_ID, registryName), "rainbow_sheep");
+        EntityModelLayer entityModelLayer = new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, registryName), "rainbow_sheep");
         EntityModelLayerRegistry.registerModelLayer(entityModelLayer, () -> modelPart);
         return entityModelLayer;
     }
@@ -58,22 +57,14 @@ public class LandFabricClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_TRAPDOOR, RenderLayer.getCutout());
 
-        // Sign sprites
-        SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(
-            TexturedRenderLayers.SIGNS_ATLAS_TEXTURE,
-            new Identifier(LandCommon.MOD_ID, "entity/signs/rainbow")
-        ));
-        SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(
-            TexturedRenderLayers.SIGNS_ATLAS_TEXTURE,
-            new Identifier(LandCommon.MOD_ID, "entity/signs/hanging/rainbow")
-        ));
+        // Sign sprites — in 1.21+ Terraform handles sign textures via WoodType
 
         // Boat models
         TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID, false);
 
         // Elytra feature renderer
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
-            Identifier rainbowElytra = new Identifier("pride_land:textures/entity/rainbow_elytra.png");
+            Identifier rainbowElytra = Identifier.of("pride_land", "textures/entity/rainbow_elytra.png");
             registrationHelper.register(new CustomElytraFeatureRenderer<>(entityRenderer, context.getModelLoader(), rainbowElytra));
         });
 

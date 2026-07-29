@@ -14,7 +14,7 @@ import net.wolren.land.recipe.RainbowCuttingRecipe;
 public class ClientEmi implements EmiPlugin {
     public static final EmiStack WORKSTATION = EmiStack.of(ModBlocks.RAINBOW_CRAFTING);
     public static final EmiRecipeCategory RAINBOW_CATEGORY
-            = new EmiRecipeCategory(new Identifier(LandCommon.MOD_ID, "rainbow_cutting"), WORKSTATION);
+            = new EmiRecipeCategory(Identifier.of(LandCommon.MOD_ID, "rainbow_cutting"), WORKSTATION);
     @Override
     public void register(EmiRegistry registry) {
         registry.addCategory(RAINBOW_CATEGORY);
