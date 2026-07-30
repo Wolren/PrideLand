@@ -25,8 +25,8 @@ import net.minecraft.world.World;
  */
 public class RainbowDoorBlock extends DoorBlock {
 
-    public RainbowDoorBlock(Settings settings, BlockSetType blockSetType) {
-        super(settings, blockSetType);
+    public RainbowDoorBlock(BlockSetType blockSetType, Settings settings) {
+        super(blockSetType, settings);
     }
 
     @Override
