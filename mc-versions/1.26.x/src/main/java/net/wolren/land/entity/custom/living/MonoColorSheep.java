@@ -22,7 +22,7 @@ public class MonoColorSheep extends BaseSheep {
     }
 
     public static class RainbowSheepEntity extends MonoColorSheep {
-        public RainbowSheepEntity(EntityType<? extends RainbowSheepEntity> type, Level world) {
+        public RainbowSheepEntity(EntityType<? extends MonoColorSheep> type, Level world) {
             super(type, world, new ItemStack(ModBlocks.RAINBOW_WOOL));
         }
     }

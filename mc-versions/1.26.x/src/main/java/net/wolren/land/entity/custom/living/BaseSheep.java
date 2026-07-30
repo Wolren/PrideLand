@@ -1,7 +1,7 @@
 package net.wolren.land.entity.custom.living;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.level.Level;
 
 /**
