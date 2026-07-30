@@ -1,37 +1,41 @@
 package net.wolren.land.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.collection.DefaultedList;
+
+import java.util.Optional;
 
 public class RainbowCuttingSerializer implements RecipeSerializer<RainbowCuttingRecipe> {
-    private final int DEFAULT_GROUP_MAX = 1;
+    private static final Codec<RainbowCuttingRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.STRING.optionalFieldOf("group", "").forGetter(RainbowCuttingRecipe::getGroup),
+            Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter(r -> r.ingredient),
+            ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result)
+    ).apply(instance, (group, ingredient, result) -> {
+        return new RainbowCuttingRecipe(group, ingredient, result);
+    }));
 
     @Override
-    public RainbowCuttingRecipe read(Identifier id, JsonObject json) {
-        String group = JsonHelper.getString(json, "group", "");
-        Ingredient input = Ingredient.fromJson(JsonHelper.getObject(json, "ingredient"));
-        ItemStack output = net.minecraft.recipe.ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result"));
-        return new RainbowCuttingRecipe(id, group, input, output);
+    public Codec<RainbowCuttingRecipe> codec() {
+        return CODEC;
     }
 
     @Override
-    public RainbowCuttingRecipe read(Identifier id, PacketByteBuf buf) {
+    public RainbowCuttingRecipe read(PacketByteBuf buf) {
         String group = buf.readString();
         Ingredient input = Ingredient.fromPacket(buf);
         ItemStack output = buf.readItemStack();
-        return new RainbowCuttingRecipe(id, group, input, output);
+        return new RainbowCuttingRecipe(group, input, output);
     }
 
     @Override
     public void write(PacketByteBuf buf, RainbowCuttingRecipe recipe) {
         buf.writeString(recipe.getGroup());
-        recipe.getIngredients().get(0).write(buf);
-        buf.writeItemStack(recipe.getOutput(null));
+        recipe.ingredient.write(buf);
+        buf.writeItemStack(recipe.getOutput());
     }
 }

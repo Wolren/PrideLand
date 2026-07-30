@@ -13,6 +13,8 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.RecipeManager;
 import net.wolren.land.LandCommon;
 import net.wolren.land.item.ModItems;
 import net.wolren.land.recipe.RainbowCuttingRecipe;
@@ -25,7 +27,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
     final Slot outputSlot;
     private final Property selectedRecipe = Property.create();
     private final World world;
-    private List<RainbowCuttingRecipe> availableRecipes = Lists.newArrayList();
+    private List<RecipeEntry<RainbowCuttingRecipe>> availableRecipes = Lists.newArrayList();
     private ItemStack inputStack = ItemStack.EMPTY;
     private ItemStack dyeStack = ItemStack.EMPTY;
 
@@ -69,7 +71,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
             }
 
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
-                stack.onCraft(player.getWorld(), player, stack.getCount());
+                stack.onCraftByPlayer(player.getWorld(), player, stack.getCount());
                 RainbowCraftingScreenHandler.this.output.unlockLastRecipe(player, this.getInputStacks());
                 ItemStack materialStack = RainbowCraftingScreenHandler.this.inputSlot.takeStack(1);
                 ItemStack dyeStack = RainbowCraftingScreenHandler.this.dyeSlot.takeStack(1);
@@ -108,7 +110,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
         return this.selectedRecipe.get();
     }
 
-    public List<RainbowCuttingRecipe> getAvailableRecipes() {
+    public List<RecipeEntry<RainbowCuttingRecipe>> getAvailableRecipes() {
         return this.availableRecipes;
     }
 
@@ -163,10 +165,11 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
 
     void populateResult() {
         if (!RainbowCraftingScreenHandler.this.dyeSlot.getStack().isEmpty() && !this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
-            RainbowCuttingRecipe rainbowCuttingRecipe = this.availableRecipes.get(this.selectedRecipe.get());
+            RecipeEntry<RainbowCuttingRecipe> recipeEntry = this.availableRecipes.get(this.selectedRecipe.get());
+            RainbowCuttingRecipe rainbowCuttingRecipe = recipeEntry.value();
             ItemStack itemStack = rainbowCuttingRecipe.craft(this.input, this.world.getRegistryManager());
             if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
-                this.output.setLastRecipe(rainbowCuttingRecipe);
+                this.output.setLastRecipe(recipeEntry);
                 this.outputSlot.setStackNoCallbacks(itemStack);
             } else {
                 this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
@@ -197,7 +200,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
             itemStack = itemStack2.copy();
 
             if (slot == 2) {
-                item.onCraft(itemStack2, player.getWorld(), player);
+                item.onCraft(itemStack2, player.getWorld());
                 if (!this.insertItem(itemStack2, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }

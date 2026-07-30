@@ -14,13 +14,13 @@ import net.minecraft.world.World;
 import net.wolren.land.LandCommon;
 
 public class RainbowCuttingRecipe extends CuttingRecipe {
-    public RainbowCuttingRecipe(Identifier id, String group, Ingredient input, ItemStack output) {
-        super(LandCommon.RAINBOW_CUTTING, ModSerializers.RAINBOW_CUTTING_SERIALIZER, id, group, input, output);
+    public RainbowCuttingRecipe(String group, Ingredient input, ItemStack output) {
+        super(LandCommon.RAINBOW_CUTTING, ModSerializers.RAINBOW_CUTTING_SERIALIZER, group, input, output);
     }
 
     @Override
     public boolean matches(Inventory inventory, World world) {
-        return this.input.test(inventory.getStack(0));
+        return this.ingredient.test(inventory.getStack(0));
     }
 
     @Override
@@ -28,8 +28,9 @@ public class RainbowCuttingRecipe extends CuttingRecipe {
         return new ItemStack(Blocks.STONECUTTER);
     }
 
+    // Use Yarn field name from CuttingRecipe: "result" not "output"
     public ItemStack getOutput() {
-        return this.output;
+        return this.result;
     }
 
     @Override

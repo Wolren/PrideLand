@@ -16,8 +16,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class RainbowDyeRecipe extends ShapelessRecipe {
-    public RainbowDyeRecipe(Identifier id, String group, ItemStack output, DefaultedList<Ingredient> ingredients) {
-        super(id, group, CraftingRecipeCategory.MISC, output, ingredients);
+    public RainbowDyeRecipe(String group, ItemStack output, DefaultedList<Ingredient> ingredients) {
+        super(group, CraftingRecipeCategory.MISC, output, ingredients);
     }
 
     @Override

@@ -1,38 +1,31 @@
 package net.wolren.land.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 
 public class RainbowDyeSerializer implements RecipeSerializer<RainbowDyeRecipe> {
-    @Override
-    public RainbowDyeRecipe read(Identifier id, JsonObject json) {
-        String group = JsonHelper.getString(json, "group", "");
-        DefaultedList<Ingredient> ingredients = readIngredients(JsonHelper.getArray(json, "ingredients"));
-        ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result"));
-        return new RainbowDyeRecipe(id, group, output, ingredients);
-    }
+    private static final Codec<RainbowDyeRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.STRING.optionalFieldOf("group", "").forGetter(RainbowDyeRecipe::getGroup),
+            ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+            Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients)
+    ).apply(instance, (group, result, ingredients) -> {
+        DefaultedList<Ingredient> list = DefaultedList.of();
+        list.addAll(ingredients);
+        return new RainbowDyeRecipe(group, result, list);
+    }));
 
-    private static DefaultedList<Ingredient> readIngredients(JsonArray json) {
-        DefaultedList<Ingredient> ingredients = DefaultedList.of();
-        for (int i = 0; i < json.size(); i++) {
-            Ingredient ingredient = Ingredient.fromJson(json.get(i));
-            if (!ingredient.isEmpty()) {
-                ingredients.add(ingredient);
-            }
-        }
-        return ingredients;
+    @Override
+    public Codec<RainbowDyeRecipe> codec() {
+        return CODEC;
     }
 
     @Override
-    public RainbowDyeRecipe read(Identifier id, PacketByteBuf buf) {
+    public RainbowDyeRecipe read(PacketByteBuf buf) {
         String group = buf.readString();
         int i = buf.readVarInt();
         DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(i, Ingredient.EMPTY);
@@ -40,7 +33,7 @@ public class RainbowDyeSerializer implements RecipeSerializer<RainbowDyeRecipe> 
             ingredients.set(j, Ingredient.fromPacket(buf));
         }
         ItemStack output = buf.readItemStack();
-        return new RainbowDyeRecipe(id, group, output, ingredients);
+        return new RainbowDyeRecipe(group, output, ingredients);
     }
 
     @Override
@@ -51,6 +44,6 @@ public class RainbowDyeSerializer implements RecipeSerializer<RainbowDyeRecipe> 
         for (Ingredient ingredient : ingredients) {
             ingredient.write(buf);
         }
-        buf.writeItemStack(recipe.getOutput(null));
+        buf.writeItemStack(recipe.getResult(null));
     }
 }
