@@ -9,8 +9,6 @@ architectury {
     forge()
 }
 
-evaluationDependsOn(":mc-versions:1.20.4:common")
-
 loom {
     accessWidenerPath = project(":mc-versions:1.20.4:common").loom.accessWidenerPath
 
