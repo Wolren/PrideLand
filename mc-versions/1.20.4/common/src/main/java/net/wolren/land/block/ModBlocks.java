@@ -108,68 +108,68 @@ public class ModBlocks {
             new DirectionalCarpetBlock(wool()));
 
     // Stained Glass
-    public static final GlassBlock RAINBOW_STAINED_GLASS = (GlassBlock) registerBlock("rainbow_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock RAINBOW_STAINED_GLASS = (TransparentBlock) registerBlock("rainbow_stained_glass",
+            new StainedGlassBlock(null, glass()));
     public static final PaneBlock RAINBOW_STAINED_GLASS_PANE = (PaneBlock) registerBlock("rainbow_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock TRANS_STAINED_GLASS = (GlassBlock) registerBlock("trans_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock TRANS_STAINED_GLASS = (TransparentBlock) registerBlock("trans_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock TRANS_STAINED_GLASS_PANE = (PaneBlock) registerBlock("trans_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock NONBINARY_STAINED_GLASS = (GlassBlock) registerBlock("nonbinary_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock NONBINARY_STAINED_GLASS = (TransparentBlock) registerBlock("nonbinary_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock NONBINARY_STAINED_GLASS_PANE = (PaneBlock) registerBlock("nonbinary_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock BISEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("bisexual_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock BISEXUAL_STAINED_GLASS = (TransparentBlock) registerBlock("bisexual_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock BISEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("bisexual_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock PANSEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("pansexual_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock PANSEXUAL_STAINED_GLASS = (TransparentBlock) registerBlock("pansexual_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock PANSEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("pansexual_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock AROMANTIC_STAINED_GLASS = (GlassBlock) registerBlock("aromantic_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock AROMANTIC_STAINED_GLASS = (TransparentBlock) registerBlock("aromantic_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock AROMANTIC_STAINED_GLASS_PANE = (PaneBlock) registerBlock("aromantic_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock DEMISEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("demisexual_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock DEMISEXUAL_STAINED_GLASS = (TransparentBlock) registerBlock("demisexual_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock DEMISEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demisexual_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock AGENDER_STAINED_GLASS = (GlassBlock) registerBlock("agender_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock AGENDER_STAINED_GLASS = (TransparentBlock) registerBlock("agender_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock AGENDER_STAINED_GLASS_PANE = (PaneBlock) registerBlock("agender_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock PROGRESS_PRIDE_STAINED_GLASS = (GlassBlock) registerBlock("progress_pride_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock PROGRESS_PRIDE_STAINED_GLASS = (TransparentBlock) registerBlock("progress_pride_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock PROGRESS_PRIDE_STAINED_GLASS_PANE = (PaneBlock) registerBlock("progress_pride_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock ASEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("asexual_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock ASEXUAL_STAINED_GLASS = (TransparentBlock) registerBlock("asexual_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock ASEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("asexual_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock GENDERFLUID_STAINED_GLASS = (GlassBlock) registerBlock("genderfluid_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock GENDERFLUID_STAINED_GLASS = (TransparentBlock) registerBlock("genderfluid_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock GENDERFLUID_STAINED_GLASS_PANE = (PaneBlock) registerBlock("genderfluid_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock LESBIAN_STAINED_GLASS = (GlassBlock) registerBlock("lesbian_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock LESBIAN_STAINED_GLASS = (TransparentBlock) registerBlock("lesbian_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock LESBIAN_STAINED_GLASS_PANE = (PaneBlock) registerBlock("lesbian_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock DEMIBOY_STAINED_GLASS = (GlassBlock) registerBlock("demiboy_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock DEMIBOY_STAINED_GLASS = (TransparentBlock) registerBlock("demiboy_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock DEMIBOY_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demiboy_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock DEMIGIRL_STAINED_GLASS = (GlassBlock) registerBlock("demigirl_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock DEMIGIRL_STAINED_GLASS = (TransparentBlock) registerBlock("demigirl_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock DEMIGIRL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demigirl_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock GENDERQUEER_STAINED_GLASS = (GlassBlock) registerBlock("genderqueer_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock GENDERQUEER_STAINED_GLASS = (TransparentBlock) registerBlock("genderqueer_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock GENDERQUEER_STAINED_GLASS_PANE = (PaneBlock) registerBlock("genderqueer_stained_glass_pane",
             new PaneBlock(pane()));
-    public static final GlassBlock POLYSEXUAL_STAINED_GLASS = (GlassBlock) registerBlock("polysexual_stained_glass",
-            new GlassBlock(glass()));
+    public static final TransparentBlock POLYSEXUAL_STAINED_GLASS = (TransparentBlock) registerBlock("polysexual_stained_glass",
+            new TransparentBlock(glass()));
     public static final PaneBlock POLYSEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("polysexual_stained_glass_pane",
             new PaneBlock(pane()));
 
