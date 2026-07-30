@@ -1,6 +1,5 @@
 package net.wolren.land.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,12 +19,6 @@ import net.wolren.land.entity.custom.block.RainbowCraftingBlockEntity;
 
 public class RainbowCraftingBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
-
-    @Override
-    public MapCodec<? extends RainbowCraftingBlock> getCodec() {
-        return createCodec(RainbowCraftingBlock::new);
-    }
-
     public RainbowCraftingBlock(Settings settings) {
         super(settings);
         setDefaultState(getStateManager().getDefaultState().with(FACING, Direction.NORTH));

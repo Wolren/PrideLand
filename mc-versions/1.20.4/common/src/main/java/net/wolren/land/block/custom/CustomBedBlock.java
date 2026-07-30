@@ -155,7 +155,7 @@ public class CustomBedBlock extends BedBlock {
     }
 
     @Override
-    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient && player.isCreative()) {
             BedPart bedPart = state.get(PART);
             if (bedPart == BedPart.FOOT) {
@@ -168,7 +168,7 @@ public class CustomBedBlock extends BedBlock {
             }
         }
 
-        return super.onBreak(world, pos, state, player);
+        super.onBreak(world, pos, state, player);
     }
 
     @Nullable

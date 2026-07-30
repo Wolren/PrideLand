@@ -6,7 +6,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.util.math.Direction;
 
-public class DirectionalGlassBlock extends Block {
+public class DirectionalGlassBlock extends TransparentBlock {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
 
     public DirectionalGlassBlock(AbstractBlock.Settings settings) {
