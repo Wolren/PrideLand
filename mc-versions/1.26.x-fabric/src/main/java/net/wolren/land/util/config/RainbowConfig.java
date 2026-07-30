@@ -1,11 +1,6 @@
 package net.wolren.land.util.config;
 
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
-
-@Config(name = "pride_land")
-public class RainbowConfig implements ConfigData {
+public class RainbowConfig {
     public boolean enableRainbowSheepSpawning = true;
     public int sheepWeight = 10;
     public int sheepMinGroupSize = 2;

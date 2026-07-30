@@ -83,7 +83,7 @@ public class RainbowCraftingBlock extends BaseEntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+    public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos, Direction direction) {
         return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(world.getBlockEntity(pos));
     }
 }

@@ -1,6 +1,5 @@
 package net.wolren.land.recipe;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -13,10 +12,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RainbowDyeSerializer implements RecipeSerializer<RainbowDyeRecipe> {
+public class RainbowDyeSerializer extends RecipeSerializer<RainbowDyeRecipe> {
     private static final MapCodec<RainbowDyeRecipe> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
-                    Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.getGroup()),
+                    com.mojang.serialization.Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.getGroup()),
                     CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC)
                             .forGetter(recipe -> recipe.getCategory()),
                     ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.getResult()),
@@ -51,13 +50,7 @@ public class RainbowDyeSerializer implements RecipeSerializer<RainbowDyeRecipe> 
         }
     }
 
-    @Override
-    public MapCodec<RainbowDyeRecipe> codec() {
-        return CODEC;
-    }
-
-    @Override
-    public StreamCodec<RegistryFriendlyByteBuf, RainbowDyeRecipe> streamCodec() {
-        return PACKET_CODEC;
+    public RainbowDyeSerializer() {
+        super(CODEC, PACKET_CODEC);
     }
 }

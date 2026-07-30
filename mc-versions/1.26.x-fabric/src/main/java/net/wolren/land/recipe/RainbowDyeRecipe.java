@@ -8,6 +8,9 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.item.crafting.ShapelessRecipeInput;
@@ -52,14 +55,23 @@ public class RainbowDyeRecipe extends ShapelessRecipe {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public RecipeSerializer<ShapelessRecipe> getSerializer() {
-        return (RecipeSerializer<ShapelessRecipe>) (RecipeSerializer<?>) ModSerializers.RAINBOW_DYE_SERIALIZER;
+    public RecipeSerializer<? extends ShapelessRecipe> getSerializer() {
+        return ModSerializers.RAINBOW_DYE_SERIALIZER;
     }
 
     @Override
-    public net.minecraft.world.item.crafting.RecipeType<net.minecraft.world.item.crafting.CraftingRecipe> getType() {
+    public net.minecraft.world.item.crafting.RecipeType<?> getType() {
         return net.minecraft.world.item.crafting.RecipeType.CRAFTING;
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.ingredientList);
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     public List<Ingredient> getIngredients() {

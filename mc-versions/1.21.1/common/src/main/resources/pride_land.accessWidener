@@ -3,12 +3,12 @@ accessWidener v2 named
 # Block constructors
 accessible method net/minecraft/block/PaneBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
 accessible method net/minecraft/block/StairsBlock <init> (Lnet/minecraft/block/BlockState;Lnet/minecraft/block/AbstractBlock$Settings;)V
-accessible method net/minecraft/block/ButtonBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;Lnet/minecraft/block/BlockSetType;IZ)V
-accessible method net/minecraft/block/PressurePlateBlock <init> (Lnet/minecraft/block/PressurePlateBlock$ActivationRule;Lnet/minecraft/block/AbstractBlock$Settings;Lnet/minecraft/block/BlockSetType;)V
-accessible method net/minecraft/block/DoorBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;Lnet/minecraft/block/BlockSetType;)V
-accessible method net/minecraft/block/TrapdoorBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;Lnet/minecraft/block/BlockSetType;)V
+accessible method net/minecraft/block/ButtonBlock <init> (Lnet/minecraft/block/BlockSetType;ILnet/minecraft/block/AbstractBlock$Settings;)V
+accessible method net/minecraft/block/PressurePlateBlock <init> (Lnet/minecraft/block/BlockSetType;Lnet/minecraft/block/AbstractBlock$Settings;)V
+accessible method net/minecraft/block/DoorBlock <init> (Lnet/minecraft/block/BlockSetType;Lnet/minecraft/block/AbstractBlock$Settings;)V
+accessible method net/minecraft/block/TrapdoorBlock <init> (Lnet/minecraft/block/BlockSetType;Lnet/minecraft/block/AbstractBlock$Settings;)V
 accessible method net/minecraft/block/FenceBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
-accessible method net/minecraft/block/FenceGateBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;Lnet/minecraft/block/WoodType;)V
+accessible method net/minecraft/block/FenceGateBlock <init> (Lnet/minecraft/block/WoodType;Lnet/minecraft/block/AbstractBlock$Settings;)V
 accessible method net/minecraft/block/SlabBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
 accessible method net/minecraft/block/WallBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
 accessible method net/minecraft/block/CandleBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
@@ -32,6 +32,12 @@ accessible method net/minecraft/entity/EntityType$Builder <init> (Lnet/minecraft
 
 # Screen handler type
 accessible class net/minecraft/screen/ScreenHandlerType$Factory
+
+# Recipe fields (protected in Yarn)
+accessible field net/minecraft/recipe/CuttingRecipe ingredient Lnet/minecraft/recipe/Ingredient;
+accessible field net/minecraft/recipe/CuttingRecipe result Lnet/minecraft/item/ItemStack;
+accessible field net/minecraft/recipe/ShapelessRecipe ingredients Lnet/minecraft/util/collection/DefaultedList;
+accessible field net/minecraft/recipe/ShapelessRecipe result Lnet/minecraft/item/ItemStack;
 
 # Block families
 accessible method net/minecraft/data/family/BlockFamilies register (Lnet/minecraft/block/Block;)Lnet/minecraft/data/family/BlockFamily$Builder;

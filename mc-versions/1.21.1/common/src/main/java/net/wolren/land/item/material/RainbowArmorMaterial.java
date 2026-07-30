@@ -1,78 +1,35 @@
 package net.wolren.land.item.material;
 
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.wolren.land.LandCommon;
 
-import java.util.function.Supplier;
+import java.util.EnumMap;
+import java.util.Map;
 
-public enum RainbowArmorMaterial implements ArmorMaterial {
-    RAINBOW("rainbow", 37, new int[] { 3, 8, 6, 3 }, 19, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3f, 0.1f, () -> Ingredient.ofItems(Items.NETHERITE_INGOT));
+public class RainbowArmorMaterial {
+    public static final RegistryEntry<ArmorMaterial> RAINBOW = register();
 
-    private final String name;
-    private final int durabilityMultiplier;
-    private final int[] protectionAmounts;
-    private final int enchantability;
-    private final SoundEvent equipSound;
-    private final float toughness;
-    private final float knockbackResistance;
-    private final Supplier<Ingredient> repairIngredient;
-    private static final int[] BASE_DURABILITY = { 11, 16, 15, 13 };
+    private static RegistryEntry<ArmorMaterial> register() {
+        Map<ArmorItem.Type, Integer> protection = new EnumMap<>(ArmorItem.Type.class);
+        protection.put(ArmorItem.Type.HELMET, 3);
+        protection.put(ArmorItem.Type.CHESTPLATE, 8);
+        protection.put(ArmorItem.Type.LEGGINGS, 6);
+        protection.put(ArmorItem.Type.BOOTS, 3);
 
-    RainbowArmorMaterial(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound,
-                      float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
-        this.name = name;
-        this.durabilityMultiplier = durabilityMultiplier;
-        this.protectionAmounts = protectionAmounts;
-        this.enchantability = enchantability;
-        this.equipSound = equipSound;
-        this.toughness = toughness;
-        this.knockbackResistance = knockbackResistance;
-        this.repairIngredient = repairIngredient;
-    }
+        ArmorMaterial material = new ArmorMaterial(37, protection, 19,
+                SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,
+                () -> Ingredient.ofItems(Items.NETHERITE_INGOT),
+                3.0F, 0.1F, false);
 
-    @Override
-    public int getDurability(ArmorItem.Type type) {
-        return BASE_DURABILITY[type.ordinal()] * this.durabilityMultiplier;
-    }
-
-    @Override
-    public int getProtection(ArmorItem.Type type) {
-        return protectionAmounts[type.ordinal()];
-    }
-
-    @Override
-    public int getEnchantability() {
-        return this.enchantability;
-    }
-
-    @Override
-    public SoundEvent getEquipSound() {
-        return this.equipSound;
-    }
-
-    @Override
-    public Ingredient getRepairIngredient() {
-        return this.repairIngredient.get();
-    }
-
-    @Override
-    public String getName() {
-        return LandCommon.MOD_ID + ":" + this.name;
-    }
-
-    @Override
-    public float getToughness() {
-        return this.toughness;
-    }
-
-    @Override
-    public float getKnockbackResistance() {
-        return this.knockbackResistance;
+        return Registry.register(Registries.ARMOR_MATERIAL,
+                Identifier.of(LandCommon.MOD_ID, "rainbow"), material);
     }
 }

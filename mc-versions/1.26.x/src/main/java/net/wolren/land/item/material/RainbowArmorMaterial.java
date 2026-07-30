@@ -7,16 +7,16 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.wolren.land.PrideLand;
+import net.wolren.land.util.ModTags;
 
 import java.util.Map;
 
 public class RainbowArmorMaterial {
-    private static ResourceKey<? extends Registry<net.minecraft.world.item.equipment.EquipmentAsset>> ROOT_ID =
+    private static ResourceKey<? extends Registry<EquipmentAsset>> ROOT_ID =
             ResourceKey.createRegistryKey(Identifier.withDefaultNamespace("equipment_asset"));
-    public static ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> RAINBOW_KEY = ResourceKey.create(ROOT_ID,
+    public static ResourceKey<EquipmentAsset> RAINBOW_KEY = ResourceKey.create(ROOT_ID,
             Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, "rainbow"));
 
     public static final ArmorMaterial RAINBOW = new ArmorMaterial(
@@ -26,7 +26,7 @@ public class RainbowArmorMaterial {
             SoundEvents.ARMOR_EQUIP_NETHERITE,
             3.0F,
             0.1F,
-            Ingredient.of(Items.NETHERITE_INGOT),
+            ModTags.Items.RAINBOW_REPAIR,
             RAINBOW_KEY
     );
 
