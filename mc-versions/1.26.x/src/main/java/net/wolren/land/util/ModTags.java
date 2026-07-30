@@ -21,6 +21,7 @@ public class ModTags {
 
     public static class Items {
         public static final TagKey<Item> ELYTRA_ITEMS = createTag("elytra_items");
+        public static final TagKey<Item> RAINBOW_REPAIR = createTag("rainbow_repair");
 
         private static TagKey<Item> createTag(String name) {
             return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, name));

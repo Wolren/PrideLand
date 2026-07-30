@@ -2,7 +2,7 @@ package net.wolren.land.screen;
 
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
-import net.wolren.land.LandCommon;
+import net.wolren.land.PrideLand;
 
 public class ModScreenHandlers {
     public static MenuType<RainbowCraftingScreenHandler> BOX_SCREEN_HANDLER = null;

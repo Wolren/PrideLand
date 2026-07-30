@@ -174,37 +174,37 @@ public class ModBlocks {
 
     // === Beds (16 beds) ===
     public static final DeferredBlock<CustomBedBlock> RAINBOW_BED = registerBlock("rainbow_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> TRANS_BED = registerBlock("trans_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> NONBINARY_BED = registerBlock("nonbinary_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> BISEXUAL_BED = registerBlock("bisexual_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> PANSEXUAL_BED = registerBlock("pansexual_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> AROMANTIC_BED = registerBlock("aromantic_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> DEMISEXUAL_BED = registerBlock("demisexual_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> AGENDER_BED = registerBlock("agender_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> PROGRESS_PRIDE_BED = registerBlock("progress_pride_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> ASEXUAL_BED = registerBlock("asexual_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> GENDERFLUID_BED = registerBlock("genderfluid_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> LESBIAN_BED = registerBlock("lesbian_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> DEMIBOY_BED = registerBlock("demiboy_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> DEMIGIRL_BED = registerBlock("demigirl_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> GENDERQUEER_BED = registerBlock("genderqueer_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
     public static final DeferredBlock<CustomBedBlock> POLYSEXUAL_BED = registerBlock("polysexual_bed",
-            properties -> new CustomBedBlock(properties));
+            properties -> new CustomBedBlock(DyeColor.WHITE, properties));
 
     // === Concrete & Terracotta ===
     public static final DeferredBlock<DirectionalBlock> RAINBOW_CONCRETE = registerBlock("rainbow_concrete",
