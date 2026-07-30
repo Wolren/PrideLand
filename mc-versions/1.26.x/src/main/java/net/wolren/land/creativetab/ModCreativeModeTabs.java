@@ -23,7 +23,12 @@ public class ModCreativeModeTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.RAINBOW_WOOL.get()))
                     .title(Component.translatable("creativetab.pride_land.pride_land_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        // Blocks — Wools
+                        // === Blocks ===
+
+                        // Crafting
+                        output.accept(ModBlocks.RAINBOW_CRAFTING);
+
+                        // Wools
                         output.accept(ModBlocks.RAINBOW_WOOL);
                         output.accept(ModBlocks.TRANS_WOOL);
                         output.accept(ModBlocks.NONBINARY_WOOL);
@@ -48,19 +53,72 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.BISEXUAL_CARPET);
                         output.accept(ModBlocks.PANSEXUAL_CARPET);
                         output.accept(ModBlocks.AROMANTIC_CARPET);
+                        output.accept(ModBlocks.DEMISEXUAL_CARPET);
                         output.accept(ModBlocks.AGENDER_CARPET);
                         output.accept(ModBlocks.PROGRESS_PRIDE_CARPET);
                         output.accept(ModBlocks.ASEXUAL_CARPET);
                         output.accept(ModBlocks.GENDERFLUID_CARPET);
                         output.accept(ModBlocks.LESBIAN_CARPET);
+                        output.accept(ModBlocks.DEMIBOY_CARPET);
+                        output.accept(ModBlocks.DEMIGIRL_CARPET);
+                        output.accept(ModBlocks.GENDERQUEER_CARPET);
+                        output.accept(ModBlocks.POLYSEXUAL_CARPET);
 
-                        // Blocks — Glass
+                        // Beds
+                        output.accept(ModBlocks.RAINBOW_BED);
+                        output.accept(ModBlocks.TRANS_BED);
+                        output.accept(ModBlocks.NONBINARY_BED);
+                        output.accept(ModBlocks.BISEXUAL_BED);
+                        output.accept(ModBlocks.PANSEXUAL_BED);
+                        output.accept(ModBlocks.AROMANTIC_BED);
+                        output.accept(ModBlocks.DEMISEXUAL_BED);
+                        output.accept(ModBlocks.AGENDER_BED);
+                        output.accept(ModBlocks.PROGRESS_PRIDE_BED);
+                        output.accept(ModBlocks.ASEXUAL_BED);
+                        output.accept(ModBlocks.GENDERFLUID_BED);
+                        output.accept(ModBlocks.LESBIAN_BED);
+                        output.accept(ModBlocks.DEMIBOY_BED);
+                        output.accept(ModBlocks.DEMIGIRL_BED);
+                        output.accept(ModBlocks.GENDERQUEER_BED);
+                        output.accept(ModBlocks.POLYSEXUAL_BED);
+
+                        // Glass blocks
                         output.accept(ModBlocks.RAINBOW_STAINED_GLASS);
-                        output.accept(ModBlocks.RAINBOW_STAINED_GLASS_PANE);
                         output.accept(ModBlocks.TRANS_STAINED_GLASS);
-                        output.accept(ModBlocks.TRANS_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.NONBINARY_STAINED_GLASS);
+                        output.accept(ModBlocks.BISEXUAL_STAINED_GLASS);
+                        output.accept(ModBlocks.PANSEXUAL_STAINED_GLASS);
+                        output.accept(ModBlocks.AROMANTIC_STAINED_GLASS);
+                        output.accept(ModBlocks.DEMISEXUAL_STAINED_GLASS);
+                        output.accept(ModBlocks.AGENDER_STAINED_GLASS);
+                        output.accept(ModBlocks.PROGRESS_PRIDE_STAINED_GLASS);
+                        output.accept(ModBlocks.ASEXUAL_STAINED_GLASS);
+                        output.accept(ModBlocks.GENDERFLUID_STAINED_GLASS);
+                        output.accept(ModBlocks.LESBIAN_STAINED_GLASS);
+                        output.accept(ModBlocks.DEMIBOY_STAINED_GLASS);
+                        output.accept(ModBlocks.DEMIGIRL_STAINED_GLASS);
+                        output.accept(ModBlocks.GENDERQUEER_STAINED_GLASS);
+                        output.accept(ModBlocks.POLYSEXUAL_STAINED_GLASS);
 
-                        // Blocks — Planks family
+                        // Glass panes
+                        output.accept(ModBlocks.RAINBOW_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.TRANS_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.NONBINARY_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.BISEXUAL_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.PANSEXUAL_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.AROMANTIC_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.DEMISEXUAL_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.AGENDER_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.PROGRESS_PRIDE_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.ASEXUAL_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.GENDERFLUID_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.LESBIAN_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.DEMIBOY_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.DEMIGIRL_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.GENDERQUEER_STAINED_GLASS_PANE);
+                        output.accept(ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE);
+
+                        // Planks family
                         output.accept(ModBlocks.RAINBOW_PLANKS);
                         output.accept(ModBlocks.RAINBOW_STAIRS);
                         output.accept(ModBlocks.RAINBOW_SLAB);
@@ -71,20 +129,21 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.RAINBOW_DOOR);
                         output.accept(ModBlocks.RAINBOW_TRAPDOOR);
 
-                        // Blocks — Bricks
+                        // Bricks
                         output.accept(ModBlocks.RAINBOW_BRICKS);
                         output.accept(ModBlocks.RAINBOW_BRICK_STAIRS);
                         output.accept(ModBlocks.RAINBOW_BRICK_SLAB);
                         output.accept(ModBlocks.RAINBOW_BRICK_WALL);
 
-                        // Blocks — Other
+                        // Concrete & Terracotta
                         output.accept(ModBlocks.RAINBOW_CONCRETE);
+                        output.accept(ModBlocks.RAINBOW_CONCRETE_POWDER);
                         output.accept(ModBlocks.RAINBOW_TERRACOTTA);
-                        output.accept(ModBlocks.RAINBOW_CRAFTING);
-                        output.accept(ModBlocks.RAINBOW_CANDLE);
-                        output.accept(ModBlocks.RAINBOW_BED);
 
-                        // Items
+                        // Other blocks
+                        output.accept(ModBlocks.RAINBOW_CANDLE);
+
+                        // === Items ===
                         output.accept(ModItems.RAINBOW_SWORD);
                         output.accept(ModItems.RAINBOW_PICKAXE);
                         output.accept(ModItems.RAINBOW_AXE);
@@ -96,6 +155,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.RAINBOW_LEGGINGS);
                         output.accept(ModItems.RAINBOW_BOOTS);
 
+                        // Elytras
                         output.accept(ModItems.RAINBOW_ELYTRA);
                         output.accept(ModItems.TRANS_ELYTRA);
                         output.accept(ModItems.NONBINARY_ELYTRA);
@@ -113,6 +173,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.GENDERQUEER_ELYTRA);
                         output.accept(ModItems.POLYSEXUAL_ELYTRA);
 
+                        // Spawn egg
                         output.accept(ModItems.RAINBOW_SHEEP_SPAWN_EGG);
                     }).build());
 
