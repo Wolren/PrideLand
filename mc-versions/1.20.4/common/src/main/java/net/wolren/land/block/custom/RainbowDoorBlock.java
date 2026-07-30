@@ -24,9 +24,8 @@ import net.minecraft.world.World;
  * still exists. Only the half that was directly broken by the player drops items.
  */
 public class RainbowDoorBlock extends DoorBlock {
-
-    public RainbowDoorBlock(Settings settings, BlockSetType blockSetType) {
-        super(settings, blockSetType);
+    public RainbowDoorBlock(BlockSetType blockSetType, Settings settings) {
+        super(blockSetType, settings);
     }
 
     @Override
