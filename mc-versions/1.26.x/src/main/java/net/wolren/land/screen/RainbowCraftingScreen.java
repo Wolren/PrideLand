@@ -1,5 +1,6 @@
 package net.wolren.land.screen;
 
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,6 +16,6 @@ public class RainbowCraftingScreen extends AbstractContainerScreen<RainbowCrafti
     }
 
     @Override
-    protected void renderBg(net.minecraft.client.gui.GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphicsExtractor graphics, float partialTick, int mouseX, int mouseY) {
     }
 }

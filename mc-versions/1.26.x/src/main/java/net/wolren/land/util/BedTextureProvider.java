@@ -1,7 +1,6 @@
 package net.wolren.land.util;
 
-import net.minecraft.client.renderer.texture.atlas.SpriteSource;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.wolren.land.PrideLand;
 import net.wolren.land.block.ModBlocks;
@@ -40,12 +39,12 @@ public class BedTextureProvider {
         }
     }
 
-    public static final ResourceLocation BEDS_ATLAS_TEXTURE = ResourceLocation.withDefaultNamespace("textures/atlas/beds.png");
+    public static final Identifier BEDS_ATLAS_TEXTURE = Identifier.withDefaultNamespace("textures/atlas/beds.png");
 
-    public static ResourceLocation getBedTexture(Block bedBlock) {
+    public static Identifier getBedTexture(Block bedBlock) {
         String descId = bedBlock.getDescriptionId();
         String name = extractBedName(descId);
-        return ResourceLocation.fromNamespaceAndPath(PrideLand.MOD_ID, "entity/bed/" + name);
+        return Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, "entity/bed/" + name);
     }
 
     public static String extractBedName(String translationKey) {

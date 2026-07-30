@@ -7,38 +7,253 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.wolren.land.PrideLand;
+import net.wolren.land.block.custom.CustomBedBlock;
+import net.wolren.land.block.custom.RainbowCraftingBlock;
+import net.wolren.land.block.custom.RainbowDoorBlock;
+import net.wolren.land.block.custom.directional.DirectionalBlock;
+import net.wolren.land.block.custom.directional.DirectionalCarpetBlock;
+import net.wolren.land.block.custom.directional.DirectionalRainbowConcretePowderBlock;
 
 import java.util.function.Function;
 
 public class ModBlocks {
-    // Rainbow Wool
-    public static final Block RAINBOW_WOOL = registerBlock("rainbow_wool",
-            properties -> new Block(properties.strength(0.8f).sound(SoundType.WOOL)));
+    // Forge detection - always false on Fabric
+    private static final boolean DEFER_BLOCK_ITEMS = false;
 
-    // Rainbow Planks
-    public static final Block RAINBOW_PLANKS = registerBlock("rainbow_planks",
-            properties -> new Block(properties.strength(2.0f, 3.0f).sound(SoundType.WOOD)));
+    // Candle
+    public static final Block RAINBOW_CANDLE = registerBlock("rainbow_candle",
+            properties -> new CandleBlock(candle()));
 
-    // Rainbow Bricks
-    public static final Block RAINBOW_BRICKS = registerBlock("rainbow_bricks",
-            properties -> new Block(properties.strength(2.0f, 6.0f).sound(SoundType.STONE)));
-
-    // Rainbow Stained Glass
-    public static final Block RAINBOW_STAINED_GLASS = registerBlock("rainbow_stained_glass",
-            properties -> new Block(properties.strength(0.3f).sound(SoundType.GLASS).noOcclusion()));
-
-    // Rainbow Crafting Table
+    // Crafting
     public static final Block RAINBOW_CRAFTING = registerBlock("rainbow_crafting",
-            properties -> new Block(properties.strength(3.5f).sound(SoundType.STONE)));
+            properties -> new RainbowCraftingBlock(stonecutter()));
 
+    // Wools
+    public static final DirectionalBlock RAINBOW_WOOL = (DirectionalBlock) registerBlock("rainbow_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock TRANS_WOOL = (DirectionalBlock) registerBlock("trans_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock NONBINARY_WOOL = (DirectionalBlock) registerBlock("nonbinary_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock BISEXUAL_WOOL = (DirectionalBlock) registerBlock("bisexual_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock PANSEXUAL_WOOL = (DirectionalBlock) registerBlock("pansexual_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock AROMANTIC_WOOL = (DirectionalBlock) registerBlock("aromantic_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock DEMISEXUAL_WOOL = (DirectionalBlock) registerBlock("demisexual_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock AGENDER_WOOL = (DirectionalBlock) registerBlock("agender_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock PROGRESS_PRIDE_WOOL = (DirectionalBlock) registerBlock("progress_pride_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock ASEXUAL_WOOL = (DirectionalBlock) registerBlock("asexual_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock GENDERFLUID_WOOL = (DirectionalBlock) registerBlock("genderfluid_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock LESBIAN_WOOL = (DirectionalBlock) registerBlock("lesbian_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock DEMIBOY_WOOL = (DirectionalBlock) registerBlock("demiboy_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock DEMIGIRL_WOOL = (DirectionalBlock) registerBlock("demigirl_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock GENDERQUEER_WOOL = (DirectionalBlock) registerBlock("genderqueer_wool",
+            properties -> new DirectionalBlock(wool()));
+    public static final DirectionalBlock POLYSEXUAL_WOOL = (DirectionalBlock) registerBlock("polysexual_wool",
+            properties -> new DirectionalBlock(wool()));
+
+    // Carpets
+    public static final DirectionalCarpetBlock RAINBOW_CARPET = (DirectionalCarpetBlock) registerBlock("rainbow_carpet",
+            properties -> new DirectionalCarpetBlock(carpet()));
+    public static final DirectionalCarpetBlock TRANS_CARPET = (DirectionalCarpetBlock) registerBlock("trans_carpet",
+            properties -> new DirectionalCarpetBlock(carpet()));
+    public static final DirectionalCarpetBlock NONBINARY_CARPET = (DirectionalCarpetBlock) registerBlock("nonbinary_carpet",
+            properties -> new DirectionalCarpetBlock(carpet()));
+    public static final DirectionalCarpetBlock BISEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("bisexual_carpet",
+            properties -> new DirectionalCarpetBlock(carpet()));
+    public static final DirectionalCarpetBlock PANSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("pansexual_carpet",
+            properties -> new DirectionalCarpetBlock(carpet()));
+    public static final DirectionalCarpetBlock AROMANTIC_CARPET = (DirectionalCarpetBlock) registerBlock("aromantic_carpet",
+            properties -> new DirectionalCarpetBlock(carpet()));
+    public static final DirectionalCarpetBlock DEMISEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("demisexual_carpet",
+            properties -> new DirectionalCarpetBlock(wool()));
+    public static final DirectionalCarpetBlock AGENDER_CARPET = (DirectionalCarpetBlock) registerBlock("agender_carpet",
+            properties -> new DirectionalCarpetBlock(wool()));
+    public static final DirectionalCarpetBlock PROGRESS_PRIDE_CARPET = (DirectionalCarpetBlock) registerBlock("progress_pride_carpet",
+            properties -> new DirectionalCarpetBlock(wool()));
+    public static final DirectionalCarpetBlock ASEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("asexual_carpet",
+            properties -> new DirectionalCarpetBlock(wool()));
+    public static final DirectionalCarpetBlock GENDERFLUID_CARPET = (DirectionalCarpetBlock) registerBlock("genderfluid_carpet",
+            properties -> new DirectionalCarpetBlock(wool()));
+    public static final DirectionalCarpetBlock LESBIAN_CARPET = (DirectionalCarpetBlock) registerBlock("lesbian_carpet",
+            properties -> new DirectionalCarpetBlock(wool()));
+    public static final DirectionalCarpetBlock DEMIBOY_CARPET = (DirectionalCarpetBlock) registerBlock("demiboy_carpet",
+            properties -> new DirectionalCarpetBlock(wool()));
+    public static final DirectionalCarpetBlock DEMIGIRL_CARPET = (DirectionalCarpetBlock) registerBlock("demigirl_carpet",
+            properties -> new DirectionalCarpetBlock(wool()));
+    public static final DirectionalCarpetBlock GENDERQUEER_CARPET = (DirectionalCarpetBlock) registerBlock("genderqueer_carpet",
+            properties -> new DirectionalCarpetBlock(wool()));
+    public static final DirectionalCarpetBlock POLYSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("polysexual_carpet",
+            properties -> new DirectionalCarpetBlock(wool()));
+
+    // Stained Glass
+    public static final Block RAINBOW_STAINED_GLASS = registerBlock("rainbow_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block RAINBOW_STAINED_GLASS_PANE = registerBlock("rainbow_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block TRANS_STAINED_GLASS = registerBlock("trans_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block TRANS_STAINED_GLASS_PANE = registerBlock("trans_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block NONBINARY_STAINED_GLASS = registerBlock("nonbinary_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block NONBINARY_STAINED_GLASS_PANE = registerBlock("nonbinary_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block BISEXUAL_STAINED_GLASS = registerBlock("bisexual_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block BISEXUAL_STAINED_GLASS_PANE = registerBlock("bisexual_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block PANSEXUAL_STAINED_GLASS = registerBlock("pansexual_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block PANSEXUAL_STAINED_GLASS_PANE = registerBlock("pansexual_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block AROMANTIC_STAINED_GLASS = registerBlock("aromantic_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block AROMANTIC_STAINED_GLASS_PANE = registerBlock("aromantic_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block DEMISEXUAL_STAINED_GLASS = registerBlock("demisexual_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block DEMISEXUAL_STAINED_GLASS_PANE = registerBlock("demisexual_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block AGENDER_STAINED_GLASS = registerBlock("agender_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block AGENDER_STAINED_GLASS_PANE = registerBlock("agender_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block PROGRESS_PRIDE_STAINED_GLASS = registerBlock("progress_pride_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block PROGRESS_PRIDE_STAINED_GLASS_PANE = registerBlock("progress_pride_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block ASEXUAL_STAINED_GLASS = registerBlock("asexual_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block ASEXUAL_STAINED_GLASS_PANE = registerBlock("asexual_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block GENDERFLUID_STAINED_GLASS = registerBlock("genderfluid_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block GENDERFLUID_STAINED_GLASS_PANE = registerBlock("genderfluid_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block LESBIAN_STAINED_GLASS = registerBlock("lesbian_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block LESBIAN_STAINED_GLASS_PANE = registerBlock("lesbian_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block DEMIBOY_STAINED_GLASS = registerBlock("demiboy_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block DEMIBOY_STAINED_GLASS_PANE = registerBlock("demiboy_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block DEMIGIRL_STAINED_GLASS = registerBlock("demigirl_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block DEMIGIRL_STAINED_GLASS_PANE = registerBlock("demigirl_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block GENDERQUEER_STAINED_GLASS = registerBlock("genderqueer_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block GENDERQUEER_STAINED_GLASS_PANE = registerBlock("genderqueer_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+    public static final Block POLYSEXUAL_STAINED_GLASS = registerBlock("polysexual_stained_glass",
+            properties -> new Block(glass()));
+    public static final Block POLYSEXUAL_STAINED_GLASS_PANE = registerBlock("polysexual_stained_glass_pane",
+            properties -> new IronBarsBlock(pane()));
+
+    // Beds
+    public static final CustomBedBlock RAINBOW_BED = (CustomBedBlock) registerBlock("rainbow_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock TRANS_BED = (CustomBedBlock) registerBlock("trans_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock NONBINARY_BED = (CustomBedBlock) registerBlock("nonbinary_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock BISEXUAL_BED = (CustomBedBlock) registerBlock("bisexual_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock PANSEXUAL_BED = (CustomBedBlock) registerBlock("pansexual_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock AROMANTIC_BED = (CustomBedBlock) registerBlock("aromantic_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock DEMISEXUAL_BED = (CustomBedBlock) registerBlock("demisexual_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock AGENDER_BED = (CustomBedBlock) registerBlock("agender_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock PROGRESS_PRIDE_BED = (CustomBedBlock) registerBlock("progress_pride_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock ASEXUAL_BED = (CustomBedBlock) registerBlock("asexual_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock GENDERFLUID_BED = (CustomBedBlock) registerBlock("genderfluid_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock LESBIAN_BED = (CustomBedBlock) registerBlock("lesbian_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock DEMIBOY_BED = (CustomBedBlock) registerBlock("demiboy_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock DEMIGIRL_BED = (CustomBedBlock) registerBlock("demigirl_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock GENDERQUEER_BED = (CustomBedBlock) registerBlock("genderqueer_bed",
+            properties -> new CustomBedBlock(bed()));
+    public static final CustomBedBlock POLYSEXUAL_BED = (CustomBedBlock) registerBlock("polysexual_bed",
+            properties -> new CustomBedBlock(bed()));
+
+    // Concrete & Terracotta
+    public static final DirectionalBlock RAINBOW_CONCRETE = (DirectionalBlock) registerBlock("rainbow_concrete",
+            properties -> new DirectionalBlock(concrete()));
+    public static final DirectionalRainbowConcretePowderBlock RAINBOW_CONCRETE_POWDER = (DirectionalRainbowConcretePowderBlock) registerBlock("rainbow_concrete_powder",
+            properties -> new DirectionalRainbowConcretePowderBlock(ModBlocks.RAINBOW_CONCRETE, concretePowder()));
+    public static final DirectionalBlock RAINBOW_TERRACOTTA = (DirectionalBlock) registerBlock("rainbow_terracotta",
+            properties -> new DirectionalBlock(terracotta()));
+
+    // Bricks
+    public static final Block RAINBOW_BRICKS = registerBlock("rainbow_bricks",
+            properties -> new Block(bricks()));
+    public static final StairBlock RAINBOW_BRICK_STAIRS = (StairBlock) registerBlock("rainbow_brick_stairs",
+            properties -> new StairBlock(RAINBOW_BRICKS.defaultBlockState(), bricks()));
+    public static final SlabBlock RAINBOW_BRICK_SLAB = (SlabBlock) registerBlock("rainbow_brick_slab",
+            properties -> new SlabBlock(bricks()));
+    public static final WallBlock RAINBOW_BRICK_WALL = (WallBlock) registerBlock("rainbow_brick_wall",
+            properties -> new WallBlock(bricks()));
+
+    // Planks & Wood family
+    public static final Block RAINBOW_PLANKS = registerBlock("rainbow_planks",
+            properties -> new Block(planks()));
+    public static final StairBlock RAINBOW_STAIRS = (StairBlock) registerBlock("rainbow_stairs",
+            properties -> new StairBlock(RAINBOW_PLANKS.defaultBlockState(), planks()));
+    public static final SlabBlock RAINBOW_SLAB = (SlabBlock) registerBlock("rainbow_slab",
+            properties -> new SlabBlock(planks()));
+    public static final FenceBlock RAINBOW_FENCE = (FenceBlock) registerBlock("rainbow_fence",
+            properties -> new FenceBlock(planks()));
+    public static final FenceGateBlock RAINBOW_FENCE_GATE = (FenceGateBlock) registerBlock("rainbow_fence_gate",
+            properties -> new FenceGateBlock(WoodType.OAK, planks()));
+    public static final ButtonBlock RAINBOW_BUTTON = (ButtonBlock) registerBlock("rainbow_button",
+            properties -> new ButtonBlock(BlockSetType.OAK, 10, planks()));
+    public static final PressurePlateBlock RAINBOW_PRESSURE_PLATE = (PressurePlateBlock) registerBlock("rainbow_pressure_plate",
+            properties -> new PressurePlateBlock(BlockSetType.OAK, planks()));
+    public static final DoorBlock RAINBOW_DOOR = (DoorBlock) registerBlock("rainbow_door",
+            properties -> new RainbowDoorBlock(BlockSetType.OAK, planks().noOcclusion()));
+    public static final TrapDoorBlock RAINBOW_TRAPDOOR = (TrapDoorBlock) registerBlock("rainbow_trapdoor",
+            properties -> new TrapDoorBlock(BlockSetType.OAK, planks().noOcclusion()));
+
+    // Sign blocks - set by platform modules
+    public static Block RAINBOW_STANDING_SIGN = null;
+    public static Block RAINBOW_WALL_SIGN = null;
+    public static Block RAINBOW_HANGING_SIGN = null;
+    public static Block RAINBOW_WALL_HANGING_SIGN = null;
+
+    // Registration helpers
     private static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> function) {
         Block toRegister = function.apply(BlockBehaviour.Properties.of()
                 .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, name))));
-        registerBlockItem(name, toRegister);
+        if (!DEFER_BLOCK_ITEMS) {
+            registerBlockItem(name, toRegister);
+        } else {
+            BlockItemQueue.PENDING.add(() -> registerBlockItem(name, toRegister));
+        }
         return Registry.register(BuiltInRegistries.BLOCK, Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, name), toRegister);
     }
 
@@ -49,6 +264,44 @@ public class ModBlocks {
     }
 
     public static void registerModBlocks() {
-        PrideLand.LOGGER.info("Registering Mod Blocks for " + PrideLand.MOD_ID);
+        PrideLand.LOGGER.info("Registering ModBlocks for " + PrideLand.MOD_ID);
+    }
+
+    // Block settings helpers
+    private static BlockBehaviour.Properties wool() {
+        return BlockBehaviour.Properties.of().strength(0.8F).sound(SoundType.WOOL);
+    }
+    private static BlockBehaviour.Properties carpet() {
+        return BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.WOOL);
+    }
+    private static BlockBehaviour.Properties glass() {
+        return BlockBehaviour.Properties.of().strength(0.3F).sound(SoundType.GLASS).noOcclusion();
+    }
+    private static BlockBehaviour.Properties pane() {
+        return BlockBehaviour.Properties.of().strength(0.3F).sound(SoundType.GLASS).noOcclusion();
+    }
+    private static BlockBehaviour.Properties concrete() {
+        return BlockBehaviour.Properties.of().strength(1.8F).sound(SoundType.STONE);
+    }
+    private static BlockBehaviour.Properties concretePowder() {
+        return BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.SAND);
+    }
+    private static BlockBehaviour.Properties terracotta() {
+        return BlockBehaviour.Properties.of().strength(1.25F).sound(SoundType.STONE);
+    }
+    private static BlockBehaviour.Properties planks() {
+        return BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD);
+    }
+    private static BlockBehaviour.Properties bricks() {
+        return BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.STONE);
+    }
+    private static BlockBehaviour.Properties stonecutter() {
+        return BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.STONE);
+    }
+    private static BlockBehaviour.Properties bed() {
+        return BlockBehaviour.Properties.of().strength(0.2F).sound(SoundType.WOOD).noOcclusion();
+    }
+    private static BlockBehaviour.Properties candle() {
+        return BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.CANDLE).noOcclusion();
     }
 }
