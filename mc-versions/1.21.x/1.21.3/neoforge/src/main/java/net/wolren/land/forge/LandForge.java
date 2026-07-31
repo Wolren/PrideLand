@@ -1,0 +1,173 @@
+package net.wolren.land.forge;
+
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockSetType;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.WoodType;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.HangingSignItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.SignItem;
+import net.minecraft.item.SpawnEggItem;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.Identifier;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
+import net.neoforged.neoforge.registries.RegisterEvent;
+import net.wolren.land.LandCommon;
+import net.wolren.land.block.BlockItemQueue;
+import net.wolren.land.block.ModBlocks;
+import net.wolren.land.entity.BlockEntityTypeQueue;
+import net.wolren.land.entity.EntityTypeQueue;
+import net.wolren.land.entity.ModEntities;
+import net.wolren.land.item.ModItemGroups;
+import net.wolren.land.item.ModItems;
+import net.wolren.land.recipe.ModSerializers;
+import net.wolren.land.screen.ModScreenHandlers;
+import net.wolren.land.screen.RainbowCraftingScreenHandler;
+import net.wolren.land.util.config.RainbowConfig;
+
+@Mod("pride_land")
+public class LandForge {
+    // WoodType for rainbow signs (registered during class init)
+    // Namespace-qualified name so the renderer looks up textures in the mod's namespace
+    private static final WoodType RAINBOW_WOOD_TYPE = WoodType.register(new WoodType(LandCommon.MOD_ID + ":rainbow", BlockSetType.OAK));
+    
+    // Custom block entity types for rainbow signs
+    public static BlockEntityType<RainbowSignBlockEntity> RAINBOW_SIGN_BE;
+    public static BlockEntityType<RainbowHangingSignBlockEntity> RAINBOW_HANGING_SIGN_BE;
+
+    private final IEventBus modBus;
+
+    public LandForge(IEventBus modBus) {
+        this.modBus = modBus;
+
+        modBus.addListener(this::commonSetup);
+        modBus.addListener(this::clientSetup);
+        modBus.addListener(this::entityAttributeCreation);
+
+        // Config — Cloth Config / AutoConfig shared with Fabric
+        AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
+
+        // Register forge-native sign blocks/items
+        modBus.addListener((RegisterEvent event) -> {
+            var key = event.getRegistryKey();
+
+            if (key.equals(RegistryKeys.BLOCK)) {
+                ModBlocks.registerModBlocks();
+
+                // NeoForge-native sign blocks with custom block entity support
+                Block signBlock = Registry.register(Registries.BLOCK,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign"),
+                        new RainbowStandingSignBlock(Block.Settings.copy(Blocks.OAK_SIGN), RAINBOW_WOOD_TYPE));
+                ModBlocks.RAINBOW_STANDING_SIGN = signBlock;
+
+                Block wallSignBlock = Registry.register(Registries.BLOCK,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign"),
+                        new RainbowWallSignBlock(Block.Settings.copy(Blocks.OAK_WALL_SIGN), RAINBOW_WOOD_TYPE));
+                ModBlocks.RAINBOW_WALL_SIGN = wallSignBlock;
+
+                Block hangingBlock = Registry.register(Registries.BLOCK,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
+                        new RainbowHangingSignBlock(Block.Settings.copy(Blocks.OAK_HANGING_SIGN), RAINBOW_WOOD_TYPE));
+                ModBlocks.RAINBOW_HANGING_SIGN = hangingBlock;
+
+                Block wallHangingBlock = Registry.register(Registries.BLOCK,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign"),
+                        new RainbowWallHangingSignBlock(Block.Settings.copy(Blocks.OAK_WALL_HANGING_SIGN), RAINBOW_WOOD_TYPE));
+                ModBlocks.RAINBOW_WALL_HANGING_SIGN = wallHangingBlock;
+            }
+
+            if (key.equals(RegistryKeys.ITEM)) {
+                ModItems.registerModItems();
+                int blockItems = BlockItemQueue.PENDING.size();
+                BlockItemQueue.PENDING.forEach(Runnable::run);
+                BlockItemQueue.PENDING.clear();
+                LandCommon.LOGGER.info("Registered items + " + blockItems + " block items");
+
+                // Spawn egg — use standard SpawnEggItem
+                var egg = new SpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings());
+                Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"), egg);
+                ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) egg;
+
+                // NeoForge-native sign items
+                var signItem = new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN, new Item.Settings().maxCount(16));
+                Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign"), signItem);
+                ModItems.RAINBOW_SIGN = signItem;
+
+                var hangingSignItem = new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16));
+                Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"), hangingSignItem);
+                ModItems.RAINBOW_HANGING_SIGN = hangingSignItem;
+            }
+
+            if (key.equals(RegistryKeys.ENTITY_TYPE)) {
+                ModEntities.registerBlockEntities();
+                EntityTypeQueue.PENDING.forEach(Runnable::run);
+                EntityTypeQueue.PENDING.clear();
+            }
+
+            if (key.equals(RegistryKeys.BLOCK_ENTITY_TYPE)) {
+                ModEntities.registerBlockEntities();
+                BlockEntityTypeQueue.PENDING.forEach(Runnable::run);
+                BlockEntityTypeQueue.PENDING.clear();
+
+                // Custom sign block entity types
+                RAINBOW_SIGN_BE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_sign"),
+                        new BlockEntityType<>(RainbowSignBlockEntity::new,
+                                ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN));
+
+                RAINBOW_HANGING_SIGN_BE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
+                        new BlockEntityType<>(RainbowHangingSignBlockEntity::new,
+                                ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN));
+            }
+
+            if (key.equals(RegistryKeys.RECIPE_SERIALIZER)) {
+                ModSerializers.registerCuttingSerializers();
+            }
+
+            if (key.equals(RegistryKeys.ITEM_GROUP)) {
+                ModItemGroups.registerItemGroups();
+            }
+
+            if (key.equals(RegistryKeys.SCREEN_HANDLER)) {
+                var type = new ScreenHandlerType<>((syncId, inventory) ->
+                        new RainbowCraftingScreenHandler(syncId, inventory), FeatureFlags.VANILLA_FEATURES);
+                Registry.register(Registries.SCREEN_HANDLER,
+                        Identifier.of(LandCommon.MOD_ID, "box_screen"), type);
+                ModScreenHandlers.setBoxScreenHandler(type);
+            }
+        });
+
+        LandCommon.init();
+    }
+
+    private void commonSetup(FMLCommonSetupEvent event) {
+        LandCommon.LOGGER.info("NeoForge common setup");
+    }
+
+    private void entityAttributeCreation(EntityAttributeCreationEvent event) {
+        event.put(ModEntities.RAINBOW_SHEEP, LandCommon.createRainbowSheepAttributes().build());
+    }
+
+    /**
+     * Runtime spawn filter is handled by the data-driven biome modifier JSON.
+     */
+
+    private void clientSetup(FMLClientSetupEvent event) {
+        LandCommon.clientInit();
+        LandForgeClient.init();
+    }
+}

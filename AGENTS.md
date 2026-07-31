@@ -23,6 +23,35 @@ Architectury. One shared codebase per MC version, platform modules per loader.
   - `1.20.x/1.20.3/` — common + fabric (Forge 1.20.3 line 49.0.x is abandoned on maven, no forge module)
   - `1.20.x/1.20.4/` — common + fabric + forge (Forge 49.2.x, NOT 50.x) + quilt
   - `1.21.1/` — common + fabric + neoforge (forge/quilt excluded: architectury-forge 13.0.8 unavailable)
+  - `1.21.x/1.21.2..1.21.4/` — ERA A (common + fabric + neoforge), based on 1.21.1 code.
+    1.21.2 is the biggest API break of the 1.21 line: equipment overhaul
+    (item.equipment ArmorMaterial/EquipmentType/ToolMaterial), BlockEntityType
+    private ctor (AW-widened), EntityType.Builder.build(RegistryKey),
+    SingleStackRecipe (CuttingRecipe renamed), state-based entity renderers,
+    and the RecipeManager interface rewrite (getAllMatches/getFirstMatch GONE -
+    only stonecutter grouping exists, so the rainbow station + EMI/REI
+    integrations are DISABLED on 1.21.2-1.21.4). Fabric deps: fabric-api
+    0.106.1+1.21.2 / 0.107.1+1.21.3 / 0.109.0+1.21.4 with rendering-v1 FORCED
+    to 8.0.5+c47b9d4373 (resolution otherwise pulls 16.0.1, remapped against
+    1.21.9 classes). cloth 15.0.140 (16.x artifacts use a -fabric classifier
+    that breaks loom remap lookup), terraform 7.0.2, REI/EMI from root.
+    1.21.3 = architectury skipped (common+neoforge only direct deps, no forge).
+    1.21.4 = equipment ASSETS (ArmorMaterial takes RegistryKey<EquipmentAsset>),
+    LoadedEntityModels (not EntityModelLoader), ENTITYBLOCK_ANIMATED removed.
+  - `1.21.x/1.21.5..1.21.8/` — ERA B floor (common + fabric + neoforge + quilt),
+    based on 1.21.11 code. Old-API rendering (VCP + MatrixStack, no render
+    commands): 1.21.5 = state-render + VertexConsumerProvider (hardest version,
+    ~10 source fixes; fabric-api 0.114.1+1.21.5 - 0.128.x is contaminated with
+    1.21.6 mappings; boats/signs/fuel/datagen dropped - no terraform build
+    exists for 1.21.5), 1.21.6 = getEntityWorld->getWorld (fabric-api
+    0.121.0+1.21.6, BlockRenderLayerMap in blockrenderlayer-v1 INSTANCE API),
+    1.21.7 = rendering-v1 12.4.0 enum-style BlockRenderLayerMap (fabric-api
+    0.128.0+1.21.7), 1.21.8 = command-queue render system NOT yet (it lands at
+    1.21.9) - old-API renderers + rendering-v1 forced to 12.6.0 (resolution
+    pulls 1.21.9-contaminated 16.0.1).
+  - `1.21.x/1.21.9..1.21.10/` — COMMAND-QUEUE era (render.command APIs,
+    Click-based screen input; 1.21.10 = 1.21.11 minus RenderSetup +
+    SleepFailureReason.message() accessor).
   - `1.21.11/` — common + fabric + forge (NeoForge 61.x) + quilt
   - `1.26.x/` — STANDALONE NeoForge build (own gradlew, MC 26.2, Java 25), not in root settings.gradle
   - `1.26.x-fabric/` — STANDALONE Fabric build (own gradlew, MC 26.2 unobfuscated, Java 25), not in root settings.gradle

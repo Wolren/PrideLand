@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "pride_land:block/rainbow_terracotta" },
+    "facing=east": { "model": "pride_land:block/rainbow_terracotta", "y": 90 },
+    "facing=south": { "model": "pride_land:block/rainbow_terracotta", "y": 180 },
+    "facing=west": { "model": "pride_land:block/rainbow_terracotta", "y": 270 }
+  }
+}

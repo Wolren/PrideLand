@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pride_land:block/rainbow_planks",
+    "side": "pride_land:block/rainbow_planks",
+    "top": "pride_land:block/rainbow_planks"
+  }
+}
