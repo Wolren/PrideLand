@@ -89,6 +89,14 @@ jobs:
         shell: bash
         working-directory: mc-versions/1.26.x
         run: ./gradlew build -Dorg.gradle.java.home="$JAVA_HOME"
+      # 26.1 is supported via -P property overrides (verified API-identical to 26.2;
+      # only versions + pack format differ). Keep the pair in sync with gradle.properties.
+      # Fabric 26.1 is NOT built: the fabric-api aggregate for 26.1 is unpublished
+      # (metadata-only phantom versions, poms 404) - would need direct module deps.
+      - name: build (26.1 NeoForge)
+        shell: bash
+        working-directory: mc-versions/1.26.x
+        run: ./gradlew build -Pminecraft_version=26.1 -Pminecraft_version_range=[26.1] -Pneo_version=26.1.0.19-beta -Pmc_version=26.1 -Pjei_version=29.2.0.21 -Pmod_version=1.0.4-26.1 -Ppack_format=101 -Dorg.gradle.java.home="$JAVA_HOME"
       - name: build (26.2 Fabric)
         shell: bash
         working-directory: mc-versions/1.26.x-fabric

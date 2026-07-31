@@ -28,6 +28,12 @@ dependencies {
 }
 
 processResources {
+    inputs.property "pack_format", project.findProperty("pack_format")
+
+    filesMatching("pack.mcmeta") {
+        expand "pack_format": project.findProperty("pack_format")
+    }
+
     inputs.property "version", project.version
     inputs.property "minecraft_version", project.minecraft_version
     inputs.property "loader_version", project.loader_version
