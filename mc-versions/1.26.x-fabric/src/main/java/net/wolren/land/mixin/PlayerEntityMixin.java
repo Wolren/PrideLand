@@ -1,5 +1,6 @@
 package net.wolren.land.mixin;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,6 +30,6 @@ public class PlayerEntityMixin {
     }
 
     private static boolean canGlide(ItemStack stack) {
-        return !stack.isEmpty() && stack.getComponents().contains(net.minecraft.core.component.DataComponents.GLIDER);
+        return !stack.isEmpty() && stack.has(DataComponents.GLIDER);
     }
 }

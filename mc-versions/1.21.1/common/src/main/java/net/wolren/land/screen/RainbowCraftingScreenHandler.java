@@ -1,7 +1,6 @@
 package net.wolren.land.screen;
 
 import com.google.common.collect.Lists;
-import net.minecraft.client.gui.screen.ingame.LoomScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -10,6 +9,8 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
@@ -25,7 +26,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
     final Slot outputSlot;
     private final Property selectedRecipe = Property.create();
     private final World world;
-    private List<RainbowCuttingRecipe> availableRecipes = Lists.newArrayList();
+    private List<RecipeEntry<RainbowCuttingRecipe>> availableRecipes = Lists.newArrayList();
     private ItemStack inputStack = ItemStack.EMPTY;
     private ItemStack dyeStack = ItemStack.EMPTY;
 
@@ -69,7 +70,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
             }
 
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
-                stack.onCraft(player.getWorld(), player, stack.getCount());
+                stack.onCraftByPlayer(player.getWorld(), player, stack.getCount());
                 RainbowCraftingScreenHandler.this.output.unlockLastRecipe(player, this.getInputStacks());
                 ItemStack materialStack = RainbowCraftingScreenHandler.this.inputSlot.takeStack(1);
                 ItemStack dyeStack = RainbowCraftingScreenHandler.this.dyeSlot.takeStack(1);
@@ -108,7 +109,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
         return this.selectedRecipe.get();
     }
 
-    public List<RainbowCuttingRecipe> getAvailableRecipes() {
+    public List<RecipeEntry<RainbowCuttingRecipe>> getAvailableRecipes() {
         return this.availableRecipes;
     }
 
@@ -152,21 +153,22 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
     }
 
 
-    private void updateInput(Inventory input, ItemStack materialStack, ItemStack dyeStack) {
+    private void updateInput(Inventory inventory, ItemStack materialStack, ItemStack dyeStack) {
         this.availableRecipes.clear();
         this.selectedRecipe.set(-1);
         this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
         if (!materialStack.isEmpty() && !dyeStack.isEmpty()) {
-            this.availableRecipes = this.world.getRecipeManager().getAllMatches(LandCommon.RAINBOW_CUTTING, input, this.world);
+            this.availableRecipes = this.world.getRecipeManager().getAllMatches(LandCommon.RAINBOW_CUTTING, new SingleStackRecipeInput(materialStack), this.world);
         }
     }
 
     void populateResult() {
         if (!RainbowCraftingScreenHandler.this.dyeSlot.getStack().isEmpty() && !this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
-            RainbowCuttingRecipe rainbowCuttingRecipe = this.availableRecipes.get(this.selectedRecipe.get());
-            ItemStack itemStack = rainbowCuttingRecipe.craft(this.input, this.world.getRegistryManager());
+            RecipeEntry<RainbowCuttingRecipe> recipeEntry = this.availableRecipes.get(this.selectedRecipe.get());
+            RainbowCuttingRecipe rainbowCuttingRecipe = recipeEntry.value();
+            ItemStack itemStack = rainbowCuttingRecipe.craft(new SingleStackRecipeInput(this.inputSlot.getStack()), this.world.getRegistryManager());
             if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
-                this.output.setLastRecipe(rainbowCuttingRecipe);
+                this.output.setLastRecipe(recipeEntry);
                 this.outputSlot.setStackNoCallbacks(itemStack);
             } else {
                 this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
@@ -197,7 +199,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
             itemStack = itemStack2.copy();
 
             if (slot == 2) {
-                item.onCraft(itemStack2, player.getWorld(), player);
+                item.onCraft(itemStack2, player.getWorld());
                 if (!this.insertItem(itemStack2, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
@@ -209,7 +211,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
                 }
             } else if (this.world
                     .getRecipeManager()
-                    .getFirstMatch(LandCommon.RAINBOW_CUTTING, new SimpleInventory(itemStack2), this.world)
+                    .getFirstMatch(LandCommon.RAINBOW_CUTTING, new SingleStackRecipeInput(itemStack2), this.world)
                     .isPresent()) {
                 if (!this.insertItem(itemStack2, this.inputSlot.id, this.inputSlot.id + 1, false)) {
                     return ItemStack.EMPTY;
@@ -253,7 +255,3 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
         return this.dyeSlot;
     }
 }
-
-
-
-

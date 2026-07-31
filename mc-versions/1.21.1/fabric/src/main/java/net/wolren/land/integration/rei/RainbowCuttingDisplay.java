@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RainbowCuttingDisplay extends BasicDisplay {
     public RainbowCuttingDisplay(RainbowCuttingRecipe recipe) {
-        this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getOutput(BasicDisplay.registryAccess()))));
+        this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getOutput())));
     }
 
     public RainbowCuttingDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {

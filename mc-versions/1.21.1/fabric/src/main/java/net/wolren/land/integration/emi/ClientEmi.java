@@ -5,6 +5,7 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiStack;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.util.Identifier;
 import net.wolren.land.LandCommon;
@@ -14,7 +15,7 @@ import net.wolren.land.recipe.RainbowCuttingRecipe;
 public class ClientEmi implements EmiPlugin {
     public static final EmiStack WORKSTATION = EmiStack.of(ModBlocks.RAINBOW_CRAFTING);
     public static final EmiRecipeCategory RAINBOW_CATEGORY
-            = new EmiRecipeCategory(new Identifier(LandCommon.MOD_ID, "rainbow_cutting"), WORKSTATION);
+            = new EmiRecipeCategory(Identifier.of(LandCommon.MOD_ID, "rainbow_cutting"), WORKSTATION);
     @Override
     public void register(EmiRegistry registry) {
         registry.addCategory(RAINBOW_CATEGORY);
@@ -22,8 +23,8 @@ public class ClientEmi implements EmiPlugin {
 
         RecipeManager manager = registry.getRecipeManager();
 
-        for (RainbowCuttingRecipe recipe : manager.listAllOfType(LandCommon.RAINBOW_CUTTING)) {
-            registry.addRecipe(new RainbowRecipe(recipe));
+        for (RecipeEntry<RainbowCuttingRecipe> entry : manager.listAllOfType(LandCommon.RAINBOW_CUTTING)) {
+            registry.addRecipe(new RainbowRecipe(entry.id(), entry.value()));
         }
     }
 }

@@ -12,7 +12,7 @@ import net.wolren.land.item.ModItems;
 
 public class ModItemGroups {
     public static final ItemGroup PRIDE_LAND_GROUP = Registry.register(Registries.ITEM_GROUP,
-            new Identifier(LandCommon.MOD_ID, "pride_land"),
+            Identifier.of(LandCommon.MOD_ID, "pride_land"),
             ItemGroup.create(null, -1)
                     .displayName(Text.translatable("itemgroup.pride_land_group"))
                     .icon(() -> new ItemStack(ModBlocks.RAINBOW_WOOL))

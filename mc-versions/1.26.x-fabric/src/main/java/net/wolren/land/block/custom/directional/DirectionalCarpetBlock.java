@@ -8,10 +8,10 @@ import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 public class DirectionalCarpetBlock extends CarpetBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
     public DirectionalCarpetBlock(Properties settings) {
         super(settings);
@@ -19,7 +19,7 @@ public class DirectionalCarpetBlock extends CarpetBlock {
     }
 
     @Override
-    public MapCodec<? extends DirectionalCarpetBlock> codec() {
+    public MapCodec<DirectionalCarpetBlock> codec() {
         return simpleCodec(DirectionalCarpetBlock::new);
     }
 

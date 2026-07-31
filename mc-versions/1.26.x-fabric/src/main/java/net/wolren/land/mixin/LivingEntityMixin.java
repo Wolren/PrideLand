@@ -1,5 +1,7 @@
 package net.wolren.land.mixin;
 
+import net.minecraft.core.component.DataComponentHolder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -23,12 +25,12 @@ public class LivingEntityMixin {
         LivingEntity self = (LivingEntity) (Object) this;
         ItemStack chestStack = self.getItemBySlot(EquipmentSlot.CHEST);
         if (!chestStack.is(Items.ELYTRA) && canGlide(chestStack)) {
-            self.setSharedFlag(7, true);
+            self.setSharedFlagOnFire(true);
             ci.cancel();
         }
     }
 
     private static boolean canGlide(ItemStack stack) {
-        return !stack.isEmpty() && stack.getComponents().contains(net.minecraft.core.component.DataComponents.GLIDER);
+        return !stack.isEmpty() && stack.has(DataComponents.GLIDER);
     }
 }

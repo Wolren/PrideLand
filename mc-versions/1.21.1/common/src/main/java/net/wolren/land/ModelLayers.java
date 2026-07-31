@@ -5,7 +5,7 @@ import net.minecraft.util.Identifier;
 
 public class ModelLayers {
     public static final EntityModelLayer RAINBOW_SHEEP = new EntityModelLayer(
-            new Identifier(LandCommon.MOD_ID, "rainbow_sheep"), "rainbow_sheep");
+            Identifier.of(LandCommon.MOD_ID, "rainbow_sheep"), "rainbow_sheep");
     public static final EntityModelLayer RAINBOW_SHEEP_FUR = new EntityModelLayer(
-            new Identifier(LandCommon.MOD_ID, "rainbow_sheep_fur"), "rainbow_sheep");
+            Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_fur"), "rainbow_sheep");
 }

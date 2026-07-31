@@ -7,9 +7,4 @@ public class CustomElytraItem extends ElytraItem {
     public CustomElytraItem(Settings settings) {
         super(settings.maxDamage(432).rarity(Rarity.EPIC));
     }
-
-    @Override
-    public boolean isDamageable() {
-        return true;
-    }
 }

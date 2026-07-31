@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class RainbowWallHangingSignBlock extends WallHangingSignBlock {
     public RainbowWallHangingSignBlock(Settings settings, WoodType woodType) {
-        super(settings, woodType);
+        super(woodType, settings);
     }
 
     @Override

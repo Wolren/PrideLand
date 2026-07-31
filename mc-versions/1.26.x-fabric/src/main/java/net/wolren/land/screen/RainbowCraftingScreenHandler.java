@@ -1,5 +1,6 @@
 package net.wolren.land.screen;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -10,6 +11,8 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.wolren.land.PrideLand;
 import net.wolren.land.item.ModItems;
 import net.wolren.land.recipe.RainbowCuttingRecipe;
@@ -35,7 +38,7 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
     private int selectedRecipe = -1;
 
     public RainbowCraftingScreenHandler(int syncId, Inventory playerInventory) {
-        this(ModScreenHandlers.BOX_SCREEN_HANDLER, syncId, playerInventory, new SimpleContainer(3));
+        this(syncId, playerInventory, new SimpleContainer(3));
     }
 
     public RainbowCraftingScreenHandler(int syncId, Inventory playerInventory, Container inventory) {
@@ -57,7 +60,7 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
 
             @Override
             public void onTake(Player player, ItemStack stack) {
-                stack.onCraftedBy(player.level(), player, stack.getCount());
+                stack.onCraftedBy(player, stack.getCount());
                 RainbowCraftingScreenHandler.this.inputSlot.remove(1);
                 RainbowCraftingScreenHandler.this.dyeSlot.remove(1);
                 super.onTake(player, stack);
@@ -85,14 +88,21 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
         ItemStack dyeStack = this.dyeSlot.getItem();
 
         if (!materialStack.isEmpty() && !dyeStack.isEmpty()) {
-            this.availableRecipes = player.level().getRecipeManager()
-                    .getRecipesFor(PrideLand.RAINBOW_CUTTING, new net.minecraft.world.item.crafting.SingleRecipeInput(materialStack), player.level())
-                    .stream()
-                    .map(entry -> (RainbowCuttingRecipe) entry.value())
-                    .toList();
-            if (!this.availableRecipes.isEmpty()) {
-                this.selectedRecipe = 0;
-                populateResult();
+            if (this.access.evaluate((world, pos) -> {
+                if (world instanceof ServerLevel serverWorld) {
+                    RecipeManager recipeManager = (RecipeManager) serverWorld.recipeAccess();
+                    this.availableRecipes = recipeManager.getRecipes().stream()
+                            .filter(holder -> holder.value().getType() == PrideLand.RAINBOW_CUTTING
+                                    && ((RainbowCuttingRecipe) holder.value()).getIngredient().test(materialStack))
+                            .map(holder -> (RainbowCuttingRecipe) holder.value())
+                            .toList();
+                }
+                return true;
+            }, false)) {
+                if (!this.availableRecipes.isEmpty()) {
+                    this.selectedRecipe = 0;
+                    populateResult();
+                }
             }
         } else {
             this.availableRecipes = java.util.Collections.emptyList();
@@ -133,7 +143,7 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(itemStack2, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
-                slot2.onQuickChange(itemStack2, itemStack);
+                slot2.setChanged();
             } else if (slot == 0 || slot == 1) { // input or dye
                 if (!this.moveItemStackTo(itemStack2, 3, 39, false)) {
                     return ItemStack.EMPTY;

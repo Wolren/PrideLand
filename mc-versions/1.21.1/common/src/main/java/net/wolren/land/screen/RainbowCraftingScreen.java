@@ -5,7 +5,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.LoomScreenHandler;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -17,7 +17,7 @@ import net.wolren.land.recipe.RainbowCuttingRecipe;
 import java.util.List;
 
 public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(LandCommon.MOD_ID, "textures/gui/container/rainbow_crafting.png");
+    private static final Identifier TEXTURE = Identifier.of(LandCommon.MOD_ID, "textures/gui/container/rainbow_crafting.png");
     private float scrollAmount;
     private boolean mouseClicked;
     private int scrollOffset;
@@ -31,7 +31,7 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        this.renderBackground(context);
+        this.renderBackground(context, mouseX, mouseY, delta);
         int i = this.x;
         int j = this.y;
         context.drawTexture(TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
@@ -63,14 +63,14 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
             int i = this.x + 52;
             int j = this.y + 14;
             int k = this.scrollOffset + 12;
-            List<RainbowCuttingRecipe> list = this.handler.getAvailableRecipes();
+            List<RecipeEntry<RainbowCuttingRecipe>> list = this.handler.getAvailableRecipes();
 
             for(int l = this.scrollOffset; l < k && l < this.handler.getAvailableRecipeCount(); ++l) {
                 int m = l - this.scrollOffset;
                 int n = i + m % 4 * 16;
                 int o = j + m / 4 * 18 + 2;
                 if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-                    context.drawItemTooltip(this.textRenderer, list.get(l).getOutput(this.client.world.getRegistryManager()), x, y);
+                    context.drawItemTooltip(this.textRenderer, list.get(l).value().getOutput(), x, y);
                 }
             }
         }
@@ -94,14 +94,14 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
     }
 
     private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
-        List<RainbowCuttingRecipe> list = this.handler.getAvailableRecipes();
+        List<RecipeEntry<RainbowCuttingRecipe>> list = this.handler.getAvailableRecipes();
 
         for(int i = this.scrollOffset; i < scrollOffset && i < this.handler.getAvailableRecipeCount(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            context.drawItem(list.get(i).getOutput(this.client.world.getRegistryManager()), k, m);
+            context.drawItem(list.get(i).value().getOutput(), k, m);
         }
     }
 
@@ -149,10 +149,10 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if (this.shouldScroll()) {
             int i = this.getMaxScroll();
-            float f = (float)amount / (float)i;
+            float f = (float)verticalAmount / (float)i;
             this.scrollAmount = MathHelper.clamp(this.scrollAmount - f, 0.0F, 1.0F);
             this.scrollOffset = (int)((double)(this.scrollAmount * (float)i) + 0.5) * 4;
         }

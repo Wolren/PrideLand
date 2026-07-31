@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class RainbowHangingSignBlockEntity extends HangingSignBlockEntity {
     public RainbowHangingSignBlockEntity(BlockEntityType<? extends HangingSignBlockEntity> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+        super(pos, state);
     }
 
     public RainbowHangingSignBlockEntity(BlockPos pos, BlockState state) {

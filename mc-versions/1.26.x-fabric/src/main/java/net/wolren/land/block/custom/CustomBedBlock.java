@@ -3,10 +3,10 @@ package net.wolren.land.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -14,8 +14,8 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.CollisionGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
@@ -40,7 +39,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CustomBedBlock extends BedBlock {
-    public static final DirectionProperty FACING = BedBlock.FACING;
+    public static final EnumProperty<Direction> FACING = BedBlock.FACING;
     public static final EnumProperty<BedPart> PART = BedBlock.PART;
     public static final BooleanProperty OCCUPIED = BedBlock.OCCUPIED;
 
@@ -60,11 +59,6 @@ public class CustomBedBlock extends BedBlock {
                 .setValue(PART, BedPart.FOOT).setValue(OCCUPIED, false));
     }
 
-    @Override
-    public MapCodec<? extends CustomBedBlock> codec() {
-        return simpleCodec(CustomBedBlock::new);
-    }
-
     @Nullable
     public static Direction getDirection(BlockGetter world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
@@ -72,21 +66,11 @@ public class CustomBedBlock extends BedBlock {
     }
 
     @Override
-    protected ItemStack getDropItem(BlockState state, Level world, BlockPos pos, @Nullable BlockEntity blockEntity) {
-        // Return the item for the FOOT half only to avoid double drops
-        if (state.getValue(PART) == BedPart.HEAD) {
-            return ItemStack.EMPTY;
-        }
-        return super.getDropItem(state, world, pos, blockEntity);
-    }
-
-    @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.INVISIBLE;
     }
 
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new CustomBedBlockEntity(pos, state);
     }
 
@@ -126,41 +110,36 @@ public class CustomBedBlock extends BedBlock {
         return part == BedPart.FOOT ? direction : direction.getOpposite();
     }
 
-    @Override
-    public BlockState updateShape(BlockState state, LevelAccessor world, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, net.minecraft.world.level.block.state.StateHolder.StateAccess<?, ?> stateAccess) {
+    public BlockState updateShape(BlockState state, LevelReader world, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         if (direction == getDirectionTowardsOtherPart(state.getValue(PART), state.getValue(FACING))) {
             return neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)
                     ? state.setValue(OCCUPIED, neighborState.getValue(OCCUPIED))
                     : Blocks.AIR.defaultBlockState();
         } else {
-            return super.updateShape(state, world, pos, direction, neighborPos, neighborState, stateAccess);
+            return super.updateShape(state, world, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
         }
     }
 
     @Override
-    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
-        if (!state.is(newState.getBlock())) {
-            if (!world.isClientSide) {
-                // If breaking the foot half, also break the head
-                if (state.getValue(PART) == BedPart.FOOT) {
-                    BlockPos headPos = pos.relative(state.getValue(FACING));
-                    BlockState headState = world.getBlockState(headPos);
-                    if (headState.is(this) && headState.getValue(PART) == BedPart.HEAD) {
-                        world.setBlock(headPos, Blocks.AIR.defaultBlockState(), 35);
-                    }
+    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+        if (!world.isClientSide()) {
+            if (state.getValue(PART) == BedPart.FOOT) {
+                BlockPos headPos = pos.relative(state.getValue(FACING));
+                BlockState headState = world.getBlockState(headPos);
+                if (headState.is(this) && headState.getValue(PART) == BedPart.HEAD) {
+                    world.setBlock(headPos, Blocks.AIR.defaultBlockState(), 35);
                 }
             }
-            super.onRemove(state, world, pos, newState, moved);
         }
+        return super.playerWillDestroy(world, pos, state, player);
     }
 
     @Override
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(world, pos, state, placer, stack);
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
             BlockPos blockPos = pos.relative(state.getValue(FACING));
             world.setBlock(blockPos, state.setValue(PART, BedPart.HEAD), 3);
-            world.blockUpdated(pos, Blocks.AIR);
             state.updateNeighbourShapes(world, pos, 3);
         }
     }
@@ -176,25 +155,7 @@ public class CustomBedBlock extends BedBlock {
         return false;
     }
 
-    @Override
-    public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         super.fallOn(world, state, pos, entity, fallDistance * 0.5F);
-    }
-
-    @Override
-    public void updateEntityAfterFallOn(BlockGetter world, Entity entity) {
-        if (entity.isSuppressingBounce()) {
-            super.updateEntityAfterFallOn(world, entity);
-        } else {
-            this.bounceEntity(entity);
-        }
-    }
-
-    private void bounceEntity(Entity entity) {
-        Vec3 vec3 = entity.getDeltaMovement();
-        if (vec3.y < 0.0) {
-            double d = entity instanceof LivingEntity ? 1.0 : 0.8;
-            entity.setDeltaMovement(vec3.x, -vec3.y * 0.66F * d, vec3.z);
-        }
     }
 }

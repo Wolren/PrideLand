@@ -5,13 +5,14 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.util.Identifier;
 import net.wolren.land.item.ModItems;
 import net.wolren.land.recipe.RainbowCuttingRecipe;
 
 public class RainbowRecipe extends BasicEmiRecipe {
 
-    public RainbowRecipe(RainbowCuttingRecipe recipe) {
-        super(ClientEmi.RAINBOW_CATEGORY, recipe.getId(), 100, 60);
+    public RainbowRecipe(Identifier id, RainbowCuttingRecipe recipe) {
+        super(ClientEmi.RAINBOW_CATEGORY, id, 100, 60);
         this.inputs.add(EmiIngredient.of(recipe.getIngredients().get(0)));
         this.outputs.add(EmiStack.of(recipe.getOutput()));
     }

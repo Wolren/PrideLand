@@ -16,12 +16,12 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.wolren.land.entity.custom.block.RainbowCraftingBlockEntity;
 
 public class RainbowCraftingBlock extends BaseEntityBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
     public RainbowCraftingBlock(Properties settings) {
         super(settings);
@@ -29,7 +29,7 @@ public class RainbowCraftingBlock extends BaseEntityBlock {
     }
 
     @Override
-    public MapCodec<? extends RainbowCraftingBlock> codec() {
+    public MapCodec<RainbowCraftingBlock> codec() {
         return simpleCodec(RainbowCraftingBlock::new);
     }
 
@@ -56,7 +56,7 @@ public class RainbowCraftingBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
             MenuProvider screenHandlerFactory = world.getBlockEntity(pos) instanceof MenuProvider ? 
                 (MenuProvider) world.getBlockEntity(pos) : null;
             if (screenHandlerFactory != null) {
@@ -80,7 +80,6 @@ public class RainbowCraftingBlock extends BaseEntityBlock {
         return true;
     }
 
-    @Override
     public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
         return net.minecraft.world.inventory.AbstractContainerMenu.getRedstoneSignalFromBlockEntity(world.getBlockEntity(pos));
     }

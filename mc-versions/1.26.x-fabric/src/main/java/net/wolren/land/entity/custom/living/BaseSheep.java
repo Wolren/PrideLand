@@ -1,8 +1,9 @@
 package net.wolren.land.entity.custom.living;
 
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.wolren.land.entity.EntityVariantManager;
@@ -15,8 +16,7 @@ public class BaseSheep extends Sheep {
         variantManager = new EntityVariantManager<>();
     }
 
-    @Override
-    public BaseSheep getBreedOffspring(ServerLevelAccessor level, net.minecraft.world.entity.AgeableMob otherParent) {
-        return variantManager.getChild(this, (Sheep) otherParent).create(level.getLevel(), MobSpawnType.BREEDING);
+    public BaseSheep getBreedOffspring(ServerLevelAccessor level, AgeableMob otherParent) {
+        return variantManager.getChild(this, (Sheep) otherParent).create(level.getLevel(), EntitySpawnReason.BREEDING);
     }
 }

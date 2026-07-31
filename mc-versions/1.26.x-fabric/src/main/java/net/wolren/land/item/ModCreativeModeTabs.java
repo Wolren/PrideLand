@@ -1,11 +1,11 @@
 package net.wolren.land.item;
 
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
-import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeTabBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +16,8 @@ import net.wolren.land.item.ModItems;
 public class ModCreativeModeTabs {
     public static final CreativeModeTab PRIDE_LAND_TAB = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
             Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, "pride_land"),
-            FabricCreativeTabBuilder.builder().icon(() -> new ItemStack(ModBlocks.RAINBOW_WOOL))
+            CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
+                    .icon(() -> new ItemStack(ModBlocks.RAINBOW_WOOL))
                     .title(Component.translatable("creativetab.pride_land"))
                     .displayItems((parameters, output) -> {
                         addItemsToGroup(output);
