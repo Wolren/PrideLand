@@ -33,7 +33,7 @@ allprojects {
         archivesName = rootProject.findProperty("archives_base_name") as String
     }
 
-    version = rootProject.findProperty("mod_version") as String
+    version = project.findProperty("mod_version") as String
     group = rootProject.findProperty("maven_group") as String
 
     repositories {

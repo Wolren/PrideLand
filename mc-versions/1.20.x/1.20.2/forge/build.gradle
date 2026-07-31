@@ -4,6 +4,11 @@ plugins {
     id "pride.land.mc-version"
 }
 
+repositories {
+    mavenLocal()
+    maven { url "https://repo.sleeping.town/" }
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
@@ -16,7 +21,7 @@ architectury {
 }
 
 loom {
-    accessWidenerPath = project(":mc-versions:1.20.x:common").loom.accessWidenerPath
+    accessWidenerPath = project(":mc-versions:1.20.x:1.20.2:common").loom.accessWidenerPath
 
     forge {
         convertAccessWideners = true
@@ -31,6 +36,7 @@ tasks.named("validateAccessWidener").configure {
 
 configurations {
     common
+    shadowCommon
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentForge.extendsFrom common
@@ -42,7 +48,12 @@ dependencies {
     forge "net.minecraftforge:forge:${project.findProperty("forge_version")}"
     modApi "dev.architectury:architectury-forge:${project.findProperty("architectury_api_version")}"
 
-    common(project(path: ":mc-versions:1.20.x:common", configuration: "namedElements")) { transitive false }
+    common(project(path: ":mc-versions:1.20.x:1.20.2:common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":mc-versions:1.20.x:1.20.2:common", configuration: "transformProductionForge")) { transitive false }
+
+    modImplementation "me.shedaniel.cloth:cloth-config-forge:${project.findProperty("cloth_config")}"
+
+    implementation 'com.google.code.gson:gson:2.8.9'
 }
 
 processResources {
@@ -57,4 +68,27 @@ processResources {
                 "architectury_min_version": project.findProperty("architectury_min_version"),
                 "cloth_config_min_version": project.findProperty("cloth_config_min_version")
     }
+}
+
+jar {
+    dependsOn configurations.shadowCommon
+    from {
+        configurations.shadowCommon.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+remapJar {
+    injectAccessWidener = true
+    input.set jar.archiveFile
+    dependsOn jar
+}
+
+sourcesJar {
+    def commonSources = project(":mc-versions:1.20.x:1.20.2:common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

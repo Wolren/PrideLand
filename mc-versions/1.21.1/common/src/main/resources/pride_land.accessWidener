@@ -12,16 +12,9 @@ accessible method net/minecraft/block/FenceGateBlock <init> (Lnet/minecraft/bloc
 accessible method net/minecraft/block/SlabBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
 accessible method net/minecraft/block/WallBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
 accessible method net/minecraft/block/CandleBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
-accessible method net/minecraft/block/GlassBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
 accessible method net/minecraft/block/AbstractBlock$Settings <init> ()V
 
 # Item constructors
-accessible method net/minecraft/item/AxeItem <init> (Lnet/minecraft/item/ToolMaterial;FFLnet/minecraft/item/Item$Settings;)V
-accessible method net/minecraft/item/HoeItem <init> (Lnet/minecraft/item/ToolMaterial;IFLnet/minecraft/item/Item$Settings;)V
-accessible method net/minecraft/item/PickaxeItem <init> (Lnet/minecraft/item/ToolMaterial;IFLnet/minecraft/item/Item$Settings;)V
-accessible method net/minecraft/item/ShovelItem <init> (Lnet/minecraft/item/ToolMaterial;FFLnet/minecraft/item/Item$Settings;)V
-accessible method net/minecraft/item/SwordItem <init> (Lnet/minecraft/item/ToolMaterial;IFLnet/minecraft/item/Item$Settings;)V
-accessible method net/minecraft/item/ArmorItem <init> (Lnet/minecraft/item/ArmorMaterial;Lnet/minecraft/item/ArmorItem$Type;Lnet/minecraft/item/Item$Settings;)V
 accessible method net/minecraft/item/BlockItem <init> (Lnet/minecraft/block/Block;Lnet/minecraft/item/Item$Settings;)V
 # Block entity types - open the factory interface
 accessible class net/minecraft/block/entity/BlockEntityType$BlockEntityFactory

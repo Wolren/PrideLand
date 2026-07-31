@@ -10,12 +10,8 @@ jobs:
   build:
     strategy:
       matrix:
-        # Use these Java versions
-        java: [
-          17,    # Current Java LTS & minimum supported by Minecraft
-          21,    # Current Java LTS
-        ]
-        # and run on both Linux and Windows
+        # Loom 1.17 requires JVM 21+ at configure time, so 17 is not usable.
+        java: [21]
         os: [ubuntu-22.04, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
@@ -31,10 +27,32 @@ jobs:
       - name: make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
-      - name: build (root modules)
-        run: ./gradlew :fabric:build :forge:build :quilt:build
+      # -Dorg.gradle.java.home overrides the machine-specific org.gradle.java.home
+      # in root gradle.properties (a Windows path) so CI always uses the job JVM.
+      - name: build (root modules, MC 1.20.1)
+        shell: bash
+        run: ./gradlew :common:build :fabric:build :forge:build :quilt:build -Dorg.gradle.java.home="$JAVA_HOME"
       - name: build (multi-version)
-        run: ./gradlew :mc-versions:1.20.4:fabric:build :mc-versions:1.20.4:forge:build :mc-versions:1.20.4:quilt:build :mc-versions:1.21.1:fabric:build :mc-versions:1.21.1:forge:build :mc-versions:1.21.1:quilt:build :mc-versions:1.21.11:fabric:build :mc-versions:1.21.11:forge:build :mc-versions:1.21.11:quilt:build
+        shell: bash
+        run: |
+          ./gradlew \
+            :mc-versions:1.20.x:1.20.2:common:build \
+            :mc-versions:1.20.x:1.20.2:fabric:build \
+            :mc-versions:1.20.x:1.20.2:forge:build \
+            :mc-versions:1.20.x:1.20.3:common:build \
+            :mc-versions:1.20.x:1.20.3:fabric:build \
+            :mc-versions:1.20.x:1.20.4:common:build \
+            :mc-versions:1.20.x:1.20.4:fabric:build \
+            :mc-versions:1.20.x:1.20.4:forge:build \
+            :mc-versions:1.20.x:1.20.4:quilt:build \
+            :mc-versions:1.21.1:common:build \
+            :mc-versions:1.21.1:fabric:build \
+            :mc-versions:1.21.1:neoforge:build \
+            :mc-versions:1.21.11:common:build \
+            :mc-versions:1.21.11:fabric:build \
+            :mc-versions:1.21.11:forge:build \
+            :mc-versions:1.21.11:quilt:build \
+            -Dorg.gradle.java.home="$JAVA_HOME"
       - name: capture build artifacts
         if: ${{ runner.os == 'Linux' && matrix.java == '21' }} # Only upload artifacts built from latest java on one OS
         uses: actions/upload-artifact@v3
@@ -44,6 +62,34 @@ jobs:
             fabric/build/libs/
             forge/build/libs/
             quilt/build/libs/
-            mc-versions/*/fabric/build/libs/
-            mc-versions/*/forge/build/libs/
-            mc-versions/*/quilt/build/libs/
+            mc-versions/**/fabric/build/libs/
+            mc-versions/**/forge/build/libs/
+            mc-versions/**/quilt/build/libs/
+            mc-versions/**/neoforge/build/libs/
+
+  # MC 26.2 requires Java 25 (Mojang ships 25 with 26.1+); these are standalone
+  # Gradle builds with their own wrappers, kept outside the root build.
+  build-26x:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - name: setup jdk 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+      - name: make gradle wrappers executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x mc-versions/1.26.x/gradlew mc-versions/1.26.x-fabric/gradlew
+      - name: build (26.2 NeoForge)
+        shell: bash
+        working-directory: mc-versions/1.26.x
+        run: ./gradlew build -Dorg.gradle.java.home="$JAVA_HOME"
+      - name: build (26.2 Fabric)
+        shell: bash
+        working-directory: mc-versions/1.26.x-fabric
+        run: ./gradlew build -Dorg.gradle.java.home="$JAVA_HOME"

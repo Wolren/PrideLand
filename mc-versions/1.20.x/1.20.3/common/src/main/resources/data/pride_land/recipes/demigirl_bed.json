@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "pride_land:demigirl_wool"
+    },
+    "Y": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "YYY"
+  ],
+  "result": {
+    "item": "pride_land:demigirl_bed"
+  }
+}

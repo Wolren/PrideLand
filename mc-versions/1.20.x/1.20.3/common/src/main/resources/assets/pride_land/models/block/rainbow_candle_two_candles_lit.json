@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_two_candles",
+  "textures": {
+    "all": "pride_land:block/rainbow_candle_lit",
+    "particle": "pride_land:block/rainbow_candle_lit"
+  }
+}

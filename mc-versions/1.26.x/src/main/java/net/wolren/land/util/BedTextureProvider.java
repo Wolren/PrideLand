@@ -30,21 +30,18 @@ public class BedTextureProvider {
             ModBlocks.POLYSEXUAL_BED.get()
     );
 
-    private static final Map<String, Integer> BED_INDEX_MAP = new HashMap<>();
+    private static final Map<String, Identifier> BED_TEXTURE_MAP = new HashMap<>();
 
     static {
-        for (int i = 0; i < BEDS.size(); i++) {
-            String toPut = BEDS.get(i).getDescriptionId();
-            BED_INDEX_MAP.put(extractBedName(toPut), i);
+        for (Block bedBlock : BEDS) {
+            Identifier textureId = Identifier.fromNamespaceAndPath(PrideLand.MOD_ID,
+                    "entity/bed/" + extractBedName(bedBlock.getDescriptionId()));
+            BED_TEXTURE_MAP.put(extractBedName(bedBlock.getDescriptionId()), textureId);
         }
     }
 
-    public static final Identifier BEDS_ATLAS_TEXTURE = Identifier.withDefaultNamespace("textures/atlas/beds.png");
-
-    public static Identifier getBedTexture(Block bedBlock) {
-        String descId = bedBlock.getDescriptionId();
-        String name = extractBedName(descId);
-        return Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, "entity/bed/" + name);
+    public static Identifier getSpriteIdentifierForBed(Block bedBlock) {
+        return BED_TEXTURE_MAP.get(extractBedName(bedBlock.getDescriptionId()));
     }
 
     public static String extractBedName(String translationKey) {
