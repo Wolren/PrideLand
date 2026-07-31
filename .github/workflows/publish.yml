@@ -4,9 +4,18 @@
 # Project IDs come from repository variables (MODRINTH_PROJECT_ID, CURSEFORGE_PROJECT_ID);
 # tokens from repository secrets (MODRINTH_TOKEN, CURSEFORGE_TOKEN - both with CREATE_VERSION scope).
 #
-# Matrix: every shipped loader jar across all 16 supported MC versions
-# (1.20.1 root modules + 1.20.2/1.20.3/1.20.4 + 1.21.1 + 1.21.2-1.21.10 + 1.21.11 + 26.2).
-# Version names are unique per platform: <mod_version>-<mc_version>-<loader>.
+# Duplicate protection (three layers):
+# 1. concurrency group per ref - overlapping runs of the same tag/branch queue instead of
+#    publishing simultaneously.
+# 2. per-row existence guard - queries the Modrinth public API and the CurseForge Core API
+#    for the exact version before publishing; rows already published on BOTH platforms are
+#    skipped entirely.
+# 3. fail-mode: warn on mc-publish - if exactly ONE platform already has the version
+#    (resume after a partial failure), the row still publishes to the missing platform and
+#    only warns about the duplicate; the rest of the matrix is never blocked.
+# The guard is fail-open: if an API query errors (auth/network), the row proceeds to
+# publish - the platforms themselves reject duplicate version numbers, so the worst case
+# is a warned duplicate attempt, never a silent duplicate.
 
 name: publish
 on:
@@ -21,6 +30,10 @@ on:
   push:
     tags:
       - 'v*'
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -200,17 +213,68 @@ jobs:
         with:
           pattern: 'jars-*'
           path: .
+
+      # Rename to a unique file name per row: 1.20.2's fabric+forge jars share the
+      # "pride_land-1.0.4-1.20.2.jar" name, and CurseForge requires unique file names
+      # within a project - the loader suffix makes every upload unique on both platforms.
+      - name: stage unique file
+        shell: bash
+        run: |
+          mkdir -p /tmp/publish
+          cp "${{ matrix.prefix }}/${{ matrix.jar }}" \
+             "/tmp/publish/pride_land-1.0.4-${{ matrix.version }}-${{ matrix.loader }}.jar"
+
+      # Duplicate guard: query both platforms for the exact version. Skips the row
+      # only when BOTH already have it. Fail-open - any query error lets the publish
+      # proceed (the platforms reject duplicate version numbers server-side).
+      - name: check existing versions
+        id: check
+        shell: bash
+        env:
+          CF_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        run: |
+          version_name="1.0.4-${{ matrix.version }}-${{ matrix.loader }}"
+          file_name="pride_land-1.0.4-${{ matrix.version }}-${{ matrix.loader }}.jar"
+
+          modrinth_exists=false
+          if [ -n "${{ vars.MODRINTH_PROJECT_ID }}" ]; then
+            if curl -fsS "https://api.modrinth.com/v2/project/${{ vars.MODRINTH_PROJECT_ID }}/version" \
+                | jq -e --arg v "$version_name" 'any(.[]; .version_number == $v)' >/dev/null 2>&1; then
+              modrinth_exists=true
+            fi
+          fi
+          echo "modrinth-exists=$modrinth_exists" >> "$GITHUB_OUTPUT"
+
+          curseforge_exists=false
+          if [ -n "${{ vars.CURSEFORGE_PROJECT_ID }}" ]; then
+            if curl -fsS -H "x-api-key: ${CF_TOKEN}" \
+                "https://api.curseforge.com/v1/mods/${{ vars.CURSEFORGE_PROJECT_ID }}/versions" \
+                | jq -e --arg v "$version_name" --arg f "$file_name" \
+                    'any(.data[]; .displayName == $v or .fileName == $f)' >/dev/null 2>&1; then
+              curseforge_exists=true
+            fi
+          fi
+          echo "curseforge-exists=$curseforge_exists" >> "$GITHUB_OUTPUT"
+
       - name: publish to Modrinth + CurseForge
+        if: steps.check.outputs.modrinth-exists != 'true' || steps.check.outputs.curseforge-exists != 'true'
         uses: Kira-NT/mc-publish@v3.3
         with:
           modrinth-id: ${{ vars.MODRINTH_PROJECT_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           curseforge-id: ${{ vars.CURSEFORGE_PROJECT_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          files: ${{ matrix.prefix }}/${{ matrix.jar }}
+          files: /tmp/publish/pride_land-1.0.4-${{ matrix.version }}-${{ matrix.loader }}.jar
           version: 1.0.4-${{ matrix.version }}-${{ matrix.loader }}
           version-type: ${{ inputs.release-type || 'release' }}
           game-versions: ${{ matrix.version }}
           loaders: ${{ matrix.loader }}
           java: ${{ matrix.java }}
+          # warn (not fail): a row resuming after a partial publish has one platform
+          # already holding the version - publish the missing one, warn on the duplicate
+          fail-mode: warn
           changelog: "PrideLand ${{ github.ref_name || 'manual' }} for Minecraft ${{ matrix.version }} (${{ matrix.loader }})"
+
+      - name: already published on both platforms
+        if: steps.check.outputs.modrinth-exists == 'true' && steps.check.outputs.curseforge-exists == 'true'
+        run: echo "::notice::1.0.4-${{ matrix.version }}-${{ matrix.loader }} already exists on Modrinth and CurseForge - skipping"
