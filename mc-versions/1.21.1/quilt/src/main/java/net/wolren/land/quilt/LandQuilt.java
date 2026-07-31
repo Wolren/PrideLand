@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -20,6 +19,8 @@ import net.minecraft.item.SignItem;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
 import net.wolren.land.LandCommon;
@@ -90,9 +91,11 @@ public class LandQuilt implements ModInitializer {
 
         // Screen handler type (simple, no extended data needed)
         ModScreenHandlers.setBoxScreenHandler(
-                ScreenHandlerRegistry.registerSimple(
-                        new Identifier(LandCommon.MOD_ID, "rainbow_workstation"),
-                        (syncId, inventory) -> new RainbowCraftingScreenHandler(syncId, inventory))
+                Registry.register(
+                        Registries.SCREEN_HANDLER,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_workstation"),
+                        new ScreenHandlerType<>((syncId, inventory) -> new RainbowCraftingScreenHandler(syncId, inventory), FeatureFlags.VANILLA_FEATURES)
+                )
         );
     }
 
@@ -103,33 +106,33 @@ public class LandQuilt implements ModInitializer {
     }
 
     private static void registerRainbowSigns() {
-        Identifier signTexture = new Identifier(LandCommon.MOD_ID, "entity/signs/rainbow");
-        Identifier hangingSignTexture = new Identifier(LandCommon.MOD_ID, "entity/signs/hanging/rainbow");
-        Identifier hangingGuiTexture = new Identifier(LandCommon.MOD_ID, "textures/gui/hanging_signs/rainbow");
+        Identifier signTexture = Identifier.of(LandCommon.MOD_ID, "entity/signs/rainbow");
+        Identifier hangingSignTexture = Identifier.of(LandCommon.MOD_ID, "entity/signs/hanging/rainbow");
+        Identifier hangingGuiTexture = Identifier.of(LandCommon.MOD_ID, "textures/gui/hanging_signs/rainbow");
 
         // Use FabricBlockSettings.create() with explicit properties instead of copyOf(Block)
         // because QFAPI's FabricBlockSettings only has copyOf(AbstractBlock.Settings)
         ModBlocks.RAINBOW_STANDING_SIGN = Registry.register(Registries.BLOCK,
-                new Identifier(LandCommon.MOD_ID, "rainbow_standing_sign"),
+                Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign"),
                 new TerraformSignBlock(signTexture, FabricBlockSettings.create().strength(1.0F).noCollision().nonOpaque()));
         ModBlocks.RAINBOW_WALL_SIGN = Registry.register(Registries.BLOCK,
-                new Identifier(LandCommon.MOD_ID, "rainbow_wall_sign"),
+                Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign"),
                 new TerraformWallSignBlock(signTexture, FabricBlockSettings.create().strength(1.0F).noCollision().nonOpaque()));
         ModBlocks.RAINBOW_HANGING_SIGN = Registry.register(Registries.BLOCK,
-                new Identifier(LandCommon.MOD_ID, "rainbow_hanging_sign"),
+                Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
                 new TerraformHangingSignBlock(hangingSignTexture, hangingGuiTexture, FabricBlockSettings.create().strength(1.0F).nonOpaque()));
         ModBlocks.RAINBOW_WALL_HANGING_SIGN = Registry.register(Registries.BLOCK,
-                new Identifier(LandCommon.MOD_ID, "rainbow_wall_hanging_sign"),
+                Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign"),
                 new TerraformWallHangingSignBlock(hangingSignTexture, hangingGuiTexture, FabricBlockSettings.create().strength(1.0F).nonOpaque()));
 
-        ModItems.RAINBOW_SIGN = (SignItem) Registry.register(Registries.ITEM, new Identifier(LandCommon.MOD_ID, "rainbow_sign"),
+        ModItems.RAINBOW_SIGN = (SignItem) Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign"),
                 new SignItem(new Item.Settings().maxCount(16), ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN));
-        ModItems.RAINBOW_HANGING_SIGN = (HangingSignItem) Registry.register(Registries.ITEM, new Identifier(LandCommon.MOD_ID, "rainbow_hanging_sign"),
+        ModItems.RAINBOW_HANGING_SIGN = (HangingSignItem) Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
                 new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16)));
 
         // Spawn egg — entity types are registered before items on Fabric
         ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) Registry.register(Registries.ITEM,
-                new Identifier(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"),
+                Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"),
                 new RainbowSpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings()));
 
         LandCommon.LOGGER.info("Registered rainbow signs via Terraform API (Quilt)");

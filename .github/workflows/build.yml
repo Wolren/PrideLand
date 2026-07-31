@@ -48,6 +48,7 @@ jobs:
             :mc-versions:1.21.1:common:build \
             :mc-versions:1.21.1:fabric:build \
             :mc-versions:1.21.1:neoforge:build \
+            :mc-versions:1.21.1:quilt:build \
             :mc-versions:1.21.11:common:build \
             :mc-versions:1.21.11:fabric:build \
             :mc-versions:1.21.11:forge:build \
@@ -55,12 +56,15 @@ jobs:
             :mc-versions:1.21.x:1.21.2:common:build \
             :mc-versions:1.21.x:1.21.2:fabric:build \
             :mc-versions:1.21.x:1.21.2:neoforge:build \
+            :mc-versions:1.21.x:1.21.2:quilt:build \
             :mc-versions:1.21.x:1.21.3:common:build \
             :mc-versions:1.21.x:1.21.3:fabric:build \
             :mc-versions:1.21.x:1.21.3:neoforge:build \
+            :mc-versions:1.21.x:1.21.3:quilt:build \
             :mc-versions:1.21.x:1.21.4:common:build \
             :mc-versions:1.21.x:1.21.4:fabric:build \
             :mc-versions:1.21.x:1.21.4:neoforge:build \
+            :mc-versions:1.21.x:1.21.4:quilt:build \
             :mc-versions:1.21.x:1.21.5:common:build \
             :mc-versions:1.21.x:1.21.5:fabric:build \
             :mc-versions:1.21.x:1.21.5:neoforge:build \
