@@ -27,6 +27,19 @@ Architectury. One shared codebase per MC version, platform modules per loader.
   - `1.26.x/` — STANDALONE NeoForge build (own gradlew, MC 26.2, Java 25), not in root settings.gradle
   - `1.26.x-fabric/` — STANDALONE Fabric build (own gradlew, MC 26.2 unobfuscated, Java 25), not in root settings.gradle
 
+## 26.1 support (NeoForge only)
+
+The 26.x NeoForge project compiles against MC 26.1 with zero code changes:
+pass `-P` overrides matching the 26.1 line (see .github/workflows/build.yml for the
+exact list: `-Pminecraft_version=26.1 -Pminecraft_version_range=[26.1]
+-Pneo_version=26.1.0.19-beta -Pmc_version=26.1 -Pjei_version=29.2.0.21
+-Pmod_version=1.0.4-26.1 -Ppack_format=101`). Verified: 26.1 and 26.2 share the
+same API surface for everything the mod uses (RenderLayer submit-node API,
+AvatarRenderer, SheepRenderState, GLIDER components, record RecipeSerializer,
+NeoForge client events). pack_format is parameterized (101 = 26.1, 107 = 26.2).
+The Fabric 26.1 path is blocked upstream: fabric-api has NO published aggregate
+for 26.1 (metadata-only phantom versions, poms 404).
+
 ## Key Rules
 
 - **Every module has its own `gradle.properties`** with per-version values.
