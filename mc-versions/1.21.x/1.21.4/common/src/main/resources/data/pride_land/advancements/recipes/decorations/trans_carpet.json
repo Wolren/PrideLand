@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:trans_carpet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_trans_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pride_land:trans_wool"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_trans_wool"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:trans_carpet"
+    ]
+  }
+}
