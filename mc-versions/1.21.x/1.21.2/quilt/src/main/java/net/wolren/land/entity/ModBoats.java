@@ -10,8 +10,8 @@ import net.wolren.land.block.ModBlocks;
 import net.wolren.land.item.ModItems;
 
 public class ModBoats {
-    public static final Identifier RAINBOW_BOAT_ID = new Identifier(LandCommon.MOD_ID, "rainbow_boat");
-    public static final Identifier RAINBOW_CHEST_BOAT_ID = new Identifier(LandCommon.MOD_ID, "rainbow_chest_boat");
+    public static final Identifier RAINBOW_BOAT_ID = Identifier.of(LandCommon.MOD_ID, "rainbow_boat");
+    public static final Identifier RAINBOW_CHEST_BOAT_ID = Identifier.of(LandCommon.MOD_ID, "rainbow_chest_boat");
 
     public static final RegistryKey<TerraformBoatType> RAINBOW_BOAT_KEY = TerraformBoatTypeRegistry.createKey(RAINBOW_BOAT_ID);
 

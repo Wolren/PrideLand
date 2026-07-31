@@ -40,7 +40,7 @@ public class LandQuiltClient implements ClientModInitializer {
     }
 
     public static EntityModelLayer registerEntityModelLayer(String registryName, net.minecraft.client.model.TexturedModelData modelPart) {
-        EntityModelLayer entityModelLayer = new EntityModelLayer(new Identifier(LandCommon.MOD_ID, registryName), "rainbow_sheep");
+        EntityModelLayer entityModelLayer = new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, registryName), "rainbow_sheep");
         EntityModelLayerRegistry.registerModelLayer(entityModelLayer, () -> modelPart);
         return entityModelLayer;
     }
@@ -61,11 +61,11 @@ public class LandQuiltClient implements ClientModInitializer {
         // Sign sprites
         SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(
             TexturedRenderLayers.SIGNS_ATLAS_TEXTURE,
-            new Identifier(LandCommon.MOD_ID, "entity/signs/rainbow")
+            Identifier.of(LandCommon.MOD_ID, "entity/signs/rainbow")
         ));
         SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(
             TexturedRenderLayers.SIGNS_ATLAS_TEXTURE,
-            new Identifier(LandCommon.MOD_ID, "entity/signs/hanging/rainbow")
+            Identifier.of(LandCommon.MOD_ID, "entity/signs/hanging/rainbow")
         ));
 
         // Boat models
@@ -73,8 +73,13 @@ public class LandQuiltClient implements ClientModInitializer {
 
         // Elytra feature renderer
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
-            Identifier rainbowElytra = new Identifier("pride_land:textures/entity/rainbow_elytra.png");
-            registrationHelper.register(new CustomElytraFeatureRenderer<>(entityRenderer, context.getModelLoader(), rainbowElytra));
+            Identifier rainbowElytra = Identifier.of("pride_land:textures/entity/rainbow_elytra.png");
+            var renderer = new CustomElytraFeatureRenderer(
+                (net.minecraft.client.render.entity.feature.FeatureRendererContext) entityRenderer,
+                context.getEntityModels(), rainbowElytra);
+            @SuppressWarnings({"unchecked", "rawtypes"})
+            net.minecraft.client.render.entity.feature.FeatureRenderer castRenderer = (net.minecraft.client.render.entity.feature.FeatureRenderer) renderer;
+            registrationHelper.register(castRenderer);
         });
 
         // Entity renderers
