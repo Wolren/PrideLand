@@ -22,8 +22,8 @@ Architectury. One shared codebase per MC version, platform modules per loader.
   - `1.20.x/1.20.2/` — common + fabric + forge (forge uses Forge 48.x)
   - `1.20.x/1.20.3/` — common + fabric (Forge 1.20.3 line 49.0.x is abandoned on maven, no forge module)
   - `1.20.x/1.20.4/` — common + fabric + forge (Forge 49.2.x, NOT 50.x) + quilt
-  - `1.21.1/` — common + fabric + neoforge (forge/quilt excluded: architectury-forge 13.0.8 unavailable)
-  - `1.21.x/1.21.2..1.21.4/` — ERA A (common + fabric + neoforge), based on 1.21.1 code.
+  - `1.21.1/` — common + fabric + neoforge + quilt (real forge excluded: architectury-forge 13.0.8 unavailable)
+  - `1.21.x/1.21.2..1.21.4/` — ERA A (common + fabric + neoforge + quilt), based on 1.21.1 code.
     1.21.2 is the biggest API break of the 1.21 line: equipment overhaul
     (item.equipment ArmorMaterial/EquipmentType/ToolMaterial), BlockEntityType
     private ctor (AW-widened), EntityType.Builder.build(RegistryKey),
