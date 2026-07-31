@@ -12,7 +12,11 @@ public class ModScreenHandlers {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(Registries.MENU, PrideLand.MOD_ID);
 
-    // Screen handler will be properly implemented once the recipe system is fixed
+    public static final DeferredHolder<MenuType<?>, MenuType<?>> RAINBOW_CRAFTING_MENU =
+            MENUS.register("rainbow_workstation", () -> new MenuType<>(
+                    (syncId, inventory) -> new RainbowCraftingScreenHandler(syncId, inventory),
+                    FeatureFlags.DEFAULT_FLAGS));
+
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);
     }

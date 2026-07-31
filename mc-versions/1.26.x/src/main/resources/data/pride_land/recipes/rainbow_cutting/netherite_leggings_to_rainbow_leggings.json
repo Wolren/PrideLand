@@ -1,0 +1,10 @@
+{
+  "type": "pride_land:rainbow_cutting",
+  "count": 1,
+  "ingredient": {
+    "item": "minecraft:netherite_leggings"
+  },
+  "result": {
+    "id": "pride_land:rainbow_leggings"
+  }
+}

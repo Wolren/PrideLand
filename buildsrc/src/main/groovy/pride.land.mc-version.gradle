@@ -9,7 +9,7 @@ plugins {
 }
 
 group = rootProject.findProperty("maven_group") as String
-version = rootProject.findProperty("mod_version") as String
+version = project.findProperty("mod_version") as String
 
 base {
     archivesName = rootProject.findProperty("archives_base_name") as String

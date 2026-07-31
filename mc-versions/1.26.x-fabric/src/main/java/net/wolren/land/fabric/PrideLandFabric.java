@@ -1,14 +1,18 @@
 package net.wolren.land.fabric;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.wolren.land.PrideLand;
@@ -22,6 +26,7 @@ import net.wolren.land.screen.ModScreenHandlers;
 import net.wolren.land.screen.RainbowCraftingScreenHandler;
 import net.wolren.land.recipe.ModSerializers;
 import net.wolren.land.util.ModTags;
+import net.wolren.land.util.config.RainbowConfig;
 
 public class PrideLandFabric implements ModInitializer {
     @Override
@@ -47,6 +52,22 @@ public class PrideLandFabric implements ModInitializer {
 
         // Recipe type
         PrideLand.RAINBOW_CUTTING = net.minecraft.world.item.crafting.RecipeType.register(PrideLand.MOD_ID + ":rainbow_cutting");
+
+        // Biome spawning for rainbow sheep (config-gated)
+        RainbowConfig config = new RainbowConfig();
+        if (config.enableRainbowSheepSpawning) {
+            BiomeModifications.addSpawn(
+                    BiomeSelectors.includeByKey(
+                            Biomes.PLAINS, Biomes.FOREST, Biomes.FLOWER_FOREST,
+                            Biomes.SUNFLOWER_PLAINS, Biomes.BIRCH_FOREST
+                    ),
+                    MobCategory.CREATURE,
+                    ModEntities.RAINBOW_SHEEP,
+                    config.sheepWeight,
+                    config.sheepMinGroupSize,
+                    config.sheepMaxGroupSize
+            );
+        }
 
         // Fuel registry (MC 26.2: FuelValueEvents.BUILD)
         FuelValueEvents.BUILD.register((builder, context) -> {
