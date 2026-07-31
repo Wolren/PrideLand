@@ -28,9 +28,12 @@ Architectury. One shared codebase per MC version, platform modules per loader.
     (item.equipment ArmorMaterial/EquipmentType/ToolMaterial), BlockEntityType
     private ctor (AW-widened), EntityType.Builder.build(RegistryKey),
     SingleStackRecipe (CuttingRecipe renamed), state-based entity renderers,
-    and the RecipeManager interface rewrite (getAllMatches/getFirstMatch GONE -
-    only stonecutter grouping exists, so the rainbow station + EMI/REI
-    integrations are DISABLED on 1.21.2-1.21.4). Fabric deps: fabric-api
+    and the RecipeManager interface rewrite (getAllMatches/getFirstMatch GONE
+    from the interface - the ServerRecipeManager IMPL keeps getFirstMatch +
+    values(), so the rainbow station works via an impl cast, same pattern as
+    1.21.11). EMI/REI integrations are excluded on 1.21.2-1.21.4: the client
+    has NO recipe enumeration (server-only), so the integrations cannot list
+    custom-type recipes there.
     0.106.1+1.21.2 / 0.107.1+1.21.3 / 0.109.0+1.21.4 with rendering-v1 FORCED
     to 8.0.5+c47b9d4373 (resolution otherwise pulls 16.0.1, remapped against
     1.21.9 classes). cloth 15.0.140 (16.x artifacts use a -fabric classifier

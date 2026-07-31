@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
@@ -154,12 +155,18 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
 
 
     private void updateInput(Inventory inventory, ItemStack materialStack, ItemStack dyeStack) {
-        // 1.21.2 removed all custom-recipe-type lookup APIs (getAllMatches/getFirstMatch);
-        // only the stonecutter grouping is exposed. The rainbow station cannot enumerate
-        // its recipes on 1.21.2, so the station is disabled (see RainbowCraftingBlock).
+        // The RecipeManager interface was rewritten in 1.21.2 (only getPropertySet +
+        // getStonecutterRecipes), but the ServerRecipeManager impl keeps getFirstMatch.
         this.availableRecipes.clear();
         this.selectedRecipe.set(-1);
         this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
+        if (!materialStack.isEmpty() && !dyeStack.isEmpty()) {
+            var recipeManager = (ServerRecipeManager) this.world.getRecipeManager();
+            this.availableRecipes = recipeManager.getFirstMatch(LandCommon.RAINBOW_CUTTING,
+                    new SingleStackRecipeInput(materialStack), this.world)
+                    .stream()
+                    .toList();
+        }
     }
 
     void populateResult() {
@@ -209,7 +216,9 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
                 if (!this.insertItem(itemStack2, 3, 39, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (false) {
+            } else if (((ServerRecipeManager) this.world.getRecipeManager())
+                    .getFirstMatch(LandCommon.RAINBOW_CUTTING, new SingleStackRecipeInput(itemStack2), this.world)
+                    .isPresent()) {
                 if (!this.insertItem(itemStack2, this.inputSlot.id, this.inputSlot.id + 1, false)) {
                     return ItemStack.EMPTY;
                 }

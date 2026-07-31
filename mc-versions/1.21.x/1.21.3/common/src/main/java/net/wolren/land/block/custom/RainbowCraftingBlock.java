@@ -55,8 +55,15 @@ public class RainbowCraftingBlock extends BlockWithEntity {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        // 1.21.2 cannot enumerate custom recipe types (RecipeManager API removal); station disabled
-        return ActionResult.FAIL;
+        if (!world.isClient) {
+            NamedScreenHandlerFactory screenHandlerFactory = ((RainbowCraftingBlockEntity) world.getBlockEntity(pos));
+
+            if (screenHandlerFactory != null) {
+                player.openHandledScreen(screenHandlerFactory);
+            }
+        }
+
+        return ActionResult.SUCCESS;
 }
 
     @Override
