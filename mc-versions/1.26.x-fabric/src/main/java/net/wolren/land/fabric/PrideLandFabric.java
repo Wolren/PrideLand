@@ -2,12 +2,12 @@ package net.wolren.land.fabric;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
+import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
@@ -48,8 +48,8 @@ public class PrideLandFabric implements ModInitializer {
         // Recipe type
         PrideLand.RAINBOW_CUTTING = net.minecraft.world.item.crafting.RecipeType.register(PrideLand.MOD_ID + ":rainbow_cutting");
 
-        // Fuel registry (26.X uses FuelRegistryEvents)
-        FuelRegistryEvents.BUILD.register((builder, context) -> {
+        // Fuel registry (MC 26.2: FuelValueEvents.BUILD)
+        FuelValueEvents.BUILD.register((builder, context) -> {
             CustomFuelRegistry.getCustomFuels().forEach((item, burnTime) ->
                 builder.add(item, burnTime)
             );
@@ -60,7 +60,7 @@ public class PrideLandFabric implements ModInitializer {
                 Registry.register(
                         BuiltInRegistries.MENU,
                         Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, "rainbow_workstation"),
-                        new MenuType<>((syncId, inventory) -> new RainbowCraftingScreenHandler(syncId, inventory), FeatureFlags.VANILLA_FLAGS)
+                        new MenuType<>((syncId, inventory) -> new RainbowCraftingScreenHandler(syncId, inventory), FeatureFlags.DEFAULT_FLAGS)
                 )
         );
     }

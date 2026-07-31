@@ -30,6 +30,14 @@ configurations {
     developmentForge.extendsFrom common
 }
 
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${project.findProperty("minecraft_version")}"
     mappings loom.layered {
@@ -41,6 +49,8 @@ dependencies {
 
     common(project(path: ":mc-versions:1.21.11:common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":mc-versions:1.21.11:common", configuration: "transformProductionForge")) { transitive false }
+
+    modApi "me.shedaniel.cloth:cloth-config-neoforge:${project.findProperty("cloth_config")}"
 
     implementation 'com.google.code.gson:gson:2.8.9'
 }

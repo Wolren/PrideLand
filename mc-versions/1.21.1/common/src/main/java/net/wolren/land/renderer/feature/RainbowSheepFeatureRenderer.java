@@ -15,7 +15,7 @@ import net.wolren.land.renderer.model.RainbowSheepWoolModel;
 
 @Environment(EnvType.CLIENT)
 public class RainbowSheepFeatureRenderer extends FeatureRenderer<MonoColorSheep.RainbowSheepEntity, RainbowSheepModel<MonoColorSheep.RainbowSheepEntity>> {
-    private static final Identifier SKIN = new Identifier("pride_land:textures/entity/sheep/rainbow_sheep_fur.png");
+    private static final Identifier SKIN = Identifier.of("pride_land", "textures/entity/sheep/rainbow_sheep_fur.png");
     private final RainbowSheepWoolModel<MonoColorSheep.RainbowSheepEntity> model;
 
     public RainbowSheepFeatureRenderer(FeatureRendererContext<MonoColorSheep.RainbowSheepEntity, RainbowSheepModel<MonoColorSheep.RainbowSheepEntity>> context, EntityModelLoader loader) {
@@ -26,10 +26,8 @@ public class RainbowSheepFeatureRenderer extends FeatureRenderer<MonoColorSheep.
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, MonoColorSheep.RainbowSheepEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         if (!entity.isSheared() && !entity.isInvisible()) {
-            float f = 0.9019608F;
-            float f1 = 0.9019608F;
-            float f2 = 0.9019608F;
-            render(getContextModel(), model, SKIN, matrices, vertexConsumers, light, entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, tickDelta, f, f1, f2);
+            int color = 0xFFE6E6E6;
+            render(getContextModel(), model, SKIN, matrices, vertexConsumers, light, entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, tickDelta, color);
         }
     }
 }

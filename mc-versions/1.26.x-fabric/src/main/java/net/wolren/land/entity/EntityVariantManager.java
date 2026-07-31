@@ -1,7 +1,7 @@
 package net.wolren.land.entity;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.sheep.Sheep;
 
 public class EntityVariantManager<T extends Sheep> {
 

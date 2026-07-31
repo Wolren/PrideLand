@@ -1,17 +1,23 @@
 package net.wolren.land.entity.custom.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.entity.inventory.ImplementedInventory;
 import net.wolren.land.screen.RainbowCraftingScreenHandler;
@@ -29,7 +35,6 @@ public class RainbowCraftingBlockEntity extends BlockEntity implements Implement
         return inventory;
     }
 
-    @Override
     public Component getDisplayName() {
         return Component.translatable(getBlockState().getBlock().getDescriptionId());
     }
@@ -39,16 +44,13 @@ public class RainbowCraftingBlockEntity extends BlockEntity implements Implement
         return new RainbowCraftingScreenHandler(syncId, playerInventory, this);
     }
 
-    // Saves/Loads NBT for persistence
     @Override
-    protected void saveAdditional(net.minecraft.nbt.CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        ContainerHelper.saveAllItems(tag, inventory, registries);
+    protected void saveAdditional(ValueOutput output) {
+        ContainerHelper.saveAllItems(output, this.inventory);
     }
 
     @Override
-    protected void loadAdditional(net.minecraft.nbt.CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        ContainerHelper.loadAllItems(tag, inventory, registries);
+    protected void loadAdditional(ValueInput input) {
+        ContainerHelper.loadAllItems(input, this.inventory);
     }
 }

@@ -1,9 +1,7 @@
 package net.wolren.land.util;
 
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.wolren.land.PrideLand;
 import net.wolren.land.block.ModBlocks;
 
@@ -32,27 +30,18 @@ public class BedTextureProvider {
             ModBlocks.POLYSEXUAL_BED
     );
 
-    private static final Map<String, Integer> BED_INDEX_MAP = new HashMap<>();
+    private static final Map<String, Identifier> BED_TEXTURE_MAP = new HashMap<>();
 
     static {
-        for (int i = 0; i < BEDS.size(); i++) {
-            String toPut = BEDS.get(i).getDescriptionId();
-            BED_INDEX_MAP.put(extractBedName(toPut), i);
+        for (Block bedBlock : BEDS) {
+            Identifier textureId = Identifier.fromNamespaceAndPath(PrideLand.MOD_ID,
+                    "entity/bed/" + extractBedName(bedBlock.getDescriptionId()));
+            BED_TEXTURE_MAP.put(extractBedName(bedBlock.getDescriptionId()), textureId);
         }
     }
 
-    public static final Identifier BEDS_ATLAS_TEXTURE = Identifier.withDefaultNamespace("textures/atlas/beds.png");
-
-    public static final Material[] BED_TEXTURES = BEDS.stream()
-            .map(bedBlock -> {
-                Identifier bedTextureId = Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, "entity/bed/" + extractBedName(bedBlock.getDescriptionId()));
-                return new Material(BEDS_ATLAS_TEXTURE, bedTextureId);
-            })
-            .toArray(Material[]::new);
-
-    public static Material getSpriteIdentifierForBed(Block bedBlock) {
-        Integer index = BED_INDEX_MAP.get(extractBedName(bedBlock.getDescriptionId()));
-        return index != null ? BED_TEXTURES[index] : null;
+    public static Identifier getSpriteIdentifierForBed(Block bedBlock) {
+        return BED_TEXTURE_MAP.get(extractBedName(bedBlock.getDescriptionId()));
     }
 
     public static String extractBedName(String translationKey) {

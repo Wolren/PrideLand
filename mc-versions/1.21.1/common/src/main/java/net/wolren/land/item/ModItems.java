@@ -75,15 +75,15 @@ public class ModItems {
 
 
     public static final AxeItem RAINBOW_AXE = (AxeItem) registerItem("rainbow_axe",
-            new AxeItem(ToolMaterials.NETHERITE, 5.0f, -3.0f, new Item.Settings().maxCount(1).fireproof()));
+            new AxeItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()));
     public static final HoeItem RAINBOW_HOE = (HoeItem) registerItem("rainbow_hoe",
-            new HoeItem(ToolMaterials.NETHERITE, -4, 0.0f, new Item.Settings().maxCount(1).fireproof()));
+            new HoeItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()));
     public static final PickaxeItem RAINBOW_PICKAXE = (PickaxeItem) registerItem("rainbow_pickaxe",
-            new PickaxeItem(ToolMaterials.NETHERITE, 1, -2.8f, new Item.Settings().maxCount(1).fireproof()));
+            new PickaxeItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()));
     public static final ShovelItem RAINBOW_SHOVEL = (ShovelItem) registerItem("rainbow_shovel",
-            new ShovelItem(ToolMaterials.NETHERITE, 1.5f, -3.0f, new Item.Settings().maxCount(1).fireproof()));
+            new ShovelItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()));
     public static final SwordItem RAINBOW_SWORD = (SwordItem) registerItem("rainbow_sword",
-            new SwordItem(ToolMaterials.NETHERITE, 3, -2.4f, new Item.Settings().maxCount(1).fireproof()));
+            new SwordItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()));
 
 
 
@@ -92,7 +92,7 @@ public class ModItems {
 
 
     private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(LandCommon.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, name), item);
     }
 
     public static void registerModItems() {

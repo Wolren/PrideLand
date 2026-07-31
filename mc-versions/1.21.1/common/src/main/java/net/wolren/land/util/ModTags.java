@@ -19,7 +19,7 @@ public class ModTags {
                 createTag("pride_wool_carpets");
 
         private static TagKey<Block> createTag(String name) {
-            return TagKey.of(RegistryKeys.BLOCK, new Identifier(LandCommon.MOD_ID, name));
+            return TagKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, name));
         }
     }
 
@@ -28,7 +28,7 @@ public class ModTags {
                 createTag("elytra_items");
 
         private static TagKey<Item> createTag(String name) {
-            return TagKey.of(RegistryKeys.ITEM, new Identifier(LandCommon.MOD_ID, name));
+            return TagKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, name));
         }
     }
 }

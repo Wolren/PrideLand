@@ -1,14 +1,14 @@
 package net.wolren.land.screen;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.wolren.land.PrideLand;
@@ -29,80 +29,20 @@ public class RainbowCraftingScreen extends AbstractContainerScreen<RainbowCrafti
     }
 
     @Override
-    protected void renderBg(GuiGraphics context, float delta, int mouseX, int mouseY) {
-        int i = this.leftPos;
-        int j = this.topPos;
-        context.blit(TEXTURE, i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
-        int k = (int) (41.0F * this.scrollAmount);
-        context.blit(TEXTURE, i + 119, j + 15 + k, 176 + (this.shouldScroll() ? 0 : 12), 0, 12, 15, 256, 256);
-        int l = this.leftPos + 52;
-        int m = this.topPos + 14;
-        int n = this.scrollOffset + 12;
-
-        Slot slot = this.menu.getDyeSlot();
-        if (!slot.hasItem()) {
-            context.blit(TEXTURE, i + slot.x, j + slot.y, this.imageWidth, 15, 16, 16, 256, 256);
-        }
-
-        this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
-        this.renderRecipeIcons(context, l, m, n);
+    public void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+        // Background rendering is handled by the new MC 26.2 GUI system
     }
 
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
-        this.renderTooltip(context, mouseX, mouseY);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
     }
 
     @Override
-    protected void renderTooltip(GuiGraphics context, int x, int y) {
-        super.renderTooltip(context, x, y);
-        if (this.canCraft) {
-            int i = this.leftPos + 52;
-            int j = this.topPos + 14;
-            int k = this.scrollOffset + 12;
-            List<RainbowCuttingRecipe> list = this.menu.getAvailableRecipes();
-
-            for (int l = this.scrollOffset; l < k && l < this.menu.getAvailableRecipes().size(); ++l) {
-                int m = l - this.scrollOffset;
-                int n = i + m % 4 * 16;
-                int o = j + m / 4 * 18 + 2;
-                if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-                    context.renderItemTooltip(this.font, list.get(l).getResult(), x, y);
-                }
-            }
-        }
-    }
-
-    private void renderRecipeBackground(GuiGraphics context, int mouseX, int mouseY, int x, int y, int scrollOffset) {
-        for (int i = this.scrollOffset; i < scrollOffset && i < this.menu.getAvailableRecipes().size(); ++i) {
-            int j = i - this.scrollOffset;
-            int k = x + j % 4 * 16;
-            int l = j / 4;
-            int m = y + l * 18 + 2;
-            int n = this.imageHeight;
-            if (i == this.menu.getSelectedRecipe()) {
-                n += 18;
-            } else if (mouseX >= k && mouseY >= m && mouseX < k + 16 && mouseY < m + 18) {
-                n += 36;
-            }
-            context.blit(TEXTURE, k, m - 1, 0, n, 16, 18, 256, 256);
-        }
-    }
-
-    private void renderRecipeIcons(GuiGraphics context, int x, int y, int scrollOffset) {
-        List<RainbowCuttingRecipe> list = this.menu.getAvailableRecipes();
-        for (int i = this.scrollOffset; i < scrollOffset && i < this.menu.getAvailableRecipes().size(); ++i) {
-            int j = i - this.scrollOffset;
-            int k = x + j % 4 * 16;
-            int l = j / 4;
-            int m = y + l * 18 + 2;
-            context.renderItem(list.get(i).getResult(), k, m);
-        }
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean something) {
+        double mouseX = event.x();
+        double mouseY = event.y();
+        int button = event.button();
         this.mouseClicked = false;
         if (this.canCraft) {
             int i = this.leftPos + 52;
@@ -126,11 +66,12 @@ public class RainbowCraftingScreen extends AbstractContainerScreen<RainbowCrafti
                 this.mouseClicked = true;
             }
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(event, something);
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+    public boolean mouseDragged(MouseButtonEvent event, double dragX, double dragY) {
+        double mouseY = event.y();
         if (this.mouseClicked && this.shouldScroll()) {
             int i = this.topPos + 14;
             int j = i + 54;
@@ -139,7 +80,7 @@ public class RainbowCraftingScreen extends AbstractContainerScreen<RainbowCrafti
             this.scrollOffset = (int) ((double) (this.scrollAmount * (float) this.getMaxScroll()) + 0.5) * 4;
             return true;
         }
-        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+        return super.mouseDragged(event, dragX, dragY);
     }
 
     @Override

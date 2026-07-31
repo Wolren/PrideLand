@@ -60,7 +60,7 @@ public class CustomBedBlock extends BedBlock {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient) {
             return ActionResult.CONSUME;
         } else {
@@ -155,7 +155,7 @@ public class CustomBedBlock extends BedBlock {
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient && player.isCreative()) {
             BedPart bedPart = state.get(PART);
             if (bedPart == BedPart.FOOT) {
@@ -168,7 +168,7 @@ public class CustomBedBlock extends BedBlock {
             }
         }
 
-        super.onBreak(world, pos, state, player);
+        return super.onBreak(world, pos, state, player);
     }
 
     @Nullable
@@ -297,7 +297,6 @@ public class CustomBedBlock extends BedBlock {
         return MathHelper.hashCode(blockPos.getX(), pos.getY(), blockPos.getZ());
     }
 
-    @Override
     public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
         return false;
     }

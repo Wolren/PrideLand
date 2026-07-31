@@ -1,14 +1,19 @@
 package net.wolren.land.entity.custom.living;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.Shearable;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -27,16 +32,17 @@ public class MonoColorSheep extends BaseSheep implements Shearable {
     }
 
     @Override
-    public Identifier getLootTableId() {
+    public RegistryKey<LootTable> getLootTableId() {
         if (isSheared()) {
-            return new Identifier("minecraft", "entities/sheep");
+            return EntityType.SHEEP.getLootTableId();
         }
-        return new Identifier("pride_land", "entities/sheep/rainbow_sheep");
+        return RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("pride_land", "entities/sheep/rainbow_sheep"));
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        dataTracker.startTracking(isSheared, (byte) 0);
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(isSheared, (byte) 0);
     }
 
     public boolean isSheared() {
@@ -61,7 +67,7 @@ public class MonoColorSheep extends BaseSheep implements Shearable {
         if (itemStack.getItem() instanceof ShearsItem) {
             if (!getWorld().isClient && isShearable()) {
                 sheared(SoundCategory.PLAYERS);
-                itemStack.damage(1, player, (playerEntity) -> playerEntity.sendToolBreakStatus(hand));
+                itemStack.damage(1, player, hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
                 return ActionResult.SUCCESS;
             }
             return ActionResult.CONSUME;

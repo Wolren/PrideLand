@@ -8,10 +8,11 @@ import net.minecraft.world.level.block.ConcretePowderBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.wolren.land.block.ModBlocks;
 
 public class DirectionalRainbowConcretePowderBlock extends ConcretePowderBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
     public DirectionalRainbowConcretePowderBlock(Block hardened, Properties settings) {
         super(hardened, settings);
@@ -19,8 +20,9 @@ public class DirectionalRainbowConcretePowderBlock extends ConcretePowderBlock {
     }
 
     @Override
-    public MapCodec<? extends DirectionalRainbowConcretePowderBlock> codec() {
-        return simpleCodec(DirectionalRainbowConcretePowderBlock::new);
+    public MapCodec<ConcretePowderBlock> codec() {
+        return simpleCodec(settings -> new DirectionalRainbowConcretePowderBlock(
+                ModBlocks.RAINBOW_CONCRETE, settings));
     }
 
     @Override
