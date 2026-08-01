@@ -19,11 +19,11 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
 
     // Client constructor
     public RainbowCraftingScreenHandler(int syncId, Inventory inventory) {
-        super(null, syncId);
+        super(ModScreenHandlers.RAINBOW_CRAFTING_MENU.get(), syncId);
     }
 
     public RainbowCraftingScreenHandler(int syncId, Inventory inventory, Container inventory2) {
-        super(null, syncId);
+        super(ModScreenHandlers.RAINBOW_CRAFTING_MENU.get(), syncId);
     }
 
     @Override

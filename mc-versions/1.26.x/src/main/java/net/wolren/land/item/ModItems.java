@@ -1,9 +1,13 @@
 package net.wolren.land.item;
 
 import net.wolren.land.PrideLand;
+import net.wolren.land.entity.ModEntities;
 import net.wolren.land.item.custom.CustomElytraItem;
 import net.wolren.land.item.custom.RainbowSpawnEggItem;
 import net.wolren.land.item.material.RainbowArmorMaterial;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -22,15 +26,15 @@ public class ModItems {
 
     // Tools & Weapons (vanilla Item as placeholders)
     public static final DeferredItem<Item> RAINBOW_SWORD = ITEMS.registerItem("rainbow_sword",
-            properties -> new Item(properties.stacksTo(1).fireResistant()));
+            properties -> new Item(properties.sword(ToolMaterial.NETHERITE, 3.0F, -2.4F).stacksTo(1).fireResistant()));
     public static final DeferredItem<Item> RAINBOW_PICKAXE = ITEMS.registerItem("rainbow_pickaxe",
-            properties -> new Item(properties.stacksTo(1).fireResistant()));
+            properties -> new Item(properties.pickaxe(ToolMaterial.NETHERITE, 1.0F, -2.8F).stacksTo(1).fireResistant()));
     public static final DeferredItem<Item> RAINBOW_AXE = ITEMS.registerItem("rainbow_axe",
-            properties -> new Item(properties.stacksTo(1).fireResistant()));
+            properties -> new AxeItem(ToolMaterial.NETHERITE, 5.0F, -3.0F, properties.stacksTo(1).fireResistant()));
     public static final DeferredItem<Item> RAINBOW_SHOVEL = ITEMS.registerItem("rainbow_shovel",
-            properties -> new Item(properties.stacksTo(1).fireResistant()));
+            properties -> new ShovelItem(ToolMaterial.NETHERITE, 1.5F, -3.0F, properties.stacksTo(1).fireResistant()));
     public static final DeferredItem<Item> RAINBOW_HOE = ITEMS.registerItem("rainbow_hoe",
-            properties -> new Item(properties.stacksTo(1).fireResistant()));
+            properties -> new HoeItem(ToolMaterial.NETHERITE, -4.0F, 0.0F, properties.stacksTo(1).fireResistant()));
 
     // Armor (vanilla Item as placeholders — real armor needs ArmorMaterial)
     public static final DeferredItem<Item> RAINBOW_HELMET = ITEMS.registerItem("rainbow_helmet",
@@ -78,7 +82,7 @@ public class ModItems {
 
     // Spawn egg
     public static final DeferredItem<SpawnEggItem> RAINBOW_SHEEP_SPAWN_EGG = ITEMS.registerItem("rainbow_sheep_spawn_egg",
-            properties -> new RainbowSpawnEggItem(properties));
+            properties -> new RainbowSpawnEggItem(properties.component(DataComponents.ENTITY_DATA, TypedEntityData.of(ModEntities.RAINBOW_SHEEP.get(), new CompoundTag()))));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
