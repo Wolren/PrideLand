@@ -57,6 +57,12 @@ processResources {
                 "qfapi_version": rootProject.findProperty("qfapi_version")
     }
 
+    // Dev runs don't get the common module's assets on the classpath, so the
+    // mod's own resource pack root must carry them (icon, lang, models, textures).
+    from(project(":common").sourceSets.main.resources) {
+        include "assets/**", "data/**", "pack.mcmeta"
+    }
+
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }

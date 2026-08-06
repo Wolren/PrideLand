@@ -27,7 +27,7 @@ configurations {
     shadowCommon
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
-    developmentForge.extendsFrom common
+    developmentNeoForge.extendsFrom common
 }
 
 java {
@@ -61,11 +61,18 @@ processResources {
     inputs.property "architectury_min_version", project.findProperty("architectury_min_version")
     inputs.property "cloth_config_min_version", project.findProperty("cloth_config_min_version")
 
-    filesMatching("META-INF/mods.toml") {
+    filesMatching("META-INF/neoforge.mods.toml") {
         expand "version": project.version,
                 "minecraft_version": project.findProperty("minecraft_version"),
                 "architectury_min_version": project.findProperty("architectury_min_version"),
                 "cloth_config_min_version": project.findProperty("cloth_config_min_version")
+    }
+
+    // Dev runs don't get fabric.classPathGroups from the Architectury transformer,
+    // so common-module assets (lang, models, textures) must land inside the mod's
+    // own resource pack root to be visible at runtime.
+    from(project(":mc-versions:1.21.11:common").sourceSets.main.resources) {
+        include "assets/**", "data/**", "pack.mcmeta"
     }
 }
 

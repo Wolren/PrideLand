@@ -7,6 +7,9 @@ import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.display.CuttingRecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplayContexts;
 import net.minecraft.screen.LoomScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
@@ -14,7 +17,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.wolren.land.LandCommon;
-import net.wolren.land.recipe.RainbowCuttingRecipe;
 
 import java.util.List;
 
@@ -64,14 +66,16 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
             int i = this.x + 52;
             int j = this.y + 14;
             int k = this.scrollOffset + 12;
-            List<RainbowCuttingRecipe> list = this.handler.getAvailableRecipes();
+            var recipes = this.handler.getVisibleRecipes().entries();
 
             for(int l = this.scrollOffset; l < k && l < this.handler.getAvailableRecipeCount(); ++l) {
                 int m = l - this.scrollOffset;
                 int n = i + m % 4 * 16;
                 int o = j + m / 4 * 18 + 2;
                 if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-                    context.drawItemTooltip(this.textRenderer, list.get(l).getOutput(), x, y);
+                    ItemStack stack = recipes.get(l).recipe().optionDisplay()
+                            .getFirst(SlotDisplayContexts.createParameters(this.client.world));
+                    context.drawItemTooltip(this.textRenderer, stack, x, y);
                 }
             }
         }
@@ -95,14 +99,16 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
     }
 
     private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
-        List<RainbowCuttingRecipe> list = this.handler.getAvailableRecipes();
+        var recipes = this.handler.getVisibleRecipes().entries();
+        var parameters = SlotDisplayContexts.createParameters(this.client.world);
 
         for(int i = this.scrollOffset; i < scrollOffset && i < this.handler.getAvailableRecipeCount(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            context.drawItem(list.get(i).getOutput(), k, m);
+            ItemStack stack = recipes.get(i).recipe().optionDisplay().getFirst(parameters);
+            context.drawItem(stack, k, m);
         }
     }
 

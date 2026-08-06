@@ -17,6 +17,7 @@ public class ClientREIPlugin implements REIClientPlugin {
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        registry.registerRecipeFiller(RainbowCuttingRecipe.class, LandCommon.RAINBOW_CUTTING, RainbowCuttingDisplay::new);
+        registry.registerRecipeFiller(RainbowCuttingRecipe.class, LandCommon.RAINBOW_CUTTING,
+                entry -> new RainbowCuttingDisplay(entry.value()));
     }
 }

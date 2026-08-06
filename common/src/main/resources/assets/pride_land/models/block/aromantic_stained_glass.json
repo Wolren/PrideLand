@@ -2,5 +2,6 @@
   "parent": "minecraft:block/cube_all",
   "textures": {
     "all": "pride_land:block/aromantic_stained_glass"
-  }
+  },
+  "render_type": "minecraft:translucent"
 }

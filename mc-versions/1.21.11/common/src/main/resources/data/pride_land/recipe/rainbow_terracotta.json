@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": "pride_land:rainbow_dye",
+    "T": "minecraft:terracotta"
+  },
+  "pattern": [
+    "TTT",
+    "TDT",
+    "TTT"
+  ],
+  "result": {
+    "id": "pride_land:rainbow_terracotta",
+    "count": 8
+  }
+}

@@ -3,5 +3,6 @@
   "textures": {
     "all": "pride_land:block/rainbow_candle_lit",
     "particle": "pride_land:block/rainbow_candle_lit"
-  }
+  },
+  "render_type": "minecraft:cutout"
 }

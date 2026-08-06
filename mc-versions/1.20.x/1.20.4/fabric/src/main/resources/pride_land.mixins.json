@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "pride_land.refmap.json",
   "mixins": [
+    "ClientPlayerEntityMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin"
   ],

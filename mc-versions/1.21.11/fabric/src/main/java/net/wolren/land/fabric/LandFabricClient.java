@@ -7,12 +7,15 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
+import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
@@ -22,7 +25,6 @@ import net.wolren.land.entity.ModBoats;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.renderer.CustomBedBlockEntityRenderer;
 import net.wolren.land.renderer.RainbowSheepRenderer;
-import net.wolren.land.renderer.feature.CustomElytraFeatureRenderer;
 import net.wolren.land.renderer.model.RainbowSheepModel;
 import net.wolren.land.renderer.model.RainbowSheepWoolModel;
 import net.wolren.land.screen.ModScreenHandlers;
@@ -60,20 +62,15 @@ public class LandFabricClient implements ClientModInitializer {
         // Boat models
         TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID);
 
-        // Elytra feature renderer
-        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
-            Identifier rainbowElytra = Identifier.of("pride_land", "textures/entity/rainbow_elytra.png");
-            var renderer = new CustomElytraFeatureRenderer(
-                (net.minecraft.client.render.entity.feature.FeatureRendererContext) entityRenderer,
-                context.getEntityModels(), rainbowElytra);
-            @SuppressWarnings({"unchecked", "rawtypes"})
-            net.minecraft.client.render.entity.feature.FeatureRenderer castRenderer = (net.minecraft.client.render.entity.feature.FeatureRenderer) renderer;
-            registrationHelper.register(castRenderer);
-        });
-
         // Entity renderers
         EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
         BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(ModEntities.RAINBOW_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
+        // The hanging renderer's factory is typed SignBlockEntity (base class); the
+        // fabric registry is invariant in E, so cast the type to the base class.
+        BlockEntityRendererRegistry.register(
+                (BlockEntityType<SignBlockEntity>) (BlockEntityType<?>) ModEntities.RAINBOW_HANGING_SIGN_BLOCK_ENTITY,
+                ctx -> new HangingSignBlockEntityRenderer(ctx));
     }
 
     private static void registerBedBlockRenderLayers() {

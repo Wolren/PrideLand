@@ -1,0 +1,37 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+issueTrackerURL="https://github.com/Wolren/PrideLand/issues"
+showAsResourcePack=false
+
+[[mods]]
+modId="pride_land"
+version="${version}"
+displayName="Pride Land"
+logoFile="assets/pride_land/icon.png"
+credits="Wolren"
+authors="Wolren"
+description='''
+Adds a handful of lgbtqia themed blocks, decorations, and tools making the gameplay more multihued
+'''
+
+[[dependencies.pride_land]]
+modId="minecraft"
+mandatory=true
+versionRange="[${minecraft_version}]"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.pride_land]]
+modId="architectury"
+mandatory=true
+versionRange="[${architectury_min_version},)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.pride_land]]
+modId="cloth_config"
+mandatory=true
+versionRange="[${cloth_config_min_version},)"
+ordering="NONE"
+side="BOTH"

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": "pride_land:rainbow_planks"
+  },
+  "pattern": [
+    "XXX"
+  ],
+  "result": {
+    "id": "pride_land:rainbow_slab",
+    "count": 6
+  }
+}

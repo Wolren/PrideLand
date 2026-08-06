@@ -5,10 +5,12 @@ import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.EquipmentAsset;
 import net.minecraft.item.equipment.EquipmentAssetKeys;
 import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import net.wolren.land.LandCommon;
 
 import java.util.Map;
 
@@ -26,6 +28,6 @@ public class RainbowArmorMaterial {
             3.0f,
             0.1f,
             TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "ingots/netherite")),
-            EquipmentAssetKeys.NETHERITE
+            RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, Identifier.of(LandCommon.MOD_ID, "rainbow"))
     );
 }

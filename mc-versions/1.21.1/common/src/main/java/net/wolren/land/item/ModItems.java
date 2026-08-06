@@ -75,15 +75,20 @@ public class ModItems {
 
 
     public static final AxeItem RAINBOW_AXE = (AxeItem) registerItem("rainbow_axe",
-            new AxeItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()));
+            new AxeItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()
+                    .attributeModifiers(AxeItem.createAttributeModifiers(ToolMaterials.NETHERITE, 5.0F, -3.0F))));
     public static final HoeItem RAINBOW_HOE = (HoeItem) registerItem("rainbow_hoe",
-            new HoeItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()));
+            new HoeItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()
+                    .attributeModifiers(HoeItem.createAttributeModifiers(ToolMaterials.NETHERITE, -4.0F, 0.0F))));
     public static final PickaxeItem RAINBOW_PICKAXE = (PickaxeItem) registerItem("rainbow_pickaxe",
-            new PickaxeItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()));
+            new PickaxeItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()
+                    .attributeModifiers(PickaxeItem.createAttributeModifiers(ToolMaterials.NETHERITE, 1.0F, -2.8F))));
     public static final ShovelItem RAINBOW_SHOVEL = (ShovelItem) registerItem("rainbow_shovel",
-            new ShovelItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()));
+            new ShovelItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()
+                    .attributeModifiers(ShovelItem.createAttributeModifiers(ToolMaterials.NETHERITE, 1.5F, -3.0F))));
     public static final SwordItem RAINBOW_SWORD = (SwordItem) registerItem("rainbow_sword",
-            new SwordItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()));
+            new SwordItem(ToolMaterials.NETHERITE, new Item.Settings().maxCount(1).fireproof()
+                    .attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.NETHERITE, 3, -2.4F))));
 
 
 

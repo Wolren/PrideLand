@@ -27,10 +27,10 @@ import net.minecraft.util.Identifier;
 import net.wolren.land.LandCommon;
 import net.wolren.land.block.ModBlocks;
 
-import com.terraformersmc.terraform.sign.block.TerraformHangingSignBlock;
-import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
-import com.terraformersmc.terraform.sign.block.TerraformWallHangingSignBlock;
-import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
+import com.terraformersmc.terraform.sign.api.block.TerraformHangingSignBlock;
+import com.terraformersmc.terraform.sign.api.block.TerraformSignBlock;
+import com.terraformersmc.terraform.sign.api.block.TerraformWallHangingSignBlock;
+import com.terraformersmc.terraform.sign.api.block.TerraformWallSignBlock;
 import net.wolren.land.block.fuels.CustomFuelRegistry;
 import net.wolren.land.entity.ModBoats;
 import net.wolren.land.entity.ModEntities;
@@ -67,8 +67,11 @@ public class LandFabric implements ModInitializer {
         // Entity attributes
         FabricDefaultAttributeRegistry.register(ModEntities.RAINBOW_SHEEP, createSheepAttributes());
 
-        // Recipe type
-        LandCommon.RAINBOW_CUTTING = net.minecraft.recipe.RecipeType.register(LandCommon.MOD_ID + ":rainbow_cutting");
+        // Recipe type (1.21.x: RecipeType.register(String) doesn't parse namespaces)
+        LandCommon.RAINBOW_CUTTING = Registry.register(
+                Registries.RECIPE_TYPE,
+                Identifier.of(LandCommon.MOD_ID, "rainbow_cutting"),
+                new net.minecraft.recipe.RecipeType<>() {});
 
         // Biome spawning for rainbow sheep
         if (AutoConfig.getConfigHolder(RainbowConfig.class).getConfig().enableRainbowSheepSpawning) {

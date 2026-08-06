@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": "pride_land:genderfluid_wool"
+  },
+  "pattern": [
+    "XX"
+  ],
+  "result": {
+    "id": "pride_land:genderfluid_carpet",
+    "count": 3
+  }
+}

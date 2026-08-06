@@ -1,7 +1,5 @@
 package net.wolren.land.renderer.feature;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
@@ -13,7 +11,6 @@ import net.wolren.land.ModelLayers;
 import net.wolren.land.renderer.model.RainbowSheepModel;
 import net.wolren.land.renderer.model.RainbowSheepWoolModel;
 
-@Environment(EnvType.CLIENT)
 public class RainbowSheepFeatureRenderer extends FeatureRenderer<SheepEntityRenderState, RainbowSheepModel> {
     private static final Identifier SKIN = Identifier.of("pride_land:textures/entity/sheep/rainbow_sheep_fur.png");
     private final RainbowSheepWoolModel model;

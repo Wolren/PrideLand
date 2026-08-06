@@ -1,0 +1,7 @@
+{
+  "type": "pride_land:rainbow_cutting",
+  "ingredient": "minecraft:bricks",
+  "result": {
+    "id": "pride_land:rainbow_brick_wall"
+  }
+}

@@ -17,32 +17,38 @@ import net.minecraft.block.WallSignBlock;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.HangingSignItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
 import net.wolren.land.LandCommon;
 import net.wolren.land.block.ModBlocks;
+import net.wolren.land.block.custom.RainbowHangingSignBlock;
+import net.wolren.land.block.custom.RainbowSignBlock;
+import net.wolren.land.block.custom.RainbowWallHangingSignBlock;
+import net.wolren.land.block.custom.RainbowWallSignBlock;
+
+import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
+import com.terraformersmc.terraform.sign.api.block.TerraformSignBlockHelper;
 import net.wolren.land.block.fuels.CustomFuelRegistry;
 import net.wolren.land.entity.ModBoats;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.item.ModItems;
-import net.wolren.land.item.ModItemGroups;
 import net.wolren.land.item.custom.RainbowSpawnEggItem;
-import net.wolren.land.recipe.ModSerializers;
+import net.wolren.land.item.ModItemGroups;
 import net.wolren.land.screen.ModScreenHandlers;
 import net.wolren.land.screen.RainbowCraftingScreenHandler;
+import net.wolren.land.recipe.ModSerializers;
 import net.wolren.land.util.config.RainbowConfig;
-
-import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
-import com.terraformersmc.terraform.sign.api.block.TerraformSignBlockHelper;
 
 public class LandQuilt implements ModInitializer {
     @Override
@@ -60,24 +66,28 @@ public class LandQuilt implements ModInitializer {
         ModScreenHandlers.registerScreenHandlers();
         ModSerializers.registerCuttingSerializers();
 
-        // Boats (Terraform API - works through QFAPI)
+        // Boats (Terraform API - Fabric only)
         ModBoats.registerBoats();
 
-        // Signs (Terraform API - works through QFAPI)
+        // Signs (Terraform API - Fabric only)
         registerRainbowSigns();
 
         // Entity attributes
         FabricDefaultAttributeRegistry.register(ModEntities.RAINBOW_SHEEP, createSheepAttributes());
 
-        // Recipe type
-        LandCommon.RAINBOW_CUTTING = net.minecraft.recipe.RecipeType.register(LandCommon.MOD_ID + ":rainbow_cutting");
+        // Recipe type (1.21.x: RecipeType.register(String) doesn't parse namespaces)
+        LandCommon.RAINBOW_CUTTING = Registry.register(
+                Registries.RECIPE_TYPE,
+                Identifier.of(LandCommon.MOD_ID, "rainbow_cutting"),
+                new net.minecraft.recipe.RecipeType<>() {});
 
         // Biome spawning for rainbow sheep
         if (AutoConfig.getConfigHolder(RainbowConfig.class).getConfig().enableRainbowSheepSpawning) {
             BiomeModifications.addSpawn(
                     BiomeSelectors.includeByKey(
-                            BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.FLOWER_FOREST,
-                            BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.BIRCH_FOREST
+                            AutoConfig.getConfigHolder(RainbowConfig.class).getConfig().activeSheepSpawnBiomes().stream()
+                                    .map(s -> RegistryKey.of(RegistryKeys.BIOME, Identifier.of(s)))
+                                    .toArray(RegistryKey[]::new)
                     ),
                     SpawnGroup.CREATURE,
                     ModEntities.RAINBOW_SHEEP,
@@ -105,7 +115,9 @@ public class LandQuilt implements ModInitializer {
     }
 
     public static DefaultAttributeContainer.Builder createSheepAttributes() {
-        return MobEntity.createMobAttributes()
+        // 1.21.11: MobEntity.createMobAttributes() lacks tempt_range (moved to
+        // AnimalEntity.createAnimalAttributes()); the TemptGoal crashes without it.
+        return AnimalEntity.createAnimalAttributes()
             .add(EntityAttributes.MAX_HEALTH, 8.0)
             .add(EntityAttributes.MOVEMENT_SPEED, 0.23F);
     }
@@ -117,52 +129,58 @@ public class LandQuilt implements ModInitializer {
 
         ModBlocks.RAINBOW_STANDING_SIGN = (SignBlock) TerraformSignBlockHelper.registerSignBlock(
                 Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign"),
-                (props) -> new SignBlock(
+                (props) -> new RainbowSignBlock(
                         TerraformSignBlockHelper.registerDefaultWoodType(Identifier.of(LandCommon.MOD_ID, "rainbow")),
                         props
                 ),
                 AbstractBlock.Settings.copy(Blocks.OAK_SIGN)
+                        .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign")))
         );
         ModBlocks.RAINBOW_WALL_SIGN = (WallSignBlock) Registry.register(
                 Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign"),
-                new WallSignBlock(
+                new RainbowWallSignBlock(
                         TerraformSignBlockHelper.registerDefaultWoodType(Identifier.of(LandCommon.MOD_ID, "rainbow")),
                         AbstractBlock.Settings.copy(Blocks.OAK_WALL_SIGN)
+                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign")))
                 )
         );
         ModBlocks.RAINBOW_HANGING_SIGN = (HangingSignBlock) Registry.register(
                 Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
-                new HangingSignBlock(
+                new RainbowHangingSignBlock(
                         TerraformSignBlockHelper.registerDefaultWoodType(Identifier.of(LandCommon.MOD_ID, "rainbow")),
                         AbstractBlock.Settings.copy(Blocks.OAK_HANGING_SIGN)
+                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign")))
                 )
         );
         ModBlocks.RAINBOW_WALL_HANGING_SIGN = (WallHangingSignBlock) Registry.register(
                 Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign"),
-                new WallHangingSignBlock(
+                new RainbowWallHangingSignBlock(
                         TerraformSignBlockHelper.registerDefaultWoodType(Identifier.of(LandCommon.MOD_ID, "rainbow")),
                         AbstractBlock.Settings.copy(Blocks.OAK_WALL_HANGING_SIGN)
+                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign")))
                 )
         );
 
+        ModEntities.registerSignBlockEntities();
+
         ModItems.RAINBOW_SIGN = (SignItem) Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign"),
-                new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN, new Item.Settings().maxCount(16)));
+                new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN, new Item.Settings().maxCount(16)
+                        .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign")))));
         ModItems.RAINBOW_HANGING_SIGN = (HangingSignItem) Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
-                new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16)));
+                new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16)
+                        .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign")))));
 
-        // Spawn egg — entity types are registered before items on Fabric
-        ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) Registry.register(Registries.ITEM,
-                Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"),
-                new RainbowSpawnEggItem(new Item.Settings()));
+        // Spawn egg (already registered as a static field in ModItems - do not re-register)
 
-        // Boats — Terraform API items
+
+        // Boats — Terraform API items (base id "rainbow": boat -> rainbow_boat, chest -> rainbow_chest_boat)
         ModItems.RAINBOW_BOAT = TerraformBoatItemHelper.registerBoatItem(
                 ModBoats.RAINBOW_BOAT_ID, false);
         ModItems.RAINBOW_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(
-                ModBoats.RAINBOW_CHEST_BOAT_ID, true);
+                ModBoats.RAINBOW_BOAT_ID, true);
 
         LandCommon.LOGGER.info("Registered rainbow signs via Terraform API (Quilt)");
     }

@@ -13,10 +13,18 @@ import net.minecraft.item.SignItem;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.SpawnSettings;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.minecraft.util.collection.Weighted;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -65,6 +73,7 @@ public class LandForge {
 
         // Config
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
+        NeoForge.EVENT_BUS.addListener(LandForge::onPotentialSpawns);
 
         // Register forge-native sign blocks/items
         modBus.addListener((RegisterEvent event) -> {
@@ -73,24 +82,24 @@ public class LandForge {
             if (key.equals(RegistryKeys.BLOCK)) {
                 ModBlocks.registerModBlocks();
 
-                Block signBlock = Registry.register(Registries.BLOCK,
-                        Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign"),
-                        new RainbowStandingSignBlock(Block.Settings.copy(Blocks.OAK_SIGN), RAINBOW_WOOD_TYPE));
+                Identifier standingId = Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign");
+                Block signBlock = Registry.register(Registries.BLOCK, standingId,
+                        new RainbowStandingSignBlock(Block.Settings.copy(Blocks.OAK_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, standingId)), RAINBOW_WOOD_TYPE));
                 ModBlocks.RAINBOW_STANDING_SIGN = signBlock;
 
-                Block wallSignBlock = Registry.register(Registries.BLOCK,
-                        Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign"),
-                        new RainbowWallSignBlock(Block.Settings.copy(Blocks.OAK_WALL_SIGN), RAINBOW_WOOD_TYPE));
+                Identifier wallSignId = Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign");
+                Block wallSignBlock = Registry.register(Registries.BLOCK, wallSignId,
+                        new RainbowWallSignBlock(Block.Settings.copy(Blocks.OAK_WALL_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, wallSignId)), RAINBOW_WOOD_TYPE));
                 ModBlocks.RAINBOW_WALL_SIGN = wallSignBlock;
 
-                Block hangingBlock = Registry.register(Registries.BLOCK,
-                        Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
-                        new RainbowHangingSignBlock(Block.Settings.copy(Blocks.OAK_HANGING_SIGN), RAINBOW_WOOD_TYPE));
+                Identifier hangingId = Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign");
+                Block hangingBlock = Registry.register(Registries.BLOCK, hangingId,
+                        new RainbowHangingSignBlock(Block.Settings.copy(Blocks.OAK_HANGING_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, hangingId)), RAINBOW_WOOD_TYPE));
                 ModBlocks.RAINBOW_HANGING_SIGN = hangingBlock;
 
-                Block wallHangingBlock = Registry.register(Registries.BLOCK,
-                        Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign"),
-                        new RainbowWallHangingSignBlock(Block.Settings.copy(Blocks.OAK_WALL_HANGING_SIGN), RAINBOW_WOOD_TYPE));
+                Identifier wallHangingId = Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign");
+                Block wallHangingBlock = Registry.register(Registries.BLOCK, wallHangingId,
+                        new RainbowWallHangingSignBlock(Block.Settings.copy(Blocks.OAK_WALL_HANGING_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, wallHangingId)), RAINBOW_WOOD_TYPE));
                 ModBlocks.RAINBOW_WALL_HANGING_SIGN = wallHangingBlock;
             }
 
@@ -101,17 +110,15 @@ public class LandForge {
                 BlockItemQueue.PENDING.clear();
                 LandCommon.LOGGER.info("Registered items + " + blockItems + " block items");
 
-                var egg = new RainbowSpawnEggItem(new Item.Settings());
-                Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"), egg);
-                ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) egg;
-
-                var signItem = new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN, new Item.Settings().maxCount(16));
-                Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign"), signItem);
+                Identifier signItemId = Identifier.of(LandCommon.MOD_ID, "rainbow_sign");
+                var signItem = new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN, new Item.Settings().maxCount(16).registryKey(RegistryKey.of(RegistryKeys.ITEM, signItemId)));
+                Registry.register(Registries.ITEM, signItemId, signItem);
                 ModItems.RAINBOW_SIGN = signItem;
 
+                Identifier hangingSignItemId = Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign");
                 var hangingSignItem = new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN,
-                        ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16));
-                Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"), hangingSignItem);
+                        ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16).registryKey(RegistryKey.of(RegistryKeys.ITEM, hangingSignItemId)));
+                Registry.register(Registries.ITEM, hangingSignItemId, hangingSignItem);
                 ModItems.RAINBOW_HANGING_SIGN = hangingSignItem;
             }
 
@@ -167,6 +174,22 @@ public class LandForge {
 
     private void entityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ModEntities.RAINBOW_SHEEP, LandCommon.createRainbowSheepAttributes().build());
+    }
+
+    /**
+     * Adds the rainbow sheep to natural creature spawns in the config-selected biomes.
+     * Fires on the game bus during each chunk's natural spawn pass, so the config
+     * weight/min/max apply live (the data-driven biome modifier JSON cannot read config).
+     */
+    public static void onPotentialSpawns(LevelEvent.PotentialSpawns event) {
+        if (event.getMobCategory() != SpawnGroup.CREATURE) return;
+        var config = AutoConfig.getConfigHolder(RainbowConfig.class).getConfig();
+        if (!config.enableRainbowSheepSpawning) return;
+        var biomeKey = event.getLevel().getBiome(event.getPos()).getKey().orElse(null);
+        if (biomeKey != null && config.activeSheepSpawnBiomes().contains(biomeKey.getValue().toString())) {
+            event.addSpawnerData(new Weighted<>(new SpawnSettings.SpawnEntry(ModEntities.RAINBOW_SHEEP,
+                    config.sheepMinGroupSize, config.sheepMaxGroupSize), config.sheepWeight));
+        }
     }
 
     private void clientSetup(FMLClientSetupEvent event) {

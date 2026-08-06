@@ -6,36 +6,29 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.ConcretePowderBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 
-public class DirectionalRainbowConcretePowderBlock extends FallingBlock {
+public class DirectionalRainbowConcretePowderBlock extends ConcretePowderBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
-    private final Block hardened;
 
     @Override
-    public MapCodec<? extends DirectionalRainbowConcretePowderBlock> codec() {
-        return simpleCodec(DirectionalRainbowConcretePowderBlock::new);
+    @SuppressWarnings("unchecked")
+    public MapCodec<ConcretePowderBlock> codec() {
+        return (MapCodec<ConcretePowderBlock>) (MapCodec<?>) simpleCodec(DirectionalRainbowConcretePowderBlock::new);
     }
 
     public DirectionalRainbowConcretePowderBlock(Properties properties) {
-        super(properties);
-        this.hardened = null;
-        this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
+        this(null, properties);
     }
 
     public DirectionalRainbowConcretePowderBlock(Block hardened, Properties properties) {
-        super(properties);
-        this.hardened = hardened;
+        super(hardened, properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
-    }
-
-    public Block getHardened() {
-        return hardened;
     }
 
     @Override
@@ -56,6 +49,6 @@ public class DirectionalRainbowConcretePowderBlock extends FallingBlock {
 
     @Override
     public int getDustColor(BlockState state, BlockGetter level, BlockPos pos) {
-        return 0xFF69B4; // Rainbow pink/red — dust color for falling block particles
+        return 0xFF69B4; // Rainbow pink/red - dust color for falling block particles
     }
 }

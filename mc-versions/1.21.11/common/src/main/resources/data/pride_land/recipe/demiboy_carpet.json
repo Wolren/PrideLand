@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": "pride_land:demiboy_wool"
+  },
+  "pattern": [
+    "XX"
+  ],
+  "result": {
+    "id": "pride_land:demiboy_carpet",
+    "count": 3
+  }
+}

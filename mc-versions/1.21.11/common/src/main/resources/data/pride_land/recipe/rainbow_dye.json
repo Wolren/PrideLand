@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:red_dye",
+    "minecraft:yellow_dye",
+    "minecraft:white_dye"
+  ],
+  "result": {
+    "id": "pride_land:rainbow_dye",
+    "count": 2
+  }
+}

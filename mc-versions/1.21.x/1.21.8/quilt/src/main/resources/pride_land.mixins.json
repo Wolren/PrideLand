@@ -3,10 +3,7 @@
   "package": "net.wolren.land.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "pride_land.refmap.json",
-  "mixins": [
-    "LivingEntityMixin",
-    "PlayerEntityMixin"
-  ],
+  "mixins": [],
   "injectors": {
     "defaultRequire": 1
   }

@@ -129,6 +129,14 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.RAINBOW_DOOR);
                         output.accept(ModBlocks.RAINBOW_TRAPDOOR);
 
+                        // Signs
+                        output.accept(ModItems.RAINBOW_SIGN);
+                        output.accept(ModItems.RAINBOW_HANGING_SIGN);
+
+                        // Boats
+                        output.accept(ModItems.RAINBOW_BOAT);
+                        output.accept(ModItems.RAINBOW_CHEST_BOAT);
+
                         // Bricks
                         output.accept(ModBlocks.RAINBOW_BRICKS);
                         output.accept(ModBlocks.RAINBOW_BRICK_STAIRS);

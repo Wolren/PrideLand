@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": "pride_land:rainbow_planks"
+  },
+  "pattern": [
+    "XX ",
+    "XX ",
+    "XX "
+  ],
+  "result": {
+    "id": "pride_land:rainbow_door",
+    "count": 3
+  }
+}

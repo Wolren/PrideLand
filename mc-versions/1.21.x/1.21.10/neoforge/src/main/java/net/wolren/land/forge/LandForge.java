@@ -17,6 +17,13 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.SpawnSettings;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.minecraft.util.collection.Weighted;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -65,6 +72,7 @@ public class LandForge {
 
         // Config
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
+        NeoForge.EVENT_BUS.addListener(LandForge::onPotentialSpawns);
 
         // Register forge-native sign blocks/items
         modBus.addListener((RegisterEvent event) -> {
@@ -167,6 +175,22 @@ public class LandForge {
 
     private void entityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ModEntities.RAINBOW_SHEEP, LandCommon.createRainbowSheepAttributes().build());
+    }
+
+    /**
+     * Adds the rainbow sheep to natural creature spawns in the config-selected biomes.
+     * Fires on the game bus during each chunk's natural spawn pass, so the config
+     * weight/min/max apply live (the data-driven biome modifier JSON cannot read config).
+     */
+    public static void onPotentialSpawns(LevelEvent.PotentialSpawns event) {
+        if (event.getMobCategory() != SpawnGroup.CREATURE) return;
+        var config = AutoConfig.getConfigHolder(RainbowConfig.class).getConfig();
+        if (!config.enableRainbowSheepSpawning) return;
+        var biomeKey = event.getLevel().getBiome(event.getPos()).getKey().orElse(null);
+        if (biomeKey != null && config.activeSheepSpawnBiomes().contains(biomeKey.getValue().toString())) {
+            event.addSpawnerData(new Weighted<>(new SpawnSettings.SpawnEntry(ModEntities.RAINBOW_SHEEP,
+                    config.sheepMinGroupSize, config.sheepMaxGroupSize), config.sheepWeight));
+        }
     }
 
     private void clientSetup(FMLClientSetupEvent event) {

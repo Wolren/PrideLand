@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/template_bed_foot",
+  "textures": {
+    "east": "pride_land:block/demiboy_bed_foot_east",
+    "south": "pride_land:block/demiboy_bed_foot_south",
+    "up": "pride_land:block/demiboy_bed_foot_up",
+    "west": "pride_land:block/demiboy_bed_foot_west"
+  }
+}

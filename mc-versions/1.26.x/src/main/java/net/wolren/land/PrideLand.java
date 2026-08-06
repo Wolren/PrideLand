@@ -5,12 +5,15 @@ import net.wolren.land.block.ModBlocks;
 import net.wolren.land.creativetab.ModCreativeModeTabs;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.item.ModItems;
+import net.wolren.land.recipe.ModRecipeTypes;
 import net.wolren.land.recipe.ModSerializers;
 import net.wolren.land.screen.ModScreenHandlers;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import org.slf4j.Logger;
 
 /**
@@ -28,7 +31,16 @@ public class PrideLand {
         ModItems.register(modEventBus);
         ModEntities.register(modEventBus);
         ModSerializers.register(modEventBus);
+        ModRecipeTypes.register(modEventBus);
         ModScreenHandlers.register(modEventBus);
+
+        // Sign blocks use the shared vanilla SIGN/HANGING_SIGN block entity
+        // types - register them as valid blocks or placement crashes with
+        // "Invalid block entity minecraft:sign ... got Block{pride_land:...}"
+        modEventBus.addListener(BlockEntityTypeAddBlocksEvent.class, event -> {
+            event.modify(BlockEntityTypes.SIGN, ModBlocks.RAINBOW_STANDING_SIGN.get(), ModBlocks.RAINBOW_WALL_SIGN.get());
+            event.modify(BlockEntityTypes.HANGING_SIGN, ModBlocks.RAINBOW_HANGING_SIGN.get(), ModBlocks.RAINBOW_WALL_HANGING_SIGN.get());
+        });
 
         modContainer.registerConfig(ModConfig.Type.COMMON, PrideLandConfig.SPEC);
     }

@@ -54,5 +54,22 @@
   "minecraft": {
     "environment": "*"
   },
-  "mixin": "pride_land.mixins.json"
+  "mixin": "pride_land.mixins.json",
+  "custom": {
+    "mcb": [
+      {
+        "name": "Client & Server",
+        "fillColor": -1761620992,
+        "outlineColor": -929470976
+      },
+      {
+        "name": "Gay Certified",
+        "fillColor": -924581117,
+        "outlineColor": -931976830
+      }
+    ],
+    "modmenu": {
+      "update_checker": true
+    }
+  }
 }

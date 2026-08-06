@@ -69,8 +69,9 @@ public class LandFabric implements ModInitializer {
         if (AutoConfig.getConfigHolder(RainbowConfig.class).getConfig().enableRainbowSheepSpawning) {
             BiomeModifications.addSpawn(
                     BiomeSelectors.includeByKey(
-                            BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.FLOWER_FOREST,
-                            BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.BIRCH_FOREST
+                            AutoConfig.getConfigHolder(RainbowConfig.class).getConfig().activeSheepSpawnBiomes().stream()
+                                    .map(s -> RegistryKey.of(RegistryKeys.BIOME, Identifier.of(s)))
+                                    .toArray(RegistryKey[]::new)
                     ),
                     SpawnGroup.CREATURE,
                     ModEntities.RAINBOW_SHEEP,

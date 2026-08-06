@@ -54,3 +54,13 @@ replay_*.log
 /arch-forge.jar
 !/AGENTS.md
 !/AGENTS.md
+
+# agent / AI artifacts — never commit
+
+AGENTS.md
+agents.md
+CLAUDE.md
+claude.md
+.cursorrules
+.hermes/
+*.ai

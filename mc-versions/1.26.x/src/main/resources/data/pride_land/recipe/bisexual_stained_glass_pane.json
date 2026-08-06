@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": "pride_land:bisexual_stained_glass"
+  },
+  "pattern": [
+    "GGG",
+    "GGG"
+  ],
+  "result": {
+    "id": "pride_land:bisexual_stained_glass_pane",
+    "count": 16
+  }
+}
