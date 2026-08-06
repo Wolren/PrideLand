@@ -1,7 +1,5 @@
 package net.wolren.land.renderer;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.state.SheepEntityRenderState;
@@ -12,7 +10,6 @@ import net.wolren.land.renderer.feature.RainbowSheepFeatureRenderer;
 import net.wolren.land.renderer.model.RainbowSheepModel;
 
 
-@Environment(EnvType.CLIENT)
 public class RainbowSheepRenderer extends MobEntityRenderer<MonoColorSheep.RainbowSheepEntity, SheepEntityRenderState, RainbowSheepModel> {
     private static final Identifier TEXTURE = Identifier.of("pride_land:textures/entity/sheep/rainbow_sheep.png");
 

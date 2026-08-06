@@ -4,6 +4,7 @@
   "textures": {
     "0": "pride_land:block/rainbow_wool",
     "1": "pride_land:block/progress_pride_front",
+    "all": "pride_land:block/rainbow_wool",
     "particle": "pride_land:block/progress_pride_front"
   },
   "elements": [

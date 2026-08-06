@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": "pride_land:rainbow_dye",
+    "G": "minecraft:glass"
+  },
+  "pattern": [
+    "GGG",
+    "GDG",
+    "GGG"
+  ],
+  "result": {
+    "id": "pride_land:rainbow_stained_glass",
+    "count": 8
+  }
+}

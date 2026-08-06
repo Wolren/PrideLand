@@ -35,7 +35,7 @@ configurations {
     shadowCommon
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
-    developmentForge.extendsFrom common
+    developmentNeoForge.extendsFrom common
 }
 
 dependencies {
@@ -62,12 +62,20 @@ processResources {
     inputs.property "architectury_min_version", project.findProperty("architectury_min_version")
     inputs.property "cloth_config_min_version", project.findProperty("cloth_config_min_version")
 
-    filesMatching("META-INF/mods.toml") {
+    filesMatching("META-INF/neoforge.mods.toml") {
         expand "version": project.version,
                 "minecraft_version": project.findProperty("minecraft_version"),
                 "architectury_min_version": project.findProperty("architectury_min_version"),
                 "cloth_config_min_version": project.findProperty("cloth_config_min_version")
     }
+
+    // Dev runs don't get the common module's assets on the classpath, so the
+    // mod's own resource pack root must carry them (icon, lang, models, textures).
+    from(project(":mc-versions:1.21.1:common").sourceSets.main.resources) {
+        include "assets/**", "data/**", "pack.mcmeta"
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 jar {

@@ -20,6 +20,8 @@ import net.minecraft.item.SignItem;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
 import net.wolren.land.LandCommon;
@@ -72,8 +74,9 @@ public class LandQuilt implements ModInitializer {
         if (AutoConfig.getConfigHolder(RainbowConfig.class).getConfig().enableRainbowSheepSpawning) {
             BiomeModifications.addSpawn(
                     BiomeSelectors.includeByKey(
-                            BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.FLOWER_FOREST,
-                            BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.BIRCH_FOREST
+                            AutoConfig.getConfigHolder(RainbowConfig.class).getConfig().activeSheepSpawnBiomes().stream()
+                                    .map(s -> RegistryKey.of(RegistryKeys.BIOME, new Identifier(s)))
+                                    .toArray(RegistryKey[]::new)
                     ),
                     SpawnGroup.CREATURE,
                     ModEntities.RAINBOW_SHEEP,

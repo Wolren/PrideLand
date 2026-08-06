@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "net.wolren.land",
+    "id": "pride_land",
+    "version": "${version}",
+    "metadata": {
+      "name": "Pride Land 26.X",
+      "description": "Adds a handful of lgbtqia themed blocks, decorations, and tools making the gameplay more multihued",
+      "contributors": {
+        "Wolren": "Owner"
+      },
+      "contact": {
+        "homepage": "https://modrinth.com/project/pride-land",
+        "sources": "https://github.com/Wolren/PrideLand",
+        "issues": "https://github.com/Wolren/PrideLand/issues"
+      },
+      "license": "MIT",
+      "icon": "assets/pride_land/icon.png"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "fabric-like:entrypoints": {
+      "main": [
+        "net.wolren.land.fabric.PrideLandFabric"
+      ],
+      "client": [
+        "net.wolren.land.fabric.PrideLandFabricClient"
+      ]
+    },
+    "depends": [
+      {
+        "id": "quilt_loader",
+        "version": ">=${quilt_loader_version}"
+      },
+      {
+        "id": "minecraft",
+        "version": "${minecraft_version}"
+      },
+      {
+        "id": "fabric-api",
+        "version": "*"
+      }
+    ]
+  },
+  "minecraft": {
+    "environment": "*"
+  },
+  "mixin": "pride_land.mixins.json"
+}

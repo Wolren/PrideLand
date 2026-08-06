@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
-      "model": "pride_land:block/rainbow_standing_sign"
+    "facing=east": {
+      "model": "pride_land:block/rainbow_wall_sign",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "pride_land:block/rainbow_wall_sign",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "pride_land:block/rainbow_wall_sign"
+    },
+    "facing=west": {
+      "model": "pride_land:block/rainbow_wall_sign",
+      "y": 90
     }
   }
 }

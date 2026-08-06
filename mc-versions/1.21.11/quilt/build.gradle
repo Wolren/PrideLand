@@ -43,6 +43,8 @@ dependencies {
     include(modImplementation("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.findProperty("terraform_api")}"))
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.findProperty("rei_version")}"
+    // Renders the custom.mcb badges ("Client & Server", "Gay Certified") in ModMenu
+    modLocalRuntime "maven.modrinth:modmenu-badges-lib:2026.2.1"
     modImplementation "com.terraformersmc:modmenu:${project.findProperty("modmenu")}"
     modApi "me.shedaniel.cloth:cloth-config-fabric:${project.findProperty("cloth_config")}"
 
@@ -65,6 +67,14 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
+
+    // Dev runs don't get the common module's assets on the classpath, so the
+    // mod's own resource pack root must carry them (icon, lang, models, textures).
+    from(project(":mc-versions:1.21.11:common").sourceSets.main.resources) {
+        include "assets/**", "data/**", "pack.mcmeta"
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 jar {

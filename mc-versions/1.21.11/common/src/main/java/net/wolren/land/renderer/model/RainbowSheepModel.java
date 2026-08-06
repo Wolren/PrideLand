@@ -1,12 +1,9 @@
 package net.wolren.land.renderer.model;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
 import net.minecraft.client.render.entity.model.SheepEntityModel;
 
-@Environment(EnvType.CLIENT)
 public class RainbowSheepModel extends SheepEntityModel {
 
     public RainbowSheepModel(ModelPart root) {

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "pride_land:rainbow_axe",
+    "minecraft:white_dye"
+  ],
+  "result": {
+    "id": "minecraft:netherite_axe"
+  }
+}

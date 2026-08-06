@@ -1,0 +1,8 @@
+{
+  "type": "pride_land:rainbow_cutting",
+  "ingredient": "minecraft:glass",
+  "result": {
+    "id": "pride_land:demiboy_stained_glass",
+    "count": 2
+  }
+}

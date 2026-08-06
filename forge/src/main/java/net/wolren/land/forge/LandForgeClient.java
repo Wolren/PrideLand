@@ -4,7 +4,9 @@ import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.render.entity.EntityRenderers;
 import net.minecraftforge.client.ConfigScreenHandler;
@@ -30,9 +32,13 @@ public class LandForgeClient {
         // Screen — crafting table GUI
         MenuRegistry.registerScreenFactory(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
 
-        // Render layers — blocks with transparency need cutout
+        // Render layers — blocks with transparency need a transparent layer.
+        // NOTE: Architectury's RenderTypeRegistry silently no-ops on Forge+Yarn
+        // in this dev setup, so these use Forge's direct RenderLayers API.
+        // Glass + panes MUST be TRANSLUCENT (semi-alpha textures: cutout only
+        // discards fully-transparent pixels and renders the rest opaque) —
+        // matching the registerTranslucent fix used on the NeoForge clients.
         registerCutout(
-                ModBlocks.RAINBOW_DOOR, ModBlocks.RAINBOW_TRAPDOOR,
                 ModBlocks.RAINBOW_BED, ModBlocks.TRANS_BED, ModBlocks.NONBINARY_BED,
                 ModBlocks.BISEXUAL_BED, ModBlocks.PANSEXUAL_BED, ModBlocks.AROMANTIC_BED,
                 ModBlocks.DEMISEXUAL_BED, ModBlocks.AGENDER_BED, ModBlocks.PROGRESS_PRIDE_BED,
@@ -40,7 +46,7 @@ public class LandForgeClient {
                 ModBlocks.DEMIBOY_BED, ModBlocks.DEMIGIRL_BED, ModBlocks.GENDERQUEER_BED,
                 ModBlocks.POLYSEXUAL_BED
         );
-        registerCutout(
+        registerTranslucentDirect(
                 ModBlocks.RAINBOW_STAINED_GLASS, ModBlocks.TRANS_STAINED_GLASS,
                 ModBlocks.NONBINARY_STAINED_GLASS, ModBlocks.BISEXUAL_STAINED_GLASS,
                 ModBlocks.PANSEXUAL_STAINED_GLASS, ModBlocks.AROMANTIC_STAINED_GLASS,
@@ -50,7 +56,7 @@ public class LandForgeClient {
                 ModBlocks.DEMIBOY_STAINED_GLASS, ModBlocks.DEMIGIRL_STAINED_GLASS,
                 ModBlocks.GENDERQUEER_STAINED_GLASS, ModBlocks.POLYSEXUAL_STAINED_GLASS
         );
-        registerCutout(
+        registerTranslucentDirect(
                 ModBlocks.RAINBOW_STAINED_GLASS_PANE, ModBlocks.TRANS_STAINED_GLASS_PANE,
                 ModBlocks.NONBINARY_STAINED_GLASS_PANE, ModBlocks.BISEXUAL_STAINED_GLASS_PANE,
                 ModBlocks.PANSEXUAL_STAINED_GLASS_PANE, ModBlocks.AROMANTIC_STAINED_GLASS_PANE,
@@ -60,7 +66,7 @@ public class LandForgeClient {
                 ModBlocks.DEMIBOY_STAINED_GLASS_PANE, ModBlocks.DEMIGIRL_STAINED_GLASS_PANE,
                 ModBlocks.GENDERQUEER_STAINED_GLASS_PANE, ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE
         );
-        registerCutout(ModBlocks.RAINBOW_CANDLE);
+        registerCutoutDirect(ModBlocks.RAINBOW_DOOR, ModBlocks.RAINBOW_TRAPDOOR, ModBlocks.RAINBOW_CANDLE);
 
         // Config screen — register Cloth Config screen with Forge's mod list,
         // so a Config button appears for our mod in the mod list screen.
@@ -89,8 +95,11 @@ public class LandForgeClient {
         LandCommon.LOGGER.info("Registered entity renderer for rainbow_sheep");
 
         // Sign block entity renderers — register directly (same issue as entity renderers).
+        // Hanging signs need their own renderer: the vanilla SignBlockEntityRenderer draws
+        // the standing sign model/texture, so using it for the hanging BE made hanging
+        // signs inherit the standing sign's texture (fixed in later versions by class).
         BlockEntityRendererFactories.register(LandForge.RAINBOW_SIGN_BE, SignBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(LandForge.RAINBOW_HANGING_SIGN_BE, SignBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(LandForge.RAINBOW_HANGING_SIGN_BE, HangingSignBlockEntityRenderer::new);
         LandCommon.LOGGER.info("Registered sign block entity renderers");
 
         // Bed block entity renderers — use Architectury's API (works fine for block entities)
@@ -102,6 +111,18 @@ public class LandForgeClient {
     private static void registerCutout(net.minecraft.block.Block... blocks) {
         for (var block : blocks) {
             RenderTypeRegistry.register(RenderLayer.getCutout(), block);
+        }
+    }
+
+    private static void registerCutoutDirect(net.minecraft.block.Block... blocks) {
+        for (var block : blocks) {
+            RenderLayers.setRenderLayer(block, RenderLayer.getCutout());
+        }
+    }
+
+    private static void registerTranslucentDirect(net.minecraft.block.Block... blocks) {
+        for (var block : blocks) {
+            RenderLayers.setRenderLayer(block, RenderLayer.getTranslucent());
         }
     }
 }

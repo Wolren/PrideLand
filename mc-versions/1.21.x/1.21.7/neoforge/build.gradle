@@ -67,6 +67,14 @@ processResources {
                 "architectury_min_version": project.findProperty("architectury_min_version"),
                 "cloth_config_min_version": project.findProperty("cloth_config_min_version")
     }
+
+    // Dev runs don't get the common module's assets on the classpath, so the
+    // mod's own resource pack root must carry them (icon, lang, models, textures).
+    from(project(":mc-versions:1.21.x:1.21.7:common").sourceSets.main.resources) {
+        include "assets/**", "data/**", "pack.mcmeta"
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 jar {

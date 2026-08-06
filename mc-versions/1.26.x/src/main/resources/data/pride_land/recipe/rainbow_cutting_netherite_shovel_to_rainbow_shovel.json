@@ -1,0 +1,8 @@
+{
+  "type": "pride_land:rainbow_cutting",
+  "ingredient": "minecraft:netherite_shovel",
+  "result": {
+    "id": "pride_land:rainbow_shovel",
+    "count": 1
+  }
+}

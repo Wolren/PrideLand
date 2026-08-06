@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": "pride_land:pansexual_wool",
+    "Y": "#minecraft:planks"
+  },
+  "pattern": [
+    "XXX",
+    "YYY"
+  ],
+  "result": {
+    "id": "pride_land:pansexual_bed"
+  }
+}

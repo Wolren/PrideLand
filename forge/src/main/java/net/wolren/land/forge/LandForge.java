@@ -12,16 +12,20 @@ import net.minecraft.item.HangingSignItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -65,9 +69,9 @@ public class LandForge {
         // Config — Cloth Config / AutoConfig shared with Fabric
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
 
-        // Natural spawning is handled via Forge's data-driven biome modifier JSON
-        // (data/pride_land/forge/biome_modifier/add_rainbow_sheep_spawns.json) +
-        // a runtime filter that reads config values.
+        // Natural spawning is handled at runtime via LevelEvent.PotentialSpawns
+        // (config-driven weight/min/max — the JSON biome modifier is removed).
+        MinecraftForge.EVENT_BUS.addListener(LandForge::onPotentialSpawns);
         MinecraftForge.EVENT_BUS.addListener(LandForge::onMobSpawnPositionCheck);
 
         // Register forge-native sign blocks/items
@@ -174,6 +178,25 @@ public class LandForge {
 
     private void entityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ModEntities.RAINBOW_SHEEP, LandCommon.createRainbowSheepAttributes().build());
+    }
+
+    /**
+     * Adds the rainbow sheep to natural creature spawns in the config-selected biomes.
+     * Fires on the game bus during each chunk's natural spawn pass, so the config
+     * weight/min/max apply live (the data-driven biome modifier JSON cannot read config).
+     */
+    public static void onPotentialSpawns(LevelEvent.PotentialSpawns event) {
+        if (event.getMobCategory() != SpawnGroup.CREATURE) return;
+        var config = AutoConfig.getConfigHolder(RainbowConfig.class).getConfig();
+        if (!config.enableRainbowSheepSpawning) return;
+        var biomeKey = event.getLevel().getBiome(event.getPos()).getKey().orElse(null);
+        if (biomeKey != null && config.activeSheepSpawnBiomes().contains(biomeKey.getValue().toString())) {
+            event.addSpawnerData(new SpawnSettings.SpawnEntry(
+                    ModEntities.RAINBOW_SHEEP,
+                    config.sheepWeight,
+                    config.sheepMinGroupSize,
+                    config.sheepMaxGroupSize));
+        }
     }
 
     /**
