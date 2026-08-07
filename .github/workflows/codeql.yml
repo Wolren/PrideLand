@@ -28,13 +28,23 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: Seed cloth-config mavenLocal (plain-jar remap input)
+        shell: bash
+        run: bash scripts/seed-cloth-mavenlocal.sh
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
       - name: Build with Gradle
         shell: bash
-        run: ./gradlew build --no-daemon -Dorg.gradle.java.home="$JAVA_HOME"
+        run: |
+          for i in 1 2 3; do
+            if ./gradlew build --no-daemon -Dorg.gradle.java.home="$JAVA_HOME"; then
+              exit 0
+            fi
+            bash scripts/remap-fixup.sh
+          done
+          exit 1
         env:
           CODEQL_ACTION_BUILD_MODE: manual
       - name: Perform CodeQL Analysis
