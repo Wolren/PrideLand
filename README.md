@@ -18,6 +18,10 @@ Multi-loader Minecraft mod adding LGBTQIA+ themed blocks, decorations, and tools
 
 </div>
 
+## Screenshots
+
+![Pride flag showcase: a wooden stall holds 16 identity pride banners above tiered arrangements of matching pride-colored blocks in a forested biome](docs/screenshot-showcase.png)
+
 ## About
 
 The goal of this mod is to provide a bunch of lgbt / lgbtqia blocks, decorations, tools, and whatever else one could want with their pride flag on it. The mod is not feature complete: more content is added over time.
