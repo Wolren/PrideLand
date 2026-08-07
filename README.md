@@ -24,7 +24,7 @@ Multi-loader Minecraft mod adding LGBTQIA+ themed blocks, decorations, and tools
 
 ## About
 
-The goal of this mod is to provide a bunch of lgbt / lgbtqia blocks, decorations, tools, and whatever else one could want with their pride flag on it. The mod is not feature complete: more content is added over time.
+The goal of this mod is to provide a bunch of LGBTQIA+ blocks, decorations, tools, and whatever else one could want with their pride flag on it.
 
 ## Features
 
@@ -35,15 +35,11 @@ The goal of this mod is to provide a bunch of lgbt / lgbtqia blocks, decorations
 - Rainbow signs and boats
 - Config screen: Cloth Config with a ModMenu button on Fabric and Quilt, the native NeoForge screen on 26.x
 
-## Installation
-
-Download the jar for your Minecraft version and loader from the [GitHub Releases](https://github.com/Wolren/PrideLand/releases) page and place it in the `mods` folder. Modrinth and CurseForge host the earlier versions of the mod.
-
 Required dependencies:
 
 - [Fabric API](https://modrinth.com/mod/fabric-api) (Fabric and Quilt builds)
 - [Cloth Config API](https://modrinth.com/mod/cloth-config) (all loaders except 26.x NeoForge, which uses the native config screen)
-- [Architectury API](https://modrinth.com/mod/architectury-api)
+- [Architectury API](https://modrinth.com/mod/architectury-api) for most versions
 
 Optional: [ModMenu](https://modrinth.com/mod/modmenu) adds the config screen button on Fabric and Quilt.
 
