@@ -1,17 +1,20 @@
 package net.wolren.land.util.config;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
-public class RainbowConfig {
+@Config(name = "pride_land")
+public class RainbowConfig implements ConfigData {
     public boolean enableRainbowSheepSpawning = true;
     public int sheepWeight = 10;
     public int sheepMinGroupSize = 2;
     public int sheepMaxGroupSize = 3;
+
+    @ConfigEntry.Gui.CollapsibleObject(startExpanded = true)
     public SpawnBiomes sheepSpawnBiomes = new SpawnBiomes();
 
     public static class SpawnBiomes {
@@ -81,8 +84,8 @@ public class RainbowConfig {
         public boolean endBarrens = false;
     }
 
-    public java.util.List<String> activeSheepSpawnBiomes() {
-        java.util.List<String> result = new java.util.ArrayList<>();
+    public List<String> activeSheepSpawnBiomes() {
+        List<String> result = new ArrayList<>();
         SpawnBiomes b = sheepSpawnBiomes;
         if (b.plains) result.add("minecraft:plains");
         if (b.forest) result.add("minecraft:forest");
@@ -149,32 +152,5 @@ public class RainbowConfig {
         if (b.endHighlands) result.add("minecraft:end_highlands");
         if (b.endBarrens) result.add("minecraft:end_barrens");
         return result;
-    }
-
-
-
-    /**
-     * Loads the config from config/pride_land.json under the given config dir,
-     * writing defaults on first run. Missing or corrupt files fall back to defaults.
-     */
-    public static RainbowConfig load(Path configDir) {
-        Path file = configDir.resolve("pride_land.json");
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        RainbowConfig config = new RainbowConfig();
-        if (Files.exists(file)) {
-            try {
-                RainbowConfig parsed = gson.fromJson(Files.readString(file), RainbowConfig.class);
-                if (parsed != null) config = parsed;
-            } catch (IOException | com.google.gson.JsonSyntaxException ignored) {
-                // keep defaults
-            }
-        } else {
-            try {
-                Files.createDirectories(configDir);
-                Files.writeString(file, gson.toJson(config));
-            } catch (IOException ignored) {
-            }
-        }
-        return config;
     }
 }

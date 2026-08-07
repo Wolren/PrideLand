@@ -16,6 +16,9 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: Seed cloth-config mavenLocal (plain-jar remap input)
+        shell: bash
+        run: bash scripts/seed-cloth-mavenlocal.sh
       - name: Build with Gradle
         shell: bash
         run: ./gradlew build --no-daemon -Dorg.gradle.java.home="$JAVA_HOME"

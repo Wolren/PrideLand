@@ -31,7 +31,8 @@ import net.wolren.land.screen.RainbowCraftingScreenHandler;
 import net.wolren.land.recipe.ModSerializers;
 import net.wolren.land.util.ModTags;
 import net.wolren.land.util.config.RainbowConfig;
-import net.fabricmc.loader.api.FabricLoader;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
 public class PrideLandFabric implements ModInitializer {
     @Override
@@ -74,7 +75,8 @@ public class PrideLandFabric implements ModInitializer {
                 });
 
         // Biome spawning for rainbow sheep (config-gated)
-        RainbowConfig config = RainbowConfig.load(FabricLoader.getInstance().getConfigDir());
+        AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
+        RainbowConfig config = AutoConfig.getConfigHolder(RainbowConfig.class).get();
         if (config.enableRainbowSheepSpawning) {
             BiomeModifications.addSpawn(
                     BiomeSelectors.includeByKey(

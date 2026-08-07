@@ -15,6 +15,7 @@ repositories {
     maven { url = 'https://maven.minecraftforge.net/' }
     maven { url "https://maven.shedaniel.me" }
     maven { url = 'https://maven.quiltmc.org/repository/release/' }
+    maven { url "https://maven.terraformersmc.com/releases" }
 }
 
 dependencies {
@@ -30,6 +31,9 @@ dependencies {
     compileOnly "org.quiltmc:quilt-loader:${project.quilt_loader_version}"
 
     compileOnly "me.shedaniel.cloth:basic-math:0.6.1"
+
+    implementation "com.terraformersmc:modmenu:20.0.1"
+    implementation "me.shedaniel.cloth:cloth-config-fabric:26.2.155"
 }
 
 processResources {

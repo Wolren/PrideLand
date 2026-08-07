@@ -43,11 +43,17 @@
       },
       {
         "id": "cloth-config",
-        "version": ">=11.1.118"
+        "version": ">=16.0.143"
       },
       {
         "id": "architectury",
-        "version": ">=9.2.14"
+        "version": ">=14.0.3"
+      }
+    ],
+    "suggests": [
+      {
+        "id": "modmenu",
+        "version": ">=14.0.0"
       }
     ]
   },
