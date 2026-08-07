@@ -102,21 +102,27 @@ public class PrideLandConfig {
         BUILDER.push("general");
         ENABLE_RAINBOW_SHEEP_SPAWNING = BUILDER
                 .comment("Whether rainbow sheep spawn naturally")
+                .translation("pride_land.configuration.general.enableRainbowSheepSpawning")
                 .define("enableRainbowSheepSpawning", true);
         SHEEP_WEIGHT = BUILDER
                 .comment("Natural spawn weight (relative to the biome modifier base weight of 10)")
+                .translation("pride_land.configuration.general.sheepWeight")
                 .defineInRange("sheepWeight", 10, 0, 10);
         SHEEP_MIN_GROUP_SIZE = BUILDER
                 .comment("Minimum rainbow sheep per spawn group")
+                .translation("pride_land.configuration.general.sheepMinGroupSize")
                 .defineInRange("sheepMinGroupSize", 2, 1, 16);
         SHEEP_MAX_GROUP_SIZE = BUILDER
                 .comment("Maximum rainbow sheep per spawn group")
+                .translation("pride_land.configuration.general.sheepMaxGroupSize")
                 .defineInRange("sheepMaxGroupSize", 3, 1, 16);
         BUILDER.pop();
 
         BUILDER.push("sheepSpawnBiomes");
         for (Map.Entry<String, Boolean> e : SHEEP_BIOME_DEFAULTS.entrySet()) {
-            SHEEP_SPAWN_BIOMES.put(e.getKey(), BUILDER.define(e.getKey(), e.getValue().booleanValue()));
+            SHEEP_SPAWN_BIOMES.put(e.getKey(), BUILDER
+                    .translation("pride_land.configuration.sheepSpawnBiomes." + e.getKey())
+                    .define(e.getKey(), e.getValue().booleanValue()));
         }
         BUILDER.pop();
 

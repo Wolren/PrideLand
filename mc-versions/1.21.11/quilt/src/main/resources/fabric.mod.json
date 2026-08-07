@@ -34,7 +34,7 @@
     "minecraft": ">=1.20.1",
     "fabric-api": "*",
     "architectury": ">=9.0.0",
-    "cloth-config": ">=11.0.0"
+    "cloth-config": ">=21.11.153"
   },
   "custom": {
     "mcb": [
@@ -52,5 +52,8 @@
     "modmenu": {
       "update_checker": true
     }
+  },
+  "suggests": {
+    "modmenu": ">=17.0.0"
   }
 }

@@ -40,7 +40,7 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}",
-    "cloth-config": ">=11.1.118",
+    "cloth-config": ">=16.0.143",
     "architectury": ">=9.2.14"
   },
   "custom": {
@@ -59,5 +59,8 @@
         "outlineColor": -931976830
       }
     ]
+  },
+  "suggests": {
+    "modmenu": ">=14.0.0"
   }
 }

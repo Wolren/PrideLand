@@ -49,6 +49,9 @@ jobs:
       - name: make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
+      - name: seed cloth-config mavenLocal (plain-jar remap input)
+        shell: bash
+        run: bash scripts/seed-cloth-mavenlocal.sh
       - name: build all modules
         shell: bash
         run: |
@@ -270,6 +273,13 @@ jobs:
           game-versions: ${{ matrix.version }}
           loaders: ${{ matrix.loader }}
           java: ${{ matrix.java }}
+          # Autoinstall dependencies on Modrinth/CurseForge: cloth-config required
+          # (config screen + AutoConfig on every tree except 26.x neoforge, which uses
+          # the native NeoForge config screen), architectury-api required (architectury
+          # multi-loader base), modmenu optional (settings button integration only).
+          # 26.x neoforge needs none of these - neoforge + minecraft are implicit.
+          modrinth-dependencies: ${{ (startsWith(matrix.version, '26') && matrix.loader == 'neoforge') && 'none' || 'cloth-config|required,modmenu|optional,architectury-api|required' }}
+          curseforge-dependencies: ${{ (startsWith(matrix.version, '26') && matrix.loader == 'neoforge') && 'none' || 'cloth-config|required,modmenu|optional,architectury-api|required' }}
           # warn (not fail): a row resuming after a partial publish has one platform
           # already holding the version - publish the missing one, warn on the duplicate
           fail-mode: warn

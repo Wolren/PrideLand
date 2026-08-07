@@ -27,6 +27,9 @@ jobs:
       - name: make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
+      - name: seed cloth-config mavenLocal (plain-jar remap input)
+        shell: bash
+        run: bash scripts/seed-cloth-mavenlocal.sh
       # -Dorg.gradle.java.home overrides the machine-specific org.gradle.java.home
       # in root gradle.properties (a Windows path) so CI always uses the job JVM.
       - name: build (root modules, MC 1.20.1)

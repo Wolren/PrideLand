@@ -5,6 +5,7 @@ plugins {
 }
 
 repositories {
+    maven { url "https://maven.nucleoid.xyz/" }
     mavenLocal()
     maven { url "https://repo.sleeping.town/" }
 }

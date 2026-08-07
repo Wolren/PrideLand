@@ -39,6 +39,16 @@
       {
         "id": "fabric-api",
         "version": "*"
+      },
+      {
+        "id": "cloth-config",
+        "version": ">=26.2.155"
+      }
+    ],
+    "suggests": [
+      {
+        "id": "modmenu",
+        "version": ">=20.0.1"
       }
     ]
   },
