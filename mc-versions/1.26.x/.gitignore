@@ -15,8 +15,6 @@ src/generated/**/.cache
 
 # Gradle
 .gradle/
-gradle/wrapper/gradle-wrapper.properties
-!gradle/wrapper/gradle-wrapper.jar
 
 # OS
 .DS_Store
