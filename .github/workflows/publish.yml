@@ -1,6 +1,8 @@
-# Publish all version/loader jars to Modrinth + CurseForge.
+# Publish all version/loader jars to GitHub releases (+ optionally Modrinth + CurseForge).
 #
-# Trigger: manual (workflow_dispatch) or a v* tag push.
+# Trigger: manual (workflow_dispatch) or a v* tag push. Tag pushes publish the matrix
+# jars to the GitHub release; Modrinth/CurseForge uploads require the
+# upload-platforms=upload input (default skip).
 # Project IDs come from repository variables (MODRINTH_PROJECT_ID, CURSEFORGE_PROJECT_ID);
 # tokens from repository secrets (MODRINTH_TOKEN, CURSEFORGE_TOKEN - both with CREATE_VERSION scope).
 #
@@ -27,6 +29,12 @@ on:
         default: 'release'
         type: choice
         options: ['release', 'beta', 'alpha']
+      upload-platforms:
+        description: 'Upload to Modrinth + CurseForge'
+        required: false
+        default: 'skip'
+        type: choice
+        options: ['skip', 'upload']
   push:
     tags:
       - 'v*'
@@ -159,57 +167,57 @@ jobs:
       matrix:
         include:
           # 1.20.1 (root modules)
-          - { version: "1.20.1", loader: fabric,   prefix: jars-21, java: "21", jar: fabric/build/libs/pride_land-1.0.4-1.20.1.jar }
-          - { version: "1.20.1", loader: forge,    prefix: jars-21, java: "21", jar: forge/build/libs/pride_land-1.0.4-1.20.1.jar }
-          - { version: "1.20.1", loader: quilt,    prefix: jars-21, java: "21", jar: quilt/build/libs/pride_land-1.0.4-1.20.1.jar }
+          - { version: "1.20.1", loader: fabric,   prefix: jars-21, java: "21", jar: fabric/build/libs/pride_land-1.1-1.20.1.jar }
+          - { version: "1.20.1", loader: forge,    prefix: jars-21, java: "21", jar: forge/build/libs/pride_land-1.1-1.20.1.jar }
+          - { version: "1.20.1", loader: quilt,    prefix: jars-21, java: "21", jar: quilt/build/libs/pride_land-1.1-1.20.1.jar }
           # 1.20.2
-          - { version: "1.20.2", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.2/fabric/build/libs/pride_land-1.0.4-1.20.2.jar }
-          - { version: "1.20.2", loader: forge,    prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.2/forge/build/libs/pride_land-1.0.4-1.20.2.jar }
+          - { version: "1.20.2", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.2/fabric/build/libs/pride_land-1.1-1.20.2.jar }
+          - { version: "1.20.2", loader: forge,    prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.2/forge/build/libs/pride_land-1.1-1.20.2.jar }
           # 1.20.3 (Forge line abandoned upstream)
-          - { version: "1.20.3", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.3/fabric/build/libs/pride_land-1.0.4-1.20.3.jar }
+          - { version: "1.20.3", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.3/fabric/build/libs/pride_land-1.1-1.20.3.jar }
           # 1.20.4
-          - { version: "1.20.4", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.4/fabric/build/libs/pride_land-1.0.4-1.20.4.jar }
-          - { version: "1.20.4", loader: forge,    prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.4/forge/build/libs/pride_land-1.0.4-1.20.4.jar }
-          - { version: "1.20.4", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.4/quilt/build/libs/pride_land-1.0.4-1.20.4.jar }
+          - { version: "1.20.4", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.4/fabric/build/libs/pride_land-1.1-1.20.4.jar }
+          - { version: "1.20.4", loader: forge,    prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.4/forge/build/libs/pride_land-1.1-1.20.4.jar }
+          - { version: "1.20.4", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.20.x/1.20.4/quilt/build/libs/pride_land-1.1-1.20.4.jar }
           # 1.21.1
-          - { version: "1.21.1", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.1/fabric/build/libs/pride_land-1.0.4-1.21.1.jar }
-          - { version: "1.21.1", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.1/neoforge/build/libs/pride_land-1.0.4-1.21.1.jar }
-          - { version: "1.21.1", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.1/quilt/build/libs/pride_land-1.0.4-1.21.1.jar }
+          - { version: "1.21.1", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.1/fabric/build/libs/pride_land-1.1-1.21.1.jar }
+          - { version: "1.21.1", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.1/neoforge/build/libs/pride_land-1.1-1.21.1.jar }
+          - { version: "1.21.1", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.1/quilt/build/libs/pride_land-1.1-1.21.1.jar }
           # 1.21.2 - 1.21.10
-          - { version: "1.21.2", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.2/fabric/build/libs/pride_land-1.0.4-1.21.2.jar }
-          - { version: "1.21.2", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.2/neoforge/build/libs/pride_land-1.0.4-1.21.2.jar }
-          - { version: "1.21.2", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.2/quilt/build/libs/pride_land-1.0.4-1.21.2.jar }
-          - { version: "1.21.3", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.3/fabric/build/libs/pride_land-1.0.4-1.21.3.jar }
-          - { version: "1.21.3", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.3/neoforge/build/libs/pride_land-1.0.4-1.21.3.jar }
-          - { version: "1.21.3", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.3/quilt/build/libs/pride_land-1.0.4-1.21.3.jar }
-          - { version: "1.21.4", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.4/fabric/build/libs/pride_land-1.0.4-1.21.4.jar }
-          - { version: "1.21.4", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.4/neoforge/build/libs/pride_land-1.0.4-1.21.4.jar }
-          - { version: "1.21.4", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.4/quilt/build/libs/pride_land-1.0.4-1.21.4.jar }
-          - { version: "1.21.5", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.5/fabric/build/libs/pride_land-1.0.4-1.21.5.jar }
-          - { version: "1.21.5", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.5/neoforge/build/libs/pride_land-1.0.4-1.21.5.jar }
-          - { version: "1.21.5", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.5/quilt/build/libs/pride_land-1.0.4-1.21.5.jar }
-          - { version: "1.21.6", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.6/fabric/build/libs/pride_land-1.0.4-1.21.6.jar }
-          - { version: "1.21.6", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.6/neoforge/build/libs/pride_land-1.0.4-1.21.6.jar }
-          - { version: "1.21.6", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.6/quilt/build/libs/pride_land-1.0.4-1.21.6.jar }
-          - { version: "1.21.7", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.7/fabric/build/libs/pride_land-1.0.4-1.21.7.jar }
-          - { version: "1.21.7", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.7/neoforge/build/libs/pride_land-1.0.4-1.21.7.jar }
-          - { version: "1.21.7", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.7/quilt/build/libs/pride_land-1.0.4-1.21.7.jar }
-          - { version: "1.21.8", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.8/fabric/build/libs/pride_land-1.0.4-1.21.8.jar }
-          - { version: "1.21.8", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.8/neoforge/build/libs/pride_land-1.0.4-1.21.8.jar }
-          - { version: "1.21.8", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.8/quilt/build/libs/pride_land-1.0.4-1.21.8.jar }
-          - { version: "1.21.9", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.9/fabric/build/libs/pride_land-1.0.4-1.21.9.jar }
-          - { version: "1.21.9", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.9/neoforge/build/libs/pride_land-1.0.4-1.21.9.jar }
-          - { version: "1.21.9", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.9/quilt/build/libs/pride_land-1.0.4-1.21.9.jar }
-          - { version: "1.21.10", loader: fabric,  prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.10/fabric/build/libs/pride_land-1.0.4-1.21.10.jar }
-          - { version: "1.21.10", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.10/neoforge/build/libs/pride_land-1.0.4-1.21.10.jar }
-          - { version: "1.21.10", loader: quilt,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.10/quilt/build/libs/pride_land-1.0.4-1.21.10.jar }
+          - { version: "1.21.2", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.2/fabric/build/libs/pride_land-1.1-1.21.2.jar }
+          - { version: "1.21.2", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.2/neoforge/build/libs/pride_land-1.1-1.21.2.jar }
+          - { version: "1.21.2", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.2/quilt/build/libs/pride_land-1.1-1.21.2.jar }
+          - { version: "1.21.3", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.3/fabric/build/libs/pride_land-1.1-1.21.3.jar }
+          - { version: "1.21.3", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.3/neoforge/build/libs/pride_land-1.1-1.21.3.jar }
+          - { version: "1.21.3", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.3/quilt/build/libs/pride_land-1.1-1.21.3.jar }
+          - { version: "1.21.4", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.4/fabric/build/libs/pride_land-1.1-1.21.4.jar }
+          - { version: "1.21.4", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.4/neoforge/build/libs/pride_land-1.1-1.21.4.jar }
+          - { version: "1.21.4", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.4/quilt/build/libs/pride_land-1.1-1.21.4.jar }
+          - { version: "1.21.5", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.5/fabric/build/libs/pride_land-1.1-1.21.5.jar }
+          - { version: "1.21.5", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.5/neoforge/build/libs/pride_land-1.1-1.21.5.jar }
+          - { version: "1.21.5", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.5/quilt/build/libs/pride_land-1.1-1.21.5.jar }
+          - { version: "1.21.6", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.6/fabric/build/libs/pride_land-1.1-1.21.6.jar }
+          - { version: "1.21.6", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.6/neoforge/build/libs/pride_land-1.1-1.21.6.jar }
+          - { version: "1.21.6", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.6/quilt/build/libs/pride_land-1.1-1.21.6.jar }
+          - { version: "1.21.7", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.7/fabric/build/libs/pride_land-1.1-1.21.7.jar }
+          - { version: "1.21.7", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.7/neoforge/build/libs/pride_land-1.1-1.21.7.jar }
+          - { version: "1.21.7", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.7/quilt/build/libs/pride_land-1.1-1.21.7.jar }
+          - { version: "1.21.8", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.8/fabric/build/libs/pride_land-1.1-1.21.8.jar }
+          - { version: "1.21.8", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.8/neoforge/build/libs/pride_land-1.1-1.21.8.jar }
+          - { version: "1.21.8", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.8/quilt/build/libs/pride_land-1.1-1.21.8.jar }
+          - { version: "1.21.9", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.9/fabric/build/libs/pride_land-1.1-1.21.9.jar }
+          - { version: "1.21.9", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.9/neoforge/build/libs/pride_land-1.1-1.21.9.jar }
+          - { version: "1.21.9", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.9/quilt/build/libs/pride_land-1.1-1.21.9.jar }
+          - { version: "1.21.10", loader: fabric,  prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.10/fabric/build/libs/pride_land-1.1-1.21.10.jar }
+          - { version: "1.21.10", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.10/neoforge/build/libs/pride_land-1.1-1.21.10.jar }
+          - { version: "1.21.10", loader: quilt,   prefix: jars-21, java: "21", jar: mc-versions/1.21.x/1.21.10/quilt/build/libs/pride_land-1.1-1.21.10.jar }
           # 1.21.11 (NeoForge module lives in the forge/ dir)
-          - { version: "1.21.11", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.11/fabric/build/libs/pride_land-1.0.4-1.21.11.jar }
-          - { version: "1.21.11", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.11/forge/build/libs/pride_land-1.0.4-1.21.11.jar }
-          - { version: "1.21.11", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.11/quilt/build/libs/pride_land-1.0.4-1.21.11.jar }
+          - { version: "1.21.11", loader: fabric,   prefix: jars-21, java: "21", jar: mc-versions/1.21.11/fabric/build/libs/pride_land-1.1-1.21.11.jar }
+          - { version: "1.21.11", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.11/forge/build/libs/pride_land-1.1-1.21.11.jar }
+          - { version: "1.21.11", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.11/quilt/build/libs/pride_land-1.1-1.21.11.jar }
           # 26.2 (standalone builds, Java 25)
-          - { version: "26.2", loader: neoforge, prefix: jars-26x, java: "25", jar: mc-versions/1.26.x/build/libs/pride_land-1.0.4-26.2.jar }
-          - { version: "26.2", loader: fabric,   prefix: jars-26x, java: "25", jar: mc-versions/1.26.x-fabric/build/libs/pride_land-1.0.4-26.2.jar }
+          - { version: "26.2", loader: neoforge, prefix: jars-26x, java: "25", jar: mc-versions/1.26.x/build/libs/pride_land-1.1-26.2.jar }
+          - { version: "26.2", loader: fabric,   prefix: jars-26x, java: "25", jar: mc-versions/1.26.x-fabric/build/libs/pride_land-1.1-26.2.jar }
     steps:
       - name: download jars
         uses: actions/download-artifact@v4
@@ -218,14 +226,14 @@ jobs:
           path: .
 
       # Rename to a unique file name per row: 1.20.2's fabric+forge jars share the
-      # "pride_land-1.0.4-1.20.2.jar" name, and CurseForge requires unique file names
+      # "pride_land-1.1-1.20.2.jar" name, and CurseForge requires unique file names
       # within a project - the loader suffix makes every upload unique on both platforms.
       - name: stage unique file
         shell: bash
         run: |
           mkdir -p /tmp/publish
           cp "${{ matrix.prefix }}/${{ matrix.jar }}" \
-             "/tmp/publish/pride_land-1.0.4-${{ matrix.version }}-${{ matrix.loader }}.jar"
+             "/tmp/publish/pride_land-1.1-${{ matrix.version }}-${{ matrix.loader }}.jar"
 
       # Duplicate guard: query both platforms for the exact version. Skips the row
       # only when BOTH already have it. Fail-open - any query error lets the publish
@@ -236,8 +244,8 @@ jobs:
         env:
           CF_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
         run: |
-          version_name="1.0.4-${{ matrix.version }}-${{ matrix.loader }}"
-          file_name="pride_land-1.0.4-${{ matrix.version }}-${{ matrix.loader }}.jar"
+          version_name="1.1-${{ matrix.version }}-${{ matrix.loader }}"
+          file_name="pride_land-1.1-${{ matrix.version }}-${{ matrix.loader }}.jar"
 
           modrinth_exists=false
           if [ -n "${{ vars.MODRINTH_PROJECT_ID }}" ]; then
@@ -259,16 +267,29 @@ jobs:
           fi
           echo "curseforge-exists=$curseforge_exists" >> "$GITHUB_OUTPUT"
 
+      # GitHub release assets only (tag-triggered runs): every matrix row appends its
+      # uniquely-named jar to the release named after the v* tag. Platform uploads are
+      # gated separately below on the upload-platforms input (default: skip).
+      - name: publish to GitHub release (assets only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: Kira-NT/mc-publish@v3.3
+        with:
+          github-tag: ${{ github.ref_name }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-files: /tmp/publish/pride_land-1.1-*.jar
+          version-type: ${{ inputs.release-type || 'release' }}
+          changelog: "PrideLand ${{ github.ref_name }} for Minecraft ${{ matrix.version }} (${{ matrix.loader }})"
+
       - name: publish to Modrinth + CurseForge
-        if: steps.check.outputs.modrinth-exists != 'true' || steps.check.outputs.curseforge-exists != 'true'
+        if: inputs.upload-platforms == 'upload' && (steps.check.outputs.modrinth-exists != 'true' || steps.check.outputs.curseforge-exists != 'true')
         uses: Kira-NT/mc-publish@v3.3
         with:
           modrinth-id: ${{ vars.MODRINTH_PROJECT_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           curseforge-id: ${{ vars.CURSEFORGE_PROJECT_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          files: /tmp/publish/pride_land-1.0.4-${{ matrix.version }}-${{ matrix.loader }}.jar
-          version: 1.0.4-${{ matrix.version }}-${{ matrix.loader }}
+          files: /tmp/publish/pride_land-1.1-${{ matrix.version }}-${{ matrix.loader }}.jar
+          version: 1.1-${{ matrix.version }}-${{ matrix.loader }}
           version-type: ${{ inputs.release-type || 'release' }}
           game-versions: ${{ matrix.version }}
           loaders: ${{ matrix.loader }}
@@ -287,4 +308,4 @@ jobs:
 
       - name: already published on both platforms
         if: steps.check.outputs.modrinth-exists == 'true' && steps.check.outputs.curseforge-exists == 'true'
-        run: echo "::notice::1.0.4-${{ matrix.version }}-${{ matrix.loader }} already exists on Modrinth and CurseForge - skipping"
+        run: echo "::notice::1.1-${{ matrix.version }}-${{ matrix.loader }} already exists on Modrinth and CurseForge - skipping"
