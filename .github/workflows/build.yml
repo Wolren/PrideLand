@@ -56,7 +56,8 @@ jobs:
       - name: build (multi-version)
         shell: bash
         run: |
-          ./gradlew \
+          for i in 1 2 3; do
+            if ./gradlew \
             :mc-versions:1.20.x:1.20.2:common:build \
             :mc-versions:1.20.x:1.20.2:fabric:build \
             :mc-versions:1.20.x:1.20.2:forge:build \
@@ -110,7 +111,12 @@ jobs:
             :mc-versions:1.21.x:1.21.10:fabric:build \
             :mc-versions:1.21.x:1.21.10:neoforge:build \
             :mc-versions:1.21.x:1.21.10:quilt:build \
-            -Dorg.gradle.java.home="$JDK_BUILD" -Porg.gradle.java.installations.paths="$JDK_17"
+            -Dorg.gradle.java.home="$JDK_BUILD" -Porg.gradle.java.installations.paths="$JDK_17"; then
+              exit 0
+            fi
+            bash scripts/remap-fixup.sh
+          done
+          exit 1
       - name: capture build artifacts
         if: ${{ runner.os == 'Linux' && matrix.java == '21' }} # Only upload artifacts built from latest java on one OS
         uses: actions/upload-artifact@v4
