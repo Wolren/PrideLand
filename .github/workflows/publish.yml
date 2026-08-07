@@ -63,7 +63,8 @@ jobs:
       - name: build all modules
         shell: bash
         run: |
-          ./gradlew \
+          for i in 1 2 3; do
+            if ./gradlew \
             :common:build :fabric:build :forge:build :quilt:build \
             :mc-versions:1.20.x:1.20.2:common:build \
             :mc-versions:1.20.x:1.20.2:fabric:build \
@@ -118,7 +119,12 @@ jobs:
             :mc-versions:1.21.x:1.21.10:fabric:build \
             :mc-versions:1.21.x:1.21.10:neoforge:build \
             :mc-versions:1.21.x:1.21.10:quilt:build \
-            -Dorg.gradle.java.home="$JAVA_HOME"
+            -Dorg.gradle.java.home="$JAVA_HOME"; then
+              exit 0
+            fi
+            bash scripts/remap-fixup.sh
+          done
+          exit 1
       - name: upload jars
         uses: actions/upload-artifact@v4
         with:
