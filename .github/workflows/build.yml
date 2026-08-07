@@ -24,6 +24,22 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: 'microsoft'
+      - name: capture JDK ${{ matrix.java }} path
+        shell: bash
+        run: echo "JDK_BUILD=$JAVA_HOME" >> "$GITHUB_ENV"
+      # Loom's forge toolchain requires a Java 17 toolchain on the Windows runner
+      # (ForgeToolValueSource isolation; the runner image's toolcache 17 is not
+      # auto-detected by Gradle). Ubuntu images already ship a detected JDK 17.
+      - name: setup jdk 17 (loom forge toolchain)
+        if: ${{ runner.os == 'Windows' }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+      - name: capture JDK 17 path
+        if: ${{ runner.os == 'Windows' }}
+        shell: bash
+        run: echo "JDK_17=$JAVA_HOME" >> "$GITHUB_ENV"
       - name: make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
@@ -32,9 +48,11 @@ jobs:
         run: bash scripts/seed-cloth-mavenlocal.sh
       # -Dorg.gradle.java.home overrides the machine-specific org.gradle.java.home
       # in root gradle.properties (a Windows path) so CI always uses the job JVM.
+      # JDK_17 (when present) is registered as an explicit toolchain path for the
+      # loom forge tool; empty on ubuntu, where the native 17 is auto-detected.
       - name: build (root modules, MC 1.20.1)
         shell: bash
-        run: ./gradlew :common:build :fabric:build :forge:build :quilt:build -Dorg.gradle.java.home="$JAVA_HOME"
+        run: ./gradlew :common:build :fabric:build :forge:build :quilt:build -Dorg.gradle.java.home="$JDK_BUILD" -Porg.gradle.java.installations.paths="$JDK_17"
       - name: build (multi-version)
         shell: bash
         run: |
@@ -92,7 +110,7 @@ jobs:
             :mc-versions:1.21.x:1.21.10:fabric:build \
             :mc-versions:1.21.x:1.21.10:neoforge:build \
             :mc-versions:1.21.x:1.21.10:quilt:build \
-            -Dorg.gradle.java.home="$JAVA_HOME"
+            -Dorg.gradle.java.home="$JDK_BUILD" -Porg.gradle.java.installations.paths="$JDK_17"
       - name: capture build artifacts
         if: ${{ runner.os == 'Linux' && matrix.java == '21' }} # Only upload artifacts built from latest java on one OS
         uses: actions/upload-artifact@v4
@@ -136,7 +154,7 @@ jobs:
       - name: build (26.1 NeoForge)
         shell: bash
         working-directory: mc-versions/1.26.x
-        run: ./gradlew build -Pminecraft_version=26.1 -Pminecraft_version_range=[26.1] -Pneo_version=26.1.0.19-beta -Pmc_version=26.1 -Pjei_version=29.2.0.21 -Pmod_version=1.0.4-26.1 -Ppack_format=101 -Dorg.gradle.java.home="$JAVA_HOME"
+        run: ./gradlew build -Pminecraft_version=26.1 -Pminecraft_version_range=[26.1] -Pneo_version=26.1.0.19-beta -Pmc_version=26.1 -Pjei_version=29.2.0.21 -Pmod_version=1.1-26.1 -Ppack_format=101 -Dorg.gradle.java.home="$JAVA_HOME"
       - name: build (26.2 Fabric)
         shell: bash
         working-directory: mc-versions/1.26.x-fabric

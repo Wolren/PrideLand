@@ -8,7 +8,9 @@ import net.wolren.land.item.ModItems;
 import net.wolren.land.recipe.ModRecipeTypes;
 import net.wolren.land.recipe.ModSerializers;
 import net.wolren.land.screen.ModScreenHandlers;
-import net.minecraft.world.level.block.entity.BlockEntityTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -42,8 +44,8 @@ public class PrideLand {
         // types - register them as valid blocks or placement crashes with
         // "Invalid block entity minecraft:sign ... got Block{pride_land:...}"
         modEventBus.addListener(BlockEntityTypeAddBlocksEvent.class, event -> {
-            event.modify(BlockEntityTypes.SIGN, ModBlocks.RAINBOW_STANDING_SIGN.get(), ModBlocks.RAINBOW_WALL_SIGN.get());
-            event.modify(BlockEntityTypes.HANGING_SIGN, ModBlocks.RAINBOW_HANGING_SIGN.get(), ModBlocks.RAINBOW_WALL_HANGING_SIGN.get());
+            event.modify(ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, ResourceLocation.withDefaultNamespace("sign")), ModBlocks.RAINBOW_STANDING_SIGN.get(), ModBlocks.RAINBOW_WALL_SIGN.get());
+            event.modify(ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, ResourceLocation.withDefaultNamespace("hanging_sign")), ModBlocks.RAINBOW_HANGING_SIGN.get(), ModBlocks.RAINBOW_WALL_HANGING_SIGN.get());
         });
 
         modContainer.registerConfig(ModConfig.Type.COMMON, PrideLandConfig.SPEC);
