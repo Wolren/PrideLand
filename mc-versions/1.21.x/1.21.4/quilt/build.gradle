@@ -27,6 +27,9 @@ configurations {
     developmentFabric.extendsFrom common
 }
 
+configurations.all {
+    resolutionStrategy.force "net.fabricmc.fabric-api:fabric-rendering-v1:10.2.1+0d31b09f04"
+}
 dependencies {
     minecraft "com.mojang:minecraft:${project.findProperty("minecraft_version")}"
     mappings "net.fabricmc:yarn:${project.findProperty("yarn_mappings")}:v2"

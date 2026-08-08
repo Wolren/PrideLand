@@ -7,6 +7,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.wolren.land.LandCommon;
@@ -32,207 +34,125 @@ public class ModBlocks {
     }
 
     // Candle
-    public static final CandleBlock RAINBOW_CANDLE = (CandleBlock) registerBlock("rainbow_candle",
-            new CandleBlock(candle()));
+    public static final CandleBlock RAINBOW_CANDLE = (CandleBlock) registerBlock("rainbow_candle",new CandleBlock(candle("rainbow_candle")));
 
     // Crafting
-    public static final Block RAINBOW_CRAFTING = registerBlock("rainbow_crafting",
-            new RainbowCraftingBlock(stonecutter()));
+    public static final Block RAINBOW_CRAFTING = registerBlock("rainbow_crafting",new RainbowCraftingBlock(stonecutter("rainbow_crafting")));
 
     // Wools
-    public static final DirectionalBlock RAINBOW_WOOL = (DirectionalBlock) registerBlock("rainbow_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock TRANS_WOOL = (DirectionalBlock) registerBlock("trans_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock NONBINARY_WOOL = (DirectionalBlock) registerBlock("nonbinary_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock BISEXUAL_WOOL = (DirectionalBlock) registerBlock("bisexual_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock PANSEXUAL_WOOL = (DirectionalBlock) registerBlock("pansexual_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock AROMANTIC_WOOL = (DirectionalBlock) registerBlock("aromantic_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock DEMISEXUAL_WOOL = (DirectionalBlock) registerBlock("demisexual_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock AGENDER_WOOL = (DirectionalBlock) registerBlock("agender_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock PROGRESS_PRIDE_WOOL = (DirectionalBlock) registerBlock("progress_pride_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock ASEXUAL_WOOL = (DirectionalBlock) registerBlock("asexual_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock GENDERFLUID_WOOL = (DirectionalBlock) registerBlock("genderfluid_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock LESBIAN_WOOL = (DirectionalBlock) registerBlock("lesbian_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock DEMIBOY_WOOL = (DirectionalBlock) registerBlock("demiboy_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock DEMIGIRL_WOOL = (DirectionalBlock) registerBlock("demigirl_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock GENDERQUEER_WOOL = (DirectionalBlock) registerBlock("genderqueer_wool",
-            new DirectionalBlock(wool()));
-    public static final DirectionalBlock POLYSEXUAL_WOOL = (DirectionalBlock) registerBlock("polysexual_wool",
-            new DirectionalBlock(wool()));
+    public static final DirectionalBlock RAINBOW_WOOL = (DirectionalBlock) registerBlock("rainbow_wool",new DirectionalBlock(wool("rainbow_wool")));
+    public static final DirectionalBlock TRANS_WOOL = (DirectionalBlock) registerBlock("trans_wool",new DirectionalBlock(wool("trans_wool")));
+    public static final DirectionalBlock NONBINARY_WOOL = (DirectionalBlock) registerBlock("nonbinary_wool",new DirectionalBlock(wool("nonbinary_wool")));
+    public static final DirectionalBlock BISEXUAL_WOOL = (DirectionalBlock) registerBlock("bisexual_wool",new DirectionalBlock(wool("bisexual_wool")));
+    public static final DirectionalBlock PANSEXUAL_WOOL = (DirectionalBlock) registerBlock("pansexual_wool",new DirectionalBlock(wool("pansexual_wool")));
+    public static final DirectionalBlock AROMANTIC_WOOL = (DirectionalBlock) registerBlock("aromantic_wool",new DirectionalBlock(wool("aromantic_wool")));
+    public static final DirectionalBlock DEMISEXUAL_WOOL = (DirectionalBlock) registerBlock("demisexual_wool",new DirectionalBlock(wool("demisexual_wool")));
+    public static final DirectionalBlock AGENDER_WOOL = (DirectionalBlock) registerBlock("agender_wool",new DirectionalBlock(wool("agender_wool")));
+    public static final DirectionalBlock PROGRESS_PRIDE_WOOL = (DirectionalBlock) registerBlock("progress_pride_wool",new DirectionalBlock(wool("progress_pride_wool")));
+    public static final DirectionalBlock ASEXUAL_WOOL = (DirectionalBlock) registerBlock("asexual_wool",new DirectionalBlock(wool("asexual_wool")));
+    public static final DirectionalBlock GENDERFLUID_WOOL = (DirectionalBlock) registerBlock("genderfluid_wool",new DirectionalBlock(wool("genderfluid_wool")));
+    public static final DirectionalBlock LESBIAN_WOOL = (DirectionalBlock) registerBlock("lesbian_wool",new DirectionalBlock(wool("lesbian_wool")));
+    public static final DirectionalBlock DEMIBOY_WOOL = (DirectionalBlock) registerBlock("demiboy_wool",new DirectionalBlock(wool("demiboy_wool")));
+    public static final DirectionalBlock DEMIGIRL_WOOL = (DirectionalBlock) registerBlock("demigirl_wool",new DirectionalBlock(wool("demigirl_wool")));
+    public static final DirectionalBlock GENDERQUEER_WOOL = (DirectionalBlock) registerBlock("genderqueer_wool",new DirectionalBlock(wool("genderqueer_wool")));
+    public static final DirectionalBlock POLYSEXUAL_WOOL = (DirectionalBlock) registerBlock("polysexual_wool",new DirectionalBlock(wool("polysexual_wool")));
 
     // Carpets
-    public static final DirectionalCarpetBlock RAINBOW_CARPET = (DirectionalCarpetBlock) registerBlock("rainbow_carpet",
-            new DirectionalCarpetBlock(carpet()));
-    public static final DirectionalCarpetBlock TRANS_CARPET = (DirectionalCarpetBlock) registerBlock("trans_carpet",
-            new DirectionalCarpetBlock(carpet()));
-    public static final DirectionalCarpetBlock NONBINARY_CARPET = (DirectionalCarpetBlock) registerBlock("nonbinary_carpet",
-            new DirectionalCarpetBlock(carpet()));
-    public static final DirectionalCarpetBlock BISEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("bisexual_carpet",
-            new DirectionalCarpetBlock(carpet()));
-    public static final DirectionalCarpetBlock PANSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("pansexual_carpet",
-            new DirectionalCarpetBlock(carpet()));
-    public static final DirectionalCarpetBlock AROMANTIC_CARPET = (DirectionalCarpetBlock) registerBlock("aromantic_carpet",
-            new DirectionalCarpetBlock(carpet()));
-    public static final DirectionalCarpetBlock DEMISEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("demisexual_carpet",
-            new DirectionalCarpetBlock(wool()));
-    public static final DirectionalCarpetBlock AGENDER_CARPET = (DirectionalCarpetBlock) registerBlock("agender_carpet",
-            new DirectionalCarpetBlock(wool()));
-    public static final DirectionalCarpetBlock PROGRESS_PRIDE_CARPET = (DirectionalCarpetBlock) registerBlock("progress_pride_carpet",
-            new DirectionalCarpetBlock(wool()));
-    public static final DirectionalCarpetBlock ASEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("asexual_carpet",
-            new DirectionalCarpetBlock(wool()));
-    public static final DirectionalCarpetBlock GENDERFLUID_CARPET = (DirectionalCarpetBlock) registerBlock("genderfluid_carpet",
-            new DirectionalCarpetBlock(wool()));
-    public static final DirectionalCarpetBlock LESBIAN_CARPET = (DirectionalCarpetBlock) registerBlock("lesbian_carpet",
-            new DirectionalCarpetBlock(wool()));
-    public static final DirectionalCarpetBlock DEMIBOY_CARPET = (DirectionalCarpetBlock) registerBlock("demiboy_carpet",
-            new DirectionalCarpetBlock(wool()));
-    public static final DirectionalCarpetBlock DEMIGIRL_CARPET = (DirectionalCarpetBlock) registerBlock("demigirl_carpet",
-            new DirectionalCarpetBlock(wool()));
-    public static final DirectionalCarpetBlock GENDERQUEER_CARPET = (DirectionalCarpetBlock) registerBlock("genderqueer_carpet",
-            new DirectionalCarpetBlock(wool()));
-    public static final DirectionalCarpetBlock POLYSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("polysexual_carpet",
-            new DirectionalCarpetBlock(wool()));
+    public static final DirectionalCarpetBlock RAINBOW_CARPET = (DirectionalCarpetBlock) registerBlock("rainbow_carpet",new DirectionalCarpetBlock(carpet("rainbow_carpet")));
+    public static final DirectionalCarpetBlock TRANS_CARPET = (DirectionalCarpetBlock) registerBlock("trans_carpet",new DirectionalCarpetBlock(carpet("trans_carpet")));
+    public static final DirectionalCarpetBlock NONBINARY_CARPET = (DirectionalCarpetBlock) registerBlock("nonbinary_carpet",new DirectionalCarpetBlock(carpet("nonbinary_carpet")));
+    public static final DirectionalCarpetBlock BISEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("bisexual_carpet",new DirectionalCarpetBlock(carpet("bisexual_carpet")));
+    public static final DirectionalCarpetBlock PANSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("pansexual_carpet",new DirectionalCarpetBlock(carpet("pansexual_carpet")));
+    public static final DirectionalCarpetBlock AROMANTIC_CARPET = (DirectionalCarpetBlock) registerBlock("aromantic_carpet",new DirectionalCarpetBlock(carpet("aromantic_carpet")));
+    public static final DirectionalCarpetBlock DEMISEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("demisexual_carpet",new DirectionalCarpetBlock(wool("demisexual_carpet")));
+    public static final DirectionalCarpetBlock AGENDER_CARPET = (DirectionalCarpetBlock) registerBlock("agender_carpet",new DirectionalCarpetBlock(wool("agender_carpet")));
+    public static final DirectionalCarpetBlock PROGRESS_PRIDE_CARPET = (DirectionalCarpetBlock) registerBlock("progress_pride_carpet",new DirectionalCarpetBlock(wool("progress_pride_carpet")));
+    public static final DirectionalCarpetBlock ASEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("asexual_carpet",new DirectionalCarpetBlock(wool("asexual_carpet")));
+    public static final DirectionalCarpetBlock GENDERFLUID_CARPET = (DirectionalCarpetBlock) registerBlock("genderfluid_carpet",new DirectionalCarpetBlock(wool("genderfluid_carpet")));
+    public static final DirectionalCarpetBlock LESBIAN_CARPET = (DirectionalCarpetBlock) registerBlock("lesbian_carpet",new DirectionalCarpetBlock(wool("lesbian_carpet")));
+    public static final DirectionalCarpetBlock DEMIBOY_CARPET = (DirectionalCarpetBlock) registerBlock("demiboy_carpet",new DirectionalCarpetBlock(wool("demiboy_carpet")));
+    public static final DirectionalCarpetBlock DEMIGIRL_CARPET = (DirectionalCarpetBlock) registerBlock("demigirl_carpet",new DirectionalCarpetBlock(wool("demigirl_carpet")));
+    public static final DirectionalCarpetBlock GENDERQUEER_CARPET = (DirectionalCarpetBlock) registerBlock("genderqueer_carpet",new DirectionalCarpetBlock(wool("genderqueer_carpet")));
+    public static final DirectionalCarpetBlock POLYSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("polysexual_carpet",new DirectionalCarpetBlock(wool("polysexual_carpet")));
 
     // Stained Glass
-    public static final Block RAINBOW_STAINED_GLASS = (Block) registerBlock("rainbow_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock RAINBOW_STAINED_GLASS_PANE = (PaneBlock) registerBlock("rainbow_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block TRANS_STAINED_GLASS = (Block) registerBlock("trans_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock TRANS_STAINED_GLASS_PANE = (PaneBlock) registerBlock("trans_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block NONBINARY_STAINED_GLASS = (Block) registerBlock("nonbinary_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock NONBINARY_STAINED_GLASS_PANE = (PaneBlock) registerBlock("nonbinary_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block BISEXUAL_STAINED_GLASS = (Block) registerBlock("bisexual_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock BISEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("bisexual_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block PANSEXUAL_STAINED_GLASS = (Block) registerBlock("pansexual_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock PANSEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("pansexual_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block AROMANTIC_STAINED_GLASS = (Block) registerBlock("aromantic_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock AROMANTIC_STAINED_GLASS_PANE = (PaneBlock) registerBlock("aromantic_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block DEMISEXUAL_STAINED_GLASS = (Block) registerBlock("demisexual_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock DEMISEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demisexual_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block AGENDER_STAINED_GLASS = (Block) registerBlock("agender_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock AGENDER_STAINED_GLASS_PANE = (PaneBlock) registerBlock("agender_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block PROGRESS_PRIDE_STAINED_GLASS = (Block) registerBlock("progress_pride_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock PROGRESS_PRIDE_STAINED_GLASS_PANE = (PaneBlock) registerBlock("progress_pride_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block ASEXUAL_STAINED_GLASS = (Block) registerBlock("asexual_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock ASEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("asexual_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block GENDERFLUID_STAINED_GLASS = (Block) registerBlock("genderfluid_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock GENDERFLUID_STAINED_GLASS_PANE = (PaneBlock) registerBlock("genderfluid_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block LESBIAN_STAINED_GLASS = (Block) registerBlock("lesbian_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock LESBIAN_STAINED_GLASS_PANE = (PaneBlock) registerBlock("lesbian_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block DEMIBOY_STAINED_GLASS = (Block) registerBlock("demiboy_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock DEMIBOY_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demiboy_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block DEMIGIRL_STAINED_GLASS = (Block) registerBlock("demigirl_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock DEMIGIRL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demigirl_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block GENDERQUEER_STAINED_GLASS = (Block) registerBlock("genderqueer_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock GENDERQUEER_STAINED_GLASS_PANE = (PaneBlock) registerBlock("genderqueer_stained_glass_pane",
-            new PaneBlock(pane()));
-    public static final Block POLYSEXUAL_STAINED_GLASS = (Block) registerBlock("polysexual_stained_glass",
-            new Block(glass()));
-    public static final PaneBlock POLYSEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("polysexual_stained_glass_pane",
-            new PaneBlock(pane()));
+    public static final Block RAINBOW_STAINED_GLASS = (Block) registerBlock("rainbow_stained_glass",new Block(glass("rainbow_stained_glass")));
+    public static final PaneBlock RAINBOW_STAINED_GLASS_PANE = (PaneBlock) registerBlock("rainbow_stained_glass_pane",new PaneBlock(pane("rainbow_stained_glass_pane")));
+    public static final Block TRANS_STAINED_GLASS = (Block) registerBlock("trans_stained_glass",new Block(glass("trans_stained_glass")));
+    public static final PaneBlock TRANS_STAINED_GLASS_PANE = (PaneBlock) registerBlock("trans_stained_glass_pane",new PaneBlock(pane("trans_stained_glass_pane")));
+    public static final Block NONBINARY_STAINED_GLASS = (Block) registerBlock("nonbinary_stained_glass",new Block(glass("nonbinary_stained_glass")));
+    public static final PaneBlock NONBINARY_STAINED_GLASS_PANE = (PaneBlock) registerBlock("nonbinary_stained_glass_pane",new PaneBlock(pane("nonbinary_stained_glass_pane")));
+    public static final Block BISEXUAL_STAINED_GLASS = (Block) registerBlock("bisexual_stained_glass",new Block(glass("bisexual_stained_glass")));
+    public static final PaneBlock BISEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("bisexual_stained_glass_pane",new PaneBlock(pane("bisexual_stained_glass_pane")));
+    public static final Block PANSEXUAL_STAINED_GLASS = (Block) registerBlock("pansexual_stained_glass",new Block(glass("pansexual_stained_glass")));
+    public static final PaneBlock PANSEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("pansexual_stained_glass_pane",new PaneBlock(pane("pansexual_stained_glass_pane")));
+    public static final Block AROMANTIC_STAINED_GLASS = (Block) registerBlock("aromantic_stained_glass",new Block(glass("aromantic_stained_glass")));
+    public static final PaneBlock AROMANTIC_STAINED_GLASS_PANE = (PaneBlock) registerBlock("aromantic_stained_glass_pane",new PaneBlock(pane("aromantic_stained_glass_pane")));
+    public static final Block DEMISEXUAL_STAINED_GLASS = (Block) registerBlock("demisexual_stained_glass",new Block(glass("demisexual_stained_glass")));
+    public static final PaneBlock DEMISEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demisexual_stained_glass_pane",new PaneBlock(pane("demisexual_stained_glass_pane")));
+    public static final Block AGENDER_STAINED_GLASS = (Block) registerBlock("agender_stained_glass",new Block(glass("agender_stained_glass")));
+    public static final PaneBlock AGENDER_STAINED_GLASS_PANE = (PaneBlock) registerBlock("agender_stained_glass_pane",new PaneBlock(pane("agender_stained_glass_pane")));
+    public static final Block PROGRESS_PRIDE_STAINED_GLASS = (Block) registerBlock("progress_pride_stained_glass",new Block(glass("progress_pride_stained_glass")));
+    public static final PaneBlock PROGRESS_PRIDE_STAINED_GLASS_PANE = (PaneBlock) registerBlock("progress_pride_stained_glass_pane",new PaneBlock(pane("progress_pride_stained_glass_pane")));
+    public static final Block ASEXUAL_STAINED_GLASS = (Block) registerBlock("asexual_stained_glass",new Block(glass("asexual_stained_glass")));
+    public static final PaneBlock ASEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("asexual_stained_glass_pane",new PaneBlock(pane("asexual_stained_glass_pane")));
+    public static final Block GENDERFLUID_STAINED_GLASS = (Block) registerBlock("genderfluid_stained_glass",new Block(glass("genderfluid_stained_glass")));
+    public static final PaneBlock GENDERFLUID_STAINED_GLASS_PANE = (PaneBlock) registerBlock("genderfluid_stained_glass_pane",new PaneBlock(pane("genderfluid_stained_glass_pane")));
+    public static final Block LESBIAN_STAINED_GLASS = (Block) registerBlock("lesbian_stained_glass",new Block(glass("lesbian_stained_glass")));
+    public static final PaneBlock LESBIAN_STAINED_GLASS_PANE = (PaneBlock) registerBlock("lesbian_stained_glass_pane",new PaneBlock(pane("lesbian_stained_glass_pane")));
+    public static final Block DEMIBOY_STAINED_GLASS = (Block) registerBlock("demiboy_stained_glass",new Block(glass("demiboy_stained_glass")));
+    public static final PaneBlock DEMIBOY_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demiboy_stained_glass_pane",new PaneBlock(pane("demiboy_stained_glass_pane")));
+    public static final Block DEMIGIRL_STAINED_GLASS = (Block) registerBlock("demigirl_stained_glass",new Block(glass("demigirl_stained_glass")));
+    public static final PaneBlock DEMIGIRL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("demigirl_stained_glass_pane",new PaneBlock(pane("demigirl_stained_glass_pane")));
+    public static final Block GENDERQUEER_STAINED_GLASS = (Block) registerBlock("genderqueer_stained_glass",new Block(glass("genderqueer_stained_glass")));
+    public static final PaneBlock GENDERQUEER_STAINED_GLASS_PANE = (PaneBlock) registerBlock("genderqueer_stained_glass_pane",new PaneBlock(pane("genderqueer_stained_glass_pane")));
+    public static final Block POLYSEXUAL_STAINED_GLASS = (Block) registerBlock("polysexual_stained_glass",new Block(glass("polysexual_stained_glass")));
+    public static final PaneBlock POLYSEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("polysexual_stained_glass_pane",new PaneBlock(pane("polysexual_stained_glass_pane")));
 
     // Beds
-    public static final CustomBedBlock RAINBOW_BED = (CustomBedBlock) registerBlock("rainbow_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock TRANS_BED = (CustomBedBlock) registerBlock("trans_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock NONBINARY_BED = (CustomBedBlock) registerBlock("nonbinary_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock BISEXUAL_BED = (CustomBedBlock) registerBlock("bisexual_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock PANSEXUAL_BED = (CustomBedBlock) registerBlock("pansexual_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock AROMANTIC_BED = (CustomBedBlock) registerBlock("aromantic_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock DEMISEXUAL_BED = (CustomBedBlock) registerBlock("demisexual_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock AGENDER_BED = (CustomBedBlock) registerBlock("agender_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock PROGRESS_PRIDE_BED = (CustomBedBlock) registerBlock("progress_pride_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock ASEXUAL_BED = (CustomBedBlock) registerBlock("asexual_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock GENDERFLUID_BED = (CustomBedBlock) registerBlock("genderfluid_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock LESBIAN_BED = (CustomBedBlock) registerBlock("lesbian_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock DEMIBOY_BED = (CustomBedBlock) registerBlock("demiboy_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock DEMIGIRL_BED = (CustomBedBlock) registerBlock("demigirl_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock GENDERQUEER_BED = (CustomBedBlock) registerBlock("genderqueer_bed", new CustomBedBlock(bed()));
-    public static final CustomBedBlock POLYSEXUAL_BED = (CustomBedBlock) registerBlock("polysexual_bed", new CustomBedBlock(bed()));
+    public static final CustomBedBlock RAINBOW_BED = (CustomBedBlock) registerBlock("rainbow_bed",new CustomBedBlock(bed("rainbow_bed")));
+    public static final CustomBedBlock TRANS_BED = (CustomBedBlock) registerBlock("trans_bed",new CustomBedBlock(bed("trans_bed")));
+    public static final CustomBedBlock NONBINARY_BED = (CustomBedBlock) registerBlock("nonbinary_bed",new CustomBedBlock(bed("nonbinary_bed")));
+    public static final CustomBedBlock BISEXUAL_BED = (CustomBedBlock) registerBlock("bisexual_bed",new CustomBedBlock(bed("bisexual_bed")));
+    public static final CustomBedBlock PANSEXUAL_BED = (CustomBedBlock) registerBlock("pansexual_bed",new CustomBedBlock(bed("pansexual_bed")));
+    public static final CustomBedBlock AROMANTIC_BED = (CustomBedBlock) registerBlock("aromantic_bed",new CustomBedBlock(bed("aromantic_bed")));
+    public static final CustomBedBlock DEMISEXUAL_BED = (CustomBedBlock) registerBlock("demisexual_bed",new CustomBedBlock(bed("demisexual_bed")));
+    public static final CustomBedBlock AGENDER_BED = (CustomBedBlock) registerBlock("agender_bed",new CustomBedBlock(bed("agender_bed")));
+    public static final CustomBedBlock PROGRESS_PRIDE_BED = (CustomBedBlock) registerBlock("progress_pride_bed",new CustomBedBlock(bed("progress_pride_bed")));
+    public static final CustomBedBlock ASEXUAL_BED = (CustomBedBlock) registerBlock("asexual_bed",new CustomBedBlock(bed("asexual_bed")));
+    public static final CustomBedBlock GENDERFLUID_BED = (CustomBedBlock) registerBlock("genderfluid_bed",new CustomBedBlock(bed("genderfluid_bed")));
+    public static final CustomBedBlock LESBIAN_BED = (CustomBedBlock) registerBlock("lesbian_bed",new CustomBedBlock(bed("lesbian_bed")));
+    public static final CustomBedBlock DEMIBOY_BED = (CustomBedBlock) registerBlock("demiboy_bed",new CustomBedBlock(bed("demiboy_bed")));
+    public static final CustomBedBlock DEMIGIRL_BED = (CustomBedBlock) registerBlock("demigirl_bed",new CustomBedBlock(bed("demigirl_bed")));
+    public static final CustomBedBlock GENDERQUEER_BED = (CustomBedBlock) registerBlock("genderqueer_bed",new CustomBedBlock(bed("genderqueer_bed")));
+    public static final CustomBedBlock POLYSEXUAL_BED = (CustomBedBlock) registerBlock("polysexual_bed",new CustomBedBlock(bed("polysexual_bed")));
 
     // Concrete & Terracotta
-    public static final DirectionalBlock RAINBOW_CONCRETE = (DirectionalBlock) registerBlock("rainbow_concrete",
-            new DirectionalBlock(concrete()));
-    public static final DirectionalRainbowConcretePowderBlock RAINBOW_CONCRETE_POWDER = (DirectionalRainbowConcretePowderBlock) registerBlock("rainbow_concrete_powder",
-            new DirectionalRainbowConcretePowderBlock(ModBlocks.RAINBOW_CONCRETE, concretePowder()));
-    public static final DirectionalBlock RAINBOW_TERRACOTTA = (DirectionalBlock) registerBlock("rainbow_terracotta",
-            new DirectionalBlock(terracotta()));
+    public static final DirectionalBlock RAINBOW_CONCRETE = (DirectionalBlock) registerBlock("rainbow_concrete",new DirectionalBlock(concrete("rainbow_concrete")));
+    public static final DirectionalRainbowConcretePowderBlock RAINBOW_CONCRETE_POWDER = (DirectionalRainbowConcretePowderBlock) registerBlock("rainbow_concrete_powder",new DirectionalRainbowConcretePowderBlock(ModBlocks.RAINBOW_CONCRETE, concretePowder("rainbow_concrete_powder")));
+    public static final DirectionalBlock RAINBOW_TERRACOTTA = (DirectionalBlock) registerBlock("rainbow_terracotta",new DirectionalBlock(terracotta("rainbow_terracotta")));
 
     // Bricks
-    public static final Block RAINBOW_BRICKS = registerBlock("rainbow_bricks",
-            new Block(bricks()));
-    public static final StairsBlock RAINBOW_BRICK_STAIRS = (StairsBlock) registerBlock("rainbow_brick_stairs",
-            new StairsBlock(ModBlocks.RAINBOW_BRICKS.getDefaultState(), bricks()));
-    public static final SlabBlock RAINBOW_BRICK_SLAB = (SlabBlock) registerBlock("rainbow_brick_slab",
-            new SlabBlock(bricks()));
-    public static final WallBlock RAINBOW_BRICK_WALL = (WallBlock) registerBlock("rainbow_brick_wall",
-            new WallBlock(bricks()));
+    public static final Block RAINBOW_BRICKS = registerBlock("rainbow_bricks",new Block(bricks("rainbow_bricks")));
+    public static final StairsBlock RAINBOW_BRICK_STAIRS = (StairsBlock) registerBlock("rainbow_brick_stairs",new StairsBlock(ModBlocks.RAINBOW_BRICKS.getDefaultState(), bricks("rainbow_brick_stairs")));
+    public static final SlabBlock RAINBOW_BRICK_SLAB = (SlabBlock) registerBlock("rainbow_brick_slab",new SlabBlock(bricks("rainbow_brick_slab")));
+    public static final WallBlock RAINBOW_BRICK_WALL = (WallBlock) registerBlock("rainbow_brick_wall",new WallBlock(bricks("rainbow_brick_wall")));
 
     // Planks & Wood family
-    public static final Block RAINBOW_PLANKS = registerBlock("rainbow_planks",
-            new Block(planks()));
-    public static final StairsBlock RAINBOW_STAIRS = (StairsBlock) registerBlock("rainbow_stairs",
-            new StairsBlock(ModBlocks.RAINBOW_PLANKS.getDefaultState(), planks()));
-    public static final SlabBlock RAINBOW_SLAB = (SlabBlock) registerBlock("rainbow_slab",
-            new SlabBlock(planks()));
-    public static final FenceBlock RAINBOW_FENCE = (FenceBlock) registerBlock("rainbow_fence",
-            new FenceBlock(planks()));
-    public static final FenceGateBlock RAINBOW_FENCE_GATE = (FenceGateBlock) registerBlock("rainbow_fence_gate",
-            new FenceGateBlock(WoodType.OAK, planks()));
-    public static final ButtonBlock RAINBOW_BUTTON = (ButtonBlock) registerBlock("rainbow_button",
-            new ButtonBlock(BlockSetType.OAK, 10, planks()));
-    public static final PressurePlateBlock RAINBOW_PRESSURE_PLATE = (PressurePlateBlock) registerBlock("rainbow_pressure_plate",
-            new PressurePlateBlock(BlockSetType.OAK, planks()));
+    public static final Block RAINBOW_PLANKS = registerBlock("rainbow_planks",new Block(planks("rainbow_planks")));
+    public static final StairsBlock RAINBOW_STAIRS = (StairsBlock) registerBlock("rainbow_stairs",new StairsBlock(ModBlocks.RAINBOW_PLANKS.getDefaultState(), planks("rainbow_stairs")));
+    public static final SlabBlock RAINBOW_SLAB = (SlabBlock) registerBlock("rainbow_slab",new SlabBlock(planks("rainbow_slab")));
+    public static final FenceBlock RAINBOW_FENCE = (FenceBlock) registerBlock("rainbow_fence",new FenceBlock(planks("rainbow_fence")));
+    public static final FenceGateBlock RAINBOW_FENCE_GATE = (FenceGateBlock) registerBlock("rainbow_fence_gate",new FenceGateBlock(WoodType.OAK, planks("rainbow_fence_gate")));
+    public static final ButtonBlock RAINBOW_BUTTON = (ButtonBlock) registerBlock("rainbow_button",new ButtonBlock(BlockSetType.OAK, 10, planks("rainbow_button")));
+    public static final PressurePlateBlock RAINBOW_PRESSURE_PLATE = (PressurePlateBlock) registerBlock("rainbow_pressure_plate",new PressurePlateBlock(BlockSetType.OAK, planks("rainbow_pressure_plate")));
     // nonOpaque() is required for doors and trapdoors: without it the block is treated as a
     // full opaque cube for occlusion culling, causing xray artifacts where adjacent block
     // faces are incorrectly hidden (for trapdoors) and drop issues (for doors).
     // Vanilla DoorBlock/TrapdoorBlock constructors call nonOpaque() internally in standard
     // mappings, but the Forge+Yarn+Architectury transformer may strip this call.
-    public static final DoorBlock RAINBOW_DOOR = (DoorBlock) registerBlock("rainbow_door",
-            new RainbowDoorBlock(BlockSetType.OAK, planks().nonOpaque()));
-    public static final TrapdoorBlock RAINBOW_TRAPDOOR = (TrapdoorBlock) registerBlock("rainbow_trapdoor",
-            new TrapdoorBlock(BlockSetType.OAK, planks().nonOpaque()));
+    public static final DoorBlock RAINBOW_DOOR = (DoorBlock) registerBlock("rainbow_door",new RainbowDoorBlock(BlockSetType.OAK, planks("rainbow_door").nonOpaque()));
+    public static final TrapdoorBlock RAINBOW_TRAPDOOR = (TrapdoorBlock) registerBlock("rainbow_trapdoor",new TrapdoorBlock(BlockSetType.OAK, planks("rainbow_trapdoor").nonOpaque()));
 
     // Block family for data gen
     public static final BlockFamily RAINBOW_FAMILY = BlockFamilies.register(ModBlocks.RAINBOW_PLANKS)
@@ -256,59 +176,64 @@ public class ModBlocks {
 
     private static void registerBlockItem(String name, Block block) {
         Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, name),
-                new BlockItem(block, new Item.Settings()));
+                new BlockItem(block, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, name)))));
     }
 
     public static void registerModBlocks() {
         LandCommon.LOGGER.info("Registering ModBlocks for " + LandCommon.MOD_ID);
     }
 
+
+    private static Block.Settings keyed(String name, Block.Settings base) {
+        return base.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, name)));
+    }
+
     // Block settings helpers - vanilla-compatible (no Fabric/Forge deps)
-    private static Block.Settings wool() {
-        return Block.Settings.create().strength(0.8F).sounds(BlockSoundGroup.WOOL);
+    private static Block.Settings wool(String name) {
+        return keyed(name, Block.Settings.create()).strength(0.8F).sounds(BlockSoundGroup.WOOL);
     }
 
-    private static Block.Settings carpet() {
-        return Block.Settings.create().strength(0.1F).sounds(BlockSoundGroup.WOOL);
+    private static Block.Settings carpet(String name) {
+        return keyed(name, Block.Settings.create()).strength(0.1F).sounds(BlockSoundGroup.WOOL);
     }
 
-    private static Block.Settings glass() {
-        return Block.Settings.create().strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque();
+    private static Block.Settings glass(String name) {
+        return keyed(name, Block.Settings.create()).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque();
     }
 
-    private static Block.Settings pane() {
-        return Block.Settings.create().strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque();
+    private static Block.Settings pane(String name) {
+        return keyed(name, Block.Settings.create()).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque();
     }
 
-    private static Block.Settings concrete() {
-        return Block.Settings.create().strength(1.8F).sounds(BlockSoundGroup.STONE);
+    private static Block.Settings concrete(String name) {
+        return keyed(name, Block.Settings.create()).strength(1.8F).sounds(BlockSoundGroup.STONE);
     }
 
-    private static Block.Settings concretePowder() {
-        return Block.Settings.create().strength(0.5F).sounds(BlockSoundGroup.SAND);
+    private static Block.Settings concretePowder(String name) {
+        return keyed(name, Block.Settings.create()).strength(0.5F).sounds(BlockSoundGroup.SAND);
     }
 
-    private static Block.Settings terracotta() {
-        return Block.Settings.create().strength(1.25F).sounds(BlockSoundGroup.STONE);
+    private static Block.Settings terracotta(String name) {
+        return keyed(name, Block.Settings.create()).strength(1.25F).sounds(BlockSoundGroup.STONE);
     }
 
-    private static Block.Settings planks() {
-        return Block.Settings.create().strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD);
+    private static Block.Settings planks(String name) {
+        return keyed(name, Block.Settings.create()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD);
     }
 
-    private static Block.Settings bricks() {
-        return Block.Settings.create().strength(2.0F, 6.0F).sounds(BlockSoundGroup.STONE);
+    private static Block.Settings bricks(String name) {
+        return keyed(name, Block.Settings.create()).strength(2.0F, 6.0F).sounds(BlockSoundGroup.STONE);
     }
 
-    private static Block.Settings stonecutter() {
-        return Block.Settings.create().strength(3.5F).sounds(BlockSoundGroup.STONE);
+    private static Block.Settings stonecutter(String name) {
+        return keyed(name, Block.Settings.create()).strength(3.5F).sounds(BlockSoundGroup.STONE);
     }
 
-    private static Block.Settings bed() {
-        return Block.Settings.create().strength(0.2F).sounds(BlockSoundGroup.WOOD).nonOpaque();
+    private static Block.Settings bed(String name) {
+        return keyed(name, Block.Settings.create()).strength(0.2F).sounds(BlockSoundGroup.WOOD).nonOpaque();
     }
 
-    private static Block.Settings candle() {
-        return Block.Settings.create().strength(0.1F).sounds(BlockSoundGroup.CANDLE).nonOpaque();
+    private static Block.Settings candle(String name) {
+        return keyed(name, Block.Settings.create()).strength(0.1F).sounds(BlockSoundGroup.CANDLE).nonOpaque();
     }
 }
