@@ -39,6 +39,8 @@
   "block.pride_land.rainbow_wall_sign": "Rainbow Wall Sign",
   "block.pride_land.rainbow_hanging_sign": "Rainbow Hanging Sign",
   "block.pride_land.rainbow_wall_hanging_sign": "Rainbow Wall Hanging Sign",
+  "item.pride_land.rainbow_sign": "Rainbow Sign",
+  "item.pride_land.rainbow_hanging_sign": "Rainbow Hanging Sign",
   "item.pride_land.rainbow_boat": "Rainbow Boat",
   "item.pride_land.rainbow_chest_boat": "Rainbow Chest Boat",
   "item.pride_land.rainbow_elytra": "Rainbow Elytra",
@@ -203,7 +205,5 @@
   "text.autoconfig.pride_land.option.sheepSpawnBiomes.smallEndIslands": "Small End Islands",
   "text.autoconfig.pride_land.option.sheepSpawnBiomes.endMidlands": "End Midlands",
   "text.autoconfig.pride_land.option.sheepSpawnBiomes.endHighlands": "End Highlands",
-  "text.autoconfig.pride_land.option.sheepSpawnBiomes.endBarrens": "End Barrens",
-  "item.pride_land.rainbow_sign": "Rainbow Sign",
-  "item.pride_land.rainbow_hanging_sign": "Rainbow Hanging Sign"
+  "text.autoconfig.pride_land.option.sheepSpawnBiomes.endBarrens": "End Barrens"
 }
