@@ -2,14 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "equipment",
   "ingredients": [
-    {
-      "item": "pride_land:rainbow_hoe"
-    },
-    {
-      "item": "minecraft:white_dye"
-    }
+    "pride_land:rainbow_hoe",
+    "minecraft:white_dye"
   ],
   "result": {
-    "item": "minecraft:netherite_hoe"
+    "id": "minecraft:netherite_hoe"
   }
 }

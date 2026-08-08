@@ -2,14 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "equipment",
   "ingredients": [
-    {
-      "item": "pride_land:rainbow_chestplate"
-    },
-    {
-      "item": "minecraft:white_dye"
-    }
+    "pride_land:rainbow_chestplate",
+    "minecraft:white_dye"
   ],
   "result": {
-    "item": "minecraft:netherite_chestplate"
+    "id": "minecraft:netherite_chestplate"
   }
 }

@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -23,7 +22,6 @@ import net.wolren.land.block.ModBlocks;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.renderer.CustomBedBlockEntityRenderer;
 import net.wolren.land.renderer.RainbowSheepRenderer;
-import net.wolren.land.renderer.feature.CustomElytraFeatureRenderer;
 import net.wolren.land.renderer.model.RainbowSheepModel;
 import net.wolren.land.renderer.model.RainbowSheepWoolModel;
 import net.wolren.land.screen.ModScreenHandlers;
@@ -73,16 +71,6 @@ public class LandFabricClient implements ClientModInitializer {
         // Boat models
         TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID);
 
-        // Elytra feature renderer
-        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
-            Identifier rainbowElytra = Identifier.of("pride_land", "textures/entity/rainbow_elytra.png");
-            var renderer = new CustomElytraFeatureRenderer(
-                (net.minecraft.client.render.entity.feature.FeatureRendererContext) entityRenderer,
-                context.getEntityModels(), rainbowElytra);
-            @SuppressWarnings({"unchecked", "rawtypes"})
-            net.minecraft.client.render.entity.feature.FeatureRenderer castRenderer = (net.minecraft.client.render.entity.feature.FeatureRenderer) renderer;
-            registrationHelper.register(castRenderer);
-        });
 
         // Entity renderers
         EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);

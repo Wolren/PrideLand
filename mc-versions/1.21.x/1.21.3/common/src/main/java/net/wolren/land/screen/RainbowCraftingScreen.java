@@ -32,7 +32,7 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        this.renderBackground(context, mouseX, mouseY, delta);
+
         int i = this.x;
         int j = this.y;
         context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);

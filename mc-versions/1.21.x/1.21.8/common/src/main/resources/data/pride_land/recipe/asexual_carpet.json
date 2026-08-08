@@ -2,15 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "X": {
-      "item": "pride_land:asexual_wool"
-    }
+    "X": "pride_land:asexual_wool"
   },
   "pattern": [
     "XX"
   ],
   "result": {
-    "count": 3,
-    "item": "pride_land:asexual_carpet"
+    "id": "pride_land:asexual_carpet",
+    "count": 3
   }
 }

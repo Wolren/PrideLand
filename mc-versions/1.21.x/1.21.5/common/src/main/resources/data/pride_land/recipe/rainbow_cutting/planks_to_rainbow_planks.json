@@ -1,8 +1,7 @@
 {
   "type": "pride_land:rainbow_cutting",
-  "count": 1,
-  "ingredient": {
-    "tag": "minecraft:planks"
-  },
-  "result": { "item": "pride_land:rainbow_planks" }
+  "ingredient": "#minecraft:planks",
+  "result": {
+    "id": "pride_land:rainbow_planks"
+  }
 }

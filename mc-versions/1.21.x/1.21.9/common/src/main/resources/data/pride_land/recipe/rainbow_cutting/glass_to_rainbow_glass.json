@@ -1,8 +1,7 @@
 {
   "type": "pride_land:rainbow_cutting",
-  "count": 2,
-  "ingredient": {
-    "item": "minecraft:glass"
-  },
-  "result": { "item": "pride_land:rainbow_stained_glass" }
+  "ingredient": "minecraft:glass",
+  "result": {
+    "id": "pride_land:rainbow_stained_glass"
+  }
 }

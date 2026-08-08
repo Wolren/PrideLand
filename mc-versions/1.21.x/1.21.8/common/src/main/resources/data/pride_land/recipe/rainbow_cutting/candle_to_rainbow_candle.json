@@ -1,8 +1,7 @@
 {
   "type": "pride_land:rainbow_cutting",
-  "count": 1,
-  "ingredient": {
-    "item": "minecraft:candle"
-  },
-  "result": { "item": "pride_land:rainbow_candle" }
+  "ingredient": "minecraft:candle",
+  "result": {
+    "id": "pride_land:rainbow_candle"
+  }
 }

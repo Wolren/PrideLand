@@ -203,5 +203,7 @@
   "text.autoconfig.pride_land.option.sheepSpawnBiomes.smallEndIslands": "Small End Islands",
   "text.autoconfig.pride_land.option.sheepSpawnBiomes.endMidlands": "End Midlands",
   "text.autoconfig.pride_land.option.sheepSpawnBiomes.endHighlands": "End Highlands",
-  "text.autoconfig.pride_land.option.sheepSpawnBiomes.endBarrens": "End Barrens"
+  "text.autoconfig.pride_land.option.sheepSpawnBiomes.endBarrens": "End Barrens",
+  "item.pride_land.rainbow_sign": "Rainbow Sign",
+  "item.pride_land.rainbow_hanging_sign": "Rainbow Hanging Sign"
 }
