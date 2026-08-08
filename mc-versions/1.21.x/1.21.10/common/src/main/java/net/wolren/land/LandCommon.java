@@ -12,7 +12,8 @@ import org.slf4j.LoggerFactory;
 public class LandCommon {
     public static final String MOD_ID = "pride_land";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static RecipeType<RainbowCuttingRecipe> RAINBOW_CUTTING = new RecipeType<RainbowCuttingRecipe>() {};
+    @SuppressWarnings("unchecked")
+    public static RecipeType<RainbowCuttingRecipe> RAINBOW_CUTTING = (RecipeType<RainbowCuttingRecipe>) (RecipeType<?>) RecipeType.STONECUTTING;
 
     public static void init() {
         LOGGER.info("Initializing Pride Land common");
