@@ -10,7 +10,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.ServerRecipeManager;
+import net.minecraft.recipe.StonecuttingRecipe;
+import net.minecraft.recipe.display.CuttingRecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplayContexts;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
@@ -27,7 +29,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
     final Slot outputSlot;
     private final Property selectedRecipe = Property.create();
     private final World world;
-    private List<RecipeEntry<RainbowCuttingRecipe>> availableRecipes = Lists.newArrayList();
+    private CuttingRecipeDisplay.Grouping<StonecuttingRecipe> availableRecipes = CuttingRecipeDisplay.Grouping.empty();
     private ItemStack inputStack = ItemStack.EMPTY;
     private ItemStack dyeStack = ItemStack.EMPTY;
 
@@ -105,12 +107,11 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
         return true;
     }
 
-
     public int getSelectedRecipe() {
         return this.selectedRecipe.get();
     }
 
-    public List<RecipeEntry<RainbowCuttingRecipe>> getAvailableRecipes() {
+    public CuttingRecipeDisplay.Grouping<StonecuttingRecipe> getVisibleRecipes() {
         return this.availableRecipes;
     }
 
@@ -141,7 +142,6 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
         ItemStack materialStack = this.inputSlot.getStack();
         ItemStack dyeStack = this.dyeSlot.getStack();
 
-
         if (!materialStack.isOf(this.inputStack.getItem())) {
             this.inputStack = materialStack.copy();
             this.updateInput(inventory, materialStack, dyeStack);
@@ -153,32 +153,46 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
         }
     }
 
-
-    private void updateInput(Inventory inventory, ItemStack materialStack, ItemStack dyeStack) {
-        // The RecipeManager interface was rewritten in 1.21.2 (only getPropertySet +
-        // getStonecutterRecipes), but the ServerRecipeManager impl keeps getFirstMatch.
-        this.availableRecipes.clear();
+    private void updateInput(Inventory input, ItemStack materialStack, ItemStack dyeStack) {
+        this.availableRecipes = CuttingRecipeDisplay.Grouping.empty();
         this.selectedRecipe.set(-1);
         this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
         if (!materialStack.isEmpty() && !dyeStack.isEmpty()) {
-            var recipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-            this.availableRecipes = recipeManager.getFirstMatch(LandCommon.RAINBOW_CUTTING,
-                    new SingleStackRecipeInput(materialStack), this.world)
-                    .stream()
-                    .toList();
+            // 1.21.2+: RecipeManager is an interface; getStonecutterRecipes() is the
+            // synced selectable grouping (works on both client and server). The old
+            // (ServerRecipeManager) cast crashed the client with a ClassCastException
+            // because ClientRecipeManager is not a ServerRecipeManager.
+            this.availableRecipes = this.world.getRecipeManager().getStonecutterRecipes().filter(materialStack);
         }
     }
 
     void populateResult() {
         if (!RainbowCraftingScreenHandler.this.dyeSlot.getStack().isEmpty() && !this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
-            RecipeEntry<RainbowCuttingRecipe> recipeEntry = this.availableRecipes.get(this.selectedRecipe.get());
-            RainbowCuttingRecipe rainbowCuttingRecipe = recipeEntry.value();
-            ItemStack itemStack = rainbowCuttingRecipe.craft(new SingleStackRecipeInput(this.inputSlot.getStack()), this.world.getRegistryManager());
-            if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
-                this.output.setLastRecipe(recipeEntry);
-                this.outputSlot.setStackNoCallbacks(itemStack);
+            CuttingRecipeDisplay.GroupEntry<StonecuttingRecipe> entry =
+                    this.availableRecipes.entries().get(this.selectedRecipe.get());
+            var holderOpt = entry.recipe().recipe();
+            if (holderOpt.isPresent()) {
+                // Server side: the grouping carries the real recipe holder.
+                RecipeEntry<?> recipeEntry = holderOpt.get();
+                RainbowCuttingRecipe rainbowCuttingRecipe = (RainbowCuttingRecipe) recipeEntry.value();
+                SingleStackRecipeInput recipeInput = new SingleStackRecipeInput(this.inputSlot.getStack());
+                ItemStack itemStack = rainbowCuttingRecipe.craft(recipeInput, this.world.getRegistryManager());
+                if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
+                    this.output.setLastRecipe(recipeEntry);
+                    this.outputSlot.setStackNoCallbacks(itemStack);
+                } else {
+                    this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
+                }
             } else {
-                this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
+                // Client side: the synced grouping carries only the SlotDisplay.
+                // Resolve the visual stack; the server syncs the real result.
+                ItemStack itemStack = entry.recipe().optionDisplay()
+                        .getFirst(SlotDisplayContexts.createParameters(this.world));
+                if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
+                    this.outputSlot.setStackNoCallbacks(itemStack);
+                } else {
+                    this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
+                }
             }
         } else {
             this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
@@ -216,9 +230,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
                 if (!this.insertItem(itemStack2, 3, 39, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (((ServerRecipeManager) this.world.getRecipeManager())
-                    .getFirstMatch(LandCommon.RAINBOW_CUTTING, new SingleStackRecipeInput(itemStack2), this.world)
-                    .isPresent()) {
+            } else if (this.world.getRecipeManager().getStonecutterRecipes().contains(itemStack2)) {
                 if (!this.insertItem(itemStack2, this.inputSlot.id, this.inputSlot.id + 1, false)) {
                     return ItemStack.EMPTY;
                 }
@@ -248,16 +260,5 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
         }
 
         return itemStack;
-    }
-
-    @Override
-    public void onClosed(PlayerEntity player) {
-        super.onClosed(player);
-        this.output.removeStack(1);
-        this.dropInventory(player, this.input);
-    }
-
-    public Slot getDyeSlot() {
-        return this.dyeSlot;
     }
 }

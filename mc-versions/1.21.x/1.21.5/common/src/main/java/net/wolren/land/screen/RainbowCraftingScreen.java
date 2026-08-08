@@ -3,18 +3,18 @@ package net.wolren.land.screen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.LoomScreenHandler;
+import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.display.CuttingRecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplayContexts;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.wolren.land.LandCommon;
-import net.wolren.land.recipe.RainbowCuttingRecipe;
 
 import java.util.List;
 
@@ -35,16 +35,16 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         int i = this.x;
         int j = this.y;
-        context.drawTexture(id -> RenderLayer.getGui(), TEXTURE, i, j, 0.0f, 0.0f, this.backgroundWidth, this.backgroundHeight, 256, 256);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
         int k = (int)(41.0F * this.scrollAmount);
-        context.drawTexture(id -> RenderLayer.getGui(), TEXTURE, i + 119, j + 15 + k, 176 + (this.shouldScroll() ? 0 : 12), 0.0f, 12, 15, 256, 256);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, i + 119, j + 15 + k, 176 + (this.shouldScroll() ? 0 : 12), 0, 12, 15, 256, 256);
         int l = this.x + 52;
         int m = this.y + 14;
         int n = this.scrollOffset + 12;
 
-        Slot slot = this.handler.getDyeSlot();
+        Slot slot = this.handler.dyeSlot;
         if (!slot.hasStack()) {
-            context.drawTexture(id -> RenderLayer.getGui(), TEXTURE, i + slot.x, j + slot.y, this.backgroundWidth, 15.0f, 16, 16, 256, 256);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, i + slot.x, j + slot.y, this.backgroundWidth, 15, 16, 16, 256, 256);
         }
 
         this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
@@ -64,14 +64,16 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
             int i = this.x + 52;
             int j = this.y + 14;
             int k = this.scrollOffset + 12;
-            List<RainbowCuttingRecipe> list = this.handler.getAvailableRecipes();
+            var recipes = this.handler.getVisibleRecipes().entries();
 
             for(int l = this.scrollOffset; l < k && l < this.handler.getAvailableRecipeCount(); ++l) {
                 int m = l - this.scrollOffset;
                 int n = i + m % 4 * 16;
                 int o = j + m / 4 * 18 + 2;
                 if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-                    context.drawItemTooltip(this.textRenderer, list.get(l).getOutput(), x, y);
+                    ItemStack stack = recipes.get(l).recipe().optionDisplay()
+                            .getFirst(SlotDisplayContexts.createParameters(this.client.world));
+                    context.drawItemTooltip(this.textRenderer, stack, x, y);
                 }
             }
         }
@@ -90,19 +92,21 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
                 n += 36;
             }
 
-            context.drawTexture(id -> RenderLayer.getGui(), TEXTURE, k, m - 1, 0.0f, n, 16, 18, 256, 256);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, k, m - 1, 0, n, 16, 18, 256, 256);
         }
     }
 
     private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
-        List<RainbowCuttingRecipe> list = this.handler.getAvailableRecipes();
+        var recipes = this.handler.getVisibleRecipes().entries();
+        var parameters = SlotDisplayContexts.createParameters(this.client.world);
 
         for(int i = this.scrollOffset; i < scrollOffset && i < this.handler.getAvailableRecipeCount(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            context.drawItem(list.get(i).getOutput(), k, m);
+            ItemStack stack = recipes.get(i).recipe().optionDisplay().getFirst(parameters);
+            context.drawItem(stack, k, m);
         }
     }
 
@@ -119,7 +123,7 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
                 double d = mouseX - (double)(i + m % 4 * 16);
                 double e = mouseY - (double)(j + m / 4 * 18);
                 if (d >= 0.0 && e >= 0.0 && d < 16.0 && e < 18.0 && this.handler.onButtonClick(this.client.player, l)) {
-                    MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F, 1.0F));
+                    MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
                     this.client.interactionManager.clickButton(this.handler.syncId, l);
                     return true;
                 }
@@ -160,7 +164,6 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
 
         return true;
     }
-
 
     private boolean shouldScroll() {
         return this.canCraft && this.handler.getAvailableRecipeCount() > 12;
