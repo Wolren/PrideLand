@@ -4,6 +4,7 @@
   "textures": {
     "0": "pride_land:block/demisexual_wool_back",
     "1": "pride_land:block/demisexual_wool_front",
+    "all": "pride_land:block/demisexual_wool_front",
     "particle": "pride_land:block/demisexual_wool_front"
   },
   "elements": [

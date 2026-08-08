@@ -2,61 +2,27 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:white_dye"
-    },
+    "minecraft:white_dye",
     [
-      {
-        "item": "pride_land:rainbow_wool"
-      },
-      {
-        "item": "pride_land:trans_wool"
-      },
-      {
-        "item": "pride_land:nonbinary_wool"
-      },
-      {
-        "item": "pride_land:bisexual_wool"
-      },
-      {
-        "item": "pride_land:pansexual_wool"
-      },
-      {
-        "item": "pride_land:aromantic_wool"
-      },
-      {
-        "item": "pride_land:demisexual_wool"
-      },
-      {
-        "item": "pride_land:agender_wool"
-      },
-      {
-        "item": "pride_land:progress_pride_wool"
-      },
-      {
-        "item": "pride_land:asexual_wool"
-      },
-      {
-        "item": "pride_land:genderfluid_wool"
-      },
-      {
-        "item": "pride_land:lesbian_wool"
-      },
-      {
-        "item": "pride_land:demiboy_wool"
-      },
-      {
-        "item": "pride_land:demigirl_wool"
-      },
-      {
-        "item": "pride_land:genderqueer_wool"
-      },
-      {
-        "item": "pride_land:polysexual_wool"
-      }
+      "pride_land:rainbow_wool",
+      "pride_land:trans_wool",
+      "pride_land:nonbinary_wool",
+      "pride_land:bisexual_wool",
+      "pride_land:pansexual_wool",
+      "pride_land:aromantic_wool",
+      "pride_land:demisexual_wool",
+      "pride_land:agender_wool",
+      "pride_land:progress_pride_wool",
+      "pride_land:asexual_wool",
+      "pride_land:genderfluid_wool",
+      "pride_land:lesbian_wool",
+      "pride_land:demiboy_wool",
+      "pride_land:demigirl_wool",
+      "pride_land:genderqueer_wool",
+      "pride_land:polysexual_wool"
     ]
   ],
   "result": {
-    "item": "minecraft:white_wool"
+    "id": "minecraft:white_wool"
   }
 }

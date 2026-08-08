@@ -2,18 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "X": {
-      "item": "pride_land:nonbinary_wool"
-    },
-    "Y": {
-      "tag": "minecraft:planks"
-    }
+    "X": "pride_land:nonbinary_wool",
+    "Y": "#minecraft:planks"
   },
   "pattern": [
     "XXX",
     "YYY"
   ],
   "result": {
-    "item": "pride_land:nonbinary_bed"
+    "id": "pride_land:nonbinary_bed"
   }
 }

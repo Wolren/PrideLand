@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -107,7 +107,7 @@ public class LandFabric implements ModInitializer {
     }
 
     public static DefaultAttributeContainer.Builder createSheepAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
             .add(EntityAttributes.MAX_HEALTH, 8.0)
             .add(EntityAttributes.MOVEMENT_SPEED, 0.23F);
     }

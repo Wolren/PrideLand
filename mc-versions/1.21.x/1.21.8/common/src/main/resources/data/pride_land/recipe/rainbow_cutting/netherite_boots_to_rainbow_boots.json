@@ -1,8 +1,7 @@
 {
   "type": "pride_land:rainbow_cutting",
-  "count": 1,
-  "ingredient": {
-    "item": "minecraft:netherite_boots"
-  },
-  "result": { "item": "pride_land:rainbow_boots" }
+  "ingredient": "minecraft:netherite_boots",
+  "result": {
+    "id": "pride_land:rainbow_boots"
+  }
 }

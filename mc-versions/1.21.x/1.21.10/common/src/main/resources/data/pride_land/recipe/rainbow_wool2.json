@@ -2,14 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:white_wool"
-    },
-    {
-      "item": "pride_land:rainbow_dye"
-    }
+    "minecraft:white_wool",
+    "pride_land:rainbow_dye"
   ],
   "result": {
-    "item": "pride_land:rainbow_wool"
+    "id": "pride_land:rainbow_wool"
   }
 }

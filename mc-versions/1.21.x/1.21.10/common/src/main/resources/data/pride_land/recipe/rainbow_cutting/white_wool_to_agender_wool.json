@@ -1,8 +1,7 @@
 {
   "type": "pride_land:rainbow_cutting",
-  "count": 1,
-  "ingredient": {
-    "item": "minecraft:white_wool"
-  },
-  "result": { "item": "pride_land:agender_wool" }
+  "ingredient": "minecraft:white_wool",
+  "result": {
+    "id": "pride_land:agender_wool"
+  }
 }

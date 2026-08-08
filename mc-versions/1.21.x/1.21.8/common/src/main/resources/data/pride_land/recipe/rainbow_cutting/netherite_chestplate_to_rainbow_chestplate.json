@@ -1,8 +1,7 @@
 {
   "type": "pride_land:rainbow_cutting",
-  "count": 1,
-  "ingredient": {
-    "item": "minecraft:netherite_chestplate"
-  },
-  "result": { "item": "pride_land:rainbow_chestplate" }
+  "ingredient": "minecraft:netherite_chestplate",
+  "result": {
+    "id": "pride_land:rainbow_chestplate"
+  }
 }

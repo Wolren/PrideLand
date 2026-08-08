@@ -1,8 +1,7 @@
 {
   "type": "pride_land:rainbow_cutting",
-  "count": 1,
-  "ingredient": {
-    "item": "minecraft:elytra"
-  },
-  "result": { "item": "pride_land:demigirl_elytra" }
+  "ingredient": "minecraft:elytra",
+  "result": {
+    "id": "pride_land:demigirl_elytra"
+  }
 }

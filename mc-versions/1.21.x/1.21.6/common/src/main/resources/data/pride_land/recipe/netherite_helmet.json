@@ -2,14 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "equipment",
   "ingredients": [
-    {
-      "item": "pride_land:rainbow_helmet"
-    },
-    {
-      "item": "minecraft:white_dye"
-    }
+    "pride_land:rainbow_helmet",
+    "minecraft:white_dye"
   ],
   "result": {
-    "item": "minecraft:netherite_helmet"
+    "id": "minecraft:netherite_helmet"
   }
 }

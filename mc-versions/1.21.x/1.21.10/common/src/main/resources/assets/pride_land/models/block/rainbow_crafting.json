@@ -6,6 +6,7 @@
     "1": "pride_land:block/rainbow_crafting_side",
     "2": "pride_land:block/rainbow_crafting_bottom",
     "3": "pride_land:block/rainbow_crafting_top",
+    "all": "pride_land:block/rainbow_crafting_front",
     "particle": "pride_land:block/rainbow_crafting_front"
   },
   "elements": [

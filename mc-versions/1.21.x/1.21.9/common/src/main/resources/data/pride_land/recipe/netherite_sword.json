@@ -2,14 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "equipment",
   "ingredients": [
-    {
-      "item": "pride_land:rainbow_sword"
-    },
-    {
-      "item": "minecraft:white_dye"
-    }
+    "pride_land:rainbow_sword",
+    "minecraft:white_dye"
   ],
   "result": {
-    "item": "minecraft:netherite_sword"
+    "id": "minecraft:netherite_sword"
   }
 }
