@@ -17,6 +17,8 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 import net.wolren.land.LandCommon;
+import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
+import net.wolren.land.entity.ModBoats;
 import net.wolren.land.block.ModBlocks;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.renderer.CustomBedBlockEntityRenderer;
@@ -56,6 +58,11 @@ public class LandQuiltClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.RAINBOW_DOOR, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.RAINBOW_TRAPDOOR, BlockRenderLayer.CUTOUT);
 
+
+
+
+        // Boat models
+        TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID);
 
         // Elytra feature renderer
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {

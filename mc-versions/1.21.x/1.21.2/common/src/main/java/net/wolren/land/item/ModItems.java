@@ -70,8 +70,8 @@ public class ModItems {
 
 
     // TODO: Re-add boat items when Terraform API is available on Architectury (Fabric-only API currently)
-    public static final Item RAINBOW_BOAT = null;
-    public static final Item RAINBOW_CHEST_BOAT = null;
+    public static Item RAINBOW_BOAT = null;
+    public static Item RAINBOW_CHEST_BOAT = null;
 
 
 
