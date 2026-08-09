@@ -3,13 +3,17 @@ package net.wolren.land.fabric;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
+import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
+import net.minecraft.block.entity.SignBlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.client.render.RenderLayer;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -52,11 +56,8 @@ public class LandFabricClient implements ClientModInitializer {
         // Render layers
         registerBedBlockRenderLayers();
         registerGlassBlockRenderLayers();
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_DOOR, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_TRAPDOOR, RenderLayer.getCutout());
-
-
-
+        BlockRenderLayerMap.putBlock(ModBlocks.RAINBOW_DOOR, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.RAINBOW_TRAPDOOR, BlockRenderLayer.CUTOUT);
 
         // Boat models
         TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID);
@@ -65,6 +66,12 @@ public class LandFabricClient implements ClientModInitializer {
         // Entity renderers
         EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
         BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(ModEntities.RAINBOW_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
+        // The hanging renderer's factory is typed SignBlockEntity (base class); the
+        // fabric registry is invariant in E, so cast the type to the base class.
+        BlockEntityRendererRegistry.register(
+                (BlockEntityType<SignBlockEntity>) (BlockEntityType<?>) ModEntities.RAINBOW_HANGING_SIGN_BLOCK_ENTITY,
+                ctx -> new HangingSignBlockEntityRenderer(ctx));
     }
 
     private static void registerBedBlockRenderLayers() {
@@ -77,7 +84,7 @@ public class LandFabricClient implements ClientModInitializer {
             ModBlocks.POLYSEXUAL_BED
         };
         for (Block bed : beds) {
-            BlockRenderLayerMap.INSTANCE.putBlock(bed, RenderLayer.getCutout());
+            BlockRenderLayerMap.putBlock(bed, BlockRenderLayer.CUTOUT);
         }
     }
 
@@ -101,7 +108,7 @@ public class LandFabricClient implements ClientModInitializer {
             ModBlocks.POLYSEXUAL_STAINED_GLASS, ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE
         };
         for (Block glass : glasses) {
-            BlockRenderLayerMap.INSTANCE.putBlock(glass, TexturedRenderLayers.getItemEntityTranslucentCull());
+            BlockRenderLayerMap.putBlock(glass, BlockRenderLayer.TRANSLUCENT);
         }
     }
 }

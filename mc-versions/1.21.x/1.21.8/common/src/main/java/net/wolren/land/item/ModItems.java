@@ -5,6 +5,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.equipment.EquipmentAssetKeys;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.sound.SoundEvents;
 
 import net.minecraft.registry.Registries;
@@ -13,20 +14,34 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.wolren.land.LandCommon;
+import net.wolren.land.item.material.RainbowArmorMaterial;
 import net.wolren.land.item.custom.CustomElytraItem;
 import net.wolren.land.item.custom.RainbowSpawnEggItem;
 
 public class ModItems {
     public static final Item RAINBOW_DYE = registerItem("rainbow_dye",new Item(keyedSettings("rainbow_dye")));
-    public static final Item RAINBOW_SWORD = registerItem("rainbow_sword",new Item(keyedSettings("rainbow_sword").maxCount(1).fireproof()));
-    public static final Item RAINBOW_PICKAXE = registerItem("rainbow_pickaxe",new Item(keyedSettings("rainbow_pickaxe").maxCount(1).fireproof()));
-    public static final Item RAINBOW_AXE = registerItem("rainbow_axe",new Item(keyedSettings("rainbow_axe").maxCount(1).fireproof()));
-    public static final Item RAINBOW_SHOVEL = registerItem("rainbow_shovel",new Item(keyedSettings("rainbow_shovel").maxCount(1).fireproof()));
-    public static final Item RAINBOW_HOE = registerItem("rainbow_hoe",new Item(keyedSettings("rainbow_hoe").maxCount(1).fireproof()));
-    public static final Item RAINBOW_HELMET = registerItem("rainbow_helmet",new Item(keyedSettings("rainbow_helmet").maxCount(1).fireproof()));
-    public static final Item RAINBOW_CHESTPLATE = registerItem("rainbow_chestplate",new Item(keyedSettings("rainbow_chestplate").maxCount(1).fireproof()));
-    public static final Item RAINBOW_LEGGINGS = registerItem("rainbow_leggings",new Item(keyedSettings("rainbow_leggings").maxCount(1).fireproof()));
-    public static final Item RAINBOW_BOOTS = registerItem("rainbow_boots",new Item(keyedSettings("rainbow_boots").maxCount(1).fireproof()));
+    public static final Item RAINBOW_SWORD = registerItem("rainbow_sword",
+            new Item.Settings().maxCount(1).fireproof().sword(ToolMaterial.NETHERITE, 3.0F, -2.4F));
+    public static final Item RAINBOW_PICKAXE = registerItem("rainbow_pickaxe",
+            new Item.Settings().maxCount(1).fireproof().pickaxe(ToolMaterial.NETHERITE, 1.0F, -2.8F));
+    public static final Item RAINBOW_AXE = registerItem("rainbow_axe",
+            new AxeItem(ToolMaterial.NETHERITE, 5.0F, -3.0F, keyedSettings("rainbow_axe").maxCount(1).fireproof()));
+    public static final Item RAINBOW_SHOVEL = registerItem("rainbow_shovel",
+            new ShovelItem(ToolMaterial.NETHERITE, 1.5F, -3.0F, keyedSettings("rainbow_shovel").maxCount(1).fireproof()));
+    public static final Item RAINBOW_HOE = registerItem("rainbow_hoe",
+            new HoeItem(ToolMaterial.NETHERITE, -4.0F, 0.0F, keyedSettings("rainbow_hoe").maxCount(1).fireproof()));
+    public static final Item RAINBOW_HELMET = registerItem("rainbow_helmet",
+            new Item.Settings().maxCount(1).fireproof()
+                    .armor(RainbowArmorMaterial.RAINBOW, EquipmentType.HELMET));
+    public static final Item RAINBOW_CHESTPLATE = registerItem("rainbow_chestplate",
+            new Item.Settings().maxCount(1).fireproof()
+                    .armor(RainbowArmorMaterial.RAINBOW, EquipmentType.CHESTPLATE));
+    public static final Item RAINBOW_LEGGINGS = registerItem("rainbow_leggings",
+            new Item.Settings().maxCount(1).fireproof()
+                    .armor(RainbowArmorMaterial.RAINBOW, EquipmentType.LEGGINGS));
+    public static final Item RAINBOW_BOOTS = registerItem("rainbow_boots",
+            new Item.Settings().maxCount(1).fireproof()
+                    .armor(RainbowArmorMaterial.RAINBOW, EquipmentType.BOOTS));
 
     public static final Item RAINBOW_ELYTRA = registerElytra("rainbow_elytra");
     public static final Item AGENDER_ELYTRA = registerElytra("agender_elytra");

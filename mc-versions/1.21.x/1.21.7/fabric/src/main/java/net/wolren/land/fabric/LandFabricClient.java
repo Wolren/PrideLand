@@ -8,6 +8,10 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
+import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
+import net.minecraft.block.entity.SignBlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
@@ -65,6 +69,12 @@ public class LandFabricClient implements ClientModInitializer {
         // Entity renderers
         EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
         BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(ModEntities.RAINBOW_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
+        // The hanging renderer's factory is typed SignBlockEntity (base class); the
+        // fabric registry is invariant in E, so cast the type to the base class.
+        BlockEntityRendererRegistry.register(
+                (BlockEntityType<SignBlockEntity>) (BlockEntityType<?>) ModEntities.RAINBOW_HANGING_SIGN_BLOCK_ENTITY,
+                ctx -> new HangingSignBlockEntityRenderer(ctx));
     }
 
     private static void registerBedBlockRenderLayers() {

@@ -1,0 +1,7 @@
+{
+  "type": "pride_land:rainbow_cutting",
+  "ingredient": "pride_land:demiboy_wool",
+  "result": {
+    "id": "pride_land:rainbow_wool"
+  }
+}

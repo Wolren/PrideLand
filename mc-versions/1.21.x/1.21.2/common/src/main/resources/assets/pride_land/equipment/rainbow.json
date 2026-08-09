@@ -1,14 +1,6 @@
 {
   "layers": {
-    "humanoid": [
-      {
-        "texture": "pride_land:rainbow"
-      }
-    ],
-    "humanoid_leggings": [
-      {
-        "texture": "pride_land:rainbow"
-      }
-    ]
+    "humanoid": "pride_land:rainbow",
+    "humanoid_leggings": "pride_land:rainbow"
   }
 }

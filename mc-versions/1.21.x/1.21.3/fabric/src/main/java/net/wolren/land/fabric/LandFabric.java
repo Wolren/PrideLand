@@ -138,7 +138,7 @@ public class LandFabric implements ModInitializer {
         // Spawn egg — entity types are registered before items on Fabric
         ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) Registry.register(Registries.ITEM,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"),
-                new RainbowSpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings()));
+                new RainbowSpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg")))));
 
         LandCommon.LOGGER.info("Registered rainbow signs via Terraform API");
     }

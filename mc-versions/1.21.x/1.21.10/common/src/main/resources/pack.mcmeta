@@ -1,6 +1,8 @@
 {
   "pack": {
-    "pack_format": 69.0,
-    "description": "Pride Land mod resources"
+    "pack_format": 69,
+    "description": "Pride Land mod resources",
+    "min_format": 69,
+    "max_format": 69
   }
 }

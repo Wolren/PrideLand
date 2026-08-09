@@ -2,6 +2,8 @@ package net.wolren.land.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.HangingSignBlockEntity;
+import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
@@ -13,6 +15,7 @@ import net.wolren.land.LandCommon;
 import net.wolren.land.block.ModBlocks;
 import net.wolren.land.entity.custom.block.CustomBedBlockEntity;
 import net.wolren.land.entity.custom.block.RainbowCraftingBlockEntity;
+import net.wolren.land.entity.custom.block.RainbowHangingSignBlockEntity;
 import net.wolren.land.entity.custom.living.MonoColorSheep;
 
 import java.util.Arrays;
@@ -36,6 +39,20 @@ public class ModEntities {
     public static BlockEntityType<RainbowCraftingBlockEntity> RAINBOW_CRAFTING_BLOCK_ENTITY;
     public static EntityType<MonoColorSheep.RainbowSheepEntity> RAINBOW_SHEEP;
     public static BlockEntityType<CustomBedBlockEntity> CUSTOM_BED_BLOCK_ENTITY;
+    public static BlockEntityType<SignBlockEntity> RAINBOW_SIGN_BLOCK_ENTITY;
+    public static BlockEntityType<RainbowHangingSignBlockEntity> RAINBOW_HANGING_SIGN_BLOCK_ENTITY;
+
+    // Sign block entity types must be registered AFTER the sign blocks are
+    // created (they live in LandFabric.registerRainbowSigns, which runs on
+    // the platform initializer), so they use a lazy queue on both loaders.
+    private static boolean signEntitiesRegistered = false;
+
+    public static void registerSignBlockEntities() {
+        if (signEntitiesRegistered) return;
+        signEntitiesRegistered = true;
+        RAINBOW_SIGN_BLOCK_ENTITY = createSignBlockEntity();
+        RAINBOW_HANGING_SIGN_BLOCK_ENTITY = createHangingSignBlockEntity();
+    }
 
     static {
         if (DEFER) {
@@ -99,6 +116,23 @@ public class ModEntities {
                 ));
     }
 
+    private static BlockEntityType<SignBlockEntity> createSignBlockEntity() {
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(LandCommon.MOD_ID, "rainbow_sign"),
+                new BlockEntityType<SignBlockEntity>(
+                        (pos, state) -> new SignBlockEntity(RAINBOW_SIGN_BLOCK_ENTITY, pos, state),
+                        Set.of(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN)
+                ));
+    }
+
+    private static BlockEntityType<RainbowHangingSignBlockEntity> createHangingSignBlockEntity() {
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
+                new BlockEntityType<RainbowHangingSignBlockEntity>(
+                        (pos, state) -> new RainbowHangingSignBlockEntity(RAINBOW_HANGING_SIGN_BLOCK_ENTITY, pos, state),
+                        Set.of(ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN)
+                ));
+    }
     public static void registerBlockEntities() {
         LandCommon.LOGGER.info("Registering Entities for " + LandCommon.MOD_ID);
     }

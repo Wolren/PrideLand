@@ -1,1 +1,5 @@
-{"layers": {"wings": [{"texture": "pride_land:progress_pride_elytra"}]}}
+{
+  "layers": {
+    "wings": "pride_land:progress_pride_elytra"
+  }
+}

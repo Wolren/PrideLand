@@ -38,6 +38,10 @@ import net.wolren.land.item.ModItems;
 
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import com.terraformersmc.terraform.sign.api.block.TerraformSignBlockHelper;
+import net.wolren.land.block.custom.RainbowHangingSignBlock;
+import net.wolren.land.block.custom.RainbowSignBlock;
+import net.wolren.land.block.custom.RainbowWallHangingSignBlock;
+import net.wolren.land.block.custom.RainbowWallSignBlock;
 import net.wolren.land.entity.ModBoats;
 import net.wolren.land.item.custom.RainbowSpawnEggItem;
 import net.wolren.land.item.ModItemGroups;
@@ -123,7 +127,7 @@ public class LandFabric implements ModInitializer {
 
         ModBlocks.RAINBOW_STANDING_SIGN = (SignBlock) TerraformSignBlockHelper.registerSignBlock(
                 Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign"),
-                (props) -> new SignBlock(
+                (props) -> new RainbowSignBlock(
                         TerraformSignBlockHelper.registerDefaultWoodType(Identifier.of(LandCommon.MOD_ID, "rainbow")),
                         props
                 ),
@@ -132,7 +136,7 @@ public class LandFabric implements ModInitializer {
         ModBlocks.RAINBOW_WALL_SIGN = (WallSignBlock) Registry.register(
                 Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign"),
-                new WallSignBlock(
+                new RainbowWallSignBlock(
                         TerraformSignBlockHelper.registerDefaultWoodType(Identifier.of(LandCommon.MOD_ID, "rainbow")),
                         AbstractBlock.Settings.copy(Blocks.OAK_WALL_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign")))
                 )
@@ -140,7 +144,7 @@ public class LandFabric implements ModInitializer {
         ModBlocks.RAINBOW_HANGING_SIGN = (HangingSignBlock) Registry.register(
                 Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
-                new HangingSignBlock(
+                new RainbowHangingSignBlock(
                         TerraformSignBlockHelper.registerDefaultWoodType(Identifier.of(LandCommon.MOD_ID, "rainbow")),
                         AbstractBlock.Settings.copy(Blocks.OAK_HANGING_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign")))
                 )
@@ -148,11 +152,13 @@ public class LandFabric implements ModInitializer {
         ModBlocks.RAINBOW_WALL_HANGING_SIGN = (WallHangingSignBlock) Registry.register(
                 Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign"),
-                new WallHangingSignBlock(
+                new RainbowWallHangingSignBlock(
                         TerraformSignBlockHelper.registerDefaultWoodType(Identifier.of(LandCommon.MOD_ID, "rainbow")),
                         AbstractBlock.Settings.copy(Blocks.OAK_WALL_HANGING_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign")))
                 )
         );
+
+        ModEntities.registerSignBlockEntities();
 
         ModItems.RAINBOW_SIGN = (SignItem) Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign"),
                 new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN, new Item.Settings().maxCount(16).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign")))));
