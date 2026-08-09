@@ -222,8 +222,8 @@ jobs:
           - { version: "1.21.11", modver: "1.1.1", loader: neoforge, prefix: jars-21, java: "21", jar: mc-versions/1.21.11/forge/build/libs/pride_land-1.1.1-1.21.11.jar }
           - { version: "1.21.11", modver: "1.1.1", loader: quilt,    prefix: jars-21, java: "21", jar: mc-versions/1.21.11/quilt/build/libs/pride_land-1.1.1-1.21.11.jar }
           # 26.2 (standalone builds, Java 25)
-          - { version: "26.2", modver: "1.1", loader: neoforge, prefix: jars-26x, java: "25", jar: mc-versions/1.26.x/build/libs/pride_land-1.1-26.2.jar }
-          - { version: "26.2", modver: "1.1", loader: fabric,   prefix: jars-26x, java: "25", jar: mc-versions/1.26.x-fabric/build/libs/pride_land-1.1-26.2.jar }
+          - { version: "26.2", modver: "1.1", loader: neoforge, prefix: jars-26x, java: "25", jar: 1.26.x/build/libs/pride_land-1.1-26.2.jar }
+          - { version: "26.2", modver: "1.1", loader: fabric,   prefix: jars-26x, java: "25", jar: 1.26.x-fabric/build/libs/pride_land-1.1-26.2.jar }
     steps:
       - name: download jars
         uses: actions/download-artifact@v4
@@ -273,11 +273,19 @@ jobs:
           fi
           echo "curseforge-exists=$curseforge_exists" >> "$GITHUB_OUTPUT"
 
+          gh_asset_exists=false
+          asset_name="pride_land-${{ matrix.modver }}-${{ matrix.version }}-${{ matrix.loader }}.jar"
+          if [ -n "${{ github.ref_name }}" ] && gh release view "${{ github.ref_name }}" \
+              --json assets --jq --arg n "$asset_name" 'any(.assets[].name == $n)' >/dev/null 2>&1; then
+            gh_asset_exists=true
+          fi
+          echo "gh-asset-exists=$gh_asset_exists" >> "$GITHUB_OUTPUT"
+
       # GitHub release assets only (tag-triggered runs): every matrix row appends its
       # uniquely-named jar to the release named after the v* tag. Platform uploads are
       # gated separately below on the upload-platforms input (default: skip).
       - name: publish to GitHub release (assets only)
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') && steps.check.outputs.gh-asset-exists != 'true'
         uses: Kira-NT/mc-publish@v3.3
         with:
           github-tag: ${{ github.ref_name }}
