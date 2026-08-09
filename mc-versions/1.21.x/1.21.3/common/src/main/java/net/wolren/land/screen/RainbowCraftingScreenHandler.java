@@ -261,4 +261,15 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
 
         return itemStack;
     }
+
+    @Override
+    public void onClosed(PlayerEntity player) {
+        super.onClosed(player);
+        this.output.removeStack(1);
+        this.dropInventory(player, this.input);
+    }
+
+    public Slot getDyeSlot() {
+        return this.dyeSlot;
+    }
 }

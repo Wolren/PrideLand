@@ -1,1 +1,5 @@
-{"layers": {"wings": [{"texture": "pride_land:pansexual_elytra"}]}}
+{
+  "layers": {
+    "wings": "pride_land:pansexual_elytra"
+  }
+}
