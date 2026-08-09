@@ -282,17 +282,27 @@ jobs:
           echo "gh-asset-exists=$gh_asset_exists" >> "$GITHUB_OUTPUT"
 
       # GitHub release assets only (tag-triggered runs): every matrix row appends its
-      # uniquely-named jar to the release named after the v* tag. Platform uploads are
-      # gated separately below on the upload-platforms input (default: skip).
+      # uniquely-named jar to the release named after the v* tag. The release is
+      # created once (create is race-safe across the parallel matrix rows) and each
+      # row uploads its jar idempotently (--clobber overwrites; the asset-exists
+      # guard skips rows that already shipped). Platform uploads are gated
+      # separately below on the upload-platforms input (default: skip).
+      - name: ensure release exists
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ github.ref_name }}" --title "${{ github.ref_name }}" --generate-notes 2>/dev/null || echo "release already exists"
+
       - name: publish to GitHub release (assets only)
         if: startsWith(github.ref, 'refs/tags/') && steps.check.outputs.gh-asset-exists != 'true'
-        uses: Kira-NT/mc-publish@v3.3
-        with:
-          github-tag: ${{ github.ref_name }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-files: /tmp/publish/pride_land-*.jar
-          version-type: ${{ inputs.release-type || 'release' }}
-          changelog: "PrideLand ${{ github.ref_name }} for Minecraft ${{ matrix.version }} (${{ matrix.loader }})"
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.ref_name }}" \
+            /tmp/publish/pride_land-${{ matrix.modver }}-${{ matrix.version }}-${{ matrix.loader }}.jar --clobber
 
       - name: publish to Modrinth + CurseForge
         if: inputs.upload-platforms == 'upload' && (steps.check.outputs.modrinth-exists != 'true' || steps.check.outputs.curseforge-exists != 'true')
