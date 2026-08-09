@@ -276,7 +276,7 @@ jobs:
           gh_asset_exists=false
           asset_name="pride_land-${{ matrix.modver }}-${{ matrix.version }}-${{ matrix.loader }}.jar"
           if [ -n "${{ github.ref_name }}" ] && gh release view "${{ github.ref_name }}" \
-              --json assets --jq --arg n "$asset_name" 'any(.assets[].name == $n)' >/dev/null 2>&1; then
+              --json assets --jq "[.assets[].name] | any(. == \"$asset_name\")" >/dev/null 2>&1; then
             gh_asset_exists=true
           fi
           echo "gh-asset-exists=$gh_asset_exists" >> "$GITHUB_OUTPUT"
