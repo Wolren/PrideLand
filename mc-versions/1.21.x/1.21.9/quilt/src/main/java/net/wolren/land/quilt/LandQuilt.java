@@ -168,7 +168,7 @@ public class LandQuilt implements ModInitializer {
         ModItems.RAINBOW_BOAT = TerraformBoatItemHelper.registerBoatItem(
                 ModBoats.RAINBOW_BOAT_ID, false);
         ModItems.RAINBOW_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(
-                ModBoats.RAINBOW_CHEST_BOAT_ID, true);
+                ModBoats.RAINBOW_BOAT_ID, true);
 
         LandCommon.LOGGER.info("Registered rainbow signs via Terraform API (Quilt)");
     }
