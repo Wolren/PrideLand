@@ -13,6 +13,6 @@ public class RainbowWallHangingSignBlock extends WallHangingSignBlock {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new RainbowHangingSignBlockEntity(pos, state);
+        return new RainbowHangingSignBlockEntity(LandForge.RAINBOW_HANGING_SIGN_BE, pos, state);
     }
 }

@@ -24,7 +24,7 @@ public class RainbowArmorMaterial {
         return new ArmorMaterial(40, protection, 19,
                 SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,
                 3.0F, 0.1F,
-                TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "netherite_ingots")),
+                TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "repairs_netherite_armor")),
                 Identifier.of("pride_land", "rainbow"));
     }
 }

@@ -3,7 +3,9 @@
   "package": "net.wolren.land.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "pride_land.refmap.json",
-  "mixins": [],
+  "mixins": [
+    "RenderLayersAccessor"
+  ],
   "injectors": {
     "defaultRequire": 0
   }
