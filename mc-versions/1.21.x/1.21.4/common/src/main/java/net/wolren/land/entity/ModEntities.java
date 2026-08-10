@@ -3,6 +3,8 @@ package net.wolren.land.entity;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -34,6 +36,8 @@ public class ModEntities {
 
     public static BlockEntityType<RainbowCraftingBlockEntity> RAINBOW_CRAFTING_BLOCK_ENTITY;
     public static EntityType<MonoColorSheep.RainbowSheepEntity> RAINBOW_SHEEP;
+    public static EntityType<BoatEntity> RAINBOW_BOAT_ENTITY;
+    public static EntityType<ChestBoatEntity> RAINBOW_CHEST_BOAT_ENTITY;
     public static BlockEntityType<CustomBedBlockEntity> CUSTOM_BED_BLOCK_ENTITY;
 
     static {

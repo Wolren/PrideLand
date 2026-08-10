@@ -104,7 +104,7 @@ public class LandForge {
                 LandCommon.LOGGER.info("Registered items + " + blockItems + " block items");
 
                 // Spawn egg — use standard SpawnEggItem
-                var egg = new SpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings());
+                var egg = new SpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"))));
                 Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"), egg);
                 ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) egg;
 

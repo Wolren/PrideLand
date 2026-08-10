@@ -88,7 +88,7 @@ public class LandForgeClient {
         EntityModelLayer rainbowBoatLayer = new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "boat/rainbow"), "main");
         net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(rainbowBoatLayer, BoatEntityModel::getTexturedModelData);
         EntityModelLayer rainbowChestBoatLayer = new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "chest_boat/rainbow"), "main");
-        net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(rainbowChestBoatLayer, BoatEntityModel::getTexturedModelData);
+        net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(rainbowChestBoatLayer, BoatEntityModel::getChestTexturedModelData);
 
         // Bed renderers
         dev.architectury.registry.client.rendering.BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);

@@ -4,6 +4,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.recipe.RecipeType;
 import net.wolren.land.recipe.RainbowCuttingRecipe;
 import org.slf4j.Logger;
@@ -24,8 +25,6 @@ public class LandCommon {
     }
 
     public static DefaultAttributeContainer.Builder createRainbowSheepAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 8.0D)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.23D);
+        return SheepEntity.createSheepAttributes();
     }
 }

@@ -5,8 +5,12 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.BoatEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
+import net.minecraft.client.render.entity.BoatEntityRenderer;
+import net.minecraft.util.Identifier;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -87,9 +91,9 @@ public class LandForgeClient {
         );
         LandCommon.LOGGER.info("Registered config screen factory");
 
-        // Model layers
-        net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP, RainbowSheepModel::getTexturedModelData);
-        net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolModel::getTexturedModelData);
+        // Model layer definitions are registered in onRegisterLayerDefinitions
+        // (RegisterLayerDefinitions fires during Minecraft construction, before the first
+        // resource reload — registering here in client setup is too late in 1.21.4+).
 
         // Sign layers are registered by the vanilla EntityModels.getModels for every registered WoodType
         // Sign renderers
@@ -105,9 +109,19 @@ public class LandForgeClient {
         event.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
     }
 
+    public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP, RainbowSheepModel::getTexturedModelData);
+        event.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolModel::getTexturedModelData);
+        event.registerLayerDefinition(new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "boat/rainbow"), "main"), BoatEntityModel::getTexturedModelData);
+        event.registerLayerDefinition(new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "chest_boat/rainbow"), "main"), BoatEntityModel::getChestTexturedModelData);
+        LandCommon.LOGGER.info("Registered entity model layer definitions via event");
+    }
+
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         EntityRendererFactory<MonoColorSheep.RainbowSheepEntity> factory = context -> new RainbowSheepRenderer(context);
         event.registerEntityRenderer(ModEntities.RAINBOW_SHEEP, factory);
+        event.registerEntityRenderer(ModEntities.RAINBOW_BOAT_ENTITY, ctx -> new BoatEntityRenderer(ctx, new net.minecraft.client.render.entity.model.EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "boat/rainbow"), "main")));
+        event.registerEntityRenderer(ModEntities.RAINBOW_CHEST_BOAT_ENTITY, ctx -> new BoatEntityRenderer(ctx, new net.minecraft.client.render.entity.model.EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "chest_boat/rainbow"), "main")));
     }
 
     private static void registerCutout(Block... blocks) {

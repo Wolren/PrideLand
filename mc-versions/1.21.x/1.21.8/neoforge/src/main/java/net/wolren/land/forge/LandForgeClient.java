@@ -6,6 +6,10 @@ import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
+import net.minecraft.client.render.entity.BoatEntityRenderer;
+import net.minecraft.client.render.entity.model.BoatEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.util.Identifier;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -55,10 +59,9 @@ public class LandForgeClient {
         );
         registerCutout(ModBlocks.RAINBOW_CANDLE);
 
-        // Model layer definitions
-        ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP, RainbowSheepModel::getTexturedModelData);
-        ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolModel::getTexturedModelData);
-        LandCommon.LOGGER.info("Registered entity model layer definitions");
+        // Model layer definitions are registered in onRegisterLayerDefinitions
+        // (RegisterLayerDefinitions fires during Minecraft construction, before the first
+        // resource reload — registering here in client setup is too late in 1.21.4+).
 
         // Sign block entity renderers
         BlockEntityRendererFactories.register(LandForge.RAINBOW_SIGN_BE, SignBlockEntityRenderer::new);
@@ -74,8 +77,18 @@ public class LandForgeClient {
     /**
      * Register entity renderers via NeoForge's RegisterRenderers event.
      */
+    public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP, RainbowSheepModel::getTexturedModelData);
+        event.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolModel::getTexturedModelData);
+        event.registerLayerDefinition(new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "boat/rainbow"), "main"), BoatEntityModel::getTexturedModelData);
+        event.registerLayerDefinition(new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "chest_boat/rainbow"), "main"), BoatEntityModel::getChestTexturedModelData);
+        LandCommon.LOGGER.info("Registered entity model layer definitions via event");
+    }
+
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
+        event.registerEntityRenderer(ModEntities.RAINBOW_BOAT_ENTITY, ctx -> new BoatEntityRenderer(ctx, new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "boat/rainbow"), "main")));
+        event.registerEntityRenderer(ModEntities.RAINBOW_CHEST_BOAT_ENTITY, ctx -> new BoatEntityRenderer(ctx, new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "chest_boat/rainbow"), "main")));
         LandCommon.LOGGER.info("Registered entity renderer for rainbow_sheep via event");
     }
 
