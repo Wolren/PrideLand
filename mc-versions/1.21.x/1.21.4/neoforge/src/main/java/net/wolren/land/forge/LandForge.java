@@ -49,7 +49,7 @@ import net.wolren.land.util.config.RainbowConfig;
 public class LandForge {
     // WoodType for rainbow signs (registered during class init)
     // Namespace-qualified name so the renderer looks up textures in the mod's namespace
-    private static final WoodType RAINBOW_WOOD_TYPE = WoodType.register(new WoodType(LandCommon.MOD_ID + ":rainbow", BlockSetType.OAK));
+    static final WoodType RAINBOW_WOOD_TYPE = WoodType.register(new WoodType(LandCommon.MOD_ID + ":rainbow", BlockSetType.OAK));
     
     // Custom block entity types for rainbow signs
     public static BlockEntityType<RainbowSignBlockEntity> RAINBOW_SIGN_BE;

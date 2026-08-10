@@ -49,7 +49,7 @@ import net.wolren.land.util.config.RainbowConfig;
 public class LandForge {
     // WoodType for rainbow signs (registered during class init)
     // Namespace-qualified name so the renderer looks up textures in the mod's namespace
-    private static final WoodType RAINBOW_WOOD_TYPE = WoodType.register(new WoodType(LandCommon.MOD_ID + ":rainbow", BlockSetType.OAK));
+    static final WoodType RAINBOW_WOOD_TYPE = WoodType.register(new WoodType(LandCommon.MOD_ID + ":rainbow", BlockSetType.OAK));
     
     // Custom block entity types for rainbow signs
     public static BlockEntityType<RainbowSignBlockEntity> RAINBOW_SIGN_BE;
@@ -105,7 +105,7 @@ public class LandForge {
                 LandCommon.LOGGER.info("Registered items + " + blockItems + " block items");
 
                 // Spawn egg — use standard SpawnEggItem
-                var egg = new SpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings());
+                var egg = new SpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"))));
                 Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"), egg);
                 ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) egg;
 
