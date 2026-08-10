@@ -91,7 +91,9 @@ public class CustomBedBlock extends BedBlock {
                 return ActionResult.SUCCESS;
             } else {
                 player.trySleep(pos).ifLeft(reason -> {
-                    player.sendMessage(Text.translatable("block.minecraft.bed." + reason.name().toLowerCase().replace("_", ".")), true);
+                    if (reason.getMessage() != null) {
+                        player.sendMessage(reason.getMessage(), true);
+                    }
                 });
                 return ActionResult.SUCCESS;
             }

@@ -68,6 +68,7 @@ public class LandForge {
         modBus.addListener(this::commonSetup);
         modBus.addListener(this::clientSetup);
         modBus.addListener(this::entityAttributeCreation);
+        modBus.addListener(LandForgeClient::onRegisterRenderers);
 
         // Config — Cloth Config / AutoConfig shared with Fabric
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);

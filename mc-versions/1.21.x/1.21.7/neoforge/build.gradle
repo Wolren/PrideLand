@@ -15,6 +15,15 @@ loom {
     neoForge {
         // NeoForge handles access wideners natively
     }
+
+    runs {
+        client {
+            // Hide the @OnlyIn loading-screen warning (deps like cloth-config and
+            // architectury carry @OnlyIn annotations; NeoForge 21.x no longer strips
+            // them at runtime and shows a dev-only warning for each affected mod).
+            vmArgs "-Dneoforge.warnings.onlyin.hide=true"
+        }
+    }
 }
 
 // Validate against Fabric's Mojmap jar; NeoForge uses SRG and convertAccessWideners handles it.

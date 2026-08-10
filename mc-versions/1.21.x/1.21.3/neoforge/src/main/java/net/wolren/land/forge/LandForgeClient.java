@@ -4,6 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.BoatEntityRenderer;
+import net.minecraft.client.render.entity.model.BoatEntityModel;
+import net.minecraft.util.Identifier;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
@@ -92,6 +96,12 @@ public class LandForgeClient {
         net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolModel::getTexturedModelData);
 
         // Sign layers are registered by the vanilla EntityModels.getModels for every registered WoodType
+        // Boat model layers (client setup timing works in 1.21.3)
+        EntityModelLayer rainbowBoatLayer = new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "boat/rainbow"), "main");
+        net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(rainbowBoatLayer, BoatEntityModel::getTexturedModelData);
+        EntityModelLayer rainbowChestBoatLayer = new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "chest_boat/rainbow"), "main");
+        net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(rainbowChestBoatLayer, BoatEntityModel::getChestTexturedModelData);
+
         // Sign renderers
         BlockEntityRendererFactories.register(LandForge.RAINBOW_SIGN_BE, SignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(LandForge.RAINBOW_HANGING_SIGN_BE, HangingSignBlockEntityRenderer::new);
@@ -108,6 +118,8 @@ public class LandForgeClient {
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         EntityRendererFactory<MonoColorSheep.RainbowSheepEntity> factory = context -> new RainbowSheepRenderer(context);
         event.registerEntityRenderer(ModEntities.RAINBOW_SHEEP, factory);
+        event.registerEntityRenderer(ModEntities.RAINBOW_BOAT_ENTITY, ctx -> new BoatEntityRenderer(ctx, new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "boat/rainbow"), "main")));
+        event.registerEntityRenderer(ModEntities.RAINBOW_CHEST_BOAT_ENTITY, ctx -> new BoatEntityRenderer(ctx, new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "chest_boat/rainbow"), "main")));
     }
 
     private static void registerCutout(Block... blocks) {

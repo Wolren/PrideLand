@@ -10,15 +10,20 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.HangingSignItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
+import net.minecraft.item.BoatItem;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.SpawnSettings;
 import net.neoforged.neoforge.event.level.LevelEvent;
@@ -64,7 +69,8 @@ public class LandForge {
         modBus.addListener(this::commonSetup);
         modBus.addListener(this::clientSetup);
         modBus.addListener(this::entityAttributeCreation);
-        modBus.addListener(LandForgeClient::onRegisterRenderers);
+        modBus.addListener(LandForgeClient::onRegisterLayerDefinitions);
+                modBus.addListener(LandForgeClient::onRegisterRenderers);
         // Register menu screens (HandledScreens.register is package-private in Yarn 1.21.11)
         modBus.addListener((net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) -> {
             event.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
@@ -83,22 +89,22 @@ public class LandForge {
 
                 Block signBlock = Registry.register(Registries.BLOCK,
                         Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign"),
-                        new RainbowStandingSignBlock(Block.Settings.copy(Blocks.OAK_SIGN), RAINBOW_WOOD_TYPE));
+                        new RainbowStandingSignBlock(Block.Settings.copy(Blocks.OAK_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign"))), RAINBOW_WOOD_TYPE));
                 ModBlocks.RAINBOW_STANDING_SIGN = signBlock;
 
                 Block wallSignBlock = Registry.register(Registries.BLOCK,
                         Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign"),
-                        new RainbowWallSignBlock(Block.Settings.copy(Blocks.OAK_WALL_SIGN), RAINBOW_WOOD_TYPE));
+                        new RainbowWallSignBlock(Block.Settings.copy(Blocks.OAK_WALL_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign"))), RAINBOW_WOOD_TYPE));
                 ModBlocks.RAINBOW_WALL_SIGN = wallSignBlock;
 
                 Block hangingBlock = Registry.register(Registries.BLOCK,
                         Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
-                        new RainbowHangingSignBlock(Block.Settings.copy(Blocks.OAK_HANGING_SIGN), RAINBOW_WOOD_TYPE));
+                        new RainbowHangingSignBlock(Block.Settings.copy(Blocks.OAK_HANGING_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"))), RAINBOW_WOOD_TYPE));
                 ModBlocks.RAINBOW_HANGING_SIGN = hangingBlock;
 
                 Block wallHangingBlock = Registry.register(Registries.BLOCK,
                         Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign"),
-                        new RainbowWallHangingSignBlock(Block.Settings.copy(Blocks.OAK_WALL_HANGING_SIGN), RAINBOW_WOOD_TYPE));
+                        new RainbowWallHangingSignBlock(Block.Settings.copy(Blocks.OAK_WALL_HANGING_SIGN).registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign"))), RAINBOW_WOOD_TYPE));
                 ModBlocks.RAINBOW_WALL_HANGING_SIGN = wallHangingBlock;
             }
 
@@ -109,16 +115,22 @@ public class LandForge {
                 BlockItemQueue.PENDING.clear();
                 LandCommon.LOGGER.info("Registered items + " + blockItems + " block items");
 
-                var egg = new RainbowSpawnEggItem(new Item.Settings());
-                Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"), egg);
-                ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) egg;
+                // Boats — BoatItem (native, no Terraform on NeoForge); entity types via ModEntities queue
+                ModItems.RAINBOW_BOAT = Registry.register(Registries.ITEM,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_boat"),
+                        new BoatItem(ModEntities.RAINBOW_BOAT_ENTITY,
+                                new Item.Settings().maxCount(1).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_boat")))));
+                ModItems.RAINBOW_CHEST_BOAT = Registry.register(Registries.ITEM,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_chest_boat"),
+                        new BoatItem(ModEntities.RAINBOW_CHEST_BOAT_ENTITY,
+                                new Item.Settings().maxCount(1).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_chest_boat")))));
 
-                var signItem = new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN, new Item.Settings().maxCount(16));
+                var signItem = new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN, new Item.Settings().maxCount(16).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign"))));
                 Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign"), signItem);
                 ModItems.RAINBOW_SIGN = signItem;
 
                 var hangingSignItem = new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN,
-                        ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16));
+                        ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"))));
                 Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"), hangingSignItem);
                 ModItems.RAINBOW_HANGING_SIGN = hangingSignItem;
             }

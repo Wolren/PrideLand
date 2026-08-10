@@ -10,6 +10,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.HangingSignItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
+import net.minecraft.item.BoatItem;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -20,7 +21,10 @@ import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.SpawnSettings;
 import net.neoforged.neoforge.event.level.LevelEvent;
@@ -63,6 +67,8 @@ public class LandForge {
         modBus.addListener(this::commonSetup);
         modBus.addListener(this::clientSetup);
         modBus.addListener(this::entityAttributeCreation);
+        modBus.addListener(LandForgeClient::onRegisterLayerDefinitions);
+        modBus.addListener(LandForgeClient::onRegisterRenderers);
 
         // Config — Cloth Config / AutoConfig shared with Fabric
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
@@ -108,6 +114,25 @@ public class LandForge {
                 var egg = new SpawnEggItem(ModEntities.RAINBOW_SHEEP, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"))));
                 Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"), egg);
                 ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) egg;
+                // Boats — vanilla entity types + BoatItem (native, no Terraform on NeoForge)
+                ModEntities.RAINBOW_BOAT_ENTITY = Registry.register(Registries.ENTITY_TYPE,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_boat"),
+                        EntityType.Builder.<BoatEntity>create((type, world) -> new BoatEntity(type, world, () -> ModItems.RAINBOW_BOAT), SpawnGroup.MISC)
+                                .dimensions(1.375F, 0.5625F).maxTrackingRange(10)
+                                .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(LandCommon.MOD_ID, "rainbow_boat"))));
+                ModEntities.RAINBOW_CHEST_BOAT_ENTITY = Registry.register(Registries.ENTITY_TYPE,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_chest_boat"),
+                        EntityType.Builder.<ChestBoatEntity>create((type, world) -> new ChestBoatEntity(type, world, () -> ModItems.RAINBOW_CHEST_BOAT), SpawnGroup.MISC)
+                                .dimensions(1.375F, 0.5625F).maxTrackingRange(10)
+                                .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(LandCommon.MOD_ID, "rainbow_boat"))));
+                ModItems.RAINBOW_BOAT = Registry.register(Registries.ITEM,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_boat"),
+                        new BoatItem(ModEntities.RAINBOW_BOAT_ENTITY,
+                                new Item.Settings().maxCount(1).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_boat")))));
+                ModItems.RAINBOW_CHEST_BOAT = Registry.register(Registries.ITEM,
+                        Identifier.of(LandCommon.MOD_ID, "rainbow_chest_boat"),
+                        new BoatItem(ModEntities.RAINBOW_CHEST_BOAT_ENTITY,
+                                new Item.Settings().maxCount(1).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_chest_boat")))));
 
                 // NeoForge-native sign items
                 var signItem = new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN, new Item.Settings().maxCount(16).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign"))));

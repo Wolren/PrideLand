@@ -4,6 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
+import net.wolren.land.item.ModItems;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -35,6 +38,8 @@ public class ModEntities {
 
     public static BlockEntityType<RainbowCraftingBlockEntity> RAINBOW_CRAFTING_BLOCK_ENTITY;
     public static EntityType<MonoColorSheep.RainbowSheepEntity> RAINBOW_SHEEP;
+    public static EntityType<BoatEntity> RAINBOW_BOAT_ENTITY;
+    public static EntityType<ChestBoatEntity> RAINBOW_CHEST_BOAT_ENTITY;
     public static BlockEntityType<CustomBedBlockEntity> CUSTOM_BED_BLOCK_ENTITY;
 
     static {
@@ -54,6 +59,25 @@ public class ModEntities {
             });
         } else {
             RAINBOW_SHEEP = createRainbowSheep();
+        }
+    }
+    static {
+        if (DEFER) {
+            EntityTypeQueue.PENDING.add(() -> {
+                RAINBOW_BOAT_ENTITY = createRainbowBoat();
+            });
+        } else {
+            RAINBOW_BOAT_ENTITY = createRainbowBoat();
+        }
+    }
+
+    static {
+        if (DEFER) {
+            EntityTypeQueue.PENDING.add(() -> {
+                RAINBOW_CHEST_BOAT_ENTITY = createRainbowChestBoat();
+            });
+        } else {
+            RAINBOW_CHEST_BOAT_ENTITY = createRainbowChestBoat();
         }
     }
 
@@ -76,6 +100,22 @@ public class ModEntities {
     }
 
     @SuppressWarnings("unchecked")
+    private static EntityType<BoatEntity> createRainbowBoat() {
+        return Registry.register(Registries.ENTITY_TYPE,
+                Identifier.of(LandCommon.MOD_ID, "rainbow_boat"),
+                EntityType.Builder.<BoatEntity>create((type, world) -> new BoatEntity(type, world, () -> ModItems.RAINBOW_BOAT), SpawnGroup.MISC)
+                        .dimensions(1.375F, 0.5625F).maxTrackingRange(10)
+                        .build(RegistryKey.of(Registries.ENTITY_TYPE.getKey(), Identifier.of(LandCommon.MOD_ID, "rainbow_boat"))));
+    }
+
+    private static EntityType<ChestBoatEntity> createRainbowChestBoat() {
+        return Registry.register(Registries.ENTITY_TYPE,
+                Identifier.of(LandCommon.MOD_ID, "rainbow_chest_boat"),
+                EntityType.Builder.<ChestBoatEntity>create((type, world) -> new ChestBoatEntity(type, world, () -> ModItems.RAINBOW_CHEST_BOAT), SpawnGroup.MISC)
+                        .dimensions(1.375F, 0.5625F).maxTrackingRange(10)
+                        .build(RegistryKey.of(Registries.ENTITY_TYPE.getKey(), Identifier.of(LandCommon.MOD_ID, "rainbow_chest_boat"))));
+    }
+
     private static EntityType<MonoColorSheep.RainbowSheepEntity> createRainbowSheep() {
         return Registry.register(Registries.ENTITY_TYPE,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_sheep"),

@@ -43,6 +43,8 @@
   "item.pride_land.rainbow_hanging_sign": "Rainbow Hanging Sign",
   "item.pride_land.rainbow_boat": "Rainbow Boat",
   "item.pride_land.rainbow_chest_boat": "Rainbow Chest Boat",
+  "entity.pride_land.rainbow_boat": "Rainbow Boat",
+  "entity.pride_land.rainbow_chest_boat": "Rainbow Boat with Chest",
   "item.pride_land.rainbow_elytra": "Rainbow Elytra",
   "item.pride_land.agender_elytra": "Agender Elytra",
   "item.pride_land.aromantic_elytra": "Aromantic Elytra",
