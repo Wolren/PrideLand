@@ -35,3 +35,6 @@ mandatory=true
 versionRange="[${cloth_config_min_version},)"
 ordering="NONE"
 side="BOTH"
+
+[[mixins]]
+config = "pride_land.neoforge.mixins.json"

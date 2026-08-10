@@ -1,10 +1,11 @@
 package net.wolren.land.forge;
 
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
-import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.render.BlockRenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -32,7 +33,7 @@ public class LandForgeClient {
                 ModBlocks.DEMIBOY_BED, ModBlocks.DEMIGIRL_BED, ModBlocks.GENDERQUEER_BED,
                 ModBlocks.POLYSEXUAL_BED
         );
-        registerCutout(
+        registerTranslucent(
                 ModBlocks.RAINBOW_STAINED_GLASS, ModBlocks.TRANS_STAINED_GLASS,
                 ModBlocks.NONBINARY_STAINED_GLASS, ModBlocks.BISEXUAL_STAINED_GLASS,
                 ModBlocks.PANSEXUAL_STAINED_GLASS, ModBlocks.AROMANTIC_STAINED_GLASS,
@@ -42,7 +43,7 @@ public class LandForgeClient {
                 ModBlocks.DEMIBOY_STAINED_GLASS, ModBlocks.DEMIGIRL_STAINED_GLASS,
                 ModBlocks.GENDERQUEER_STAINED_GLASS, ModBlocks.POLYSEXUAL_STAINED_GLASS
         );
-        registerCutout(
+        registerTranslucent(
                 ModBlocks.RAINBOW_STAINED_GLASS_PANE, ModBlocks.TRANS_STAINED_GLASS_PANE,
                 ModBlocks.NONBINARY_STAINED_GLASS_PANE, ModBlocks.BISEXUAL_STAINED_GLASS_PANE,
                 ModBlocks.PANSEXUAL_STAINED_GLASS_PANE, ModBlocks.AROMANTIC_STAINED_GLASS_PANE,
@@ -61,7 +62,7 @@ public class LandForgeClient {
 
         // Sign block entity renderers
         BlockEntityRendererFactories.register(LandForge.RAINBOW_SIGN_BE, SignBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(LandForge.RAINBOW_HANGING_SIGN_BE, SignBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(LandForge.RAINBOW_HANGING_SIGN_BE, HangingSignBlockEntityRenderer::new);
         LandCommon.LOGGER.info("Registered sign block entity renderers");
 
         // Bed block entity renderers
@@ -80,7 +81,13 @@ public class LandForgeClient {
 
     private static void registerCutout(Block... blocks) {
         for (var block : blocks) {
-            RenderTypeRegistry.register(BlockRenderLayer.CUTOUT, block);
+            RenderLayers.setRenderLayer(block, BlockRenderLayer.CUTOUT);
+        }
+    }
+
+    private static void registerTranslucent(Block... blocks) {
+        for (var block : blocks) {
+            RenderLayers.setRenderLayer(block, BlockRenderLayer.TRANSLUCENT);
         }
     }
 }
