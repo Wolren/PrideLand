@@ -14,6 +14,11 @@ updates:
       - "Wolren"
     allow:
       - dependency-type: "direct"
+    ignore:
+      # Deliberately forced pin in the era-A fleet (1.21.2-1.21.10): newer
+      # rendering-v1 pulls a 1.21.9-contaminated fabric-api line that breaks
+      # access-widener remapping. Never auto-propose bumps for it.
+      - dependency-name: "net.fabricmc.fabric-api:fabric-rendering-v1"
     commit-message:
       prefix: "chore"
       include: "scope"
