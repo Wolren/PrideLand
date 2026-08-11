@@ -165,8 +165,28 @@ jobs:
             mc-versions/1.26.x/build/libs/pride_land-*.jar
             mc-versions/1.26.x-fabric/build/libs/pride_land-*.jar
 
-  publish:
+  create-release:
+    # Create the GitHub release exactly ONCE per run. The previous per-row
+    # "ensure release exists" step raced across 43 parallel matrix rows and
+    # GitHub's API let several win simultaneously - duplicate releases on the
+    # same tag (v1.1.2 x3, 1.1.1 x3). Single job, single call, idempotent.
     needs: [build, build-26x]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: create release (idempotent)
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "${{ github.ref_name }}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            echo "release ${{ github.ref_name }} already exists - skipping"
+          else
+            gh release create --repo "${GITHUB_REPOSITORY}" "${{ github.ref_name }}" --title "${{ github.ref_name }}" --generate-notes
+          fi
+
+  publish:
+    needs: [create-release]
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
@@ -283,19 +303,11 @@ jobs:
           echo "gh-asset-exists=$gh_asset_exists" >> "$GITHUB_OUTPUT"
 
       # GitHub release assets only (tag-triggered runs): every matrix row appends its
-      # uniquely-named jar to the release named after the v* tag. The release is
-      # created once (create is race-safe across the parallel matrix rows) and each
-      # row uploads its jar idempotently (--clobber overwrites; the asset-exists
+      # uniquely-named jar to the release named after the v* tag. The release itself
+      # is created by the create-release job (single, idempotent - no per-row race);
+      # each row uploads its jar idempotently (--clobber overwrites; the asset-exists
       # guard skips rows that already shipped). Platform uploads are gated
       # separately below on the upload-platforms input (default: skip).
-      - name: ensure release exists
-        if: startsWith(github.ref, 'refs/tags/')
-        shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create --repo "${GITHUB_REPOSITORY}" "${{ github.ref_name }}" --title "${{ github.ref_name }}" --generate-notes 2>/dev/null || echo "release already exists"
-
       - name: publish to GitHub release (assets only)
         if: startsWith(github.ref, 'refs/tags/') && steps.check.outputs.gh-asset-exists != 'true'
         shell: bash
