@@ -43,7 +43,7 @@ dependencies {
     modCompileOnly "dev.emi:emi-fabric:${project.findProperty("emi_version")}:api"
     modLocalRuntime "dev.emi:emi-fabric:${project.findProperty("emi_version")}"
     // Renders the custom.mcb badges ("Client & Server", "Gay Certified") in ModMenu
-    modLocalRuntime "maven.modrinth:modmenu-badges-lib:2023.6.1"
+    modLocalRuntime "maven.modrinth:modmenu-badges-lib:2026.3.1"
     modImplementation "com.terraformersmc:modmenu:${project.findProperty("modmenu")}"
     modApi "me.shedaniel.cloth:cloth-config-fabric:${project.findProperty("cloth_config")}"
 
