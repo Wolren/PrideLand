@@ -48,7 +48,7 @@ dependencies {
 
     modImplementation "me.shedaniel.cloth:cloth-config-forge:${project.findProperty("cloth_config")}"
 
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.code.gson:gson:2.14.0'
 }
 
 processResources {

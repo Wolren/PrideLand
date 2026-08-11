@@ -38,7 +38,7 @@ dependencies {
     modCompileOnly "dev.emi:emi-forge:${rootProject.findProperty("emi_version")}:api"
     modImplementation "me.shedaniel.cloth:cloth-config-forge:${rootProject.findProperty("cloth_config")}"
 
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.code.gson:gson:2.14.0'
 }
 
 processResources {

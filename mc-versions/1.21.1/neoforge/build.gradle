@@ -50,7 +50,7 @@ dependencies {
     common(project(path: ":mc-versions:1.21.1:common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":mc-versions:1.21.1:common", configuration: "transformProductionForge")) { transitive false }
 
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.code.gson:gson:2.14.0'
 
     // Cloth Config for AutoConfig
     modApi "me.shedaniel.cloth:cloth-config-neoforge:${project.findProperty("cloth_config")}"
