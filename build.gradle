@@ -46,7 +46,13 @@ allprojects {
         maven { url "https://maven.minecraftforge.net/" }
         maven { url "https://maven.neoforged.net/releases/" }
         maven { url "https://maven.architectury.dev/" }
-        maven { url "https://maven.quiltmc.org/repository/release/" }
+        maven {
+            url "https://maven.quiltmc.org/repository/release/"
+            // quiltmc mirrors fabric artifacts but flaps with 503s; fabric-loader:+
+            // (Architectury plugin transformer classpath) queries every repo for
+            // metadata, so exclude net.fabricmc here and let fabricmc.net serve it.
+            content { excludeGroup "net.fabricmc" }
+        }
         mavenCentral()
     }
 
