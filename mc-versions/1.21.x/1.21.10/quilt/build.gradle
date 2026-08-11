@@ -28,7 +28,7 @@ configurations {
 }
 
 configurations.all {
-    resolutionStrategy.force "net.fabricmc.fabric-api:fabric-rendering-v1:16.2.0+bee81f016f"
+    resolutionStrategy.force "net.fabricmc.fabric-api:fabric-rendering-v1:27.0.1+"
 }
 dependencies {
     minecraft "com.mojang:minecraft:${project.findProperty("minecraft_version")}"
