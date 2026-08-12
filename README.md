@@ -15,6 +15,7 @@ Multi-loader Minecraft mod adding LGBTQIA+ themed blocks, decorations, and tools
 [![Modrinth](https://img.shields.io/modrinth/v/pride-land?label=Modrinth&logo=modrinth)](https://modrinth.com/mod/pride-land)
 [![CI](https://img.shields.io/github/actions/workflow/status/Wolren/PrideLand/build.yml?label=CI)](https://github.com/Wolren/PrideLand/actions/workflows/build.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Wolren/PrideLand/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Wolren/PrideLand)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Wolren-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/wolren)
 
 </div>
 
