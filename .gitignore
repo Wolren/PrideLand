@@ -64,3 +64,6 @@ claude.md
 .cursorrules
 .hermes/
 *.ai
+.windsurfrules
+.prompt
+.copilot-instructions.md

@@ -18,22 +18,9 @@ import net.wolren.land.LandCommon;
  * This handler is disabled for 1.21.1; custom elytra flight is handled via mixins
  * in the common module instead.
  */
-//@EventBusSubscriber(modid = LandCommon.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class ForgeElytraHandler {
     /**
      * This would run every tick when the entity is fall-flying.
      * Disabled in 1.21.1 because LivingEvent.LivingTickEvent doesn't exist yet.
      */
-    /*
-    @SubscribeEvent
-    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
-        LivingEntity entity = event.getEntity();
-        if (!entity.isFallFlying()) return;
-
-        ItemStack chestStack = entity.getEquippedStack(EquipmentSlot.CHEST);
-        if (chestStack.isOf(Items.ELYTRA) || !(chestStack.getItem() instanceof ElytraItem)) return;
-
-        entity.setFlag(7, true);
-    }
-    */
 }

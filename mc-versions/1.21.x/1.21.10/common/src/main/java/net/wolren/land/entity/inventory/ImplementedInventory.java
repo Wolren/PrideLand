@@ -11,44 +11,18 @@ import org.jetbrains.annotations.Nullable;
 
 @FunctionalInterface
 public interface ImplementedInventory extends SidedInventory {
-    /**
-     * Gets the item list of this inventory.
-     * Must return the same instance every time it's called.
-     *
-     * @return the item list
-     */
     DefaultedList<ItemStack> getItems();
 
-    /**
-     * Creates an inventory from the item list.
-     *
-     * @param items the item list
-     * @return a new inventory
-     */
     static ImplementedInventory of(DefaultedList<ItemStack> items) {
         return () -> items;
     }
 
-    /**
-     * Creates a new inventory with the size.
-     *
-     * @param size the inventory size
-     * @return a new inventory
-     */
     static ImplementedInventory ofSize(int size) {
         return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
     }
 
     // SidedInventory
 
-    /**
-     * Gets the available slots to automation on the side.
-     *
-     * <p>The default implementation returns an array of all slots.
-     *
-     * @param side the side
-     * @return the available slots
-     */
     @Override
     default int[] getAvailableSlots(Direction side) {
         int[] result = new int[getItems().size()];
@@ -59,31 +33,11 @@ public interface ImplementedInventory extends SidedInventory {
         return result;
     }
 
-    /**
-     * Returns true if the stack can be inserted in the slot at the side.
-     *
-     * <p>The default implementation returns true.
-     *
-     * @param slot the slot
-     * @param stack the stack
-     * @param side the side
-     * @return true if the stack can be inserted
-     */
     @Override
     default boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
         return true;
     }
 
-    /**
-     * Returns true if the stack can be extracted from the slot at the side.
-     *
-     * <p>The default implementation returns true.
-     *
-     * @param slot the slot
-     * @param stack the stack
-     * @param side the side
-     * @return true if the stack can be extracted
-     */
     @Override
     default boolean canExtract(int slot, ItemStack stack, Direction side) {
         return true;
