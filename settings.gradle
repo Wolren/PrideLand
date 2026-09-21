@@ -8,7 +8,7 @@ pluginManagement {
     plugins {
         // Centralized plugin versions — subprojects omit the version
         id "architectury-plugin" version "3.5.170"
-        id "dev.architectury.loom" version "1.17.491"
+        id "dev.architectury.loom" version "1.17.493"
     }
 }
 
