@@ -12,7 +12,7 @@ import net.wolren.land.entity.ModEntities;
  * Sign block whose block entity uses the mod's registered sign block entity
  * type instead of the vanilla minecraft:sign type (vanilla's createBlockEntity
  * hardcodes BlockEntityType.SIGN, whose supported-block set contains only
- * vanilla sign blocks - placing this block with that type throws
+ * vanilla sign blocks; placing this block with that type throws
  * IllegalStateException from validateSupports).
  */
 public class RainbowSignBlock extends SignBlock {

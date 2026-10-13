@@ -52,10 +52,8 @@ public class LandQuilt implements ModInitializer {
     public void onInitialize() {
         LandCommon.init();
 
-        // Config
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
 
-        // Registrations
         ModItems.registerModItems();
         ModBlocks.registerModBlocks();
         ModItemGroups.registerItemGroups();
@@ -63,24 +61,19 @@ public class LandQuilt implements ModInitializer {
         ModScreenHandlers.registerScreenHandlers();
         ModSerializers.registerCuttingSerializers();
 
-        // Boats (Terraform API - Fabric only)
         ModBoats.registerBoats();
         ModItems.RAINBOW_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.RAINBOW_BOAT_ID, false);
         ModItems.RAINBOW_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.RAINBOW_BOAT_ID, true);
 
-        // Signs (Terraform API - Fabric only)
         registerRainbowSigns();
 
-        // Entity attributes
         FabricDefaultAttributeRegistry.register(ModEntities.RAINBOW_SHEEP, createSheepAttributes());
 
-        // Recipe type
         LandCommon.RAINBOW_CUTTING = Registry.register(
                 Registries.RECIPE_TYPE,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_cutting"),
                 new net.minecraft.recipe.RecipeType<>() {});
 
-        // Biome spawning for rainbow sheep
         if (AutoConfig.getConfigHolder(RainbowConfig.class).getConfig().enableRainbowSheepSpawning) {
             BiomeModifications.addSpawn(
                     BiomeSelectors.includeByKey(

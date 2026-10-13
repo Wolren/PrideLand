@@ -21,7 +21,6 @@ public class RainbowCuttingRecipe extends CuttingRecipe {
         return this.ingredient.test(input.item());
     }
 
-    // Use Yarn field name from CuttingRecipe: "result" not "output"
     public ItemStack getOutput() {
         return this.result;
     }

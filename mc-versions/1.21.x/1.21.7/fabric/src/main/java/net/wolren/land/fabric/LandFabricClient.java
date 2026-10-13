@@ -50,10 +50,8 @@ public class LandFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         LandCommon.clientInit();
 
-        // Screen
         HandledScreens.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
 
-        // Render layers
         registerBedBlockRenderLayers();
         registerGlassBlockRenderLayers();
         BlockRenderLayerMap.putBlock(ModBlocks.RAINBOW_DOOR, BlockRenderLayer.CUTOUT);
@@ -62,16 +60,12 @@ public class LandFabricClient implements ClientModInitializer {
 
 
 
-        // Boat models
         TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID);
 
 
-        // Entity renderers
         EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
         BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
         BlockEntityRendererRegistry.register(ModEntities.RAINBOW_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
-        // The hanging renderer's factory is typed SignBlockEntity (base class); the
-        // fabric registry is invariant in E, so cast the type to the base class.
         BlockEntityRendererRegistry.register(
                 (BlockEntityType<SignBlockEntity>) (BlockEntityType<?>) ModEntities.RAINBOW_HANGING_SIGN_BLOCK_ENTITY,
                 ctx -> new HangingSignBlockEntityRenderer(ctx));

@@ -32,11 +32,9 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(PrideLand.MOD_ID);
 
-    // === Candle ===
     public static final DeferredBlock<CandleBlock> RAINBOW_CANDLE = registerBlock("rainbow_candle",
             properties -> new CandleBlock(candle(properties)));
 
-    // === Crafting ===
     public static final DeferredBlock<RainbowCraftingBlock> RAINBOW_CRAFTING = registerBlock("rainbow_crafting",
             properties -> new RainbowCraftingBlock(stonecutter(properties)));
 
@@ -208,7 +206,6 @@ public class ModBlocks {
     public static final DeferredBlock<CustomBedBlock> POLYSEXUAL_BED = registerBlock("polysexual_bed",
             properties -> new CustomBedBlock(DyeColor.WHITE, bed(properties)));
 
-    // === Concrete & Terracotta ===
     public static final DeferredBlock<DirectionalBlock> RAINBOW_CONCRETE = registerBlock("rainbow_concrete",
             properties -> new DirectionalBlock(concrete(properties)));
     public static final DeferredBlock<DirectionalRainbowConcretePowderBlock> RAINBOW_CONCRETE_POWDER = registerBlock("rainbow_concrete_powder",
@@ -216,7 +213,6 @@ public class ModBlocks {
     public static final DeferredBlock<DirectionalBlock> RAINBOW_TERRACOTTA = registerBlock("rainbow_terracotta",
             properties -> new DirectionalBlock(terracotta(properties)));
 
-    // === Bricks ===
     public static final DeferredBlock<Block> RAINBOW_BRICKS = registerBlock("rainbow_bricks",
             properties -> new Block(bricks(properties)));
     public static final DeferredBlock<StairBlock> RAINBOW_BRICK_STAIRS = registerBlock("rainbow_brick_stairs",
@@ -226,7 +222,6 @@ public class ModBlocks {
     public static final DeferredBlock<WallBlock> RAINBOW_BRICK_WALL = registerBlock("rainbow_brick_wall",
             properties -> new WallBlock(wall(properties)));
 
-    // === Planks & Wood family ===
     public static final DeferredBlock<Block> RAINBOW_PLANKS = registerBlock("rainbow_planks",
             properties -> new Block(planks(properties)));
     public static final DeferredBlock<StairBlock> RAINBOW_STAIRS = registerBlock("rainbow_stairs",
@@ -256,7 +251,6 @@ public class ModBlocks {
     public static final DeferredBlock<WallHangingSignBlock> RAINBOW_WALL_HANGING_SIGN = registerBlockNoItem("rainbow_wall_hanging_sign",
             properties -> new WallHangingSignBlock(WoodType.OAK, properties));
 
-    // === Registration helpers ===
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {
         DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, function);
@@ -268,7 +262,6 @@ public class ModBlocks {
         ModItems.ITEMS.registerItem(name, properties -> new BlockItem(block.get(), properties.useBlockDescriptionPrefix()));
     }
 
-    // Registers a block WITHOUT an automatic BlockItem (sign blocks use SignItem/HangingSignItem)
     private static <T extends Block> DeferredBlock<T> registerBlockNoItem(String name, Function<BlockBehaviour.Properties, T> function) {
         return BLOCKS.registerBlock(name, function);
     }
@@ -277,9 +270,7 @@ public class ModBlocks {
         BLOCKS.register(eventBus);
     }
 
-    // === Block settings helpers (26.2 SoundType + vanilla-compatible strength) ===
-    // Without these every block falls back to BlockBehaviour.Properties.of(),
-    // whose default sound group is SoundType.STONE (wool sounding like stone, etc.).
+    // Without these helpers every block falls back to BlockBehaviour.Properties.of(); 26.2 defaults give wool the stone sound.
 
     private static BlockBehaviour.Properties wool(BlockBehaviour.Properties p) {
         return p.strength(0.8F).sound(SoundType.WOOL);
@@ -313,15 +304,12 @@ public class ModBlocks {
         return p.strength(2.0F, 3.0F).sound(SoundType.WOOD);
     }
 
-    // Vanilla fences use .forceSolidOn(): it makes the fence count as solid so
-    // fences connect to each other, to walls and to solid blocks through the
-    // face-solid path in FenceBlock.connectsTo (and walls connect back to it).
+    // Vanilla fences use .forceSolidOn(): it makes the fence count as solid so fences connect to each other
     private static BlockBehaviour.Properties fence(BlockBehaviour.Properties p) {
         return planks(p).forceSolidOn();
     }
 
-    // Vanilla walls use .forceSolidOn() too (e.g. cobblestone_wall), so fences
-    // and other walls connect to this wall through the face-solid path.
+    // Vanilla walls use .forceSolidOn() too (e.g. cobblestone_wall), so fences and other walls connect to this wall through the face-solid path.
     private static BlockBehaviour.Properties wall(BlockBehaviour.Properties p) {
         return bricks(p).forceSolidOn();
     }

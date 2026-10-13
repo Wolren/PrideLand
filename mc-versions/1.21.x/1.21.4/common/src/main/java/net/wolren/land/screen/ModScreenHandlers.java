@@ -4,7 +4,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.wolren.land.LandCommon;
 
 public class ModScreenHandlers {
-    // Initialized by platform-specific modules (fabric/forge) during init
     public static ScreenHandlerType<RainbowCraftingScreenHandler> BOX_SCREEN_HANDLER = null;
 
     public static void registerScreenHandlers() {

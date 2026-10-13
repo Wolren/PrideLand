@@ -44,11 +44,8 @@ import net.wolren.land.util.config.RainbowConfig;
 
 @Mod("pride_land")
 public class LandForge {
-    // WoodType for rainbow signs (registered during class init)
-    // Namespace-qualified name so the renderer looks up textures in the mod's namespace
     private static final WoodType RAINBOW_WOOD_TYPE = WoodType.register(new WoodType(LandCommon.MOD_ID + ":rainbow", BlockSetType.OAK));
     
-    // Custom block entity types for rainbow signs
     public static BlockEntityType<RainbowSignBlockEntity> RAINBOW_SIGN_BE;
     public static BlockEntityType<RainbowHangingSignBlockEntity> RAINBOW_HANGING_SIGN_BE;
 
@@ -62,22 +59,16 @@ public class LandForge {
         modBus.addListener(this::clientSetup);
         modBus.addListener(this::entityAttributeCreation);
 
-        // Config — Cloth Config / AutoConfig shared with Fabric
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
 
-        // Natural spawning is handled via Forge's data-driven biome modifier JSON
-        // (data/pride_land/forge/biome_modifier/add_rainbow_sheep_spawns.json) +
-        // a runtime filter that reads config values.
         MinecraftForge.EVENT_BUS.addListener(LandForge::onMobSpawnPositionCheck);
 
-        // Register forge-native sign blocks/items
         modBus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
 
             if (key.equals(RegistryKeys.BLOCK)) {
                 ModBlocks.registerModBlocks();
 
-                // Forge-native sign blocks with custom block entity support
                 Block signBlock = Registry.register(Registries.BLOCK,
                         new Identifier(LandCommon.MOD_ID, "rainbow_standing_sign"),
                         new RainbowStandingSignBlock(Block.Settings.copy(Blocks.OAK_SIGN), RAINBOW_WOOD_TYPE));
@@ -106,14 +97,10 @@ public class LandForge {
                 BlockItemQueue.PENDING.clear();
                 LandCommon.LOGGER.info("Registered items + " + blockItems + " block items");
 
-                // Spawn egg — ForgeSpawnEggItem uses a lazy supplier. Forge patches
-                // SpawnEggItem.getType(ItemStack) to call getDefaultType(), which
-                // ForgeSpawnEggItem overrides to return typeSupplier.get().
                 var egg = new ForgeSpawnEggItem(() -> ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings());
                 Registry.register(Registries.ITEM, new Identifier(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"), egg);
                 ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) egg;
 
-                // Forge-native sign items
                 var signItem = new SignItem(new Item.Settings().maxCount(16),
                         ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN);
                 Registry.register(Registries.ITEM, new Identifier(LandCommon.MOD_ID, "rainbow_sign"), signItem);
@@ -136,7 +123,6 @@ public class LandForge {
                 BlockEntityTypeQueue.PENDING.forEach(Runnable::run);
                 BlockEntityTypeQueue.PENDING.clear();
 
-                // Custom sign block entity types
                 RAINBOW_SIGN_BE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
                         new Identifier(LandCommon.MOD_ID, "rainbow_sign"),
                         BlockEntityType.Builder.create(RainbowSignBlockEntity::new,

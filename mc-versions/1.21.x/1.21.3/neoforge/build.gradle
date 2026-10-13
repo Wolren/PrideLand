@@ -13,19 +13,14 @@ loom {
     accessWidenerPath = project(":mc-versions:1.21.x:1.21.3:common").loom.accessWidenerPath
 
     neoForge {
-        // NeoForge handles access wideners natively
     }
     runs {
         client {
-            // Hide the @OnlyIn loading-screen warning (deps like cloth-config and
-            // architectury carry @OnlyIn annotations; NeoForge 21.x no longer strips
-            // them at runtime and shows a dev-only warning for each affected mod).
             vmArgs "-Dneoforge.warnings.onlyin.hide=true"
         }
     }
 }
 
-// Validate against Fabric's Mojmap jar; NeoForge uses SRG and convertAccessWideners handles it.
 tasks.named("validateAccessWidener").configure {
     enabled = false
 }
@@ -60,7 +55,6 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.14.0'
 
-    // Cloth Config for AutoConfig
     modApi "me.shedaniel.cloth:cloth-config-neoforge:${project.findProperty("cloth_config")}"
 }
 
@@ -77,8 +71,6 @@ processResources {
                 "cloth_config_min_version": project.findProperty("cloth_config_min_version")
     }
 
-    // Dev runs don't get the common module's assets on the classpath, so the
-    // mod's own resource pack root must carry them (icon, lang, models, textures).
     from(project(":mc-versions:1.21.x:1.21.3:common").sourceSets.main.resources) {
         include "assets/**", "data/**", "pack.mcmeta"
     }

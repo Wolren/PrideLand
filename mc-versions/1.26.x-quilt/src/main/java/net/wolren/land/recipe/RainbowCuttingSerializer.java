@@ -9,8 +9,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public class RainbowCuttingSerializer {
-    // 26.2: the recipe JSONs are {type, ingredient, result} - no common_info
-    // (StonecutterRecipe.simpleMapCodec omits it; the vanilla default applies)
+    // 26.2: the recipe JSONs are {type, ingredient, result}; no common_info (StonecutterRecipe.simpleMapCodec omits it; the vanilla default applies)
     public static final MapCodec<RainbowCuttingRecipe> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
                     Ingredient.CODEC.fieldOf("ingredient").forGetter(RainbowCuttingRecipe::input),

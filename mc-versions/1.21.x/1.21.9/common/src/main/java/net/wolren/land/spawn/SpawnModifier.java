@@ -4,7 +4,7 @@ import net.wolren.land.LandCommon;
 
 public class SpawnModifier {
     public static void modifySpawning() {
-        // TODO: Platform-specific - register biome spawning in fabric/forge modules
+        // TODO: Platform-specific. Register biome spawning in fabric/forge modules
         LandCommon.LOGGER.info("Spawn modification is platform-specific");
     }
 }

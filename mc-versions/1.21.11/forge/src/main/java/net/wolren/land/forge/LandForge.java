@@ -50,10 +50,8 @@ import java.util.Set;
 
 @Mod("pride_land")
 public class LandForge {
-    // WoodType for rainbow signs (registered during class init)
     private static final WoodType RAINBOW_WOOD_TYPE = WoodType.register(new WoodType(LandCommon.MOD_ID + ":rainbow", BlockSetType.OAK));
 
-    // Custom block entity types for rainbow signs
     public static BlockEntityType<RainbowSignBlockEntity> RAINBOW_SIGN_BE;
     public static BlockEntityType<RainbowHangingSignBlockEntity> RAINBOW_HANGING_SIGN_BE;
 
@@ -71,11 +69,9 @@ public class LandForge {
             event.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
         });
 
-        // Config
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
         NeoForge.EVENT_BUS.addListener(LandForge::onPotentialSpawns);
 
-        // Register forge-native sign blocks/items
         modBus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
 

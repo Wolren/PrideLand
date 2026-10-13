@@ -1,15 +1,4 @@
-#!/usr/bin/env bash
-# Seeds cloth-config-fabric jars into mavenLocal for the Loom remap pipeline.
-#
-# WHY: on maven.shedaniel.me every cloth-config-fabric version >= 12 publishes
-# ONLY the "-fabric" classified jar (no plain jar). Loom's dependency-remap
-# resolves the original through Gradle module metadata and names the remapped
-# output after the declared coordinate, so the exact filename the resolver asks
-# for varies per project (plain vs -fabric). Seeding BOTH file names plus the
-# .module metadata into ~/.m2 (mavenLocal is first in every project's
-# repositories) makes every variant resolve locally and the remap always has an
-# input, so compileJava never fails with:
-#   "Could not find cloth-config-fabric-<hash>-<ver>.jar (remapped...)".
+# WHY: on maven.shedaniel.me every cloth-config-fabric version >= 12 publishes only the "-fabric" classified jar (no plain jar).
 set -euo pipefail
 
 VERSIONS=(12.0.137 13.0.138 15.0.140 16.0.143 18.0.145 19.0.147 20.0.148 20.0.149 21.11.153)

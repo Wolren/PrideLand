@@ -9,7 +9,6 @@ public class ModBoats {
 
     public static void registerBoats() {
         LandCommon.LOGGER.info("Registering Boats for " + LandCommon.MOD_ID);
-        // Boats are now data-driven via TerraformBoatData
-        // Item registration happens in LandQuilt.java via TerraformBoatItemHelper
+        // Boats are data-driven via TerraformBoatData; items register in LandQuilt.java via TerraformBoatItemHelper.
     }
 }

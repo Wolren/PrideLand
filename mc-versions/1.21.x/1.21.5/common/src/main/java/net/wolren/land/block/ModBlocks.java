@@ -21,7 +21,6 @@ import net.wolren.land.block.custom.directional.DirectionalCarpetBlock;
 import net.wolren.land.block.custom.directional.DirectionalRainbowConcretePowderBlock;
 
 public class ModBlocks {
-    // Forge detection: defer block item registration to ITEM RegisterEvent
     private static final boolean DEFER_BLOCK_ITEMS = initDefer();
 
     private static boolean initDefer() {
@@ -33,13 +32,10 @@ public class ModBlocks {
         }
     }
 
-    // Candle
     public static final CandleBlock RAINBOW_CANDLE = (CandleBlock) registerBlock("rainbow_candle",new CandleBlock(candle("rainbow_candle")));
 
-    // Crafting
     public static final Block RAINBOW_CRAFTING = registerBlock("rainbow_crafting",new RainbowCraftingBlock(stonecutter("rainbow_crafting")));
 
-    // Wools
     public static final DirectionalBlock RAINBOW_WOOL = (DirectionalBlock) registerBlock("rainbow_wool",new DirectionalBlock(wool("rainbow_wool")));
     public static final DirectionalBlock TRANS_WOOL = (DirectionalBlock) registerBlock("trans_wool",new DirectionalBlock(wool("trans_wool")));
     public static final DirectionalBlock NONBINARY_WOOL = (DirectionalBlock) registerBlock("nonbinary_wool",new DirectionalBlock(wool("nonbinary_wool")));
@@ -57,7 +53,6 @@ public class ModBlocks {
     public static final DirectionalBlock GENDERQUEER_WOOL = (DirectionalBlock) registerBlock("genderqueer_wool",new DirectionalBlock(wool("genderqueer_wool")));
     public static final DirectionalBlock POLYSEXUAL_WOOL = (DirectionalBlock) registerBlock("polysexual_wool",new DirectionalBlock(wool("polysexual_wool")));
 
-    // Carpets
     public static final DirectionalCarpetBlock RAINBOW_CARPET = (DirectionalCarpetBlock) registerBlock("rainbow_carpet",new DirectionalCarpetBlock(carpet("rainbow_carpet")));
     public static final DirectionalCarpetBlock TRANS_CARPET = (DirectionalCarpetBlock) registerBlock("trans_carpet",new DirectionalCarpetBlock(carpet("trans_carpet")));
     public static final DirectionalCarpetBlock NONBINARY_CARPET = (DirectionalCarpetBlock) registerBlock("nonbinary_carpet",new DirectionalCarpetBlock(carpet("nonbinary_carpet")));
@@ -75,7 +70,6 @@ public class ModBlocks {
     public static final DirectionalCarpetBlock GENDERQUEER_CARPET = (DirectionalCarpetBlock) registerBlock("genderqueer_carpet",new DirectionalCarpetBlock(wool("genderqueer_carpet")));
     public static final DirectionalCarpetBlock POLYSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("polysexual_carpet",new DirectionalCarpetBlock(wool("polysexual_carpet")));
 
-    // Stained Glass
     public static final Block RAINBOW_STAINED_GLASS = (Block) registerBlock("rainbow_stained_glass",new Block(glass("rainbow_stained_glass")));
     public static final PaneBlock RAINBOW_STAINED_GLASS_PANE = (PaneBlock) registerBlock("rainbow_stained_glass_pane",new PaneBlock(pane("rainbow_stained_glass_pane")));
     public static final Block TRANS_STAINED_GLASS = (Block) registerBlock("trans_stained_glass",new Block(glass("trans_stained_glass")));
@@ -109,7 +103,6 @@ public class ModBlocks {
     public static final Block POLYSEXUAL_STAINED_GLASS = (Block) registerBlock("polysexual_stained_glass",new Block(glass("polysexual_stained_glass")));
     public static final PaneBlock POLYSEXUAL_STAINED_GLASS_PANE = (PaneBlock) registerBlock("polysexual_stained_glass_pane",new PaneBlock(pane("polysexual_stained_glass_pane")));
 
-    // Beds
     public static final CustomBedBlock RAINBOW_BED = (CustomBedBlock) registerBlock("rainbow_bed",new CustomBedBlock(bed("rainbow_bed")));
     public static final CustomBedBlock TRANS_BED = (CustomBedBlock) registerBlock("trans_bed",new CustomBedBlock(bed("trans_bed")));
     public static final CustomBedBlock NONBINARY_BED = (CustomBedBlock) registerBlock("nonbinary_bed",new CustomBedBlock(bed("nonbinary_bed")));
@@ -127,18 +120,15 @@ public class ModBlocks {
     public static final CustomBedBlock GENDERQUEER_BED = (CustomBedBlock) registerBlock("genderqueer_bed",new CustomBedBlock(bed("genderqueer_bed")));
     public static final CustomBedBlock POLYSEXUAL_BED = (CustomBedBlock) registerBlock("polysexual_bed",new CustomBedBlock(bed("polysexual_bed")));
 
-    // Concrete & Terracotta
     public static final DirectionalBlock RAINBOW_CONCRETE = (DirectionalBlock) registerBlock("rainbow_concrete",new DirectionalBlock(concrete("rainbow_concrete")));
     public static final DirectionalRainbowConcretePowderBlock RAINBOW_CONCRETE_POWDER = (DirectionalRainbowConcretePowderBlock) registerBlock("rainbow_concrete_powder",new DirectionalRainbowConcretePowderBlock(ModBlocks.RAINBOW_CONCRETE, concretePowder("rainbow_concrete_powder")));
     public static final DirectionalBlock RAINBOW_TERRACOTTA = (DirectionalBlock) registerBlock("rainbow_terracotta",new DirectionalBlock(terracotta("rainbow_terracotta")));
 
-    // Bricks
     public static final Block RAINBOW_BRICKS = registerBlock("rainbow_bricks",new Block(bricks("rainbow_bricks")));
     public static final StairsBlock RAINBOW_BRICK_STAIRS = (StairsBlock) registerBlock("rainbow_brick_stairs",new StairsBlock(ModBlocks.RAINBOW_BRICKS.getDefaultState(), bricks("rainbow_brick_stairs")));
     public static final SlabBlock RAINBOW_BRICK_SLAB = (SlabBlock) registerBlock("rainbow_brick_slab",new SlabBlock(bricks("rainbow_brick_slab")));
     public static final WallBlock RAINBOW_BRICK_WALL = (WallBlock) registerBlock("rainbow_brick_wall",new WallBlock(bricks("rainbow_brick_wall")));
 
-    // Planks & Wood family
     public static final Block RAINBOW_PLANKS = registerBlock("rainbow_planks",new Block(planks("rainbow_planks")));
     public static final StairsBlock RAINBOW_STAIRS = (StairsBlock) registerBlock("rainbow_stairs",new StairsBlock(ModBlocks.RAINBOW_PLANKS.getDefaultState(), planks("rainbow_stairs")));
     public static final SlabBlock RAINBOW_SLAB = (SlabBlock) registerBlock("rainbow_slab",new SlabBlock(planks("rainbow_slab")));
@@ -146,25 +136,18 @@ public class ModBlocks {
     public static final FenceGateBlock RAINBOW_FENCE_GATE = (FenceGateBlock) registerBlock("rainbow_fence_gate",new FenceGateBlock(WoodType.OAK, planks("rainbow_fence_gate")));
     public static final ButtonBlock RAINBOW_BUTTON = (ButtonBlock) registerBlock("rainbow_button",new ButtonBlock(BlockSetType.OAK, 10, planks("rainbow_button")));
     public static final PressurePlateBlock RAINBOW_PRESSURE_PLATE = (PressurePlateBlock) registerBlock("rainbow_pressure_plate",new PressurePlateBlock(BlockSetType.OAK, planks("rainbow_pressure_plate")));
-    // nonOpaque() is required for doors and trapdoors: without it the block is treated as a
-    // full opaque cube for occlusion culling, causing xray artifacts where adjacent block
-    // faces are incorrectly hidden (for trapdoors) and drop issues (for doors).
-    // Vanilla DoorBlock/TrapdoorBlock constructors call nonOpaque() internally in standard
-    // mappings, but the Forge+Yarn+Architectury transformer may strip this call.
+    // Vanilla DoorBlock/TrapdoorBlock constructors call nonOpaque() internally in standard mappings, but the Forge+Yarn+Architectury transformer may strip this call.
     public static final DoorBlock RAINBOW_DOOR = (DoorBlock) registerBlock("rainbow_door",new RainbowDoorBlock(BlockSetType.OAK, planks("rainbow_door").nonOpaque()));
     public static final TrapdoorBlock RAINBOW_TRAPDOOR = (TrapdoorBlock) registerBlock("rainbow_trapdoor",new TrapdoorBlock(BlockSetType.OAK, planks("rainbow_trapdoor").nonOpaque()));
 
-    // Block family for data gen
     public static final BlockFamily RAINBOW_FAMILY = BlockFamilies.register(ModBlocks.RAINBOW_PLANKS)
             .group("wooden").unlockCriterionName("has_planks").build();
 
-// Sign blocks — set by platform-specific modules (Terraform on Fabric, vanilla on Forge)
     public static Block RAINBOW_STANDING_SIGN = null;
     public static Block RAINBOW_WALL_SIGN = null;
     public static Block RAINBOW_HANGING_SIGN = null;
     public static Block RAINBOW_WALL_HANGING_SIGN = null;
 
-    // Registration helpers
     private static Block registerBlock(String name, Block block) {
         if (DEFER_BLOCK_ITEMS) {
             BlockItemQueue.PENDING.add(() -> registerBlockItem(name, block));
@@ -188,7 +171,6 @@ public class ModBlocks {
         return base.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, name)));
     }
 
-    // Block settings helpers - vanilla-compatible (no Fabric/Forge deps)
     private static Block.Settings wool(String name) {
         return keyed(name, Block.Settings.create()).strength(0.8F).sounds(BlockSoundGroup.WOOL);
     }

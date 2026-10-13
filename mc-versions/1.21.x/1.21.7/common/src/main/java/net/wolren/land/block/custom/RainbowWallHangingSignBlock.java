@@ -10,7 +10,7 @@ import net.wolren.land.entity.custom.block.RainbowHangingSignBlockEntity;
 
 /**
  * Wall hanging sign block with the mod's registered hanging sign block
- * entity type - see RainbowHangingSignBlock for why the override is required.
+ * entity type; see RainbowHangingSignBlock for why the override is required.
  */
 public class RainbowWallHangingSignBlock extends WallHangingSignBlock {
     public RainbowWallHangingSignBlock(WoodType woodType, Settings settings) {

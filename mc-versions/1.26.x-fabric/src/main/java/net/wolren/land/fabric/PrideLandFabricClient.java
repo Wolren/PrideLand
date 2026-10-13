@@ -28,9 +28,7 @@ public class PrideLandFabricClient implements ClientModInitializer {
     static {
         ModelLayerRegistry.registerModelLayer(ModelLayers.RAINBOW_SHEEP, RainbowSheepModel::createBodyLayer);
         ModelLayerRegistry.registerModelLayer(ModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolModel::createBodyLayer);
-        // Bed renders via block models (vanilla 26.2 approach) - no entity renderer needed.
-        // Boats: model layers boat/rainbow + chest_boat/rainbow; textures entity/boat/rainbow.png
-        // and entity/chest_boat/rainbow.png are derived from the layer location by BoatRenderer.
+        // Bed renders via block models (vanilla 26.2 approach); no entity renderer needed.
         ModelLayerRegistry.registerModelLayer(
                 new ModelLayerLocation(ModBoats.RAINBOW_BOAT_ID.withPrefix("boat/"), "main"),
                 BoatModel::createBoatModel);
@@ -43,13 +41,10 @@ public class PrideLandFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         PrideLand.clientInit();
 
-        // Screen
         MenuScreens.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
 
-        // Entity renderers
         EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
-        // Bed renders via block models (vanilla 26.2 approach) - no entity renderer needed.
-        // Boats
+        // Bed renders via block models (vanilla 26.2 approach); no entity renderer needed.
         EntityRendererRegistry.register(ModBoats.RAINBOW_BOAT_ENTITY,
                 context -> new BoatRenderer(context, new ModelLayerLocation(
                         ModBoats.RAINBOW_BOAT_ID.withPrefix("boat/"), "main")));

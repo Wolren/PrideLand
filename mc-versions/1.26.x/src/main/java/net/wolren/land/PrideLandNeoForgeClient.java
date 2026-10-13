@@ -26,7 +26,6 @@ public class PrideLandNeoForgeClient {
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.RAINBOW_SHEEP.get(), RainbowSheepRenderer::new);
         event.registerBlockEntityRenderer(ModEntities.CUSTOM_BED_BLOCK_ENTITY.get(), CustomBedBlockEntityRenderer::new);
-        // Boats (layers boat/rainbow + chest_boat/rainbow; textures entity/boat/rainbow.png etc)
         event.registerEntityRenderer(ModEntities.RAINBOW_BOAT.get(),
                 context -> new BoatRenderer(context, ModBoats.RAINBOW_BOAT_LAYER));
         event.registerEntityRenderer(ModEntities.RAINBOW_CHEST_BOAT.get(),
@@ -37,7 +36,6 @@ public class PrideLandNeoForgeClient {
     public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP, RainbowSheepModel::createBodyLayer);
         event.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolModel::createBodyLayer);
-        // Boats
         event.registerLayerDefinition(ModBoats.RAINBOW_BOAT_LAYER, BoatModel::createBoatModel);
         event.registerLayerDefinition(ModBoats.RAINBOW_CHEST_BOAT_LAYER, BoatModel::createChestBoatModel);
     }

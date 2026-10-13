@@ -18,8 +18,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ModEntities {
-    // On Forge, ALL registrations must be deferred to their respective RegisterEvents.
-    // Otherwise class loading during ITEM event triggers BLOCK_ENTITY_TYPE registration.
     private static final boolean DEFER = initDefer();
 
     private static boolean initDefer() {

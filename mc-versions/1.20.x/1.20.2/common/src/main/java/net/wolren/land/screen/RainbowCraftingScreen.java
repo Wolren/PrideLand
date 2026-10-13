@@ -149,7 +149,6 @@ public class RainbowCraftingScreen extends HandledScreen<RainbowCraftingScreenHa
         }
     }
 
-    // Not an @Override - superclass doesn't have mouseScrolled in this Yarn version
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
         if (this.shouldScroll()) {
             int i = this.getMaxScroll();

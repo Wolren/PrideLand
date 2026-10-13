@@ -39,7 +39,6 @@ public class PrideLandFabric implements ModInitializer {
     public void onInitialize() {
         PrideLand.init();
 
-        // Registrations
         ModItems.registerModItems();
         ModBlocks.registerModBlocks();
         ModCreativeModeTabs.registerCreativeModeTabs();
@@ -48,33 +47,26 @@ public class PrideLandFabric implements ModInitializer {
         ModSerializers.registerCuttingSerializers();
         ModTags.registerModTags();
 
-        // Sign blocks use the shared vanilla SIGN/HANGING_SIGN block entity
-        // types - register them as valid blocks or placement crashes with
-        // "Invalid block entity minecraft:sign ... got Block{pride_land:...}"
+        // Sign blocks use the shared vanilla sign/HANGING_SIGN block entity types
         ((FabricBlockEntityType) BlockEntityTypes.SIGN).addValidBlock(ModBlocks.RAINBOW_STANDING_SIGN);
         ((FabricBlockEntityType) BlockEntityTypes.SIGN).addValidBlock(ModBlocks.RAINBOW_WALL_SIGN);
         ((FabricBlockEntityType) BlockEntityTypes.HANGING_SIGN).addValidBlock(ModBlocks.RAINBOW_HANGING_SIGN);
         ((FabricBlockEntityType) BlockEntityTypes.HANGING_SIGN).addValidBlock(ModBlocks.RAINBOW_WALL_HANGING_SIGN);
 
-        // Boats (Terraform API - Fabric only, basic setup)
         ModBoats.registerBoats();
 
-        // Entity attributes for rainbow sheep (26.2: createMobAttributes is
-        // the Mob base; the animal+sheep chain uses createAnimalAttributes /
-        // Sheep.createAttributes which include tempt_range for TemptGoal)
+        // Entity attributes for rainbow sheep (26.2: the animal+sheep chain uses createAnimalAttributes, not Mob.createMobAttributes)
         FabricDefaultAttributeRegistry.register(ModEntities.RAINBOW_SHEEP, Sheep.createAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.23F));
 
-        // Recipe type (26.2: RecipeType.register(String) no longer parses
-        // namespaces - register via the registry with an Identifier)
+        // Recipe type (26.2: RecipeType.register(String) no longer parses namespaces; register via the registry with an Identifier)
         PrideLand.RAINBOW_CUTTING = Registry.register(
                 BuiltInRegistries.RECIPE_TYPE,
                 Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, "rainbow_cutting"),
                 new net.minecraft.world.item.crafting.RecipeType<net.wolren.land.recipe.RainbowCuttingRecipe>() {
                 });
 
-        // Biome spawning for rainbow sheep (config-gated)
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
         RainbowConfig config = AutoConfig.getConfigHolder(RainbowConfig.class).get();
         if (config.enableRainbowSheepSpawning) {
@@ -92,14 +84,13 @@ public class PrideLandFabric implements ModInitializer {
             );
         }
 
-        // Fuel registry (MC 26.2: FuelValueEvents.BUILD)
+        // Fuel registry (mc 26.2: FuelValueEvents.BUILD)
         FuelValueEvents.BUILD.register((builder, context) -> {
             CustomFuelRegistry.getCustomFuels().forEach((item, burnTime) ->
                 builder.add(item, burnTime)
             );
         });
 
-        // Screen handler type (vanilla registry)
         ModScreenHandlers.setBoxScreenHandler(
                 Registry.register(
                         BuiltInRegistries.MENU,

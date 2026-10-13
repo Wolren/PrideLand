@@ -37,7 +37,6 @@ public class LandForgeClient {
     public static void init() {
         LandCommon.LOGGER.info("Initializing Pride Land NeoForge client");
 
-        // Render layers
         registerCutout(
             ModBlocks.RAINBOW_DOOR, ModBlocks.RAINBOW_TRAPDOOR,
             ModBlocks.RAINBOW_BED, ModBlocks.TRANS_BED, ModBlocks.NONBINARY_BED,
@@ -69,28 +68,22 @@ public class LandForgeClient {
             ModBlocks.GENDERQUEER_STAINED_GLASS_PANE, ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE
         );
 
-        // Config screen
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () ->
             (mc, screen) -> AutoConfig.getConfigScreen(RainbowConfig.class, screen).get()
         );
         LandCommon.LOGGER.info("Registered config screen factory");
 
-        // Model layers
         net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP, RainbowSheepModel::getTexturedModelData);
         net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolModel::getTexturedModelData);
 
-        // Sign layers are registered by the vanilla EntityModels.getModels for every registered WoodType
-        // Sign renderers — hanging signs need the dedicated hanging renderer (chains,
-        // 0.9 text scale, hanging texture); the standing renderer would draw them as a normal sign
+        // Sign layers come from vanilla EntityModels per WoodType; hanging signs need the dedicated renderer (chains, 0.9 scale, hanging texture).
         BlockEntityRendererFactories.register(LandForge.RAINBOW_SIGN_BE, SignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(LandForge.RAINBOW_HANGING_SIGN_BE, HangingSignBlockEntityRenderer::new);
-        // Boat model layers + renderers
         EntityModelLayer rainbowBoatLayer = new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "boat/rainbow"), "main");
         net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(rainbowBoatLayer, BoatEntityModel::getTexturedModelData);
         EntityModelLayer rainbowChestBoatLayer = new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "chest_boat/rainbow"), "main");
         net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(rainbowChestBoatLayer, BoatEntityModel::getChestTexturedModelData);
 
-        // Bed renderers
         dev.architectury.registry.client.rendering.BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
     }
 
@@ -108,9 +101,7 @@ public class LandForgeClient {
     }
 
     private static void registerCutout(Block... blocks) {
-        // NeoForge 1.21.2 meshes via RenderLayers.BLOCK_RENDER_TYPES (getRenderLayers), NOT the
-        // vanilla BLOCKS map — the public setRenderLayer API is the only path that takes effect.
-        // The vanilla map (mixin) is kept for item/entity layer lookups (getBlockLayer).
+        // NeoForge 1.21.2 meshes via RenderLayers.BLOCK_RENDER_TYPES (getRenderLayers)
         var layers = net.wolren.land.mixin.RenderLayersAccessor.prideLand$getBlocks();
         for (var block : blocks) {
             RenderLayers.setRenderLayer(block, RenderLayer.getCutout());

@@ -1,7 +1,3 @@
-// Base convention plugin for mc-versions subproject modules (common, fabric, forge, quilt).
-// Provides shared configuration: Java, repositories, publishing.
-// Does NOT apply architectury-plugin or loom — each module declares those in its own plugins block.
-// This convention plugin is applied AFTER architectury-plugin and loom in the module's plugins block.
 
 plugins {
     id "java"
@@ -25,8 +21,7 @@ repositories {
     maven { url "https://maven.architectury.dev/" }
     maven {
         url "https://maven.quiltmc.org/repository/release/"
-        // quiltmc flaps with 503s on fabric artifacts it doesn't host; keep
-        // net.fabricmc resolution on fabricmc.net only (see root build.gradle).
+        // quiltmc flaps with 503s on fabric artifacts it doesn't host; keep net.fabricmc resolution on fabricmc.net only (see root build.gradle).
         content { excludeGroup "net.fabricmc" }
     }
     mavenCentral()
@@ -48,6 +43,5 @@ publishing {
         }
     }
     repositories {
-        // Add publish targets here
     }
 }

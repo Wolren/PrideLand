@@ -37,7 +37,6 @@ public class LandForgeClient {
     public static void init() {
         LandCommon.LOGGER.info("Initializing Pride Land NeoForge client");
 
-        // Render layers
         registerCutout(
             ModBlocks.RAINBOW_DOOR, ModBlocks.RAINBOW_TRAPDOOR,
             ModBlocks.RAINBOW_BED, ModBlocks.TRANS_BED, ModBlocks.NONBINARY_BED,
@@ -85,28 +84,23 @@ public class LandForgeClient {
                 ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE
         );
 
-        // Config screen
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () ->
             (mc, screen) -> AutoConfig.getConfigScreen(RainbowConfig.class, screen).get()
         );
         LandCommon.LOGGER.info("Registered config screen factory");
 
-        // Model layers
         net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP, RainbowSheepModel::getTexturedModelData);
         net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolModel::getTexturedModelData);
 
-        // Sign layers are registered by the vanilla EntityModels.getModels for every registered WoodType
-        // Boat model layers (client setup timing works in 1.21.3)
+        // Boat layers register here (1.21.3 client setup timing); sign layers come from vanilla EntityModels.
         EntityModelLayer rainbowBoatLayer = new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "boat/rainbow"), "main");
         net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(rainbowBoatLayer, BoatEntityModel::getTexturedModelData);
         EntityModelLayer rainbowChestBoatLayer = new EntityModelLayer(Identifier.of(LandCommon.MOD_ID, "chest_boat/rainbow"), "main");
         net.neoforged.neoforge.client.ClientHooks.registerLayerDefinition(rainbowChestBoatLayer, BoatEntityModel::getChestTexturedModelData);
 
-        // Sign renderers
         BlockEntityRendererFactories.register(LandForge.RAINBOW_SIGN_BE, SignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(LandForge.RAINBOW_HANGING_SIGN_BE, HangingSignBlockEntityRenderer::new);
 
-        // Bed renderers
         dev.architectury.registry.client.rendering.BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
     }
 

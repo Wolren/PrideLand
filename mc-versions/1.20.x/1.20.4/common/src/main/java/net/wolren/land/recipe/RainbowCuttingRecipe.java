@@ -28,7 +28,6 @@ public class RainbowCuttingRecipe extends CuttingRecipe {
         return new ItemStack(Blocks.STONECUTTER);
     }
 
-    // Use Yarn field name from CuttingRecipe: "result" not "output"
     public ItemStack getOutput() {
         return this.result;
     }

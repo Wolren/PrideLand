@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class ClientPlayerEntityMixin {
     /**
      * 1.21.1 ClientPlayerEntity.tickMovement gates elytra flight with a hardcoded
-     * chestStack.isOf(Items.ELYTRA) check BEFORE calling checkFallFlying() — the
+     * chestStack.isOf(Items.ELYTRA) check BEFORE calling checkFallFlying(). The
      * checkFallFlying mixin is never reached for custom elytras, so the
      * START_FALL_FLYING packet is never sent. Redirect the isOf to accept any
      * usable ElytraItem.

@@ -37,7 +37,6 @@ public class LandForgeClient {
     public static void init() {
         LandCommon.LOGGER.info("Initializing Pride Land NeoForge client");
 
-        // Render layers
         registerCutout(
             ModBlocks.RAINBOW_DOOR, ModBlocks.RAINBOW_TRAPDOOR,
             ModBlocks.RAINBOW_BED, ModBlocks.TRANS_BED, ModBlocks.NONBINARY_BED,
@@ -85,22 +84,15 @@ public class LandForgeClient {
                 ModBlocks.POLYSEXUAL_STAINED_GLASS_PANE
         );
 
-        // Config screen
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () ->
             (mc, screen) -> AutoConfig.getConfigScreen(RainbowConfig.class, screen).get()
         );
         LandCommon.LOGGER.info("Registered config screen factory");
 
-        // Model layer definitions are registered in onRegisterLayerDefinitions
-        // (RegisterLayerDefinitions fires during Minecraft construction, before the first
-        // resource reload — registering here in client setup is too late in 1.21.4+).
-
-        // Sign layers are registered by the vanilla EntityModels.getModels for every registered WoodType
-        // Sign renderers
+        // Model layers register in onRegisterLayerDefinitions: it fires before the resource reload; client setup is too late in 1.21.4+.
         BlockEntityRendererFactories.register(LandForge.RAINBOW_SIGN_BE, SignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(LandForge.RAINBOW_HANGING_SIGN_BE, HangingSignBlockEntityRenderer::new);
 
-        // Bed renderers
         dev.architectury.registry.client.rendering.BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
     }
 

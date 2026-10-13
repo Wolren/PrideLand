@@ -23,7 +23,6 @@ configurations {
 
 dependencies {
     mappings "net.fabricmc:yarn:${rootProject.findProperty("yarn_mappings")}:v2"
-    // quilt-loader at compile only — no runtime conflict with fabric-loader's Knot classes
     modCompileOnly "org.quiltmc:quilt-loader:${rootProject.findProperty("quilt_loader_version")}"
     // fabric-loader at runtime for dev launch (Loom's default 0.14.21 is too old for Fabric API 0.92.9)
     modImplementation "net.fabricmc:fabric-loader:${rootProject.findProperty("fabric_loader_version")}"
@@ -57,8 +56,6 @@ processResources {
                 "qfapi_version": rootProject.findProperty("qfapi_version")
     }
 
-    // Dev runs don't get the common module's assets on the classpath, so the
-    // mod's own resource pack root must carry them (icon, lang, models, textures).
     from(project(":common").sourceSets.main.resources) {
         include "assets/**", "data/**", "pack.mcmeta"
     }

@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.wolren.land.entity.ModEntities;
 
 /**
- * Wall sign block with the mod's registered sign block entity type - see
+ * Wall sign block with the mod's registered sign block entity type; see
  * RainbowSignBlock for why the override is required.
  */
 public class RainbowWallSignBlock extends WallSignBlock {

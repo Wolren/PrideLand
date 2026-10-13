@@ -33,7 +33,7 @@ public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomB
 
     @Override
     public void submit(State state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
-        // Bed rendering is handled by the vanilla bed block renderer in MC 26.2
+        // Bed rendering is handled by the vanilla bed block renderer in mc 26.2
     }
 
     @Override

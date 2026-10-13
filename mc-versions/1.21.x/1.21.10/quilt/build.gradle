@@ -33,9 +33,7 @@ configurations.all {
 dependencies {
     minecraft "com.mojang:minecraft:${project.findProperty("minecraft_version")}"
     mappings "net.fabricmc:yarn:${project.findProperty("yarn_mappings")}:v2"
-    // quilt-loader at compile only — no runtime conflict with fabric-loader's Knot classes
     modCompileOnly "org.quiltmc:quilt-loader:${project.findProperty("quilt_loader_version")}"
-    // fabric-loader at runtime for dev launch
     modImplementation "net.fabricmc:fabric-loader:${project.findProperty("fabric_loader_version")}"
     modApi "net.fabricmc.fabric-api:fabric-api:${project.findProperty("fabric_api_version")}"
     modApi "dev.architectury:architectury-fabric:${project.findProperty("architectury_api_version")}"
@@ -69,8 +67,6 @@ processResources {
         expand "version": project.version
     }
 
-    // Dev runs don't get the common module's assets on the classpath, so the
-    // mod's own resource pack root must carry them (icon, lang, models, textures).
     from(project(":mc-versions:1.21.x:1.21.10:common").sourceSets.main.resources) {
         include "assets/**", "data/**", "pack.mcmeta"
     }

@@ -15,9 +15,9 @@ import net.wolren.land.entity.ModEntities;
  * Natural spawns are registered by the data-driven biome modifier
  * (data/pride_land/forge/biome_modifier/add_rainbow_sheep_spawns.json) at the
  * base weight of 10; the events below apply the runtime config on top:
- *   - PositionCheck   — deny entirely when spawning is disabled
- *   - FinalizeSpawn   — scale the rate down when the config weight is below 10
- *   - SpawnClusterSize — clamp group sizes to the config min/max
+ *   - PositionCheck: deny entirely when spawning is disabled
+ *   - FinalizeSpawn: scale the rate down when the config weight is below 10
+ *   - SpawnClusterSize: clamp group sizes to the config min/max
  */
 @EventBusSubscriber(modid = PrideLand.MOD_ID)
 public class PrideLandNeoForge {

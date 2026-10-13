@@ -47,20 +47,16 @@ public class LandQuiltClient implements ClientModInitializer {
     public void onInitializeClient() {
         LandCommon.clientInit();
 
-        // Screen
         HandledScreens.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
 
-        // Render layers
         registerBedBlockRenderLayers();
         registerGlassBlockRenderLayers();
         BlockRenderLayerMap.putBlock(ModBlocks.RAINBOW_DOOR, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.RAINBOW_TRAPDOOR, BlockRenderLayer.CUTOUT);
 
-        // Boat models
         TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID);
 
 
-        // Entity renderers
         EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
         BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
     }

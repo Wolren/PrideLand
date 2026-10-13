@@ -26,7 +26,7 @@ import java.util.Optional;
  * cutting recipe, stonecutter-style.
  *
  * Uses the 26.2 RecipeAccess.stonecutterRecipes() selectable set (the same
- * mechanism as the vanilla StonecutterMenu) - the set is synced to the client,
+ * mechanism as the vanilla StonecutterMenu); the set is synced to the client,
  * so no RecipeManager cast is needed and the menu works on both sides.
  */
 public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
@@ -146,7 +146,6 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
             SelectableRecipe.SingleInputEntry<StonecutterRecipe> entry = this.recipesForInput.entries().get(index);
             Optional<RecipeHolder<StonecutterRecipe>> holderOpt = entry.recipe().recipe();
             if (holderOpt.isPresent()) {
-                // Server side: real recipe holder.
                 RecipeHolder<StonecutterRecipe> holder = holderOpt.get();
                 RainbowCuttingRecipe cutting = (RainbowCuttingRecipe) holder.value();
                 ItemStack result = cutting.getResult();
@@ -157,9 +156,6 @@ public class RainbowCraftingScreenHandler extends AbstractContainerMenu {
                     this.outputSlot.set(ItemStack.EMPTY);
                 }
             } else {
-                // Client side: the synced set carries only the SlotDisplay
-                // (noRecipeCodec drops the recipe holder). Resolve the visual
-                // stack from the display; the server syncs the real result.
                 ItemStack result = entry.recipe().optionDisplay()
                         .resolveForFirstStack(net.minecraft.world.item.crafting.display.SlotDisplayContext.fromLevel(this.world));
                 if (result.isItemEnabled(this.world.enabledFeatures())) {

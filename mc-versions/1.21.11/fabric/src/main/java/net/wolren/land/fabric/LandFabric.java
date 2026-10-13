@@ -56,10 +56,8 @@ public class LandFabric implements ModInitializer {
     public void onInitialize() {
         LandCommon.init();
 
-        // Config
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
 
-        // Registrations
         ModItems.registerModItems();
         ModBlocks.registerModBlocks();
         ModItemGroups.registerItemGroups();
@@ -67,13 +65,10 @@ public class LandFabric implements ModInitializer {
         ModScreenHandlers.registerScreenHandlers();
         ModSerializers.registerCuttingSerializers();
 
-        // Boats (Terraform API - Fabric only)
         ModBoats.registerBoats();
 
-        // Signs (Terraform API - Fabric only)
         registerRainbowSigns();
 
-        // Entity attributes
         FabricDefaultAttributeRegistry.register(ModEntities.RAINBOW_SHEEP, createSheepAttributes());
 
         // Recipe type (1.21.x: RecipeType.register(String) doesn't parse namespaces)
@@ -82,7 +77,6 @@ public class LandFabric implements ModInitializer {
                 Identifier.of(LandCommon.MOD_ID, "rainbow_cutting"),
                 new net.minecraft.recipe.RecipeType<>() {});
 
-        // Biome spawning for rainbow sheep
         if (AutoConfig.getConfigHolder(RainbowConfig.class).getConfig().enableRainbowSheepSpawning) {
             BiomeModifications.addSpawn(
                     BiomeSelectors.includeByKey(
@@ -116,8 +110,7 @@ public class LandFabric implements ModInitializer {
     }
 
     public static DefaultAttributeContainer.Builder createSheepAttributes() {
-        // 1.21.11: MobEntity.createMobAttributes() lacks tempt_range (moved to
-        // AnimalEntity.createAnimalAttributes()); the TemptGoal crashes without it.
+        // 1.21.11: MobEntity.createMobAttributes() lacks tempt_range (moved to AnimalEntity.createAnimalAttributes()); the TemptGoal crashes without it.
         return AnimalEntity.createAnimalAttributes()
             .add(EntityAttributes.MAX_HEALTH, 8.0)
             .add(EntityAttributes.MOVEMENT_SPEED, 0.23F);
@@ -174,10 +167,6 @@ public class LandFabric implements ModInitializer {
                 new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16)
                         .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign")))));
 
-        // Spawn egg (already registered as a static field in ModItems - do not re-register)
-
-
-        // Boats — Terraform API items (base id "rainbow": boat -> rainbow_boat, chest -> rainbow_chest_boat)
         ModItems.RAINBOW_BOAT = TerraformBoatItemHelper.registerBoatItem(
                 ModBoats.RAINBOW_BOAT_ID, false);
         ModItems.RAINBOW_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(

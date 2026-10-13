@@ -62,13 +62,12 @@ public class ModItems {
 
 
 
-    // Sign items — set by platform-specific modules (Terraform API on Fabric, vanilla on Forge)
+    // Sign items: set by platform-specific modules (Terraform API on Fabric, vanilla on Forge)
     public static SignItem RAINBOW_SIGN = null;
     public static HangingSignItem RAINBOW_HANGING_SIGN = null;
 
 
 
-    // Boat items — assigned in LandFabric.registerRainbowSigns() via TerraformBoatItemHelper
     public static Item RAINBOW_BOAT = null;
     public static Item RAINBOW_CHEST_BOAT = null;
 

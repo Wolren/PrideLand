@@ -46,7 +46,6 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
 
     final CraftingResultInventory output = new CraftingResultInventory();
 
-    // Client-side constructor (simple factory, no extended data needed)
     public RainbowCraftingScreenHandler(int syncId, PlayerInventory inventory) {
         this(syncId, inventory, new SimpleInventory(3));
     }
@@ -158,10 +157,7 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
         this.selectedRecipe.set(-1);
         this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
         if (!materialStack.isEmpty() && !dyeStack.isEmpty()) {
-            // 1.21.2+: RecipeManager is an interface; getStonecutterRecipes() is the
-            // synced selectable grouping (works on both client and server). The old
-            // (ServerRecipeManager) cast crashed the client with a ClassCastException
-            // because ClientRecipeManager is not a ServerRecipeManager.
+            // 1.21.2+: RecipeManager is an interface; getStonecutterRecipes() is the synced selectable grouping (works on both client and server).
             this.availableRecipes = this.world.getRecipeManager().getStonecutterRecipes().filter(materialStack);
         }
     }
@@ -172,7 +168,6 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
                     this.availableRecipes.entries().get(this.selectedRecipe.get());
             var holderOpt = entry.recipe().recipe();
             if (holderOpt.isPresent()) {
-                // Server side: the grouping carries the real recipe holder.
                 RecipeEntry<?> recipeEntry = holderOpt.get();
                 RainbowCuttingRecipe rainbowCuttingRecipe = (RainbowCuttingRecipe) recipeEntry.value();
                 SingleStackRecipeInput recipeInput = new SingleStackRecipeInput(this.inputSlot.getStack());
@@ -184,8 +179,6 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
                     this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
                 }
             } else {
-                // Client side: the synced grouping carries only the SlotDisplay.
-                // Resolve the visual stack; the server syncs the real result.
                 ItemStack itemStack = entry.recipe().optionDisplay()
                         .getFirst(SlotDisplayContexts.createParameters(this.world));
                 if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {

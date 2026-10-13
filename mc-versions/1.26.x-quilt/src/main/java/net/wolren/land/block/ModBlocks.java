@@ -22,18 +22,14 @@ import net.wolren.land.block.custom.directional.DirectionalRainbowConcretePowder
 import java.util.function.Function;
 
 public class ModBlocks {
-    // Forge detection - always false on Fabric
     private static final boolean DEFER_BLOCK_ITEMS = false;
 
-    // Candle
     public static final Block RAINBOW_CANDLE = registerBlock("rainbow_candle",
             properties -> new CandleBlock(candle(properties)));
 
-    // Crafting
     public static final Block RAINBOW_CRAFTING = registerBlock("rainbow_crafting",
             properties -> new RainbowCraftingBlock(stonecutter(properties)));
 
-    // Wools
     public static final DirectionalBlock RAINBOW_WOOL = (DirectionalBlock) registerBlock("rainbow_wool",
             properties -> new DirectionalBlock(wool(properties)));
     public static final DirectionalBlock TRANS_WOOL = (DirectionalBlock) registerBlock("trans_wool",
@@ -67,7 +63,6 @@ public class ModBlocks {
     public static final DirectionalBlock POLYSEXUAL_WOOL = (DirectionalBlock) registerBlock("polysexual_wool",
             properties -> new DirectionalBlock(wool(properties)));
 
-    // Carpets
     public static final DirectionalCarpetBlock RAINBOW_CARPET = (DirectionalCarpetBlock) registerBlock("rainbow_carpet",
             properties -> new DirectionalCarpetBlock(carpet(properties)));
     public static final DirectionalCarpetBlock TRANS_CARPET = (DirectionalCarpetBlock) registerBlock("trans_carpet",
@@ -101,7 +96,6 @@ public class ModBlocks {
     public static final DirectionalCarpetBlock POLYSEXUAL_CARPET = (DirectionalCarpetBlock) registerBlock("polysexual_carpet",
             properties -> new DirectionalCarpetBlock(wool(properties)));
 
-    // Stained Glass
     public static final Block RAINBOW_STAINED_GLASS = registerBlock("rainbow_stained_glass",
             properties -> new Block(glass(properties)));
     public static final Block RAINBOW_STAINED_GLASS_PANE = registerBlock("rainbow_stained_glass_pane",
@@ -167,7 +161,6 @@ public class ModBlocks {
     public static final Block POLYSEXUAL_STAINED_GLASS_PANE = registerBlock("polysexual_stained_glass_pane",
             properties -> new IronBarsBlock(pane(properties)));
 
-    // Beds
     public static final CustomBedBlock RAINBOW_BED = (CustomBedBlock) registerBlock("rainbow_bed",
             properties -> new CustomBedBlock(bed(properties)));
     public static final CustomBedBlock TRANS_BED = (CustomBedBlock) registerBlock("trans_bed",
@@ -201,7 +194,6 @@ public class ModBlocks {
     public static final CustomBedBlock POLYSEXUAL_BED = (CustomBedBlock) registerBlock("polysexual_bed",
             properties -> new CustomBedBlock(bed(properties)));
 
-    // Concrete & Terracotta
     public static final DirectionalBlock RAINBOW_CONCRETE = (DirectionalBlock) registerBlock("rainbow_concrete",
             properties -> new DirectionalBlock(concrete(properties)));
     public static final DirectionalRainbowConcretePowderBlock RAINBOW_CONCRETE_POWDER = (DirectionalRainbowConcretePowderBlock) registerBlock("rainbow_concrete_powder",
@@ -209,7 +201,6 @@ public class ModBlocks {
     public static final DirectionalBlock RAINBOW_TERRACOTTA = (DirectionalBlock) registerBlock("rainbow_terracotta",
             properties -> new DirectionalBlock(terracotta(properties)));
 
-    // Bricks
     public static final Block RAINBOW_BRICKS = registerBlock("rainbow_bricks",
             properties -> new Block(bricks(properties)));
     public static final StairBlock RAINBOW_BRICK_STAIRS = (StairBlock) registerBlock("rainbow_brick_stairs",
@@ -219,7 +210,6 @@ public class ModBlocks {
     public static final WallBlock RAINBOW_BRICK_WALL = (WallBlock) registerBlock("rainbow_brick_wall",
             properties -> new WallBlock(bricks(properties)));
 
-    // Planks & Wood family
     public static final Block RAINBOW_PLANKS = registerBlock("rainbow_planks",
             properties -> new Block(planks(properties)));
     public static final StairBlock RAINBOW_STAIRS = (StairBlock) registerBlock("rainbow_stairs",
@@ -239,7 +229,7 @@ public class ModBlocks {
     public static final TrapDoorBlock RAINBOW_TRAPDOOR = (TrapDoorBlock) registerBlock("rainbow_trapdoor",
             properties -> new TrapDoorBlock(BlockSetType.OAK, planks(properties).noOcclusion()));
 
-    // Sign blocks - registered here (26.2 model-driven rendering)
+    // Sign blocks: registered here (26.2 model-driven rendering)
     public static final Block RAINBOW_STANDING_SIGN = registerBlockNoItem("rainbow_standing_sign",
             properties -> new StandingSignBlock(WoodType.OAK, sign(properties)));
     public static final Block RAINBOW_WALL_SIGN = registerBlockNoItem("rainbow_wall_sign",
@@ -249,7 +239,6 @@ public class ModBlocks {
     public static final Block RAINBOW_WALL_HANGING_SIGN = registerBlockNoItem("rainbow_wall_hanging_sign",
             properties -> new WallHangingSignBlock(WoodType.OAK, sign(properties)));
 
-    // Registration helpers
     private static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> function) {
         Block toRegister = function.apply(BlockBehaviour.Properties.of()
                 .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, name))));
@@ -267,7 +256,6 @@ public class ModBlocks {
                         .setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, name)))));
     }
 
-    // Registers a block WITHOUT a BlockItem (sign blocks use SignItem/HangingSignItem)
     private static Block registerBlockNoItem(String name, Function<BlockBehaviour.Properties, Block> function) {
         Block toRegister = function.apply(BlockBehaviour.Properties.of()
                 .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, name))));
@@ -278,7 +266,6 @@ public class ModBlocks {
         PrideLand.LOGGER.info("Registering ModBlocks for " + PrideLand.MOD_ID);
     }
 
-    // Block settings helpers
     private static BlockBehaviour.Properties wool(BlockBehaviour.Properties p) {
         return p.strength(0.8F).sound(SoundType.WOOL);
     }

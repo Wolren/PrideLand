@@ -13,11 +13,9 @@ loom {
     accessWidenerPath = project(":mc-versions:1.21.11:common").loom.accessWidenerPath
 
     neoForge {
-        // NeoForge handles access wideners natively
     }
 }
 
-// Validate against Fabric's Mojmap jar; NeoForge uses SRG and convertAccessWideners handles it.
 tasks.named("validateAccessWidener").configure {
     enabled = false
 }
@@ -68,9 +66,7 @@ processResources {
                 "cloth_config_min_version": project.findProperty("cloth_config_min_version")
     }
 
-    // Dev runs don't get fabric.classPathGroups from the Architectury transformer,
-    // so common-module assets (lang, models, textures) must land inside the mod's
-    // own resource pack root to be visible at runtime.
+    // Dev runs don't get fabric.classPathGroups from the Architectury transformer; common assets must be listed in this from() block.
     from(project(":mc-versions:1.21.11:common").sourceSets.main.resources) {
         include "assets/**", "data/**", "pack.mcmeta"
     }

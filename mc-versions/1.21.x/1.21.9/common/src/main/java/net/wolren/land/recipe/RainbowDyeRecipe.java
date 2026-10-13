@@ -28,7 +28,6 @@ public class RainbowDyeRecipe extends ShapelessRecipe {
 
     @Override
     public boolean matches(CraftingRecipeInput input, World world) {
-        // Standard shapeless ingredient check via RecipeMatcher
         if (!super.matches(input, world)) return false;
 
         // Enforce all 3 items are different from each other
@@ -51,8 +50,6 @@ public class RainbowDyeRecipe extends ShapelessRecipe {
     @Override
     @SuppressWarnings("unchecked")
     public RecipeSerializer<ShapelessRecipe> getSerializer() {
-        // Safe: RainbowDyeSerializer implements RecipeSerializer<RainbowDyeRecipe>,
-        // and RainbowDyeRecipe extends ShapelessRecipe
         return (RecipeSerializer<ShapelessRecipe>) (RecipeSerializer<?>) ModSerializers.RAINBOW_DYE_SERIALIZER;
     }
 

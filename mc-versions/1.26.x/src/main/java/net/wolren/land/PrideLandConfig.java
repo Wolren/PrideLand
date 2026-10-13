@@ -22,9 +22,7 @@ public class PrideLandConfig {
     public static final ModConfigSpec.IntValue SHEEP_MIN_GROUP_SIZE;
     public static final ModConfigSpec.IntValue SHEEP_MAX_GROUP_SIZE;
 
-    /** Per-biome spawn toggles: field name -> default (the original five default true). */
     public static final Map<String, Boolean> SHEEP_BIOME_DEFAULTS = new LinkedHashMap<>();
-    /** Field name -> minecraft biome id. */
     public static final Map<String, String> SHEEP_BIOME_IDS = new LinkedHashMap<>();
     public static final Map<String, ModConfigSpec.BooleanValue> SHEEP_SPAWN_BIOMES = new LinkedHashMap<>();
 
@@ -129,7 +127,6 @@ public class PrideLandConfig {
         SPEC = BUILDER.build();
     }
 
-    /** Biome ids currently toggled on. */
     public static List<String> activeSheepSpawnBiomes() {
         List<String> result = new ArrayList<>();
         for (Map.Entry<String, ModConfigSpec.BooleanValue> e : SHEEP_SPAWN_BIOMES.entrySet()) {

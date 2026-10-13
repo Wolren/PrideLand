@@ -23,7 +23,6 @@ public class LandForgeClient {
     public static void init() {
         LandCommon.LOGGER.info("Initializing Pride Land NeoForge client");
 
-        // Render layers — blocks with transparency need cutout
         registerCutout(
                 ModBlocks.RAINBOW_DOOR, ModBlocks.RAINBOW_TRAPDOOR,
                 ModBlocks.RAINBOW_BED, ModBlocks.TRANS_BED, ModBlocks.NONBINARY_BED,
@@ -55,18 +54,14 @@ public class LandForgeClient {
         );
         registerCutout(ModBlocks.RAINBOW_CANDLE);
 
-        // Model layer definitions
         ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP, RainbowSheepModel::getTexturedModelData);
         ClientHooks.registerLayerDefinition(ModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolModel::getTexturedModelData);
         LandCommon.LOGGER.info("Registered entity model layer definitions");
 
-        // Sign block entity renderers — the hanging renderer picks the
-        // entity/signs/hanging/ texture via its own getTextureId override
         BlockEntityRendererFactories.register(LandForge.RAINBOW_SIGN_BE, SignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(LandForge.RAINBOW_HANGING_SIGN_BE, HangingSignBlockEntityRenderer::new);
         LandCommon.LOGGER.info("Registered sign block entity renderers");
 
-        // Bed block entity renderers
         BlockEntityRendererRegistry.register(
                 ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new
         );

@@ -48,10 +48,8 @@ public class LandQuiltClient implements ClientModInitializer {
     public void onInitializeClient() {
         LandCommon.clientInit();
 
-        // Screen
         HandledScreens.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
 
-        // Render layers
         registerBedBlockRenderLayers();
         registerGlassBlockRenderLayers();
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_DOOR, RenderLayer.getCutout());
@@ -59,7 +57,6 @@ public class LandQuiltClient implements ClientModInitializer {
 
 
 
-        // Sign sprites
         SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(
             TexturedRenderLayers.SIGNS_ATLAS_TEXTURE,
             Identifier.of(LandCommon.MOD_ID, "entity/signs/rainbow")
@@ -69,11 +66,9 @@ public class LandQuiltClient implements ClientModInitializer {
             Identifier.of(LandCommon.MOD_ID, "entity/signs/hanging/rainbow")
         ));
 
-        // Boat models
         TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID);
 
 
-        // Entity renderers
         EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
         BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
     }

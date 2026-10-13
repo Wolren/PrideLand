@@ -27,7 +27,6 @@ public class LandForgeClient {
     public static void init() {
         LandCommon.LOGGER.info("Initializing Pride Land NeoForge client");
 
-        // Render layers — blocks with transparency need cutout
         registerCutout(
                 ModBlocks.RAINBOW_DOOR, ModBlocks.RAINBOW_TRAPDOOR,
                 ModBlocks.RAINBOW_BED, ModBlocks.TRANS_BED, ModBlocks.NONBINARY_BED,
@@ -59,16 +58,11 @@ public class LandForgeClient {
         );
         registerCutout(ModBlocks.RAINBOW_CANDLE);
 
-        // Model layer definitions are registered in onRegisterLayerDefinitions
-        // (RegisterLayerDefinitions fires during Minecraft construction, before the first
-        // resource reload — registering here in client setup is too late in 1.21.4+).
-
-        // Sign block entity renderers
+        // Model layers register in onRegisterLayerDefinitions: it fires before the resource reload; client setup is too late in 1.21.4+.
         BlockEntityRendererFactories.register(LandForge.RAINBOW_SIGN_BE, SignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(LandForge.RAINBOW_HANGING_SIGN_BE, HangingSignBlockEntityRenderer::new);
         LandCommon.LOGGER.info("Registered sign block entity renderers");
 
-        // Bed block entity renderers
         BlockEntityRendererRegistry.register(
                 ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new
         );

@@ -13,7 +13,6 @@ loom {
     }
 }
 
-// Validate against Fabric's Mojmap jar; Forge uses SRG and convertAccessWideners handles it.
 tasks.named("validateAccessWidener").configure {
     enabled = false
 }
@@ -50,8 +49,6 @@ processResources {
                 "minecraft_version": rootProject.findProperty("minecraft_version")
     }
 
-    // Dev runs don't get the common module's assets on the classpath, so the
-    // mod's own resource pack root must carry them (logoFile, lang, models, textures).
     from(project(":common").sourceSets.main.resources) {
         include "assets/**", "data/**", "pack.mcmeta"
     }

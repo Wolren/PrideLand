@@ -41,7 +41,6 @@ public class ModEntities {
                     EntityType.Builder.of(MonoColorSheep.RainbowSheepEntity::new, MobCategory.CREATURE)
                             .sized(0.9f, 1.3f).build(RAINBOW_SHEEP_KEY));
 
-    // Boats (base id "rainbow": items rainbow_boat / rainbow_chest_boat, layers boat/rainbow / chest_boat/rainbow)
     public static final ResourceKey<EntityType<?>> RAINBOW_BOAT_KEY = ResourceKey.create(Registries.ENTITY_TYPE,
             Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, "rainbow_boat"));
     public static final ResourceKey<EntityType<?>> RAINBOW_CHEST_BOAT_KEY = ResourceKey.create(Registries.ENTITY_TYPE,

@@ -77,10 +77,7 @@ public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomB
         int light = state.lightmapCoordinates;
 
         matrices.push();
-        // Vanilla 1.21.11 BedBlockEntityRenderer.setTransforms passes isFoot=false (z=0) for ALL
-        // in-world halves: each half's block entity renders its own model in its own block space,
-        // and the adjacent head+foot models form one continuous bed. The -1.0f z-offset is only
-        // valid for the item-render path (1.21.1 renderAsItem) where BOTH halves share one frame.
+        // Vanilla 1.21.11 BedBlockEntityRenderer.setTransforms passes isFoot=false (z=0) for all in-world halves
         matrices.translate(0.0f, 0.5625f, 0.0f);
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90.0f));
         matrices.translate(0.5f, 0.5f, 0.5f);

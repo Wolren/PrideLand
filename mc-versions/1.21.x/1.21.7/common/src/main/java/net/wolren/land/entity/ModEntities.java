@@ -26,8 +26,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ModEntities {
-    // On Forge, ALL registrations must be deferred to their respective RegisterEvents.
-    // Otherwise class loading during ITEM event triggers BLOCK_ENTITY_TYPE registration.
     private static final boolean DEFER = initDefer();
 
     private static boolean initDefer() {
@@ -47,9 +45,7 @@ public class ModEntities {
     public static BlockEntityType<SignBlockEntity> RAINBOW_SIGN_BLOCK_ENTITY;
     public static BlockEntityType<RainbowHangingSignBlockEntity> RAINBOW_HANGING_SIGN_BLOCK_ENTITY;
 
-    // Sign block entity types must be registered AFTER the sign blocks are
-    // created (they live in LandFabric.registerRainbowSigns, which runs on
-    // the platform initializer), so they use a lazy queue on both loaders.
+    // Sign block entity types must register after the sign blocks exist (LandFabric.registerRainbowSigns); a lazy queue covers both loaders.
     private static boolean signEntitiesRegistered = false;
 
     public static void registerSignBlockEntities() {

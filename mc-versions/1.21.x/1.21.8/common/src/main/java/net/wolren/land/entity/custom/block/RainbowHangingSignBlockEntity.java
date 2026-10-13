@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 /**
  * Hanging sign block entity bound to the mod's registered hanging sign
  * BlockEntityType. Vanilla HangingSignBlockEntity has no constructor that
- * accepts a custom type - its (BlockPos, BlockState) ctor hardcodes
+ * accepts a custom type; its (BlockPos, BlockState) ctor hardcodes
  * BlockEntityType.HANGING_SIGN, so a subclass of SignBlockEntity with the
  * hanging-sign constants is required.
  */

@@ -49,16 +49,13 @@ public class LandFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         LandCommon.clientInit();
 
-        // Screen
         HandledScreens.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
 
-        // Render layers
         registerBedBlockRenderLayers();
         registerGlassBlockRenderLayers();
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RAINBOW_TRAPDOOR, RenderLayer.getCutout());
 
-        // Sign sprites
         SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(
             TexturedRenderLayers.SIGNS_ATLAS_TEXTURE,
             new Identifier(LandCommon.MOD_ID, "entity/signs/rainbow")
@@ -68,16 +65,13 @@ public class LandFabricClient implements ClientModInitializer {
             new Identifier(LandCommon.MOD_ID, "entity/signs/hanging/rainbow")
         ));
 
-        // Boat models
         TerraformBoatClientHelper.registerModelLayers(ModBoats.RAINBOW_BOAT_ID, false);
 
-        // Elytra feature renderer
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
             Identifier rainbowElytra = new Identifier("pride_land:textures/entity/rainbow_elytra.png");
             registrationHelper.register(new CustomElytraFeatureRenderer<>(entityRenderer, context.getModelLoader(), rainbowElytra));
         });
 
-        // Entity renderers
         EntityRendererRegistry.register(ModEntities.RAINBOW_SHEEP, RainbowSheepRenderer::new);
         BlockEntityRendererRegistry.register(ModEntities.CUSTOM_BED_BLOCK_ENTITY, CustomBedBlockEntityRenderer::new);
     }

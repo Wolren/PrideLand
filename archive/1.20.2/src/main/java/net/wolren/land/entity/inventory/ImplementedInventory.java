@@ -39,7 +39,6 @@ public interface ImplementedInventory extends SidedInventory {
         return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
     }
 
-    // SidedInventory
 
     /**
      * Gets the available slots to automation on the side.
@@ -89,7 +88,6 @@ public interface ImplementedInventory extends SidedInventory {
         return true;
     }
 
-    // Inventory
 
     /**
      * Returns the inventory size.
@@ -190,7 +188,6 @@ public interface ImplementedInventory extends SidedInventory {
 
     @Override
     default void markDirty() {
-        // Override if you want behavior.
     }
 
     @Override

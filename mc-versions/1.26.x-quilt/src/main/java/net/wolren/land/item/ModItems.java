@@ -31,13 +31,10 @@ import net.wolren.land.item.material.RainbowArmorMaterial;
 import java.util.function.Function;
 
 public class ModItems {
-    // Dye
     public static final Item RAINBOW_DYE = registerItem("rainbow_dye",
             properties -> new Item(properties));
 
-    // Tools & Weapons (26.2: pickaxe/sword are plain Items with the tool
-    // component; axe/shovel/hoe keep their subclasses for stripping/
-    // flattening/tilling - matches the NeoForge build exactly)
+    // Tools & Weapons (26.2: pickaxe/sword are plain Items with the tool component; axe/shovel/hoe keep their subclasses).
     public static final Item RAINBOW_SWORD = registerItem("rainbow_sword",
             properties -> new Item(properties.sword(ToolMaterial.NETHERITE, 3.0F, -2.4F).stacksTo(1).fireResistant()));
     public static final Item RAINBOW_PICKAXE = registerItem("rainbow_pickaxe",
@@ -49,8 +46,7 @@ public class ModItems {
     public static final Item RAINBOW_HOE = registerItem("rainbow_hoe",
             properties -> new HoeItem(ToolMaterial.NETHERITE, -4.0F, 0.0F, properties.stacksTo(1).fireResistant()));
 
-    // Armor (26.2: plain Item with the humanoidArmor property - sets the
-    // equippable component with the material's equipment asset + attributes)
+    // Armor (26.2: plain Item with the humanoidArmor property; it sets the equippable component from the material's equipment asset and attributes)
     public static final Item RAINBOW_HELMET = registerItem("rainbow_helmet",
             properties -> new Item(properties.stacksTo(1).fireResistant()
                     .humanoidArmor(RainbowArmorMaterial.RAINBOW, ArmorType.HELMET)));
@@ -87,12 +83,7 @@ public class ModItems {
             properties -> new RainbowSpawnEggItem(properties.component(DataComponents.ENTITY_DATA,
                     TypedEntityData.of(ModEntities.RAINBOW_SHEEP, new CompoundTag()))));
 
-    // Signs (26.2: SignItem/HangingSignItem pair blocks + wall variants. The
-    // item id differs from the standing block id (rainbow_sign vs
-    // rainbow_standing_sign), so useBlockDescriptionPrefix would resolve to
-    // block.pride_land.rainbow_sign - a key that does not exist. Pin the
-    // description to the standing/hanging BLOCK keys (matching 1.20.1
-    // BlockItem.getDescriptionId behavior).)
+    // Pin the description to the standing/hanging block keys (matching 1.20.1 BlockItem.getDescriptionId behavior).
     public static final Item RAINBOW_SIGN = registerItem("rainbow_sign",
             properties -> new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN,
                     properties.stacksTo(16).overrideDescription("block.pride_land.rainbow_standing_sign")));

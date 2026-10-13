@@ -22,7 +22,6 @@ public class RainbowDyeRecipe extends ShapelessRecipe {
 
     @Override
     public boolean matches(RecipeInputInventory inventory, World world) {
-        // Standard shapeless ingredient check via RecipeMatcher
         if (!super.matches(inventory, world)) return false;
 
         // Enforce all 3 items are different from each other

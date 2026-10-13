@@ -23,7 +23,7 @@ import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import org.slf4j.Logger;
 
 /**
- * PrideLand — Main mod entry point for NeoForge 26.X.
+ * PrideLand mod entry point for NeoForge 26.X.
  * Full PrideLand implementation ported from 1.21.11 common module.
  */
 @Mod(PrideLand.MOD_ID)
@@ -40,9 +40,7 @@ public class PrideLand {
         ModRecipeTypes.register(modEventBus);
         ModScreenHandlers.register(modEventBus);
 
-        // Sign blocks use the shared vanilla SIGN/HANGING_SIGN block entity
-        // types - register them as valid blocks or placement crashes with
-        // "Invalid block entity minecraft:sign ... got Block{pride_land:...}"
+        // Sign blocks use the shared vanilla sign/HANGING_SIGN block entity types
         modEventBus.addListener(BlockEntityTypeAddBlocksEvent.class, event -> {
             event.modify(ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, Identifier.withDefaultNamespace("sign")), ModBlocks.RAINBOW_STANDING_SIGN.get(), ModBlocks.RAINBOW_WALL_SIGN.get());
             event.modify(ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, Identifier.withDefaultNamespace("hanging_sign")), ModBlocks.RAINBOW_HANGING_SIGN.get(), ModBlocks.RAINBOW_WALL_HANGING_SIGN.get());

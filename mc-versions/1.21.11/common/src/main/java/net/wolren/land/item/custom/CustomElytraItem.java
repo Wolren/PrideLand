@@ -7,7 +7,7 @@ import net.minecraft.util.Unit;
 
 /**
  * Elytra item. The EQUIPPABLE component (with the per-elytra equipment asset
- * model key) is added by ModItems.registerElytra - the plain Item.Settings
+ * model key) is added by ModItems.registerElytra; the plain Item.Settings
  * chain here must NOT set .equippable() or it would overwrite that component.
  */
 public class CustomElytraItem extends Item {

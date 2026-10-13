@@ -20,14 +20,11 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    // Minecraft 26.1+ is unobfuscated - no mappings needed
-    //
+    // Minecraft 26.1+ is unobfuscated: no mappings needed
     
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-    // quilt-loader at compile only — no runtime conflict with fabric-loader's Knot classes.
-    // The dev launch runs on fabric-loader; the built jar is quilt-loadable via quilt.mod.json.
     compileOnly "org.quiltmc:quilt-loader:${project.quilt_loader_version}"
 
     compileOnly "me.shedaniel.cloth:basic-math:0.6.1"

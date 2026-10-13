@@ -20,8 +20,6 @@ import net.wolren.land.item.ModItems;
 import java.util.function.Supplier;
 
 public class ModBoats {
-    // Base id: items are <base>_boat / <base>_chest_boat, model layers boat/<base> / chest_boat/<base>,
-    // textures entity/boat/<base>.png / entity/chest_boat/<base>.png
     public static final Identifier RAINBOW_BOAT_ID = Identifier.fromNamespaceAndPath(PrideLand.MOD_ID, "rainbow");
 
     public static EntityType<Boat> RAINBOW_BOAT_ENTITY;
@@ -64,7 +62,6 @@ public class ModBoats {
                 new BoatItem(entityType, new Item.Properties().stacksTo(1).setId(key)));
     }
 
-    // Boat entities are constructed with a supplier that yields the registered item.
     private static class DelayedItemSupplier implements Supplier<Item> {
         private Item value = Items.AIR;
 

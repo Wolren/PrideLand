@@ -47,10 +47,8 @@ public class LandQuilt implements ModInitializer {
     public void onInitialize() {
         LandCommon.init();
 
-        // Config
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
 
-        // Registrations
         ModItems.registerModItems();
         ModBlocks.registerModBlocks();
         ModItemGroups.registerItemGroups();
@@ -58,24 +56,19 @@ public class LandQuilt implements ModInitializer {
         ModScreenHandlers.registerScreenHandlers();
         ModSerializers.registerCuttingSerializers();
 
-        // Boats (Terraform API - works through QFAPI)
         ModBoats.registerBoats();
         ModItems.RAINBOW_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.RAINBOW_BOAT_ID, false);
         ModItems.RAINBOW_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.RAINBOW_BOAT_ID, true);
 
-        // Signs (Terraform API - works through QFAPI)
         registerRainbowSigns();
 
-        // Entity attributes
         FabricDefaultAttributeRegistry.register(ModEntities.RAINBOW_SHEEP, createSheepAttributes());
 
-        // Recipe type
         LandCommon.RAINBOW_CUTTING = Registry.register(
                 Registries.RECIPE_TYPE,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_cutting"),
                 new net.minecraft.recipe.RecipeType<>() {});
 
-        // Biome spawning for rainbow sheep
         if (AutoConfig.getConfigHolder(RainbowConfig.class).getConfig().enableRainbowSheepSpawning) {
             BiomeModifications.addSpawn(
                     BiomeSelectors.includeByKey(
@@ -91,10 +84,6 @@ public class LandQuilt implements ModInitializer {
             );
         }
 
-        // Fuel registry
-
-
-        // Screen handler type (simple, no extended data needed)
         ModScreenHandlers.setBoxScreenHandler(
                 Registry.register(
                         Registries.SCREEN_HANDLER,
@@ -115,8 +104,7 @@ public class LandQuilt implements ModInitializer {
         Identifier hangingSignTexture = Identifier.of(LandCommon.MOD_ID, "entity/signs/hanging/rainbow");
         Identifier hangingGuiTexture = Identifier.of(LandCommon.MOD_ID, "textures/gui/hanging_signs/rainbow");
 
-        // Use Block.Settings.create() with explicit properties instead of copyOf(Block)
-        // because QFAPI's FabricBlockSettings only has copyOf(AbstractBlock.Settings)
+        // Use Block.Settings.create() with explicit properties instead of copyOf(Block) because QFAPI's FabricBlockSettings only has copyOf(AbstractBlock.Settings)
         ModBlocks.RAINBOW_STANDING_SIGN = Registry.register(Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign"),
                 new TerraformSignBlock(signTexture, Block.Settings.create().strength(1.0F).noCollision().nonOpaque()));
@@ -135,7 +123,6 @@ public class LandQuilt implements ModInitializer {
         ModItems.RAINBOW_HANGING_SIGN = (HangingSignItem) Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
                 new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign")))));
 
-        // Spawn egg — entity types are registered before items on Fabric
         ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) Registry.register(Registries.ITEM,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"),
                 new RainbowSpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings()));

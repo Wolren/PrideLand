@@ -42,7 +42,6 @@ public class RainbowCraftingScreenHandler extends ScreenHandler {
 
     final CraftingResultInventory output = new CraftingResultInventory();
 
-    // Client-side constructor (simple factory, no extended data needed)
     public RainbowCraftingScreenHandler(int syncId, PlayerInventory inventory) {
         this(syncId, inventory, new SimpleInventory(3));
     }
