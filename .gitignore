@@ -55,7 +55,7 @@ replay_*.log
 !/AGENTS.md
 !/AGENTS.md
 
-# agent / AI artifacts — never commit
+# agent / AI artifacts: never commit
 
 AGENTS.md
 agents.md
