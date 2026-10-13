@@ -6,7 +6,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 authors="Wolren"
 description='''
-PrideLand — a vibrant LGBTQ+ themed mod adding pride blocks, items, entities, and decorations to Minecraft.
+PrideLand: an LGBTQ+ themed mod adding pride blocks, items, entities, and decorations to Minecraft.
 '''
 
 [[dependencies.${mod_id}]]
