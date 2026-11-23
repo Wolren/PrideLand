@@ -1,6 +1,5 @@
 package net.wolren.land.block.custom.directional;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -16,11 +15,6 @@ public class DirectionalCarpetBlock extends CarpetBlock {
     public DirectionalCarpetBlock(Properties settings) {
         super(settings);
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
-    }
-
-    @Override
-    public MapCodec<DirectionalCarpetBlock> codec() {
-        return simpleCodec(DirectionalCarpetBlock::new);
     }
 
     @Override

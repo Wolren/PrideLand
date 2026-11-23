@@ -5,18 +5,16 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentAssets;
@@ -40,11 +38,11 @@ public class ModItems {
     public static final Item RAINBOW_PICKAXE = registerItem("rainbow_pickaxe",
             properties -> new Item(properties.pickaxe(ToolMaterial.NETHERITE, 1.0F, -2.8F).stacksTo(1).fireResistant()));
     public static final Item RAINBOW_AXE = registerItem("rainbow_axe",
-            properties -> new AxeItem(ToolMaterial.NETHERITE, 5.0F, -3.0F, properties.stacksTo(1).fireResistant()));
+            properties -> new Item(properties.axe(ToolMaterial.NETHERITE, 5.0F, -3.0F).stacksTo(1).fireResistant()));
     public static final Item RAINBOW_SHOVEL = registerItem("rainbow_shovel",
-            properties -> new ShovelItem(ToolMaterial.NETHERITE, 1.5F, -3.0F, properties.stacksTo(1).fireResistant()));
+            properties -> new Item(properties.shovel(ToolMaterial.NETHERITE, 1.5F, -3.0F).stacksTo(1).fireResistant()));
     public static final Item RAINBOW_HOE = registerItem("rainbow_hoe",
-            properties -> new HoeItem(ToolMaterial.NETHERITE, -4.0F, 0.0F, properties.stacksTo(1).fireResistant()));
+            properties -> new Item(properties.hoe(ToolMaterial.NETHERITE, -4.0F, 0.0F).stacksTo(1).fireResistant()));
 
     // Armor (26.2: plain Item with the humanoidArmor property; it sets the equippable component from the material's equipment asset and attributes)
     public static final Item RAINBOW_HELMET = registerItem("rainbow_helmet",
@@ -85,8 +83,8 @@ public class ModItems {
 
     // Pin the description to the standing/hanging block keys (matching 1.20.1 BlockItem.getDescriptionId behavior).
     public static final Item RAINBOW_SIGN = registerItem("rainbow_sign",
-            properties -> new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN,
-                    properties.stacksTo(16).overrideDescription("block.pride_land.rainbow_standing_sign")));
+            properties -> new StandingAndWallBlockItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN,
+                    Direction.DOWN, properties.stacksTo(16).overrideDescription("block.pride_land.rainbow_standing_sign")));
     public static final Item RAINBOW_HANGING_SIGN = registerItem("rainbow_hanging_sign",
             properties -> new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN,
                     properties.stacksTo(16).overrideDescription("block.pride_land.rainbow_hanging_sign")));

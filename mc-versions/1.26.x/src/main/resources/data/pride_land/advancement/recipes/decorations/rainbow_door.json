@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:rainbow_door"
+        "recipes": "pride_land:rainbow_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:rainbow_door"
+      "pride_land:rainbow_door"
     ]
   }
 }

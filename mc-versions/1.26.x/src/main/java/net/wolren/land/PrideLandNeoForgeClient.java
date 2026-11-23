@@ -6,9 +6,12 @@ import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.wolren.land.entity.ModBoats;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.renderer.CustomBedBlockEntityRenderer;
@@ -21,6 +24,11 @@ import net.wolren.land.screen.RainbowCraftingScreenHandler;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = PrideLand.MOD_ID)
 public class PrideLandNeoForgeClient {
+
+    public static void registerConfigScreen(ModContainer modContainer) {
+        modContainer.registerExtensionPoint(IConfigScreenFactory.class,
+                (container, screen) -> new ConfigurationScreen(container, screen));
+    }
 
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {

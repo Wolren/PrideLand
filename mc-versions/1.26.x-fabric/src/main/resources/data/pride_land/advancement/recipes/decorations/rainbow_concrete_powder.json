@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:rainbow_concrete_powder"
+        "recipes": "pride_land:rainbow_concrete_powder"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -48,7 +48,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:rainbow_concrete_powder"
+      "pride_land:rainbow_concrete_powder"
     ]
   }
 }

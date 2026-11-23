@@ -17,8 +17,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import org.slf4j.Logger;
 
@@ -46,11 +44,10 @@ public class PrideLand {
             event.modify(ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, Identifier.withDefaultNamespace("hanging_sign")), ModBlocks.RAINBOW_HANGING_SIGN.get(), ModBlocks.RAINBOW_WALL_HANGING_SIGN.get());
         });
 
-        modContainer.registerConfig(ModConfig.Type.COMMON, PrideLandConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.LOCAL, PrideLandConfig.SPEC);
 
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
-            modContainer.registerExtensionPoint(IConfigScreenFactory.class,
-                    (container, screen) -> new ConfigurationScreen(container, screen));
+            PrideLandNeoForgeClient.registerConfigScreen(modContainer);
         }
     }
 }

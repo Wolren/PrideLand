@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:demigirl_carpet"
+        "recipes": "pride_land:demigirl_carpet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:demigirl_carpet"
+      "pride_land:demigirl_carpet"
     ]
   }
 }

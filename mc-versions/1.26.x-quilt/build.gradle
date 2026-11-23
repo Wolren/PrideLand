@@ -29,8 +29,8 @@ dependencies {
 
     compileOnly "me.shedaniel.cloth:basic-math:0.6.1"
 
-    implementation "com.terraformersmc:modmenu:20.0.1"
-    implementation "me.shedaniel.cloth:cloth-config-fabric:26.2.155"
+    implementation "com.terraformersmc:modmenu:21.0.1"
+    implementation "me.shedaniel.cloth:cloth-config-fabric:26.3.159"
 }
 
 processResources {

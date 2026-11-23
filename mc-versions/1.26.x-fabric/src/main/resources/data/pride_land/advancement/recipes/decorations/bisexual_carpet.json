@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:bisexual_carpet"
+        "recipes": "pride_land:bisexual_carpet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:bisexual_carpet"
+      "pride_land:bisexual_carpet"
     ]
   }
 }

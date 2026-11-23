@@ -1,6 +1,5 @@
 package net.wolren.land.block.custom.directional;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -17,12 +16,6 @@ public class DirectionalRainbowConcretePowderBlock extends ConcretePowderBlock {
     public DirectionalRainbowConcretePowderBlock(Block hardened, Properties settings) {
         super(hardened, settings);
         this.registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
-    }
-
-    @Override
-    public MapCodec<ConcretePowderBlock> codec() {
-        return simpleCodec(settings -> new DirectionalRainbowConcretePowderBlock(
-                ModBlocks.RAINBOW_CONCRETE, settings));
     }
 
     @Override

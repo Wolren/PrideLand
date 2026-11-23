@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:demiboy_bed"
+        "recipes": "pride_land:demiboy_bed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:demiboy_bed"
+      "pride_land:demiboy_bed"
     ]
   }
 }

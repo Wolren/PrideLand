@@ -1,6 +1,5 @@
 package net.wolren.land.block.custom.directional;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -15,12 +14,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class DirectionalRainbowConcretePowderBlock extends ConcretePowderBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public MapCodec<ConcretePowderBlock> codec() {
-        return (MapCodec<ConcretePowderBlock>) (MapCodec<?>) simpleCodec(DirectionalRainbowConcretePowderBlock::new);
-    }
 
     public DirectionalRainbowConcretePowderBlock(Properties properties) {
         this(null, properties);

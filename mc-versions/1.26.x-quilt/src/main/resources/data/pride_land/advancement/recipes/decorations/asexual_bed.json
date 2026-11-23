@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:asexual_bed"
+        "recipes": "pride_land:asexual_bed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:asexual_bed"
+      "pride_land:asexual_bed"
     ]
   }
 }

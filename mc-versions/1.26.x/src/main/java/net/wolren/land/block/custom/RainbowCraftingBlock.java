@@ -1,6 +1,5 @@
 package net.wolren.land.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
@@ -21,16 +20,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class RainbowCraftingBlock extends BaseEntityBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
-    public static final MapCodec<RainbowCraftingBlock> CODEC = simpleCodec(RainbowCraftingBlock::new);
 
     public RainbowCraftingBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
-    }
-
-    @Override
-    public MapCodec<? extends RainbowCraftingBlock> codec() {
-        return CODEC;
     }
 
     @Override

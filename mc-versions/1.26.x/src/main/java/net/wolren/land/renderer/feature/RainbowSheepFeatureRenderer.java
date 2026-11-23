@@ -32,7 +32,7 @@ public class RainbowSheepFeatureRenderer extends RenderLayer<SheepRenderState, R
                 poseStack.translate(0.0F, 24.0F / 16.0F, 0.0F);
             }
             collector.submitModel(this.model, state, poseStack, RenderTypes.entityCutout(SKIN), light,
-                    LivingEntityRenderer.getOverlayCoords(state, 0.0F), -1, null);
+                    LivingEntityRenderer.getOverlayCoords(state, 0.0F), -1);
             poseStack.popPose();
         }
     }

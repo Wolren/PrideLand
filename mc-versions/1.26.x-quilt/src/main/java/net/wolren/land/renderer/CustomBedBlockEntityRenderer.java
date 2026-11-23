@@ -2,6 +2,7 @@ package net.wolren.land.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import org.joml.Matrix4f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.ModelPart;
@@ -81,9 +82,9 @@ public class CustomBedBlockEntityRenderer implements BlockEntityRenderer<CustomB
         boolean isFoot = state.bedPart == BedPart.FOOT;
         poseStack.pushPose();
         poseStack.translate(0.0F, 0.5625F, isFoot ? -1.0F : 0.0F);
-        poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
+        poseStack.mulPose(new Matrix4f().rotation(Axis.XP.rotationDegrees(90.0F)));
         poseStack.translate(0.5F, 0.5F, 0.5F);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F + state.direction.toYRot()));
+        poseStack.mulPose(new Matrix4f().rotation(Axis.ZP.rotationDegrees(180.0F + state.direction.toYRot())));
         poseStack.translate(-0.5F, -0.5F, -0.5F);
         SpriteId spriteId = new SpriteId(TextureAtlas.LOCATION_BLOCKS, state.material);
         TextureAtlasSprite sprite = this.sprites.get(spriteId);

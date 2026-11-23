@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:netherite_shovel"
+        "recipes": "pride_land:netherite_shovel"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -37,7 +37,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:netherite_shovel"
+      "pride_land:netherite_shovel"
     ]
   }
 }

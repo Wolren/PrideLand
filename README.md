@@ -11,7 +11,7 @@ Multi-loader Minecraft mod adding LGBTQIA+ themed blocks, decorations, and tools
 [![Issues](https://img.shields.io/github/issues/Wolren/PrideLand)](https://github.com/Wolren/PrideLand/issues)
 [![Code size](https://img.shields.io/github/languages/code-size/Wolren/PrideLand)]()
 [![Java](https://img.shields.io/badge/Java-17+-orange?logo=java)]()
-[![Minecraft](https://img.shields.io/badge/Minecraft-1.20.1%20-%2026.2-green?logo=minecraft)]()
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.20.1%20-%2026.3-green?logo=minecraft)]()
 [![Modrinth](https://img.shields.io/modrinth/v/pride-land?label=Modrinth&logo=modrinth)](https://modrinth.com/mod/pride-land)
 [![CI](https://img.shields.io/github/actions/workflow/status/Wolren/PrideLand/build.yml?label=CI)](https://github.com/Wolren/PrideLand/actions/workflows/build.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Wolren/PrideLand/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Wolren/PrideLand)
@@ -56,6 +56,7 @@ Optional: [ModMenu](https://modrinth.com/mod/modmenu) adds the config screen but
 | 1.21.2 - 1.21.10 | Fabric, NeoForge, Quilt |
 | 1.21.11 | Fabric, NeoForge, Quilt |
 | 26.2 | Fabric, NeoForge |
+| 26.3 | Fabric, NeoForge, Quilt |
 
 ### Recipe viewing
 

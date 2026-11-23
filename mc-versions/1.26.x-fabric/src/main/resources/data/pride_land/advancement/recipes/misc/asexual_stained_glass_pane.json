@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:asexual_stained_glass_pane"
+        "recipes": "pride_land:asexual_stained_glass_pane"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:asexual_stained_glass_pane"
+      "pride_land:asexual_stained_glass_pane"
     ]
   }
 }

@@ -8,6 +8,7 @@ import net.wolren.land.item.custom.RainbowSpawnEggItem;
 import net.wolren.land.item.material.RainbowArmorMaterial;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -37,11 +38,11 @@ public class ModItems {
     public static final DeferredItem<Item> RAINBOW_PICKAXE = ITEMS.registerItem("rainbow_pickaxe",
             properties -> new Item(properties.pickaxe(ToolMaterial.NETHERITE, 1.0F, -2.8F).stacksTo(1).fireResistant()));
     public static final DeferredItem<Item> RAINBOW_AXE = ITEMS.registerItem("rainbow_axe",
-            properties -> new AxeItem(ToolMaterial.NETHERITE, 5.0F, -3.0F, properties.stacksTo(1).fireResistant()));
+            properties -> new Item(properties.axe(ToolMaterial.NETHERITE, 5.0F, -3.0F).stacksTo(1).fireResistant()));
     public static final DeferredItem<Item> RAINBOW_SHOVEL = ITEMS.registerItem("rainbow_shovel",
-            properties -> new ShovelItem(ToolMaterial.NETHERITE, 1.5F, -3.0F, properties.stacksTo(1).fireResistant()));
+            properties -> new Item(properties.shovel(ToolMaterial.NETHERITE, 1.5F, -3.0F).stacksTo(1).fireResistant()));
     public static final DeferredItem<Item> RAINBOW_HOE = ITEMS.registerItem("rainbow_hoe",
-            properties -> new HoeItem(ToolMaterial.NETHERITE, -4.0F, 0.0F, properties.stacksTo(1).fireResistant()));
+            properties -> new Item(properties.hoe(ToolMaterial.NETHERITE, -4.0F, 0.0F).stacksTo(1).fireResistant()));
 
     // Armor (26.2: plain Item with the humanoidArmor property; it sets the equippable component from the material's equipment asset and attributes)
     public static final DeferredItem<Item> RAINBOW_HELMET = ITEMS.registerItem("rainbow_helmet",
@@ -79,9 +80,9 @@ public class ModItems {
             properties -> new RainbowSpawnEggItem(properties.component(DataComponents.ENTITY_DATA, TypedEntityData.of(ModEntities.RAINBOW_SHEEP.get(), new CompoundTag()))));
 
     // Pin the description to the standing/hanging block keys (matching 1.20.1 BlockItem.getDescriptionId behavior).
-    public static final DeferredItem<SignItem> RAINBOW_SIGN = ITEMS.registerItem("rainbow_sign",
-            properties -> new SignItem(ModBlocks.RAINBOW_STANDING_SIGN.get(), ModBlocks.RAINBOW_WALL_SIGN.get(),
-                    properties.stacksTo(16).overrideDescription("block.pride_land.rainbow_standing_sign")));
+    public static final DeferredItem<StandingAndWallBlockItem> RAINBOW_SIGN = ITEMS.registerItem("rainbow_sign",
+            properties -> new StandingAndWallBlockItem(ModBlocks.RAINBOW_STANDING_SIGN.get(), ModBlocks.RAINBOW_WALL_SIGN.get(),
+                    Direction.DOWN, properties.stacksTo(16).overrideDescription("block.pride_land.rainbow_standing_sign")));
     public static final DeferredItem<HangingSignItem> RAINBOW_HANGING_SIGN = ITEMS.registerItem("rainbow_hanging_sign",
             properties -> new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN.get(), ModBlocks.RAINBOW_WALL_HANGING_SIGN.get(),
                     properties.stacksTo(16).overrideDescription("block.pride_land.rainbow_hanging_sign")));

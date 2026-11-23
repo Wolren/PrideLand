@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -84,12 +83,7 @@ public class PrideLandFabric implements ModInitializer {
             );
         }
 
-        // Fuel registry (mc 26.2: FuelValueEvents.BUILD)
-        FuelValueEvents.BUILD.register((builder, context) -> {
-            CustomFuelRegistry.getCustomFuels().forEach((item, burnTime) ->
-                builder.add(item, burnTime)
-            );
-        });
+        // Fuel is data-driven through the cooking fuel component in 26.3.
 
         ModScreenHandlers.setBoxScreenHandler(
                 Registry.register(

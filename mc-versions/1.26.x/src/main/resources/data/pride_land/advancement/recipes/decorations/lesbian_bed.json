@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:lesbian_bed"
+        "recipes": "pride_land:lesbian_bed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:lesbian_bed"
+      "pride_land:lesbian_bed"
     ]
   }
 }

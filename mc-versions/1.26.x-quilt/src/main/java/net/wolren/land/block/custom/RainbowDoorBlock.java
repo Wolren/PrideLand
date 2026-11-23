@@ -1,6 +1,8 @@
 package net.wolren.land.block.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -17,7 +19,7 @@ public class RainbowDoorBlock extends DoorBlock {
     }
 
     @Override
-    public void playerDestroy(Level world, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack) {
+    public void playerDestroy(ServerLevel world, ServerPlayer player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack) {
         if (isDirectlyBroken(state, world, pos)) {
             super.playerDestroy(world, player, pos, state, blockEntity, stack);
         }

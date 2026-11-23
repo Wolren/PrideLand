@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:netherite_pickaxe"
+        "recipes": "pride_land:netherite_pickaxe"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -37,7 +37,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:netherite_pickaxe"
+      "pride_land:netherite_pickaxe"
     ]
   }
 }

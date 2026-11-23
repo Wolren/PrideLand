@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:trans_carpet"
+        "recipes": "pride_land:trans_carpet"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:trans_carpet"
+      "pride_land:trans_carpet"
     ]
   }
 }

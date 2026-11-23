@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:netherite_leggings"
+        "recipes": "pride_land:netherite_leggings"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -37,7 +37,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:netherite_leggings"
+      "pride_land:netherite_leggings"
     ]
   }
 }
