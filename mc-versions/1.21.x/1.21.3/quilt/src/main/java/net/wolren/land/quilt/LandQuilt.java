@@ -118,16 +118,16 @@ public class LandQuilt implements ModInitializer {
         // Use Block.Settings.create() with explicit properties instead of copyOf(Block) because QFAPI's FabricBlockSettings only has copyOf(AbstractBlock.Settings)
         ModBlocks.RAINBOW_STANDING_SIGN = Registry.register(Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign"),
-                new TerraformSignBlock(signTexture, Block.Settings.create().strength(1.0F).noCollision().nonOpaque()));
+                new TerraformSignBlock(signTexture, Block.Settings.create().strength(1.0F).noCollision().nonOpaque().registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_standing_sign")))));
         ModBlocks.RAINBOW_WALL_SIGN = Registry.register(Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign"),
-                new TerraformWallSignBlock(signTexture, Block.Settings.create().strength(1.0F).noCollision().nonOpaque()));
+                new TerraformWallSignBlock(signTexture, Block.Settings.create().strength(1.0F).noCollision().nonOpaque().registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_wall_sign")))));
         ModBlocks.RAINBOW_HANGING_SIGN = Registry.register(Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
-                new TerraformHangingSignBlock(hangingSignTexture, hangingGuiTexture, Block.Settings.create().strength(1.0F).nonOpaque()));
+                new TerraformHangingSignBlock(hangingSignTexture, hangingGuiTexture, Block.Settings.create().strength(1.0F).nonOpaque().registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign")))));
         ModBlocks.RAINBOW_WALL_HANGING_SIGN = Registry.register(Registries.BLOCK,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign"),
-                new TerraformWallHangingSignBlock(hangingSignTexture, hangingGuiTexture, Block.Settings.create().strength(1.0F).nonOpaque()));
+                new TerraformWallHangingSignBlock(hangingSignTexture, hangingGuiTexture, Block.Settings.create().strength(1.0F).nonOpaque().registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(LandCommon.MOD_ID, "rainbow_wall_hanging_sign")))));
 
         ModItems.RAINBOW_SIGN = (SignItem) Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign"),
                 new SignItem(ModBlocks.RAINBOW_STANDING_SIGN, ModBlocks.RAINBOW_WALL_SIGN, new Item.Settings().maxCount(16).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sign")))));
@@ -136,7 +136,7 @@ public class LandQuilt implements ModInitializer {
 
         ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) Registry.register(Registries.ITEM,
                 Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"),
-                new RainbowSpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings()));
+                new RainbowSpawnEggItem(ModEntities.RAINBOW_SHEEP, 0xFFFFFF, 0xFF69B4, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg")))));
 
         LandCommon.LOGGER.info("Registered rainbow signs via Terraform API (Quilt)");
     }
