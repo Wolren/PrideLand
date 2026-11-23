@@ -29,7 +29,9 @@ import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.SpawnSettings;
 import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -65,7 +67,11 @@ public class LandForge {
         modBus.addListener(this::commonSetup);
         modBus.addListener(this::clientSetup);
         modBus.addListener(this::entityAttributeCreation);
-        modBus.addListener(LandForgeClient::onRegisterRenderers);
+
+        // Client listeners load client-only classes; a dedicated server must not touch them.
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            modBus.addListener(LandForgeClient::onRegisterRenderers);
+        }
 
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
         NeoForge.EVENT_BUS.addListener(LandForge::onPotentialSpawns);

@@ -8,6 +8,7 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -23,7 +24,7 @@ import net.wolren.land.renderer.model.RainbowSheepWoolModel;
 import net.wolren.land.screen.ModScreenHandlers;
 import net.wolren.land.screen.RainbowCraftingScreen;
 
-@EventBusSubscriber(modid = LandCommon.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = LandCommon.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class LandForgeClient {
     public static void init() {
         LandCommon.LOGGER.info("Initializing Pride Land NeoForge client");

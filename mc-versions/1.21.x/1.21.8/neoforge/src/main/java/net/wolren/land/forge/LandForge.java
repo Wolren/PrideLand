@@ -26,6 +26,8 @@ import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.SpawnSettings;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.minecraft.util.collection.Weighted;
 import net.neoforged.neoforge.common.NeoForge;
@@ -67,12 +69,16 @@ public class LandForge {
         modBus.addListener(this::commonSetup);
         modBus.addListener(this::clientSetup);
         modBus.addListener(this::entityAttributeCreation);
-        modBus.addListener(LandForgeClient::onRegisterLayerDefinitions);
-                modBus.addListener(LandForgeClient::onRegisterRenderers);
-        // Register menu screens (HandledScreens.register is package-private in Yarn 1.21.11)
-        modBus.addListener((net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) -> {
-            event.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
-        });
+
+        // Client listeners load client-only classes; a dedicated server must not touch them.
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            modBus.addListener(LandForgeClient::onRegisterLayerDefinitions);
+            modBus.addListener(LandForgeClient::onRegisterRenderers);
+            // Register menu screens (HandledScreens.register is package-private in Yarn 1.21.11)
+            modBus.addListener((net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) -> {
+                event.register(ModScreenHandlers.BOX_SCREEN_HANDLER, RainbowCraftingScreen::new);
+            });
+        }
 
         AutoConfig.register(RainbowConfig.class, GsonConfigSerializer::new);
         NeoForge.EVENT_BUS.addListener(LandForge::onPotentialSpawns);
