@@ -6,6 +6,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -60,6 +62,10 @@ public class LandFabric implements ModInitializer {
         ModItems.RAINBOW_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.RAINBOW_BOAT_ID, false);
         ModItems.RAINBOW_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.RAINBOW_BOAT_ID, true);
 
+        // Terraform owns the boat EntityTypes; ModEntities must not register them too.
+        ModEntities.RAINBOW_BOAT_ENTITY = registeredEntity("rainbow_boat");
+        ModEntities.RAINBOW_CHEST_BOAT_ENTITY = registeredEntity("rainbow_chest_boat");
+
         registerRainbowSigns();
 
         FabricDefaultAttributeRegistry.register(ModEntities.RAINBOW_SHEEP, createSheepAttributes());
@@ -99,6 +105,11 @@ public class LandFabric implements ModInitializer {
         return AnimalEntity.createAnimalAttributes()
             .add(EntityAttributes.MAX_HEALTH, 8.0)
             .add(EntityAttributes.MOVEMENT_SPEED, 0.23F);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends Entity> EntityType<T> registeredEntity(String path) {
+        return (EntityType<T>) Registries.ENTITY_TYPE.get(Identifier.of(LandCommon.MOD_ID, path));
     }
 
     private static void registerRainbowSigns() {

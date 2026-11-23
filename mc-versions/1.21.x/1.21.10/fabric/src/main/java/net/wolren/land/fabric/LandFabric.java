@@ -33,6 +33,7 @@ import net.minecraft.world.biome.BiomeKeys;
 import net.wolren.land.LandCommon;
 import net.wolren.land.block.ModBlocks;
 
+import com.terraformersmc.terraform.boat.api.data.TerraformBoatData;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import com.terraformersmc.terraform.sign.api.block.TerraformSignBlockHelper;
 import net.wolren.land.block.custom.RainbowHangingSignBlock;
@@ -158,10 +159,16 @@ public class LandFabric implements ModInitializer {
         ModItems.RAINBOW_HANGING_SIGN = (HangingSignItem) Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
                 new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign")))));
 
+        // Terraform registers both boat items and EntityTypes; ModEntities must not register them too.
         ModItems.RAINBOW_BOAT = TerraformBoatItemHelper.registerBoatItem(
                 ModBoats.RAINBOW_BOAT_ID, false);
         ModItems.RAINBOW_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(
                 ModBoats.RAINBOW_BOAT_ID, true);
+
+        // Mirror Terraform's EntityTypes into the shared fields.
+        TerraformBoatData boatData = TerraformBoatData.get(ModBoats.RAINBOW_BOAT_ID);
+        ModEntities.RAINBOW_BOAT_ENTITY = boatData.boatEntityType();
+        ModEntities.RAINBOW_CHEST_BOAT_ENTITY = boatData.chestBoatEntityType();
 
         LandCommon.LOGGER.info("Registered rainbow signs via Terraform API");
     }

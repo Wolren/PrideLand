@@ -21,7 +21,6 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.HangingSignItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
@@ -37,12 +36,12 @@ import net.wolren.land.entity.ModBoats;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.item.ModItems;
 import net.wolren.land.item.ModItemGroups;
-import net.wolren.land.item.custom.RainbowSpawnEggItem;
 import net.wolren.land.recipe.ModSerializers;
 import net.wolren.land.screen.ModScreenHandlers;
 import net.wolren.land.screen.RainbowCraftingScreenHandler;
 import net.wolren.land.util.config.RainbowConfig;
 
+import com.terraformersmc.terraform.boat.api.data.TerraformBoatData;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import com.terraformersmc.terraform.sign.api.block.TerraformSignBlockHelper;
 
@@ -152,14 +151,16 @@ public class LandQuilt implements ModInitializer {
         ModItems.RAINBOW_HANGING_SIGN = (HangingSignItem) Registry.register(Registries.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign"),
                 new HangingSignItem(ModBlocks.RAINBOW_HANGING_SIGN, ModBlocks.RAINBOW_WALL_HANGING_SIGN, new Item.Settings().maxCount(16).registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_hanging_sign")))));
 
-        ModItems.RAINBOW_SHEEP_SPAWN_EGG = (SpawnEggItem) Registry.register(Registries.ITEM,
-                Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg"),
-                new RainbowSpawnEggItem(new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(LandCommon.MOD_ID, "rainbow_sheep_spawn_egg")))));
-
+        // Terraform registers both boat items and EntityTypes; ModEntities must not register them too.
         ModItems.RAINBOW_BOAT = TerraformBoatItemHelper.registerBoatItem(
                 ModBoats.RAINBOW_BOAT_ID, false);
         ModItems.RAINBOW_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(
                 ModBoats.RAINBOW_BOAT_ID, true);
+
+        // Mirror Terraform's EntityTypes into the shared fields.
+        TerraformBoatData boatData = TerraformBoatData.get(ModBoats.RAINBOW_BOAT_ID);
+        ModEntities.RAINBOW_BOAT_ENTITY = boatData.boatEntityType();
+        ModEntities.RAINBOW_CHEST_BOAT_ENTITY = boatData.chestBoatEntityType();
 
         LandCommon.LOGGER.info("Registered rainbow signs via Terraform API (Quilt)");
     }

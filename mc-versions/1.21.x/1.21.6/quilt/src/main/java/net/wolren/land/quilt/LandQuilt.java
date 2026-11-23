@@ -36,6 +36,7 @@ import net.wolren.land.block.fuels.CustomFuelRegistry;
 import net.wolren.land.entity.ModEntities;
 import net.wolren.land.item.ModItems;
 
+import com.terraformersmc.terraform.boat.api.data.TerraformBoatData;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import com.terraformersmc.terraform.sign.api.block.TerraformSignBlockHelper;
 import net.wolren.land.entity.ModBoats;
@@ -64,6 +65,11 @@ public class LandQuilt implements ModInitializer {
         ModBoats.registerBoats();
         ModItems.RAINBOW_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.RAINBOW_BOAT_ID, false);
         ModItems.RAINBOW_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.RAINBOW_BOAT_ID, true);
+
+        // Terraform owns the boat EntityTypes; ModEntities must not register them too.
+        TerraformBoatData boatData = TerraformBoatData.get(ModBoats.RAINBOW_BOAT_ID);
+        ModEntities.RAINBOW_BOAT_ENTITY = boatData.boatEntityType();
+        ModEntities.RAINBOW_CHEST_BOAT_ENTITY = boatData.chestBoatEntityType();
 
         registerRainbowSigns();
 

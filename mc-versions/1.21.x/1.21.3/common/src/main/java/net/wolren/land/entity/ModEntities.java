@@ -23,10 +23,21 @@ import java.util.Set;
 
 public class ModEntities {
     private static final boolean DEFER = initDefer();
+    // Terraform registers `rainbow_boat` and `rainbow_chest_boat`; LandFabric and LandQuilt fill these fields.
+    private static final boolean TERRAFORM_BOATS = !DEFER && hasTerraformBoats();
 
     private static boolean initDefer() {
         try {
             Class.forName("net.minecraftforge.fml.ModList");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    private static boolean hasTerraformBoats() {
+        try {
+            Class.forName("com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper");
             return true;
         } catch (ClassNotFoundException e) {
             return false;
@@ -59,22 +70,18 @@ public class ModEntities {
         }
     }
     static {
-        if (DEFER) {
-            EntityTypeQueue.PENDING.add(() -> {
+        if (!TERRAFORM_BOATS) {
+            if (DEFER) {
+                EntityTypeQueue.PENDING.add(() -> {
+                    RAINBOW_BOAT_ENTITY = createRainbowBoat();
+                });
+                EntityTypeQueue.PENDING.add(() -> {
+                    RAINBOW_CHEST_BOAT_ENTITY = createRainbowChestBoat();
+                });
+            } else {
                 RAINBOW_BOAT_ENTITY = createRainbowBoat();
-            });
-        } else {
-            RAINBOW_BOAT_ENTITY = createRainbowBoat();
-        }
-    }
-
-    static {
-        if (DEFER) {
-            EntityTypeQueue.PENDING.add(() -> {
                 RAINBOW_CHEST_BOAT_ENTITY = createRainbowChestBoat();
-            });
-        } else {
-            RAINBOW_CHEST_BOAT_ENTITY = createRainbowChestBoat();
+            }
         }
     }
 
