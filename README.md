@@ -55,7 +55,7 @@ Optional: [ModMenu](https://modrinth.com/mod/modmenu) adds the config screen but
 | 1.21.1 | Fabric, NeoForge, Quilt |
 | 1.21.2 - 1.21.10 | Fabric, NeoForge, Quilt |
 | 1.21.11 | Fabric, NeoForge, Quilt |
-| 26.2 | Fabric, NeoForge |
+| 26.2 | Fabric, NeoForge, Quilt |
 | 26.3 | Fabric, NeoForge, Quilt |
 
 ### Recipe viewing
