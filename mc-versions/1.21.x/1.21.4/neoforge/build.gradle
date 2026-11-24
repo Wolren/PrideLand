@@ -53,7 +53,7 @@ dependencies {
     common(project(path: ":mc-versions:1.21.x:1.21.4:common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":mc-versions:1.21.x:1.21.4:common", configuration: "transformProductionForge")) { transitive false }
 
-    implementation 'com.google.code.gson:gson:2.14.0'
+    implementation 'com.google.code.gson:gson:2.15.0'
 
     modApi "me.shedaniel.cloth:cloth-config-neoforge:${project.findProperty("cloth_config")}"
 }
